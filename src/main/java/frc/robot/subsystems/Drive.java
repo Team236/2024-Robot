@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 //import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,10 +19,12 @@ public class Drive extends SubsystemBase {
   public DifferentialDrive diffDrive;
   //these are external encoders not SparkMAX
   private Encoder leftEncoder, rightEncoder;
-//  private XboxController xboxController;
+  private XboxController driverController;
 
   /** Creates a new Drive. */
   public Drive() {
+    driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
+
     leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
@@ -65,6 +68,19 @@ public void openRampRate() {
 public void stop() {
   leftFront.set(0);
   rightFront.set(0);
+}
+
+public boolean inYDeadzone () {
+  return (Math.abs(driverController.getRightY()) <= Constants.DriveConstants.RIGHT_DEADZONE);
+}
+
+public boolean inXDeadzone () {
+  return (Math.abs(driverController.getLeftX()) <= Constants.DriveConstants.LEFT_DEADZONE);
+}
+
+public void driveArcade(double rightYY, double leftXX) {
+  //arcadeDrive(speed, rotation)
+  diffDrive.arcadeDrive (rightYY, leftXX);
 }
 
   @Override

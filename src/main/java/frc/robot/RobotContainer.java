@@ -36,7 +36,7 @@ public class RobotContainer {
   //private final DifferentialDrive diffDrive = new DifferentialDrive(drive.leftFront, drive.rightFront);
   //private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, driverController, diffDrive);
 
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, driverController);
+  private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
