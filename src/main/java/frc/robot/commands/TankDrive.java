@@ -5,24 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Drive;
 
-public class ArcadeDrive extends Command {
+public class TankDrive extends Command {
   private Drive drive;
 
-  /** Creates a new ArcadeDrive. */
-  public ArcadeDrive(Drive drive) {
+  /** Creates a new TankDrive. */
+  public TankDrive(Drive drive) {
     this.drive = drive;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drive);
+    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   //TODO try without ramp rate, also try adding slew rate in driveArcade method
     drive.openRampRate();
     //drive.resetLeftEncoder();
     //drive.resetRightEncoder();
@@ -31,8 +29,8 @@ public class ArcadeDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   drive.useArcade();
-    }
+    drive.useTank();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
