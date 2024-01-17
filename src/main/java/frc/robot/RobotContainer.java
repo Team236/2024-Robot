@@ -28,11 +28,12 @@ public class RobotContainer {
 
   // sticks/controllers
   private final XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
-  private final XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
+  //private final XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
   //TODO - try driving with joysticks as well (comment out 2 lines above):
   //private final Joystick driverController = new Joystick(Constants.Controller.USB_DRIVECONTROLLER);
   //private final Joystick auxController = new Joystick(Constants.Controller.USB_AUXCONTROLLER);
+  
 
   //create instance of each subsystem
   private final Drive drive = new Drive();
