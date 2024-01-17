@@ -40,8 +40,8 @@ public final class Constants {
     public static final double LEFT_DEADZONE = 0.05; //0.15???
     public static final double RIGHT_DEADZONE = 0.05;
 
-    public static final double SENSITIVITY_X = 0.9;
-    public static final double SENSITIVITY_Y = 0.9; //TODO  try 0.75
+    //public static final double SENSITIVITY_X = 0.9;
+    //public static final double SENSITIVITY_Y = 0.9; //TODO  try 0.75
     //public static final boolean IS_DEADZONE = true;
 
     //external drive encoders
