@@ -2,16 +2,24 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 
 public class TankDrive extends Command {
   private Drive drive;
+  private boolean inLeftYDeadzone, inRightYDeadzone;
+  private DifferentialDrive diffDrive;
+  private double leftSpeed, rightSpeed;
+  private XboxController driverController;
 
   /** Creates a new TankDrive. */
-  public TankDrive(Drive drive) {
+  public TankDrive(Drive drive, XboxController driverController) {
     this.drive = drive;
+    this.driverController = driverController;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.drive);
   }
@@ -28,7 +36,28 @@ public class TankDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.TankWithXBox();
+     //tankDrive(YleftSpeed, YrightSpeed))
+     inLeftYDeadzone = (Math.abs(driverController.getLeftY()) <= Constants.DriveConstants.LEFT_DEADZONE);
+     inRightYDeadzone = (Math.abs(driverController.getRightY()) <= Constants.DriveConstants.RIGHT_DEADZONE);
+   
+     if(inLeftYDeadzone && inRightYDeadzone) {
+      leftSpeed = 0;
+      rightSpeed = 0;
+    } else if(!inLeftYDeadzone && !inRightYDeadzone) { 
+      leftSpeed = -driverController.getLeftY();
+      rightSpeed = -driverController.getRightY();
+    } else if(inLeftYDeadzone && !inRightYDeadzone) {
+      leftSpeed = 0;
+      rightSpeed = -driverController.getRightY();
+    } else if(!inLeftYDeadzone && inRightYDeadzone) {
+      leftSpeed = -driverController.getLeftY();
+      rightSpeed = 0;
+  }
+
+      //TODO  - replace last line in execute with the 2 lines below and see effect
+      //SlewRateLimiter filter = new SlewRateLimiter(0.5);
+      //diffDrive.tankDrive(filter.calculate(leftSpeed), rightSpeed);
+      diffDrive.tankDrive(leftSpeed, rightSpeed);
   }
 
   // Called once the command ends or is interrupted.

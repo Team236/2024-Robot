@@ -7,16 +7,23 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 
 public class ArcadeDrive extends Command {
   private Drive drive;
+  private XboxController driverController;
+  private boolean inLeftYDeadzone, inRightXDeadzone;
+  private DifferentialDrive diffDrive;
+  private double leftSpeed, rightRotation;
 
-  /** Creates a new ArcadeDrive. */
-  public ArcadeDrive(Drive drive) {
+  // Creates a new ArcadeDrive 
+  //for driving Arcade style using 2 sticks (left/right) on a single XBox 
+  public ArcadeDrive(Drive drive, XboxController driverController) {
     this.drive = drive;
+    this.driverController = driverController;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drive);
+    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
@@ -31,8 +38,28 @@ public class ArcadeDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   drive.ArcadeWithXBox();
-    }
+
+  inLeftYDeadzone = (Math.abs(driverController.getLeftY()) <= Constants.DriveConstants.LEFT_DEADZONE);
+  inRightXDeadzone = (Math.abs(driverController.getRightX()) <= Constants.DriveConstants.RIGHT_DEADZONE);
+
+    //speed is Y-axis of left stick, rotation is X-axis of right stick
+    //speed is getLeftY, rotation is getRightX, for arcade drive 
+    if(inLeftYDeadzone && inRightXDeadzone){
+      leftSpeed =0;
+      rightRotation = 0;
+    } else if(!inLeftYDeadzone && !inRightXDeadzone) { 
+      leftSpeed = -driverController.getLeftY();
+      rightRotation = -driverController.getRightX();
+    } else if(inLeftYDeadzone && !inRightXDeadzone) {
+      leftSpeed = 0;
+      rightRotation = -driverController.getRightX();
+    } else if(!inLeftYDeadzone && inRightXDeadzone) {
+      leftSpeed = -driverController.getLeftY();
+      rightRotation = 0;
+  }
+  diffDrive.arcadeDrive (leftSpeed, rightRotation);
+  }
+
 
   // Called once the command ends or is interrupted.
   @Override

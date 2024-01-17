@@ -4,17 +4,26 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 
 public class ArcadeDriveWithJoysticks extends Command {
   /** Creates a new ArcadeDriveWithJoysticks. */
     private Drive drive;
+    private DifferentialDrive diffDrive;
+    private boolean inLeftYDeadzone, inRightXDeadzone;
+    private double leftSpeed, rightRotation;
+    private Joystick leftStick, rightStick;
 
-  public ArcadeDriveWithJoysticks(Drive drive) {
+  public ArcadeDriveWithJoysticks(Drive drive, Joystick leftStick, Joystick rightStick) {
     this.drive = drive;
+    this.leftStick = leftStick;
+    this.rightStick = rightStick;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drive);
+    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
@@ -29,8 +38,30 @@ public class ArcadeDriveWithJoysticks extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.ArcadeWithSticks();
-  }
+
+  inLeftYDeadzone = (Math.abs(leftStick.getY()) <= Constants.DriveConstants.LEFT_DEADZONE);
+  inRightXDeadzone = (Math.abs(rightStick.getX()) <= Constants.DriveConstants.RIGHT_DEADZONE);
+
+  //arcadeDrive(speed, rotation) - speed is Y-axis of left stick, rotation is x-axis of right stick
+  //speed is getLeftY, rotation is getRightX, for arcade drive with 2 sticks
+  if(inLeftYDeadzone && inRightXDeadzone) {
+   leftSpeed = 0;
+   rightRotation = 0; 
+  } else if(!inLeftYDeadzone && !inRightXDeadzone) { 
+    leftSpeed = -leftStick.getY();
+    rightRotation = -rightStick.getX();
+  } else if(inLeftYDeadzone && !inRightXDeadzone) {
+     leftSpeed = 0;
+    rightRotation = -rightStick.getX();
+  } else if(!inLeftYDeadzone && inRightXDeadzone) {
+     leftSpeed = -leftStick.getY();
+    rightRotation = 0;
+}
+  diffDrive.arcadeDrive(leftSpeed, rightRotation);
+  //TODO  - replace last line in this method with the 2 lines below and see effect
+  //SlewRateLimiter filter = new SlewRateLimiter(0.5);
+  //diffDrive.arcadeDrive(filter.calculate(leftSpeed), rightRotation);
+}
 
   // Called once the command ends or is interrupted.
   @Override
