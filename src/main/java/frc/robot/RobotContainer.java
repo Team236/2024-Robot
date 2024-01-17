@@ -5,9 +5,11 @@
 package frc.robot;
 
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.ArcadeDriveWithJoysticks;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.TankDriveWithJoysticks;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
@@ -44,11 +46,13 @@ public class RobotContainer {
 
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive);
   private final TankDrive tankDrive = new TankDrive(drive);
+    private final ArcadeDriveWithJoysticks arcadeDriveWithJoysticks = new ArcadeDriveWithJoysticks(drive);
+  private final TankDriveWithJoysticks tankDriveWithJoysticks = new TankDriveWithJoysticks(drive);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeDrive);
-    //TODO - try Tank Drive, also try arcade and tank with joysticks not xbox
+    //TODO - try tankDrive, also try arcade and tank with joysticks
     //drive.setDefaultCommand(tankDrive);
 
     // Configure the trigger bindings
