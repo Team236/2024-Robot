@@ -15,9 +15,16 @@ package frc.robot;
 public final class Constants {
 
   public static class Controller {
-    //these are the usb ports on the laptop
-    public static final int USB_AUXCONTROLLER = 1;
+  //usb port on the laptop for the Xbox controller used by the Controller Operator (not driver)
+    //public static final int USB_AUXCONTROLLER = 1;
+
+    //usb port on the laptop when driver using XBox controller
     public static final int USB_DRIVECONTROLLER = 0;
+
+    //TODO: test out using Joysticks vice XBox for driving
+    //usb ports on the laptop, when driver using two Thrustmaster Joysticks
+    public static final int USB_LEFT_JOYSTICK = 1; 
+    public static final int USB_RIGHT_JOYSTICK = 2;
   }
 
     //these are the id numbers for the motor controllers
