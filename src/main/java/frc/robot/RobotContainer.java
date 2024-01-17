@@ -38,10 +38,10 @@ public class RobotContainer {
   private final Drive drive = new Drive();
 
   //create instance of each command
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive);
-  private final TankDrive tankDrive = new TankDrive(drive);
-  private final ArcadeDriveWithJoysticks arcadeDriveWithJoysticks = new ArcadeDriveWithJoysticks(drive);
-  private final TankDriveWithJoysticks tankDriveWithJoysticks = new TankDriveWithJoysticks(drive);
+  private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, driverController);
+  private final TankDrive tankDrive = new TankDrive(drive, driverController);
+  private final ArcadeDriveWithJoysticks arcadeDriveWithJoysticks = new ArcadeDriveWithJoysticks(drive, leftStick, rightStick);
+  private final TankDriveWithJoysticks tankDriveWithJoysticks = new TankDriveWithJoysticks(drive, leftStick, rightStick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
