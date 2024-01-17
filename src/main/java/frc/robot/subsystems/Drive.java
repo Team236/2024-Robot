@@ -113,68 +113,89 @@ public void stop() {
   rightFront.set(0);
 }
 
-public boolean inYDeadzone () {
-  return (Math.abs(driverController.getLeftY()) <= Constants.DriveConstants.RIGHT_DEADZONE);
+//Deadzones for XBox driver controller:
+public boolean inLeftYDeadzone() {
+  return (Math.abs(driverController.getLeftY()) <= Constants.DriveConstants.LEFT_DEADZONE);
+}
+//for arcade:
+public boolean inRightXDeadzone() {
+  return (Math.abs(driverController.getRightX()) <= Constants.DriveConstants.RIGHT_DEADZONE);
+}
+//for tank:
+  public boolean inRightYDeadzone() {
+  return (Math.abs(driverController.getRightY()) <= Constants.DriveConstants.RIGHT_DEADZONE);
 }
 
-public boolean inXDeadzone () {
-  return (Math.abs(driverController.getRightX()) <= Constants.DriveConstants.LEFT_DEADZONE);
-}
-
-public void driveArcade(double leftYY, double rightXX) {
-  //arcadeDrive(speed, rotation)
+public void driveArcade(double leftSpeed, double rightRotation) {
+  //arcadeDrive(Yspeed, Xrotation)
   //TODO  - replace last line in this method with the 2 lines below and see effect
   //SlewRateLimiter filter = new SlewRateLimiter(0.5);
-  //diffDrive.arcadeDrive(filter.calculate(leftYY), rightXX);
-  diffDrive.arcadeDrive (leftYY, rightXX);
-}
-public void ArcadeWithDeadzone(){
-  //This method adds deadzones into the driving, using XBox controller for driving
-  //arcadeDrive(speed, rotation) - speed is Y-axis of left stick, rotation is x-axis of right stick
-  //xspeed is getLeftY, zrotation is getRightX, for arcade drive with 2 sticks
-  if(inYDeadzone() && inXDeadzone()) {
-    driveArcade(0,0);
-  } else if(!inYDeadzone() && !inXDeadzone()) { 
-    driveArcade(-driverController.getLeftY(), -driverController.getRightX());
-  } else if(inYDeadzone() && !inXDeadzone()) {
-    driveArcade( 0, -driverController.getRightX());
-  } else if(!inYDeadzone() && inXDeadzone()) {
-    driveArcade(-driverController.getLeftY(), 0);
-}
+  //diffDrive.arcadeDrive(filter.calculate(leftSpeed), rightRotation);
+  diffDrive.arcadeDrive (leftSpeed, rightRotation);
 }
 
 public void driveTank(double leftSpeed, double rightSpeed){
-  //tankDrive(leftSpeed, rightSpeed))
+  //tankDrive(YleftSpeed, YrightSpeed))
   //TODO  - replace last line in this method with the 2 lines below and see effect
   //SlewRateLimiter filter = new SlewRateLimiter(0.5);
   //diffDrive.tankDrive(filter.calculate(leftSpeed), rightSpeed);
   diffDrive.tankDrive(leftSpeed, rightSpeed);
 }
-public void TankWithDeadzone(){
+
+public void ArcadeWithXBox(){
+  //This method adds deadzones into the driving, using XBox controller for driving
+  //arcadeDrive(speed, rotation) - speed is Y-axis of left stick, rotation is x-axis of right stick
+  //xspeed is getLeftY, zrotation is getRightX, for arcade drive with 2 sticks
+  if(inLeftYDeadzone() && inRightXDeadzone()) {
+    driveArcade(0,0);
+  } else if(!inLeftYDeadzone() && !inRightXDeadzone()) { 
+    driveArcade(-driverController.getLeftY(), -driverController.getRightX());
+  } else if(inLeftYDeadzone() && !inRightXDeadzone()) {
+    driveArcade( 0, -driverController.getRightX());
+  } else if(!inLeftYDeadzone() && inRightXDeadzone()) {
+    driveArcade(-driverController.getLeftY(), 0);
+}
+}
+
+public void TankWithXBox(){
    //This method adds deadzones into the driving, using XBox controller for driving
-   //tankDrive(leftSpeed, rightSpeed))
-  if(inYDeadzone() && inXDeadzone()) {
+   //tankDrive(YleftSpeed, YrightSpeed))
+  if(inLeftYDeadzone() && inRightYDeadzone()) {
     driveTank(0, 0);
-  } else if(!inYDeadzone() && !inXDeadzone()) { 
+  } else if(!inLeftYDeadzone() && !inRightYDeadzone()) { 
     driveTank(-driverController.getLeftY(), -driverController.getRightY());
-  } else if(inYDeadzone() && !inXDeadzone()) {
+  } else if(inLeftYDeadzone() && !inRightYDeadzone()) {
     driveTank( 0, -driverController.getRightY());
-  } else if(!inYDeadzone() && inXDeadzone()) {
+  } else if(!inLeftYDeadzone() && inRightYDeadzone()) {
     driveTank(-driverController.getLeftY(), 0);
 }
 }
+
+//Deadzones for Thrustmaster driver controller:
+public boolean inLeftStickYDeadzone () {
+  return (Math.abs(leftStick.getY()) <= Constants.DriveConstants.LEFT_DEADZONE);
+}
+//for arcade:
+public boolean inRightStickXDeadzone () {
+  return (Math.abs(rightStick.getX()) <= Constants.DriveConstants.RIGHT_DEADZONE);
+}
+//for tank:
+  public boolean inRightStickYDeadzone () {
+  return (Math.abs(rightStick.getY()) <= Constants.DriveConstants.RIGHT_DEADZONE);
+}
+
 
 public void ArcadeWithSticks(){
   //This method adds deadzones into the driving, using 2 joysticks for driving
   //arcadeDrive(speed, rotation) - speed is Y-axis of left stick, rotation is x-axis of right stick
   //xspeed is getLeftY, zrotation is getRightX, for arcade drive with 2 sticks
-  if(inYDeadzone() && inXDeadzone()) {
+  if(inLeftStickYDeadzone() && inRightStickXDeadzone()) {
     driveArcade(0,0);
-  } else if(!inYDeadzone() && !inXDeadzone()) { 
+  } else if(!inLeftStickYDeadzone() && !inRightStickXDeadzone()) { 
     driveArcade(-leftStick.getY(), -rightStick.getX());
-  } else if(inYDeadzone() && !inXDeadzone()) {
+  } else if(inLeftStickYDeadzone() && !inRightStickXDeadzone()) {
     driveArcade( 0, -rightStick.getX());
-  } else if(!inYDeadzone() && inXDeadzone()) {
+  } else if(!inLeftStickYDeadzone() && inRightStickXDeadzone()) {
     driveArcade(-leftStick.getY(), 0);
 }
 }
@@ -182,13 +203,13 @@ public void ArcadeWithSticks(){
 public void TankWithSticks(){
    //This method adds deadzones into the driving, using XBox controller for driving
    //tankDrive(leftSpeed, rightSpeed))
-  if(inYDeadzone() && inXDeadzone()) {
+  if(inLeftStickYDeadzone() && inRightStickYDeadzone()) {
     driveTank(0, 0);
-  } else if(!inYDeadzone() && !inXDeadzone()) { 
+  } else if(!inLeftStickYDeadzone() && !inRightStickYDeadzone()) { 
     driveTank(-leftStick.getY(), -rightStick.getY());
-  } else if(inYDeadzone() && !inXDeadzone()) {
+  } else if(inLeftStickYDeadzone() && !inRightStickYDeadzone()) {
     driveTank( 0, -rightStick.getY());
-  } else if(!inYDeadzone() && inXDeadzone()) {
+  } else if(!inLeftStickYDeadzone() && inRightStickYDeadzone()) {
     driveTank(-leftStick.getY(), 0);
 }
 }
