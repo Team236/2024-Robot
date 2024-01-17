@@ -29,24 +29,18 @@ public class RobotContainer {
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   // sticks/controllers
-  private final XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
-  //private final XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
-
-  //TODO - try driving with joysticks as well (comment out 2 lines above):
-  //private final Joystick driverController = new Joystick(Constants.Controller.USB_DRIVECONTROLLER);
-  //private final Joystick auxController = new Joystick(Constants.Controller.USB_AUXCONTROLLER);
-  
+  XboxController driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
+  Joystick leftStick = new Joystick(Constants.Controller.USB_LEFT_JOYSTICK);
+  Joystick rightStick = new Joystick(Constants.Controller.USB_RIGHT_JOYSTICK);
+  //XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
 
   //create instance of each subsystem
   private final Drive drive = new Drive();
 
   //create instance of each command
-  //private final DifferentialDrive diffDrive = new DifferentialDrive(drive.leftFront, drive.rightFront);
-  //private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, driverController, diffDrive);
-
   private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive);
   private final TankDrive tankDrive = new TankDrive(drive);
-    private final ArcadeDriveWithJoysticks arcadeDriveWithJoysticks = new ArcadeDriveWithJoysticks(drive);
+  private final ArcadeDriveWithJoysticks arcadeDriveWithJoysticks = new ArcadeDriveWithJoysticks(drive);
   private final TankDriveWithJoysticks tankDriveWithJoysticks = new TankDriveWithJoysticks(drive);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
