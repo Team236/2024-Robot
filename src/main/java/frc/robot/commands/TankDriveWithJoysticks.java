@@ -21,6 +21,7 @@ public class TankDriveWithJoysticks extends Command {
   @Override
   public void initialize() {
     drive.openRampRate();
+    //TODO try without ramp rate, also try adding slew rate in driveTank method
     //drive.resetLeftEncoder();
     //drive.resetRightEncoder();
   }

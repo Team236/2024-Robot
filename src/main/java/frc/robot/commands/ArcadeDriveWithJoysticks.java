@@ -20,7 +20,7 @@ public class ArcadeDriveWithJoysticks extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-       //TODO try without ramp rate, also try adding slew rate in driveArcadeWithSticks method
+       //TODO try without ramp rate, also try adding slew rate in driveArcade method
        drive.openRampRate();
        //drive.resetLeftEncoder();
        //drive.resetRightEncoder();
