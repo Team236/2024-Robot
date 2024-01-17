@@ -34,8 +34,6 @@ public class RobotContainer {
   //private final Joystick driverController = new Joystick(Constants.Controller.USB_DRIVECONTROLLER);
   //private final Joystick auxController = new Joystick(Constants.Controller.USB_AUXCONTROLLER);
 
-
-
   //create instance of each subsystem
   private final Drive drive = new Drive();
 
