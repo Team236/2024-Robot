@@ -23,11 +23,14 @@ public class Drive extends SubsystemBase {
   private Encoder leftEncoder, rightEncoder;
 
   public XboxController driverController;//use for XBox controller
-  //public Joystick driverContoller;//use for Thrustmaster joysticks
+  public Joystick leftStick, rightStick;//use for Thrustmaster joysticks
 
   /** Creates a new Drive. */
   public Drive() {
     driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
+
+    leftStick = new Joystick(Constants.Controller.USB_LEFT_JOYSTICK);
+    rightStick = new Joystick(Constants.Controller.USB_RIGHT_JOYSTICK);
 
     diffDrive = new DifferentialDrive(leftFront, rightFront); //TODO rears are being commanded?
 
@@ -111,32 +114,32 @@ public void stop() {
 }
 
 public boolean inYDeadzone () {
-  return (Math.abs(driverController.getRightY()) <= Constants.DriveConstants.RIGHT_DEADZONE);
+  return (Math.abs(driverController.getLeftY()) <= Constants.DriveConstants.RIGHT_DEADZONE);
 }
 
 public boolean inXDeadzone () {
-  return (Math.abs(driverController.getLeftX()) <= Constants.DriveConstants.LEFT_DEADZONE);
+  return (Math.abs(driverController.getRightX()) <= Constants.DriveConstants.LEFT_DEADZONE);
 }
 
-public void driveArcade(double rightYY, double leftXX) {
+public void driveArcade(double leftYY, double rightXX) {
   //arcadeDrive(speed, rotation)
   //TODO  - replace last line in this method with the 2 lines below and see effect
   //SlewRateLimiter filter = new SlewRateLimiter(0.5);
-  //diffDrive.arcadeDrive(filter.calculate(rightYY), leftXX);
-  diffDrive.arcadeDrive (rightYY, leftXX);
+  //diffDrive.arcadeDrive(filter.calculate(leftYY), rightXX);
+  diffDrive.arcadeDrive (leftYY, rightXX);
 }
 public void ArcadeWithDeadzone(){
-  //This method adds deadzones into the driving
-  //arcadeDrive(speed, rotation) - speed is Y-axis of right stick, rotation is x-axis of left stick
+  //This method adds deadzones into the driving, using XBox controller for driving
+  //arcadeDrive(speed, rotation) - speed is Y-axis of left stick, rotation is x-axis of right stick
   //xspeed is getLeftY, zrotation is getRightX, for arcade drive with 2 sticks
   if(inYDeadzone() && inXDeadzone()) {
     driveArcade(0,0);
   } else if(!inYDeadzone() && !inXDeadzone()) { 
-    driveArcade(-driverController.getRightY(), -driverController.getLeftX());
+    driveArcade(-driverController.getLeftY(), -driverController.getRightX());
   } else if(inYDeadzone() && !inXDeadzone()) {
-    driveArcade( 0, -driverController.getLeftX());
+    driveArcade( 0, -driverController.getRightX());
   } else if(!inYDeadzone() && inXDeadzone()) {
-    driveArcade(driverController.getRightY(), 0);
+    driveArcade(-driverController.getLeftY(), 0);
 }
 }
 
@@ -148,7 +151,7 @@ public void driveTank(double leftSpeed, double rightSpeed){
   diffDrive.tankDrive(leftSpeed, rightSpeed);
 }
 public void TankWithDeadzone(){
-   //This method adds deadzones into the driving
+   //This method adds deadzones into the driving, using XBox controller for driving
    //tankDrive(leftSpeed, rightSpeed))
   if(inYDeadzone() && inXDeadzone()) {
     driveTank(0, 0);
@@ -157,7 +160,36 @@ public void TankWithDeadzone(){
   } else if(inYDeadzone() && !inXDeadzone()) {
     driveTank( 0, -driverController.getRightY());
   } else if(!inYDeadzone() && inXDeadzone()) {
-    driveTank(driverController.getLeftY(), 0);
+    driveTank(-driverController.getLeftY(), 0);
+}
+}
+
+public void ArcadeWithSticks(){
+  //This method adds deadzones into the driving, using 2 joysticks for driving
+  //arcadeDrive(speed, rotation) - speed is Y-axis of left stick, rotation is x-axis of right stick
+  //xspeed is getLeftY, zrotation is getRightX, for arcade drive with 2 sticks
+  if(inYDeadzone() && inXDeadzone()) {
+    driveArcade(0,0);
+  } else if(!inYDeadzone() && !inXDeadzone()) { 
+    driveArcade(-leftStick.getY(), -rightStick.getX());
+  } else if(inYDeadzone() && !inXDeadzone()) {
+    driveArcade( 0, -rightStick.getX());
+  } else if(!inYDeadzone() && inXDeadzone()) {
+    driveArcade(-leftStick.getY(), 0);
+}
+}
+
+public void TankWithSticks(){
+   //This method adds deadzones into the driving, using XBox controller for driving
+   //tankDrive(leftSpeed, rightSpeed))
+  if(inYDeadzone() && inXDeadzone()) {
+    driveTank(0, 0);
+  } else if(!inYDeadzone() && !inXDeadzone()) { 
+    driveTank(-leftStick.getY(), -rightStick.getY());
+  } else if(inYDeadzone() && !inXDeadzone()) {
+    driveTank( 0, -rightStick.getY());
+  } else if(!inYDeadzone() && inXDeadzone()) {
+    driveTank(-leftStick.getY(), 0);
 }
 }
 
