@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -30,7 +29,7 @@ public class Drive extends SubsystemBase {
   public Drive() {
     driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
 
-    diffDrive = new DifferentialDrive(leftFront, rightFront);
+    diffDrive = new DifferentialDrive(leftFront, rightFront); //TODO rears are being commanded?
 
     leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
@@ -126,16 +125,7 @@ public void driveArcade(double rightYY, double leftXX) {
   //diffDrive.arcadeDrive(filter.calculate(rightYY), leftXX);
   diffDrive.arcadeDrive (rightYY, leftXX);
 }
-
-public void driveTank(double leftSpeed, double rightSpeed){
-  //tankDrive(leftSpeed, rightSpeed))
-  //TODO  - replace last line in this method with the 2 lines below and see effect
-  //SlewRateLimiter filter = new SlewRateLimiter(0.5);
-  //diffDrive.tankDrive(filter.calculate(leftSpeed), rightSpeed);
-  diffDrive.tankDrive(leftSpeed, rightSpeed);
-}
-
-public void useArcade(){
+public void ArcadeWithDeadzone(){
   //This method adds deadzones into the driving
   //arcadeDrive(speed, rotation) - speed is Y-axis of right stick, rotation is x-axis of left stick
   //xspeed is getLeftY, zrotation is getRightX, for arcade drive with 2 sticks
@@ -150,7 +140,14 @@ public void useArcade(){
 }
 }
 
-public void useTank(){
+public void driveTank(double leftSpeed, double rightSpeed){
+  //tankDrive(leftSpeed, rightSpeed))
+  //TODO  - replace last line in this method with the 2 lines below and see effect
+  //SlewRateLimiter filter = new SlewRateLimiter(0.5);
+  //diffDrive.tankDrive(filter.calculate(leftSpeed), rightSpeed);
+  diffDrive.tankDrive(leftSpeed, rightSpeed);
+}
+public void TankWithDeadzone(){
    //This method adds deadzones into the driving
    //tankDrive(leftSpeed, rightSpeed))
   if(inYDeadzone() && inXDeadzone()) {
@@ -163,7 +160,6 @@ public void useTank(){
     driveTank(driverController.getLeftY(), 0);
 }
 }
-
 
   @Override
   public void periodic() {

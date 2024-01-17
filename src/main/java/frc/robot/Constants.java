@@ -37,6 +37,7 @@ public final class Constants {
     public static final double SENSITIVITY_Y = 0.9; //TODO  try 0.75
     //public static final boolean IS_DEADZONE = true;
 
+    //external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 0;
     public static final int DIO_LDRIVE_ENC_B = 1;
     public static final int DIO_RDRIVE_ENC_A = 2;
