@@ -17,9 +17,10 @@ public class TankDrive extends Command {
   private XboxController driverController;
 
   /** Creates a new TankDrive. */
-  public TankDrive(Drive drive, XboxController driverController) {
+  public TankDrive(DifferentialDrive diffDrive, XboxController driverController, Drive drive) {
     this.drive = drive;
     this.driverController = driverController;
+    this.diffDrive = diffDrive;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.drive);
   }

@@ -17,7 +17,7 @@ public class ArcadeXbox extends Command {
   private XboxController driverController;
   private boolean inLeftYDeadzone, inRightXDeadzone;
   private DifferentialDrive diffDrive;
-    public CANSparkMax leftFront, rightFront;
+   // public CANSparkMax leftFront, rightFront;
   private double leftSpeed, rightRotation;
 
   // Creates a new ArcadeXbox 

@@ -18,10 +18,11 @@ public class ArcadeDriveWithJoysticks extends Command {
     private double leftSpeed, rightRotation;
     private Joystick leftStick, rightStick;
 
-  public ArcadeDriveWithJoysticks(Drive drive, Joystick leftStick, Joystick rightStick) {
+  public ArcadeDriveWithJoysticks(DifferentialDrive diffDrive, Joystick leftStick, Joystick rightStick, Drive drive) {
     this.drive = drive;
     this.leftStick = leftStick;
     this.rightStick = rightStick;
+    this.diffDrive = diffDrive;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.drive);
   }

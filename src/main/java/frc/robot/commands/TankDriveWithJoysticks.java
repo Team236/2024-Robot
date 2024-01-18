@@ -18,10 +18,11 @@ public class TankDriveWithJoysticks extends Command {
   private double leftSpeed, rightSpeed;
   private Joystick leftStick, rightStick;
 
-  public TankDriveWithJoysticks(Drive drive, Joystick leftStick, Joystick rightStick) {
+  public TankDriveWithJoysticks(DifferentialDrive diffDrive, Joystick leftStick, Joystick rightStick, Drive drive) {
      this.drive = drive;
      this.leftStick = leftStick;
      this.rightStick = rightStick;
+     this.diffDrive = diffDrive;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.drive);
   }

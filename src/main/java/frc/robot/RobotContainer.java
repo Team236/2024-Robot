@@ -41,15 +41,17 @@ public class RobotContainer {
 
   //create instance of each command
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
-  private final TankDrive tankDrive = new TankDrive(drive, driverController);
-  private final ArcadeDriveWithJoysticks arcadeDriveWithJoysticks = new ArcadeDriveWithJoysticks(drive, leftStick, rightStick);
-  private final TankDriveWithJoysticks tankDriveWithJoysticks = new TankDriveWithJoysticks(drive, leftStick, rightStick);
+  private final TankDrive tankDrive = new TankDrive(drive.diffDrive, driverController, drive);
+  private final ArcadeDriveWithJoysticks arcadeDriveWithJoysticks = new ArcadeDriveWithJoysticks(drive.diffDrive, leftStick, rightStick, drive);
+  private final TankDriveWithJoysticks tankDriveWithJoysticks = new TankDriveWithJoysticks(drive.diffDrive, leftStick, rightStick, drive);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    drive.setDefaultCommand(arcadeXbox);
+    //drive.setDefaultCommand(arcadeXbox);
     //TODO - try tankDrive, also try arcade and tank with joysticks
     //drive.setDefaultCommand(tankDrive);
+    //drive.setDefaultCommand(tankDriveWithJoysticks);
+    drive.setDefaultCommand(arcadeDriveWithJoysticks);
 
     // Configure the trigger bindings
     configureBindings();
