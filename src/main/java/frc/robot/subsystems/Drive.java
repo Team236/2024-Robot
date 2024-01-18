@@ -22,15 +22,8 @@ public class Drive extends SubsystemBase {
   //these are external encoders not SparkMAX
   private Encoder leftEncoder, rightEncoder;
 
- // public XboxController driverController;//use for XBox controller
-  //public Joystick leftStick, rightStick;//use for Thrustmaster joysticks
-
   /** Creates a new Drive. */
   public Drive() {
-    //driverController = new XboxController(Constants.Controller.USB_DRIVECONTROLLER);
-    //leftStick = new Joystick(Constants.Controller.USB_LEFT_JOYSTICK);
-    //rightStick = new Joystick(Constants.Controller.USB_RIGHT_JOYSTICK);
-
     leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
@@ -61,7 +54,7 @@ diffDrive = new DifferentialDrive(leftFront, rightFront); //TODO rears are being
 
   //methods start here
 public void closedRampRate() {
-  leftFront.setClosedLoopRampRate(0.08);
+  leftFront.setClosedLoopRampRate(0.08); //time in seconds to go from 0 to full throttle
   rightFront.setClosedLoopRampRate(0.08);
 }
 public void openRampRate() {
