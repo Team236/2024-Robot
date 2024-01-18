@@ -4,12 +4,13 @@
 
 package frc.robot;
 
-import frc.robot.commands.ArcadeXbox;
-import frc.robot.commands.ArcadeDriveWithJoysticks;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.TankDrive;
-import frc.robot.commands.TankDriveWithJoysticks;
+import frc.robot.commands.DriveCommands.ArcadeJoysticks;
+import frc.robot.commands.DriveCommands.ArcadeXbox;
+import frc.robot.commands.DriveCommands.CurvatureXbox;
+import frc.robot.commands.DriveCommands.TankJoysticks;
+import frc.robot.commands.DriveCommands.TankXbox;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
@@ -41,17 +42,18 @@ public class RobotContainer {
 
   //create instance of each command
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
-  private final TankDrive tankDrive = new TankDrive(drive.diffDrive, driverController, drive);
-  private final ArcadeDriveWithJoysticks arcadeDriveWithJoysticks = new ArcadeDriveWithJoysticks(drive.diffDrive, leftStick, rightStick, drive);
-  private final TankDriveWithJoysticks tankDriveWithJoysticks = new TankDriveWithJoysticks(drive.diffDrive, leftStick, rightStick, drive);
+  private final TankXbox tankXbox = new TankXbox(drive.diffDrive, driverController, drive);
+  private final CurvatureXbox curvatureXbox = new CurvatureXbox(drive.diffDrive, driverController, drive);
+  private final ArcadeJoysticks arcadeJoysticks = new ArcadeJoysticks(drive.diffDrive, leftStick, rightStick, drive);
+  private final TankJoysticks tankJoysticks = new TankJoysticks(drive.diffDrive, leftStick, rightStick, drive);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
-    //TODO - try tankDrive, also try arcade and tank with joysticks
-    //drive.setDefaultCommand(tankDrive);
-    //drive.setDefaultCommand(tankDriveWithJoysticks);
-    //drive.setDefaultCommand(arcadeDriveWithJoysticks);
+    //drive.setDefaultCommand(tankXbox);
+    //drive.setDefaultCommand(curvatureXbox);
+    //drive.setDefaultCommand(tankJoysticks); //uses left Z to turn, not right X
+    //drive.setDefaultCommand(arcadeJoysticks);
 
     // Configure the trigger bindings
     configureBindings();
