@@ -47,11 +47,11 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    //drive.setDefaultCommand(arcadeXbox);
+    drive.setDefaultCommand(arcadeXbox);
     //TODO - try tankDrive, also try arcade and tank with joysticks
     //drive.setDefaultCommand(tankDrive);
     //drive.setDefaultCommand(tankDriveWithJoysticks);
-    drive.setDefaultCommand(arcadeDriveWithJoysticks);
+    //drive.setDefaultCommand(arcadeDriveWithJoysticks);
 
     // Configure the trigger bindings
     configureBindings();
