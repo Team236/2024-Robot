@@ -11,8 +11,7 @@ set obj[7].Name="Ellen DiCarlo"
 set obj[8].Name="Rob Reinhart"
 set obj[9].Name="Steve Garabedian" 
 
-
-FOR /L %%i IN (0 1 2 3 4 5 6 7 8 9) DO  (
+FOR /L %%i IN (0 1 9) DO  (
    call echo %%i %%obj[%%i].Name%%
    set /a num = %%i
 )
@@ -26,6 +25,8 @@ rem echo !obj[%choice%].Name!
 rem echo name %namevar%
 echo !obj[%choice%].Name! has been added as the git user
 git config --global user.name !obj[%choice%].Name!
+echo git config user.name returns
+git config user.name
   ) ELSE (  
     echo "Invalid selection"
 	)
