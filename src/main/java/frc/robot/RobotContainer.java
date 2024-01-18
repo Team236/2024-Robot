@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.ArcadeXbox;
 import frc.robot.commands.ArcadeDriveWithJoysticks;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -14,6 +14,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -36,16 +37,17 @@ public class RobotContainer {
 
   //create instance of each subsystem
   private final Drive drive = new Drive();
+ // private final DifferentialDrive diffDrive = new DifferentialDrive(null, null)
 
   //create instance of each command
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(drive, driverController);
+  private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
   private final TankDrive tankDrive = new TankDrive(drive, driverController);
   private final ArcadeDriveWithJoysticks arcadeDriveWithJoysticks = new ArcadeDriveWithJoysticks(drive, leftStick, rightStick);
   private final TankDriveWithJoysticks tankDriveWithJoysticks = new TankDriveWithJoysticks(drive, leftStick, rightStick);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    drive.setDefaultCommand(arcadeDrive);
+    drive.setDefaultCommand(arcadeXbox);
     //TODO - try tankDrive, also try arcade and tank with joysticks
     //drive.setDefaultCommand(tankDrive);
 

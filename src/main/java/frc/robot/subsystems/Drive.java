@@ -31,12 +31,12 @@ public class Drive extends SubsystemBase {
     //leftStick = new Joystick(Constants.Controller.USB_LEFT_JOYSTICK);
     //rightStick = new Joystick(Constants.Controller.USB_RIGHT_JOYSTICK);
 
-    diffDrive = new DifferentialDrive(leftFront, rightFront); //TODO rears are being commanded?
-
     leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
     rightRear = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
+
+diffDrive = new DifferentialDrive(leftFront, rightFront); //TODO rears are being commanded?
 
     leftFront.restoreFactoryDefaults();
     rightFront.restoreFactoryDefaults();
@@ -68,6 +68,7 @@ public void openRampRate() {
   leftFront.setClosedLoopRampRate(0.08);
   rightFront.setClosedLoopRampRate(0.08);
 }
+
 
 public void setLeftSpeed(double speed) {
   leftFront.set(speed);
