@@ -22,8 +22,8 @@ public class ArcadeXbox extends Command {
 
   // Creates a new ArcadeXbox 
   //for driving Arcade style using 2 sticks (left/right) on a single XBox 
-  public ArcadeXbox(DifferentialDrive diffDrive, XboxController driverController, Drive drive)  {
-  this.drive = drive;
+  public ArcadeXbox(DifferentialDrive diffDrive, XboxController driverController, Drive drive1)  {
+  this.drive = drive1;
     this.driverController = driverController;
     this.diffDrive = diffDrive;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -69,7 +69,6 @@ public class ArcadeXbox extends Command {
   leftSpeed = -driverController.getLeftY();
   rightRotation = -driverController.getRightX();
 
-  diffDrive.setDeadband(Constants.DriveConstants.DEADBAND);
   diffDrive.arcadeDrive(leftSpeed, rightRotation);
 }
 

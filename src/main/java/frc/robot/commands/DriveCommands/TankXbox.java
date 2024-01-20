@@ -62,7 +62,6 @@ public class TankXbox extends Command {
       leftSpeed = -driverController.getLeftY();
       rightSpeed = -driverController.getRightY();
       
-      diffDrive.setDeadband(Constants.DriveConstants.DEADBAND);
       diffDrive.tankDrive(leftSpeed, rightSpeed);
   }
 

@@ -52,6 +52,7 @@ public class ArcadeJoysticks extends Command {
     leftSpeed = -leftStick.getY();
     rightRotation = -rightStick.getX();
   } else if(inLeftYDeadzone && !inRightXDeadzone) {
+
      leftSpeed = 0;
     rightRotation = -rightStick.getX();
   } else if(!inLeftYDeadzone && inRightXDeadzone) {
@@ -60,10 +61,9 @@ public class ArcadeJoysticks extends Command {
 }
  */
   leftSpeed = -leftStick.getY();
-  leftRotation = -leftStick.getZ();
-  //rightRotation = -rightStick.getX();
+  //leftRotation = -leftStick.getZ();
+  rightRotation = -rightStick.getX();
 
-  diffDrive.setDeadband(Constants.DriveConstants.DEADBAND);
   diffDrive.arcadeDrive(leftSpeed, rightRotation);
 
   //TODO  - replace last line in execute with the 2 lines below and see effect

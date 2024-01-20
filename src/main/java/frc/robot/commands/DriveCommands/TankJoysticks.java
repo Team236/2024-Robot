@@ -64,7 +64,6 @@ public class TankJoysticks extends Command {
       leftSpeed = -leftStick.getY();
       rightSpeed = -rightStick.getY();
 
-      diffDrive.setDeadband(Constants.DriveConstants.DEADBAND);
       diffDrive.tankDrive(leftSpeed, rightSpeed);
   }
 
