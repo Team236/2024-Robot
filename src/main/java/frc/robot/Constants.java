@@ -20,11 +20,13 @@ public final class Constants {
 
     //usb port on the laptop when driver using XBox controller
     public static final int USB_DRIVECONTROLLER = 0;
+    public static final int USB_AUXCONTROLLER = 1;
 
-    //TODO: test out using Joysticks vice XBox for driving
+
+    //for using Joysticks vice XBox for driving
     //usb ports on the laptop, when driver using two Thrustmaster Joysticks
-    public static final int USB_LEFT_JOYSTICK = 1; 
-    public static final int USB_RIGHT_JOYSTICK = 2;
+   // public static final int USB_LEFT_JOYSTICK = 1; 
+   // public static final int USB_RIGHT_JOYSTICK = 2;
   }
 
     //these are the id numbers for the motor controllers
@@ -33,6 +35,13 @@ public final class Constants {
       public static final int ID_RIGHT_FRONT = 1; 
       public static final int ID_LEFT_REAR = 34;
       public static final int ID_RIGHT_REAR = 32;
+
+      //smart current limit
+      public static final int SMART_CURRENT_LIMIT = 40;
+
+      //Ramp rates (time in seconds to go from zero to full throttle)
+      public static final double CLOSED_RAMP_RATE = 0.08;
+      public static final double OPEN_RAMP_RATE = 0.08;
       }
   
   public static class DriveConstants {
@@ -41,9 +50,9 @@ public final class Constants {
     public static final double RIGHT_DEADZONE = 0.05;
     public static final double DEADBAND = 0.05;
 
-    //public static final double SENSITIVITY_X = 0.9;
-    //public static final double SENSITIVITY_Y = 0.9; //TODO  try 0.75
-    //public static final boolean IS_DEADZONE = true;
+    //Transmission solenoid 
+    public static final int SOL_LOW_GEAR = 3;
+    public static final int SOL_HIGH_GEAR = 2;
 
     //external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 0;
