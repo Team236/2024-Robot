@@ -36,6 +36,9 @@ public final class Constants {
       public static final int ID_LEFT_REAR = 34;
       public static final int ID_RIGHT_REAR = 32;
 
+      public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
+      public static final int ID_ELEVATOR_RIGHT = 11;// TODO get rael number
+
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
 
@@ -66,6 +69,18 @@ public final class Constants {
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512;
+  } 
+
+  public static class Elevator {
+  public static final double MIDDLE = 0;//TODO get real number
+  public static final double BOTTOM = 0;//TODO get real number
+  public static final double TOP = 0;//TODO get real number
+   
+  public static final int DIO_ELEV_TOP = 4;
+  public static final int DIO_ELEV_BOTTOM = 5;//TODO change numbers 
+
+    public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
+    public static final double ELEV_OPEN_RAMP_RATE = 0.08;
   }
 
     public static class Thrustmaster {
