@@ -35,6 +35,8 @@ public final class Constants {
       public static final int ID_RIGHT_FRONT = 1; 
       public static final int ID_LEFT_REAR = 34;
       public static final int ID_RIGHT_REAR = 32;
+      public static final int ID_INTAKE_LEFT = 40;//TODO find IDs for left/right controllers
+      public static final int ID_INTAKE_RIGHT = 41;
 
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
@@ -66,6 +68,15 @@ public final class Constants {
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512;
+  }
+
+  public static class Intake {
+    
+    //DIO
+    public static final int DIO_INTAKE_COUNTER = 4; //TODO find DIO channel for counter
+    
+    //Motor
+    public static final double INTAKE_SPEED = -0.2; //TODO experiment with this speed
   }
 
     public static class Thrustmaster {
