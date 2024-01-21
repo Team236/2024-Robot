@@ -4,9 +4,10 @@
 
 package frc.robot;
 
-import frc.robot.commands.Autos;
+
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.SetIntakeSpeed;
+import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.DriveCommands.ArcadeJoysticks;
 import frc.robot.commands.DriveCommands.ArcadeXbox;
 import frc.robot.commands.DriveCommands.CurvatureXbox;
@@ -60,6 +61,7 @@ public class RobotContainer {
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
+ private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCCE_1);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -129,6 +131,7 @@ public class RobotContainer {
     menu.onTrue(highGear);
     x.onTrue(toggleGear);
     b.whileTrue(setIntakeSpeed);
+    a.onTrue(autoPIDDrive);
   }
 
   
