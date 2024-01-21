@@ -79,6 +79,8 @@ public final class Constants {
   public static final int DIO_ELEV_TOP = 4;
   public static final int DIO_ELEV_BOTTOM = 5;//TODO change numbers 
 
+  public static final double ELEV_REV_TO_IN = 1; //TODO get this actual value
+
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
   }
