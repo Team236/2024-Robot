@@ -35,6 +35,8 @@ public final class Constants {
       public static final int ID_RIGHT_FRONT = 1; 
       public static final int ID_LEFT_REAR = 34;
       public static final int ID_RIGHT_REAR = 32;
+      public static final int ID_INTAKE_LEFT = 40;//TODO find IDs for left/right controllers
+      public static final int ID_INTAKE_RIGHT = 41;
 
       public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
       public static final int ID_ELEVATOR_RIGHT = 11;// TODO get rael number
@@ -83,6 +85,15 @@ public final class Constants {
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
+  }
+
+  public static class Intake {
+    
+    //DIO
+    public static final int DIO_INTAKE_COUNTER = 4; //TODO find DIO channel for counter
+    
+    //Motor
+    public static final double INTAKE_SPEED = -0.2; //TODO experiment with this speed
   }
 
     public static class Thrustmaster {

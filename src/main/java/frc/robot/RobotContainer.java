@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.SetIntakeSpeed;
 import frc.robot.commands.DriveCommands.ArcadeJoysticks;
 import frc.robot.commands.DriveCommands.ArcadeXbox;
 import frc.robot.commands.DriveCommands.CurvatureXbox;
@@ -16,6 +17,7 @@ import frc.robot.commands.DriveCommands.TankXbox;
 import frc.robot.commands.DriveCommands.ToggleGear;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.math.proto.Controller;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -45,6 +47,7 @@ public class RobotContainer {
 
   //create instance of each subsystem
   private final Drive drive = new Drive();
+  private final Intake intake = new Intake();
  // private final DifferentialDrive diffDrive = new DifferentialDrive(null, null)
 
   //create instance of each command
@@ -56,6 +59,7 @@ public class RobotContainer {
  private final LowGear lowGear = new LowGear(drive); 
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
+ private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -121,11 +125,13 @@ public class RobotContainer {
 
 
     //***** driver controller ******
-    a.onTrue(lowGear);
-    y.onTrue(highGear);
-    b.onTrue(toggleGear);
+    view.onTrue(lowGear);
+    menu.onTrue(highGear);
+    x.onTrue(toggleGear);
+    b.whileTrue(setIntakeSpeed);
   }
 
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
