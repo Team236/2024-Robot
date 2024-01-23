@@ -80,7 +80,6 @@ public final class Constants {
 
     public static final double AUTO_DISTANCCE_1 = 36;
 
-    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512;
   } 
 
   public static class Elevator {
