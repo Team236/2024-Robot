@@ -59,9 +59,8 @@ public final class Constants {
     //external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 18;
     public static final int DIO_LDRIVE_ENC_B = 19;
-    public static final int DIO_RDRIVE_ENC_A = 13;
-    public static final int DIO_RDRIVE_ENC_B = 12;
-
+    public static final int DIO_RDRIVE_ENC_A = 9; //13  TODO switch back after testing the Roborio DIO vs Gyro DIO
+    public static final int DIO_RDRIVE_ENC_B = 8; //12
     //Calculates distance in INCHES from encoder pulses (ticks get it?)
     public static final double DIAMETER = 6;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
