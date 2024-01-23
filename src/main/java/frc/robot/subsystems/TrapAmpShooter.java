@@ -18,7 +18,15 @@ private CANSparkMax motor;
   } 
 
   public void shoot() {
-    motor.set(Constants.AMP.AMP_TRAP_MOTOR_SPEED);
+    motor.set(Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  }
+
+  public void stop(){
+    motor.set(0);
+  }
+
+   public void unshoot() {
+    motor.set(-Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   }
 
   @Override

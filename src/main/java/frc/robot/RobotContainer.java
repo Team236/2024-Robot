@@ -18,6 +18,7 @@ import frc.robot.commands.DriveCommands.ToggleGear;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.TrapAmpShooter;
 import edu.wpi.first.math.proto.Controller;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -48,6 +49,7 @@ public class RobotContainer {
   //create instance of each subsystem
   private final Drive drive = new Drive();
   private final Intake intake = new Intake();
+  private final TrapAmpShooter trapAmpShooter = new TrapAmpShooter();
  // private final DifferentialDrive diffDrive = new DifferentialDrive(null, null)
 
   //create instance of each command
