@@ -60,16 +60,26 @@ public final class Constants {
     public static final int SOL_HIGH_GEAR = 2;
 
     //external drive encoders
-    public static final int DIO_LDRIVE_ENC_A = 0;
-    public static final int DIO_LDRIVE_ENC_B = 1;
-    public static final int DIO_RDRIVE_ENC_A = 2;
-    public static final int DIO_RDRIVE_ENC_B = 3;
-
+    public static final int DIO_LDRIVE_ENC_A = 18;
+    public static final int DIO_LDRIVE_ENC_B = 19;
+    public static final int DIO_RDRIVE_ENC_A = 9; //13  TODO switch back after testing the Roborio DIO vs Gyro DIO
+    public static final int DIO_RDRIVE_ENC_B = 8; //12
+    //Calculates distance in INCHES from encoder pulses (ticks get it?)
     public static final double DIAMETER = 6;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-    public static final double GEAR_RATIO = 1;
+    public static final double GEAR_RATIO = 1; //for external encoder so no gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
+
+    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; //for external encoder
+    
+    //PID
+    public static final double KP_DRIVE = 0.01; //0.022 (from 2023)
+    public static final double KI_DRIVE = 0;
+    public static final double KD_DRIVE = 0;
+
+    public static final double AUTO_DISTANCCE_1 = 36;
+
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512;
   } 
 
@@ -85,6 +95,7 @@ public final class Constants {
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
+
   }
 
   public static class Intake {
