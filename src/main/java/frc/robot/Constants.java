@@ -96,6 +96,17 @@ public final class Constants {
     public static final double INTAKE_SPEED = -0.2; //TODO experiment with this speed
   }
 
+  public static class CartridgeShooter {
+    public static final int SOL_LONG_RANGE_FORWARD = 1; //TODO add real values
+    public static final int SOL_LONG_RANGE_REVERSE = 2;
+    public static final int SOL_SHORT_RANGE_FORWARD = 3;
+    public static final int SOL_SHORT_RANGE_REVERSE = 4;
+
+    public static final int ID_LEFT_SHOOTER = 5;
+    public static final int ID_RIGHT_SHOOTER = 6;
+
+  }
+
     public static class Thrustmaster {
         public static final int TRIGGER = 1;
         public static final int BUTTON_MIDDLE = 2;
