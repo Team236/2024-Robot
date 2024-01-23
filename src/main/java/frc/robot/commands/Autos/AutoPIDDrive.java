@@ -11,17 +11,17 @@ import frc.robot.subsystems.Drive;
 
 public class AutoPIDDrive extends Command {
     private Drive drive;
-  private double driveDistance;
+  private double driveDistance1;
   private final PIDController pidController;
 
   /** Creates a new AutoPIDDrive. */
   public AutoPIDDrive(Drive drive, double driveDistance) {
     this.drive = drive;
-    this.driveDistance = driveDistance;
+    this.driveDistance1 = driveDistance;
     this.pidController = new PIDController(Constants.DriveConstants.KP_DRIVE, Constants.DriveConstants.KI_DRIVE, Constants.DriveConstants.KD_DRIVE);
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.drive);
+    addRequirements(drive);
 
     pidController.setSetpoint(driveDistance);
   }
@@ -50,6 +50,14 @@ public class AutoPIDDrive extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    boolean done;
+
+    if (drive.getAvgDistance() > 0.97*driveDistance1) {
+       done = true;
+    }  
+    else {done = false;
+    }
+
+    return done;
   }
 }
