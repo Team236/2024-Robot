@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
@@ -68,7 +69,8 @@ public class ArcadeXbox extends Command {
   //diffDrive.arcadeDrive(filter.calculate(leftSpeed), rightRotation);
   leftSpeed = -driverController.getLeftY();
   rightRotation = -driverController.getRightX();
-
+SmartDashboard.putNumber("lefEncoder in ArcadeXbox execute  = ", drive.getLeftEncoder());
+SmartDashboard.putNumber("rightEncoder in ArcadeXbox execute =  ", drive.getRightEncoder());
   diffDrive.arcadeDrive(leftSpeed, rightRotation);
 }
 
