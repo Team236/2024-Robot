@@ -21,12 +21,20 @@ private CANSparkMax motor;
     motor.set(Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   }
 
+    public void shoot(double speed) {
+    motor.set(speed);
+  }
+
   public void stop(){
     motor.set(0);
   }
 
-   public void unshoot() {
+   public void reverse() {
     motor.set(-Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  }
+
+     public void reverse(double speed) {
+    motor.set(-speed);
   }
 
   @Override
