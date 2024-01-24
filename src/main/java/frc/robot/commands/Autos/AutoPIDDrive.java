@@ -50,6 +50,7 @@ public class AutoPIDDrive extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+   /* 
     boolean done;
 
     if (drive.getAvgDistance() > 0.97*driveDistance1) {
@@ -58,6 +59,9 @@ public class AutoPIDDrive extends Command {
     else {done = false;
     }
 
-    return done;
+    return done; 
+    */
+    return false;
+
   }
 }
