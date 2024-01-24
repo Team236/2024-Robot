@@ -6,9 +6,12 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.MoveCartridge;
+import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromPodium;
+import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromWoofer;
+import frc.robot.commands.CartridgeShooterCommands.ToPodiumPosition;
+import frc.robot.commands.CartridgeShooterCommands.ToStowedPosition;
+import frc.robot.commands.CartridgeShooterCommands.ToWooferPosition;
 import frc.robot.commands.SetIntakeSpeed;
-import frc.robot.commands.ShootCartridge;
 import frc.robot.commands.DriveCommands.ArcadeJoysticks;
 import frc.robot.commands.DriveCommands.ArcadeXbox;
 import frc.robot.commands.DriveCommands.CurvatureXbox;
@@ -55,6 +58,8 @@ public class RobotContainer {
  // private final DifferentialDrive diffDrive = new DifferentialDrive(null, null)
 
   //create instance of each command
+
+  //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
  // private final TankXbox tankXbox = new TankXbox(drive.diffDrive, driverController, drive);
  // private final CurvatureXbox curvatureXbox = new CurvatureXbox(drive.diffDrive, driverController, drive);
@@ -63,10 +68,20 @@ public class RobotContainer {
  private final LowGear lowGear = new LowGear(drive); 
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
+
+ //INTAKE COMMANDS:
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
- private final MoveCartridge moveCartridgeShortRange = new MoveCartridge(cartridgeShooter, false);
- private final MoveCartridge moveCartridgeLongRange = new MoveCartridge(cartridgeShooter, true);
- private final ShootCartridge shootCartridge = new ShootCartridge(cartridgeShooter);
+
+ //CARTRIDGE COMMANDS:
+  private final ToPodiumPosition toPodiumPosition = new ToPodiumPosition(cartridgeShooter);
+ //private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
+  private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
+
+  private final SpeakerShotFromPodium speakerShotFromPodium = new SpeakerShotFromPodium(cartridgeShooter);
+ //private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter);
+ //private final ShootFrom moveCartridgeLongRange = new Stowed(cartridgeShooter, true);
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -137,13 +152,15 @@ public class RobotContainer {
     x.onTrue(toggleGear);
     b.whileTrue(setIntakeSpeed);
     //a1 for shortRange sol, b1 for longRange sol
-    a1.onTrue(moveCartridgeShortRange);
-    b1.onTrue(moveCartridgeLongRange);
+    a1.onTrue(toPodiumPosition);
+    b1.onTrue(toStowedPosition);
+   // b1.onTrue(toWooferPosition);
 
-    y1.onTrue(shootCartridge);
+    y1.onTrue(speakerShotFromPodium);
+    //y1.onTrue(speakerShotFromWoofer);
   }
 
-  
+  ;
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
