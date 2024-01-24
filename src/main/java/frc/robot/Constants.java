@@ -74,12 +74,19 @@ public final class Constants {
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; //for external encoder
     
     //PID
-    public static final double KP_DRIVE = 0.01; //0.022 (from 2023)
+    public static final double KP_DRIVE = 0.022; //0.022 (from 2023)
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
 
-    public static final double AUTO_DISTANCCE_1 = 36;
+    public static final double KP_TURNL = 0.025;
+    public static final double PID_L_SETPOINT = 0.28;
+    public static final double KP_TURNR = 0.025;
+    public static final double PID_R_SETPOINT = 0.28;
 
+    public static final double AUTO_DISTANCE_1 = 36;
+
+    public static final double TURN_ANGLE_1 = 90;
+    public static final double TURN_ANGLE_2 = -90;
   } 
 
   public static class Elevator {
