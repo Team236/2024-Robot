@@ -41,6 +41,10 @@ public final class Constants {
       public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
       public static final int ID_ELEVATOR_RIGHT = 11;// TODO get rael number
 
+      
+      public static final int ID_SHOOTER_LEFT = 5;
+      public static final int ID_SHOOTER_RIGHT = 6;
+
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
 
@@ -102,9 +106,7 @@ public final class Constants {
     public static final int SOL_SHORT_RANGE_FORWARD = 3;
     public static final int SOL_SHORT_RANGE_REVERSE = 4;
 
-    public static final int ID_LEFT_SHOOTER = 5;
-    public static final int ID_RIGHT_SHOOTER = 6;
-
+    public static final double MOTOR_SPEED = 0.2; //TODO tune the speed
   }
 
     public static class Thrustmaster {

@@ -6,7 +6,9 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.MoveCartridge;
 import frc.robot.commands.SetIntakeSpeed;
+import frc.robot.commands.ShootCartridge;
 import frc.robot.commands.DriveCommands.ArcadeJoysticks;
 import frc.robot.commands.DriveCommands.ArcadeXbox;
 import frc.robot.commands.DriveCommands.CurvatureXbox;
@@ -15,6 +17,7 @@ import frc.robot.commands.DriveCommands.LowGear;
 import frc.robot.commands.DriveCommands.TankJoysticks;
 import frc.robot.commands.DriveCommands.TankXbox;
 import frc.robot.commands.DriveCommands.ToggleGear;
+import frc.robot.subsystems.CartridgeShooter;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
@@ -48,6 +51,7 @@ public class RobotContainer {
   //create instance of each subsystem
   private final Drive drive = new Drive();
   private final Intake intake = new Intake();
+  private final CartridgeShooter cartridgeShooter = new CartridgeShooter();
  // private final DifferentialDrive diffDrive = new DifferentialDrive(null, null)
 
   //create instance of each command
@@ -60,6 +64,9 @@ public class RobotContainer {
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
+ private final MoveCartridge moveCartridgeShortRange = new MoveCartridge(cartridgeShooter, false);
+ private final MoveCartridge moveCartridgeLongRange = new MoveCartridge(cartridgeShooter, true);
+ private final ShootCartridge shootCartridge = new ShootCartridge(cartridgeShooter);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -129,6 +136,11 @@ public class RobotContainer {
     menu.onTrue(highGear);
     x.onTrue(toggleGear);
     b.whileTrue(setIntakeSpeed);
+    //a1 for shortRange sol, b1 for longRange sol
+    a1.onTrue(moveCartridgeShortRange);
+    b1.onTrue(moveCartridgeLongRange);
+
+    y1.onTrue(shootCartridge);
   }
 
   

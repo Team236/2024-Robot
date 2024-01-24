@@ -24,8 +24,8 @@ public class CartridgeShooter extends SubsystemBase {
   public CartridgeShooter() {
     solenoidLongRange = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_LONG_RANGE_FORWARD, Constants.CartridgeShooter.SOL_LONG_RANGE_REVERSE);
     solenoidShortRange = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_SHORT_RANGE_FORWARD, Constants.CartridgeShooter.SOL_SHORT_RANGE_REVERSE);
-    leftShooterMotor = new CANSparkMax(Constants.CartridgeShooter.ID_LEFT_SHOOTER, MotorType.kBrushless);
-    rightShooterMotor = new CANSparkMax(Constants.CartridgeShooter.ID_RIGHT_SHOOTER, MotorType.kBrushless);
+    leftShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_LEFT, MotorType.kBrushless);
+    rightShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_RIGHT, MotorType.kBrushless);
 
     leftShooterMotor.restoreFactoryDefaults();
     rightShooterMotor.restoreFactoryDefaults();
@@ -50,21 +50,46 @@ public class CartridgeShooter extends SubsystemBase {
     rightShooterMotor.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
   }
 
-  public void setPositionHigh(boolean isLongRange) {
+  public void stowLongRange(){
+    setPosition(true, true);
+  }
+
+  public void openLongRange(){
+    setPosition(true, false);
+  }
+
+  public void stowShortRange(){
+    setPosition(false, true);
+  }
+
+  public void openShortRange(){
+    setPosition(false, false);
+  }
+
+  public void toggleLongRange() {
+    solenoidLongRange.toggle();
+  }
+
+  public void toggleShortRange() {
+    solenoidShortRange.toggle();
+  }
+
+  private void setPosition(boolean isLongRange, boolean isStowed) {
     if(isLongRange) {
-       solenoidLongRange.set(Value.kReverse); //TODO assume kreverse is putting cartridge in high position
+      if(isStowed) {
+        solenoidLongRange.set(Value.kReverse); //TODO assume kreverse is putting cartridge in high position
+      } else {
+        solenoidLongRange.set(Value.kForward); 
+      }
     } else {
-       solenoidShortRange.set(Value.kReverse);
+       if(isStowed) {
+        solenoidShortRange.set(Value.kReverse); //TODO assume kreverse is putting cartridge in high position
+      } else {
+        solenoidShortRange.set(Value.kForward); 
+      }
     }
   }
-// we can try combining high and low
-public void setPositionLow(boolean isLongRange) {
-    if(isLongRange) {
-       solenoidLongRange.set(Value.kForward); //TODO assume kforward is putting cartridge in low position
-    } else {
-       solenoidShortRange.set(Value.kForward); 
-    }
-  }
+
 
   @Override
   public void periodic() {
