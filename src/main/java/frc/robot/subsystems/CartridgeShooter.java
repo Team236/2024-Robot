@@ -14,21 +14,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class CartridgeShooter extends SubsystemBase {
-  private DoubleSolenoid solenoidLongRange;
-  private DoubleSolenoid solenoidShortRange;
+  private DoubleSolenoid solenoid1;//*** 
+  private DoubleSolenoid solenoid2; //*** 
   private CANSparkMax leftShooterMotor;
   private CANSparkMax rightShooterMotor;
 
 
   /** Creates a new CartridgeShooter. */
   public CartridgeShooter() {
-    solenoidLongRange = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_LONG_RANGE_FORWARD, Constants.CartridgeShooter.SOL_LONG_RANGE_REVERSE);
-    solenoidShortRange = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_SHORT_RANGE_FORWARD, Constants.CartridgeShooter.SOL_SHORT_RANGE_REVERSE);
+    solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_CARTRIDGE_1_FWD, Constants.CartridgeShooter.SOL_CARTRIDGE_1_REV);
+    solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_CARTRIDGE_2_FWD, Constants.CartridgeShooter.SOL_CARTRIDGE_2_REV);
     leftShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_LEFT, MotorType.kBrushless);
     rightShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_RIGHT, MotorType.kBrushless);
 
     leftShooterMotor.restoreFactoryDefaults();
     rightShooterMotor.restoreFactoryDefaults();
+//TODO determine which one inverted, if any
+    leftShooterMotor.setInverted(true);  //*** 
+    rightShooterMotor.setInverted(false); //*** 
 
     leftShooterMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightShooterMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
@@ -50,46 +53,22 @@ public class CartridgeShooter extends SubsystemBase {
     rightShooterMotor.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
   }
 
-  public void stowLongRange(){
-    setPosition(true, true);
+  // *** several methods updated, other deleted below
+  // *** //set both solenoids Reverse for stowed
+  public void cartridgeStowedPosition(){  //*** 
+    solenoid1.set(Value.kReverse);
+    solenoid2.set(Value.kReverse);
   }
-
-  public void openLongRange(){
-    setPosition(true, false);
+  //*** //set one solenoid Forward for Woofer shot
+  public void wooferShotPosition(){
+    solenoid1.set(Value.kForward);
+    solenoid2.set(Value.kReverse);
   }
-
-  public void stowShortRange(){
-    setPosition(false, true);
+  //*** set two solenoids forward for Podium shot
+  public void podiumShotPosition(){
+    solenoid1.set(Value.kForward);
+    solenoid2.set(Value.kForward);
   }
-
-  public void openShortRange(){
-    setPosition(false, false);
-  }
-
-  public void toggleLongRange() {
-    solenoidLongRange.toggle();
-  }
-
-  public void toggleShortRange() {
-    solenoidShortRange.toggle();
-  }
-
-  private void setPosition(boolean isLongRange, boolean isStowed) {
-    if(isLongRange) {
-      if(isStowed) {
-        solenoidLongRange.set(Value.kReverse); //TODO assume kreverse is putting cartridge in high position
-      } else {
-        solenoidLongRange.set(Value.kForward); 
-      }
-    } else {
-       if(isStowed) {
-        solenoidShortRange.set(Value.kReverse); //TODO assume kreverse is putting cartridge in high position
-      } else {
-        solenoidShortRange.set(Value.kForward); 
-      }
-    }
-  }
-
 
   @Override
   public void periodic() {
