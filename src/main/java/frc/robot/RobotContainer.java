@@ -156,8 +156,8 @@ public class RobotContainer {
     b1.onTrue(toStowedPosition);
    // b1.onTrue(toWooferPosition);
 
-    y1.onTrue(speakerShotFromPodium);
-    //y1.onTrue(speakerShotFromWoofer);
+    y1.onTrue(speakerShotFromPodium.withTimeout(2));
+    //y1.onTrue(speakerShotFromWoofer.withTimeout(2));
   }
 
   ;
