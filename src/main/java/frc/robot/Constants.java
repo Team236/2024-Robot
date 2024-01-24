@@ -60,8 +60,8 @@ public final class Constants {
     public static final double DEADBAND = 0.05;
 
     //Transmission solenoid 
-    public static final int SOL_LOW_GEAR = 3;
-    public static final int SOL_HIGH_GEAR = 2;
+    public static final int SOL_LOW_GEAR = 4; //***3 previously
+    public static final int SOL_HIGH_GEAR = 5;//***2 previously 
 
     //external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 0;
@@ -78,35 +78,35 @@ public final class Constants {
   } 
 
   public static class Elevator {
-  public static final double MIDDLE = 0;//TODO get real number
-  public static final double BOTTOM = 0;//TODO get real number
-  public static final double TOP = 0;//TODO get real number
-   
-  public static final int DIO_ELEV_TOP = 4;
-  public static final int DIO_ELEV_BOTTOM = 5;//TODO change numbers 
+    public static final double MIDDLE = 0;//TODO get real number
+    public static final double BOTTOM = 0;//TODO get real number
+    public static final double TOP = 0;//TODO get real number
+    
+    public static final int DIO_ELEV_TOP = 4;
+    public static final int DIO_ELEV_BOTTOM = 5;//TODO change numbers 
 
-  public static final double ELEV_REV_TO_IN = 1; //TODO get this actual value
+    public static final double ELEV_REV_TO_IN = 1; //TODO get this actual value
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
   }
 
-  public static class Intake {
-    
+  public static class Intake { 
     //DIO
-    public static final int DIO_INTAKE_COUNTER = 4; //TODO find DIO channel for counter
-    
+    public static final int DIO_INTAKE_COUNTER = 4; //TODO find DIO channel for counter 
     //Motor
     public static final double INTAKE_SPEED = -0.2; //TODO experiment with this speed
   }
 
-  public static class CartridgeShooter {
-    public static final int SOL_LONG_RANGE_FORWARD = 1; //TODO add real values
-    public static final int SOL_LONG_RANGE_REVERSE = 2;
-    public static final int SOL_SHORT_RANGE_FORWARD = 3;
-    public static final int SOL_SHORT_RANGE_REVERSE = 4;
+  public static class CartridgeShooter { //*** renamed all of these cartridge constants
+    //updated SOL channels to match FWD/REV and pair correctly with 2023 Robot wiring
+    public static final int SOL_CARTRIDGE_1_FWD = 3; // *** SHIFT HI FWD SOL from 2023Robot
+    public static final int SOL_CARTRIDGE_1_REV = 2; //*** SHIFT LO REV SOL from 2023Robot
+    public static final int SOL_CARTRIDGE_2_FWD = 1; //** GRIPPER FWD SOL from 2023Robot
+    public static final int SOL_CARTRIDGE_2_REV = 0; //** GRIPPER REV SOL from 2023Robot
 
-    public static final double MOTOR_SPEED = 0.2; //TODO tune the speed
+    public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;  //***//TODO tune the speed - use PID Velocity control
+    public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
   }
 
     public static class Thrustmaster {
