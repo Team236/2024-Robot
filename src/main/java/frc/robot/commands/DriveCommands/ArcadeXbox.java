@@ -45,32 +45,14 @@ public class ArcadeXbox extends Command {
   public void execute() {
     //speed is Y-axis of left stick, rotation is X-axis of right stick
     //speed is getLeftY, rotation is getRightX, for arcade drive with 2 sticks
-    /* 
-     inLeftYDeadzone = (Math.abs(driverController.getLeftY()) <= Constants.DriveConstants.LEFT_DEADZONE);
-     inRightXDeadzone = (Math.abs(driverController.getRightX()) <= Constants.DriveConstants.RIGHT_DEADZONE);
     
-     if(inLeftYDeadzone && inRightXDeadzone){
-      leftSpeed =0;
-      rightRotation = 0;
-    } else if(!inLeftYDeadzone && !inRightXDeadzone) { 
-      leftSpeed = -driverController.getLeftY();
-      rightRotation = -driverController.getRightX();
-    } else if(inLeftYDeadzone && !inRightXDeadzone) {
-      leftSpeed = 0;
-      rightRotation = -driverController.getRightX();
-    } else if(!inLeftYDeadzone && inRightXDeadzone) {
-      leftSpeed = -driverController.getLeftY();
-      rightRotation = 0;
-  }
-*/
+
   //TODO  - replace last line in execute with the 2 lines below and see effect
   //SlewRateLimiter filter = new SlewRateLimiter(0.5);
   // limits the rate of change of the signal to 0.5 units per second
-  //diffDrive.arcadeDrive(filter.calculate(leftSpeed), rightRotation);
+
   leftSpeed = -driverController.getLeftY();
   rightRotation = -driverController.getRightX();
-SmartDashboard.putNumber("lefEncoder in ArcadeXbox execute  = ", drive.getLeftEncoder());
-SmartDashboard.putNumber("rightEncoder in ArcadeXbox execute =  ", drive.getRightEncoder());
   diffDrive.arcadeDrive(leftSpeed, rightRotation);
 }
 

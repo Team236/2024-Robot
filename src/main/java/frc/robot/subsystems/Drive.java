@@ -162,7 +162,9 @@ public void stop() {
     // This method will be called once per scheduler run
 
     SmartDashboard.getBoolean("In low gear?", isInLowGear());
-    SmartDashboard.putNumber("left Encoder", getLeftEncoder());
-    SmartDashboard.putNumber("Right Encoder", getRightEncoder());
+    SmartDashboard.putNumber("left Encoder Ticks", getLeftEncoder());
+    SmartDashboard.putNumber("Right Encoder Ticks", getRightEncoder());
+        SmartDashboard.putNumber("left Dist", getLeftDistance());
+    SmartDashboard.putNumber("Right Dist", getRightDistance());
   }
 }
