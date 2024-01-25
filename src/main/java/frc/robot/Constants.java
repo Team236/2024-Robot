@@ -42,7 +42,7 @@ public final class Constants {
 
 
       public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
-      public static final int ID_ELEVATOR_RIGHT = 11;// TODO get rael number
+      public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
