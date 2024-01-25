@@ -32,18 +32,34 @@ public class Intake extends SubsystemBase {
 
     intakeLeft.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     intakeRight.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
- 
+
     try {
       counter = new Counter();
-      counter.setUpSource(Constants.Intake.DIO_INTAKE_COUNTER);
+      counter.setUpSource(Constants.Intake.DIO_COUNTER);
       counter.reset();
-    } catch (Exception e) {
+    } 
+    catch (Exception e) {
       isCounterUnplugged = true;
     }
+ 
+    SmartDashboard.putBoolean("is counter unplugged:", isCounterUnplugged);
+
+   counter.reset(); //sets counter to zero
 
   }
+  
 
-  //Methods start here
+ 
+public int getCount() {
+  return counter.get();
+}
+
+public void resetCount() {
+  counter.reset();
+}
+
+
+ //Methods start here
   public void openRampRate() {
     intakeLeft.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
     intakeRight.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);

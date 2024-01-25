@@ -31,12 +31,18 @@ public final class Constants {
 
     //these are the id numbers for the motor controllers
     public static class MotorControllers {
+
       public static final int ID_LEFT_FRONT = 50; //35; 
       public static final int ID_RIGHT_FRONT = 51; //1; 
       public static final int ID_LEFT_REAR = 52;  //34;
+
+      public static final int ID_LEFT_FRONT = 50; //35
+      public static final int ID_RIGHT_FRONT = 51; //1
+      public static final int ID_LEFT_REAR = 34;
+      
       public static final int ID_RIGHT_REAR = 32;
-      public static final int ID_INTAKE_LEFT = 40;//TODO find IDs for left/right controllers
-      public static final int ID_INTAKE_RIGHT = 41;
+      public static final int ID_INTAKE_LEFT = 35;//TODO find IDs for left/right controllers
+      public static final int ID_INTAKE_RIGHT = 1;
 
       public static final int ID_AMP_TRAP_SHOOTER = 1; //TODO get real number
 
@@ -114,7 +120,7 @@ public final class Constants {
   public static class Intake {
     
     //DIO
-    public static final int DIO_INTAKE_COUNTER = 4; //TODO find DIO channel for counter
+    public static final int DIO_COUNTER = 10; //TODO find DIO channel for counter
     
     //Motor
     public static final double INTAKE_SPEED = -0.2; //TODO experiment with this speed
