@@ -52,7 +52,7 @@ public class RobotContainer {
 
   //create instance of each subsystem
   private final Drive drive = new Drive();
-  public final Intake intake = new Intake();
+  private final Intake intake = new Intake();
   private final AmpTrapShooter ampTrapShooter = new AmpTrapShooter();
 
   //create instance of each command
@@ -66,7 +66,7 @@ public class RobotContainer {
  private final ToggleGear toggleGear = new ToggleGear(drive); 
 
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
- 
+
  private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
   
