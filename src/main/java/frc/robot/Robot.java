@@ -24,9 +24,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Compressor compressor;
+
   public AHRS navx = new AHRS();
   public UsbCamera usbCamera0;
-
 
   private RobotContainer m_robotContainer;
 

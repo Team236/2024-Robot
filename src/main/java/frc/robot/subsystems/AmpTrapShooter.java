@@ -10,16 +10,12 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class TrapAmpShooter extends SubsystemBase {
+public class AmpTrapShooter extends SubsystemBase {
 private CANSparkMax motor;
   /** Creates a new TrapAmpShooter. */
-  public TrapAmpShooter() {
+  public AmpTrapShooter() {
     motor = new CANSparkMax(Constants.MotorControllers.ID_AMP_TRAP_SHOOTER, MotorType.kBrushless);
   } 
-
-  public void shoot() {
-    motor.set(Constants.Amp.AMP_TRAP_MOTOR_SPEED);
-  }
 
     public void shoot(double speed) {
     motor.set(speed);
@@ -29,13 +25,6 @@ private CANSparkMax motor;
     motor.set(0);
   }
 
-   public void reverse() {
-    motor.set(-Constants.Amp.AMP_TRAP_MOTOR_SPEED);
-  }
-
-     public void reverse(double speed) {
-    motor.set(-speed);
-  }
 
   @Override
   public void periodic() {

@@ -18,15 +18,11 @@ public class SetIntakeSpeed extends Command {
 
   /** Creates a new SetIntakeSpeed. */
   public SetIntakeSpeed(Intake intake, double speed) {
-
     this.speed = speed;
     this.intake = intake;
-    counter = new Counter();
-
+    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);
-
-  
   }
 
   // Called when the command is initially scheduled.
@@ -49,12 +45,8 @@ public class SetIntakeSpeed extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    boolean haveNote;
-    if (counter.get() == 0) {
-      haveNote = false;
-    } else {
-      haveNote = true;
-    }
-    return haveNote;
+    //stop the intake motor when a Note is in the robot (counter > 0)
+    return (intake.counter.get() > 0);
   }
+  
 }

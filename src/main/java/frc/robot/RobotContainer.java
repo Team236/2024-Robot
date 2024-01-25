@@ -7,7 +7,7 @@ package frc.robot;
 
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.SetIntakeSpeed;
-import frc.robot.commands.ShootTrapAmp;
+import frc.robot.commands.ShootAmpTrap;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 
@@ -22,7 +22,7 @@ import frc.robot.commands.DriveCommands.ToggleGear;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.TrapAmpShooter;
+import frc.robot.subsystems.AmpTrapShooter;
 import edu.wpi.first.math.proto.Controller;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -53,8 +53,7 @@ public class RobotContainer {
   //create instance of each subsystem
   private final Drive drive = new Drive();
   private final Intake intake = new Intake();
-  private final TrapAmpShooter trapAmpShooter = new TrapAmpShooter();
- // private final DifferentialDrive diffDrive = new DifferentialDrive(null, null)
+  private final AmpTrapShooter ampTrapShooter = new AmpTrapShooter();
 
   //create instance of each command
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
@@ -65,8 +64,11 @@ public class RobotContainer {
  private final LowGear lowGear = new LowGear(drive); 
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
+
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
- private final ShootTrapAmp shootTrapAmp = new ShootTrapAmp(trapAmpShooter);
+
+ private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
   
  private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
  private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
@@ -144,7 +146,8 @@ public class RobotContainer {
     lb.onTrue(autoPIDTurn1);
 
     //***** Aux Controller ******
-    a1.onTrue(shootTrapAmp.withTimeout(2));
+    a1.onTrue(shootAmpTrap.withTimeout(2));
+    b1.onTrue(reverseAmpTrap.withTimeout(2));
   }
 
   
@@ -152,6 +155,7 @@ public class RobotContainer {
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
+   * 
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
