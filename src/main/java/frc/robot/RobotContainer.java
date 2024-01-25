@@ -7,8 +7,10 @@ package frc.robot;
 
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.SetIntakeSpeed;
+import frc.robot.commands.ShootTrapAmp;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
+
 import frc.robot.commands.DriveCommands.ArcadeJoysticks;
 import frc.robot.commands.DriveCommands.ArcadeXbox;
 import frc.robot.commands.DriveCommands.CurvatureXbox;
@@ -20,6 +22,7 @@ import frc.robot.commands.DriveCommands.ToggleGear;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.TrapAmpShooter;
 import edu.wpi.first.math.proto.Controller;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -50,6 +53,7 @@ public class RobotContainer {
   //create instance of each subsystem
   private final Drive drive = new Drive();
   private final Intake intake = new Intake();
+  private final TrapAmpShooter trapAmpShooter = new TrapAmpShooter();
  // private final DifferentialDrive diffDrive = new DifferentialDrive(null, null)
 
   //create instance of each command
@@ -62,9 +66,12 @@ public class RobotContainer {
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
+ private final ShootTrapAmp shootTrapAmp = new ShootTrapAmp(trapAmpShooter);
+  
  private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
  private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
  private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -127,8 +134,6 @@ public class RobotContainer {
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
     //assign button to comnands
-
-
     //***** driver controller ******
     view.onTrue(lowGear);
     menu.onTrue(highGear);
@@ -137,6 +142,9 @@ public class RobotContainer {
     a.onTrue(autoPIDDrive);
     rb.onTrue(autoPIDTurn);
     lb.onTrue(autoPIDTurn1);
+
+    //***** Aux Controller ******
+    a1.onTrue(shootTrapAmp.withTimeout(2));
   }
 
   

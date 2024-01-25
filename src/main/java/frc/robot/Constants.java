@@ -38,8 +38,11 @@ public final class Constants {
       public static final int ID_INTAKE_LEFT = 40;//TODO find IDs for left/right controllers
       public static final int ID_INTAKE_RIGHT = 41;
 
+      public static final int ID_AMP_TRAP_SHOOTER = 12; //TODO get real number
+
+
       public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
-      public static final int ID_ELEVATOR_RIGHT = 11;// TODO get rael number
+      public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
@@ -49,6 +52,9 @@ public final class Constants {
       public static final double OPEN_RAMP_RATE = 0.08;
       }
   
+      public static class Amp{
+        public static final double AMP_TRAP_MOTOR_SPEED = 0.6; // TODO define real spead
+      }
   public static class DriveConstants {
     //lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; //0.15???
