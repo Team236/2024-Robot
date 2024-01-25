@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,9 +20,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Compressor compressor;
-  public Counter counter;
-  private boolean isCounterUnplugged = false;
-
   private RobotContainer m_robotContainer;
 
   /**
@@ -37,15 +33,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     compressor = new Compressor(PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
-
-    try {
-      counter = new Counter();
-      counter.setUpSource(Constants.Intake.DIO_INTAKE_COUNTER);
-      counter.reset();
-    } catch (Exception e) {
-      isCounterUnplugged = true;
-    }
-
   }
 
   /**
@@ -62,8 +49,6 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putBoolean("Is counter unplugged? ", isCounterUnplugged);
-    SmartDashboard.putNumber("The counter count is:", counter.get());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

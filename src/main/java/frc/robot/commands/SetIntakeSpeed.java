@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Intake;
@@ -12,13 +13,12 @@ public class SetIntakeSpeed extends Command {
 
   private Intake intake;
   private double speed;
-  private Robot robot;
+  private Counter counter;
 
   /** Creates a new SetIntakeSpeed. */
-  public SetIntakeSpeed(Intake intake, Robot robot, double speed) {
+  public SetIntakeSpeed(Intake intake, double speed) {
     this.speed = speed;
     this.intake = intake;
-    this.robot = robot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);
   }
@@ -42,7 +42,8 @@ public class SetIntakeSpeed extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (robot.counter.get() > 0);
+    //stop the intake motor when a Note is in the robot (counter > 0)
+    return (intake.counter.get() > 0);
   }
   
 }

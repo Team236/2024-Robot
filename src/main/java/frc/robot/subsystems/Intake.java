@@ -15,7 +15,7 @@ import frc.robot.Robot;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeLeft, intakeRight;
-  private Counter counter;
+  public Counter counter;
   private boolean isCounterUnplugged = false;
 
 //TODO add optical sensor/counter
@@ -33,15 +33,16 @@ public class Intake extends SubsystemBase {
 
     intakeLeft.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     intakeRight.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-/* 
+ 
+    
+     counter = new Counter();
     try {
-      counter = new Counter();
       counter.setUpSource(Constants.Intake.DIO_INTAKE_COUNTER);
       counter.reset();
     } catch (Exception e) {
       isCounterUnplugged = true;
     }
-*/
+
   }
 
   //Methods start here
@@ -64,13 +65,12 @@ public class Intake extends SubsystemBase {
     intakeLeft.set(speed);
     intakeRight.set(speed);
   }
-/* 
+ 
   public int getIntakeCount() {
-    int count = 0;
-
+    int count;
     if (isCounterUnplugged) {
+      count = 0;
       SmartDashboard.putBoolean("Intake counter unplugged:", isCounterUnplugged);
-   
     } else {
       count =  counter.get();
     }
@@ -80,12 +80,9 @@ public class Intake extends SubsystemBase {
   public void resetCounter() {
     counter.reset();
   }
-*/
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-
-   // SmartDashboard.putBoolean("Intake counter unplugged: ", isCounterUnplugged);
-   //SmartDashboard.putNumber("Intake count is:", getIntakeCount());
+   SmartDashboard.putNumber("Intake periodic count is:", getIntakeCount());
   }
 }

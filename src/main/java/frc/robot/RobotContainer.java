@@ -50,11 +50,9 @@ public class RobotContainer {
  // Joystick rightStick = new Joystick(Constants.USB_RIGHT_JOYSTICK);
   //XboxController auxController = new XboxController(Constants.USB_AUXCONTROLLER);
 
-  public final Robot robot = new Robot(); //need this to pass counter to all subsystems???
-
   //create instance of each subsystem
   private final Drive drive = new Drive();
-  private final Intake intake = new Intake();
+  public final Intake intake = new Intake();
   private final AmpTrapShooter ampTrapShooter = new AmpTrapShooter();
 
   //create instance of each command
@@ -66,9 +64,11 @@ public class RobotContainer {
  private final LowGear lowGear = new LowGear(drive); 
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
- private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, robot, Constants.Intake.INTAKE_SPEED);
- private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, robot, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
-  private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, robot, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
+
+ private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
+ 
+ private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
   
  private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
  private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
