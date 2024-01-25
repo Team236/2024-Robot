@@ -33,18 +33,34 @@ public class Intake extends SubsystemBase {
 
     intakeLeft.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     intakeRight.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-
+  
     try {
       counter = new Counter();
-      counter.setUpSource(Constants.Intake.DIO_INTAKE_COUNTER);
+      counter.setUpSource(Constants.Intake.DIO_COUNTER);
       counter.reset();
-    } catch (Exception e) {
+    } 
+    catch (Exception e) {
       isCounterUnplugged = true;
     }
+ 
+    SmartDashboard.putBoolean("is counter unplugged:", isCounterUnplugged);
+
+   counter.reset(); //sets counter to zero
 
   }
+  
 
-  //Methods start here
+ 
+public int getCount() {
+  return counter.get();
+}
+
+public void resetCount() {
+  counter.reset();
+}
+
+
+ //Methods start here
   public void openRampRate() {
     intakeLeft.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
     intakeRight.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
@@ -65,27 +81,10 @@ public class Intake extends SubsystemBase {
     intakeRight.set(speed);
   }
 
-  public int getIntakeCount() {
-    int count = 0;
 
-    if (isCounterUnplugged) {
-      SmartDashboard.putBoolean("Intake counter unplugged:", isCounterUnplugged);
-   
-    } else {
-      count =  counter.get();
-    }
-    return count;
-  }
-
-  public void resetCounter() {
-    counter.reset();
-  }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("Intake counter unplugged: ", isCounterUnplugged);
-    
-    SmartDashboard.putNumber("Intake count is:", getIntakeCount());
+    SmartDashboard.putNumber("The periodic count is ", getCount());  
   }
 }
