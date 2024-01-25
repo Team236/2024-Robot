@@ -43,6 +43,7 @@ public class SetIntakeSpeed extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    //stop intake motor when Note in robot (count > 0)
+    return intake.getIntakeCount() > 0;
   }
 }

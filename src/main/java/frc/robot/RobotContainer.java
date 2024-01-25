@@ -56,7 +56,6 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final CartridgeShooter cartridgeShooter = new CartridgeShooter();
 
-  public final Robot robot = new Robot();
 
   //create instance of each command
 
@@ -78,8 +77,9 @@ public class RobotContainer {
  //private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
   private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
 
-  private final SpeakerShotFromPodium speakerShotFromPodium = new SpeakerShotFromPodium(cartridgeShooter, robot);
- //private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter, robot);
+  private final SpeakerShotFromPodium speakerShotFromPodium = new SpeakerShotFromPodium(cartridgeShooter, intake);
+ //private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter, intake);
+ 
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

@@ -6,19 +6,20 @@ package frc.robot.commands.CartridgeShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.subsystems.CartridgeShooter;
+import frc.robot.subsystems.Intake;
 
 public class SpeakerShotFromPodium extends Command {
   
   private CartridgeShooter cartridgeShooter;
-  public Robot robot;
+  public Intake intake;
   
-  public SpeakerShotFromPodium(CartridgeShooter cartridgeShooter, Robot robot) {
+  public SpeakerShotFromPodium(CartridgeShooter cartridgeShooter, Intake intake) {
     this.cartridgeShooter = cartridgeShooter;
-    this.robot = robot;
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.cartridgeShooter);
+    addRequirements(this.intake);
   }
 
   // Called when the command is initially scheduled.
@@ -34,8 +35,9 @@ public class SpeakerShotFromPodium extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    //stop the shooter motor and reset the Note count to zero, after shooting
     cartridgeShooter.setBothSpeeds(0);
-    //robot.counter.reset(); //add this after adding TrapAmpScorer branch changes
+    intake.resetCounter();
   }
 
   // Returns true when the command should end.
