@@ -4,16 +4,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
 import frc.robot.subsystems.AmpTrapShooter;
 import frc.robot.subsystems.Intake;
 
 public class ShootAmpTrap extends Command {
 
 private double speed;
-private Counter counter;
 private Intake intake;
 
   private AmpTrapShooter ampTrapShooter;

@@ -11,11 +11,10 @@ import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeLeft, intakeRight;
-  public Counter counter;
+  public static Counter counter;
   private boolean isCounterUnplugged = false;
 
 //TODO add optical sensor/counter
@@ -34,9 +33,8 @@ public class Intake extends SubsystemBase {
     intakeLeft.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     intakeRight.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
  
-    
-     counter = new Counter();
     try {
+      counter = new Counter();
       counter.setUpSource(Constants.Intake.DIO_INTAKE_COUNTER);
       counter.reset();
     } catch (Exception e) {
