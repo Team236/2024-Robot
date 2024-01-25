@@ -5,23 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Robot;
 import frc.robot.subsystems.Intake;
 
 public class SetIntakeSpeed extends Command {
 
   private Intake intake;
   private double speed;
+  private Robot robot;
 
   /** Creates a new SetIntakeSpeed. */
-  public SetIntakeSpeed(Intake intake, double speed) {
-
+  public SetIntakeSpeed(Intake intake, Robot robot, double speed) {
     this.speed = speed;
     this.intake = intake;
-
+    this.robot = robot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);
-
-  
   }
 
   // Called when the command is initially scheduled.
@@ -43,6 +42,7 @@ public class SetIntakeSpeed extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (robot.counter.get() > 0);
   }
+  
 }
