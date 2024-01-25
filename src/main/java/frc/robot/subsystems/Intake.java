@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeLeft, intakeRight;
   private Counter counter;
   private boolean isCounterUnplugged = false;
-
 
 //TODO add optical sensor/counter
 
@@ -33,7 +33,7 @@ public class Intake extends SubsystemBase {
 
     intakeLeft.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     intakeRight.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-
+/* 
     try {
       counter = new Counter();
       counter.setUpSource(Constants.Intake.DIO_INTAKE_COUNTER);
@@ -41,7 +41,7 @@ public class Intake extends SubsystemBase {
     } catch (Exception e) {
       isCounterUnplugged = true;
     }
-
+*/
   }
 
   //Methods start here
@@ -64,7 +64,7 @@ public class Intake extends SubsystemBase {
     intakeLeft.set(speed);
     intakeRight.set(speed);
   }
-
+/* 
   public int getIntakeCount() {
     int count = 0;
 
@@ -80,12 +80,12 @@ public class Intake extends SubsystemBase {
   public void resetCounter() {
     counter.reset();
   }
-
+*/
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("Intake counter unplugged: ", isCounterUnplugged);
-    
-    SmartDashboard.putNumber("Intake count is:", getIntakeCount());
+
+   // SmartDashboard.putBoolean("Intake counter unplugged: ", isCounterUnplugged);
+   //SmartDashboard.putNumber("Intake count is:", getIntakeCount());
   }
 }
