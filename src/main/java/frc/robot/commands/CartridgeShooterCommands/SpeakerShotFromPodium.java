@@ -6,14 +6,17 @@ package frc.robot.commands.CartridgeShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.subsystems.CartridgeShooter;
 
 public class SpeakerShotFromPodium extends Command {
   
   private CartridgeShooter cartridgeShooter;
+  public Robot robot;
   
-  public SpeakerShotFromPodium(CartridgeShooter cartridgeShooter) {
+  public SpeakerShotFromPodium(CartridgeShooter cartridgeShooter, Robot robot) {
     this.cartridgeShooter = cartridgeShooter;
+    this.robot = robot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.cartridgeShooter);
   }
@@ -32,7 +35,7 @@ public class SpeakerShotFromPodium extends Command {
   @Override
   public void end(boolean interrupted) {
     cartridgeShooter.setBothSpeeds(0);
-    //***TODO  Add here - reset the counter to zero (do after all shots) - counter is in Robot.Java
+    //robot.counter.reset(); //add this after adding TrapAmpScorer branch changes
   }
 
   // Returns true when the command should end.
