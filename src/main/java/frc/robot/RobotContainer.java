@@ -67,6 +67,7 @@ public class RobotContainer {
  private final ToggleGear toggleGear = new ToggleGear(drive); 
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
  private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, robot, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, robot, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
   
  private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
  private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
@@ -145,6 +146,7 @@ public class RobotContainer {
 
     //***** Aux Controller ******
     a1.onTrue(shootAmpTrap.withTimeout(2));
+    b1.onTrue(reverseAmpTrap.withTimeout(2));
   }
 
   
