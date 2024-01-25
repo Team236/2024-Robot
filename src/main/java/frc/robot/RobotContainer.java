@@ -55,7 +55,8 @@ public class RobotContainer {
   private final Drive drive = new Drive();
   private final Intake intake = new Intake();
   private final CartridgeShooter cartridgeShooter = new CartridgeShooter();
- // private final DifferentialDrive diffDrive = new DifferentialDrive(null, null)
+
+  public final Robot robot = new Robot();
 
   //create instance of each command
 
@@ -77,9 +78,8 @@ public class RobotContainer {
  //private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
   private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
 
-  private final SpeakerShotFromPodium speakerShotFromPodium = new SpeakerShotFromPodium(cartridgeShooter);
- //private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter);
- //private final ShootFrom moveCartridgeLongRange = new Stowed(cartridgeShooter, true);
+  private final SpeakerShotFromPodium speakerShotFromPodium = new SpeakerShotFromPodium(cartridgeShooter, robot);
+ //private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter, robot);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
