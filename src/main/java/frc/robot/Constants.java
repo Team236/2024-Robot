@@ -54,6 +54,7 @@ public final class Constants {
   
       public static class Amp{
         public static final double AMP_TRAP_MOTOR_SPEED = 0.6; // TODO define real spead
+         public static final double AMP_TRAP_MOTOR_REVERSE_SPEED = 0.3; // TODO define real spead
       }
   public static class DriveConstants {
     //lets us ignore small joystick inputs
