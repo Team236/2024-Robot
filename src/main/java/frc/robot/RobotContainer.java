@@ -5,7 +5,6 @@
 package frc.robot;
 
 
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromPodium;
 import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromWoofer;
 import frc.robot.commands.CartridgeShooterCommands.ToPodiumPosition;
@@ -26,7 +25,6 @@ import frc.robot.commands.DriveCommands.TankXbox;
 import frc.robot.commands.DriveCommands.ToggleGear;
 import frc.robot.subsystems.CartridgeShooter;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.AmpTrapShooter;
 import edu.wpi.first.math.proto.Controller;
