@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class CartridgeShooter extends SubsystemBase {
+public class Cartridge extends SubsystemBase {
   private DoubleSolenoid solenoid1;//*** 
   private DoubleSolenoid solenoid2; //*** 
   private CANSparkMax leftShooterMotor;
@@ -21,7 +21,7 @@ public class CartridgeShooter extends SubsystemBase {
 
 
   /** Creates a new CartridgeShooter. */
-  public CartridgeShooter() {
+  public Cartridge() {
     solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_CARTRIDGE_1_FWD, Constants.CartridgeShooter.SOL_CARTRIDGE_1_REV);
     solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_CARTRIDGE_2_FWD, Constants.CartridgeShooter.SOL_CARTRIDGE_2_REV);
     leftShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_LEFT, MotorType.kBrushless);

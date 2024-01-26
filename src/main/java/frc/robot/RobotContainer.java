@@ -4,15 +4,14 @@
 
 package frc.robot;
 
-
 import frc.robot.commands.AmpTrap.ShootAmpTrap;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
-import frc.robot.commands.CartridgeShooter.SpeakerShotFromPodium;
-import frc.robot.commands.CartridgeShooter.SpeakerShotFromWoofer;
-import frc.robot.commands.CartridgeShooter.ToPodiumPosition;
-import frc.robot.commands.CartridgeShooter.ToStowedPosition;
-import frc.robot.commands.CartridgeShooter.ToWooferPosition;
+import frc.robot.commands.Cartridge.SpeakerShotFromPodium;
+import frc.robot.commands.Cartridge.SpeakerShotFromWoofer;
+import frc.robot.commands.Cartridge.ToPodiumPosition;
+import frc.robot.commands.Cartridge.ToStowedPosition;
+import frc.robot.commands.Cartridge.ToWooferPosition;
 import frc.robot.commands.Drive.ArcadeJoysticks;
 import frc.robot.commands.Drive.ArcadeXbox;
 import frc.robot.commands.Drive.CurvatureXbox;
@@ -22,14 +21,12 @@ import frc.robot.commands.Drive.TankJoysticks;
 import frc.robot.commands.Drive.TankXbox;
 import frc.robot.commands.Drive.ToggleGear;
 import frc.robot.commands.Intake.SetIntakeSpeed;
-import frc.robot.subsystems.CartridgeShooter;
+import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.AmpTrapShooter;
-import edu.wpi.first.math.proto.Controller;
+import frc.robot.subsystems.AmpTrap;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -56,16 +53,10 @@ public class RobotContainer {
   //create instance of each subsystem
   private final Drive drive = new Drive();
   private final Intake intake = new Intake();
-
-  private final CartridgeShooter cartridgeShooter = new CartridgeShooter();
-
-
-
-  private final AmpTrapShooter ampTrapShooter = new AmpTrapShooter();
+  private final Cartridge cartridgeShooter = new Cartridge();
+  private final AmpTrap ampTrapShooter = new AmpTrap();
  
-
   //create instance of each command
-
   //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
  // private final TankXbox tankXbox = new TankXbox(drive.diffDrive, driverController, drive);
@@ -75,7 +66,6 @@ public class RobotContainer {
  private final LowGear lowGear = new LowGear(drive); 
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
-
 
  //INTAKE COMMANDS:
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
@@ -88,11 +78,7 @@ public class RobotContainer {
   private final SpeakerShotFromPodium speakerShotFromPodium = new SpeakerShotFromPodium(cartridgeShooter, intake);
   private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter, intake);
  
-
-
-
- 
-private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
   
  private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
@@ -175,7 +161,6 @@ private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intak
     //***** Aux Controller ******
     upPov1.onTrue(shootAmpTrap.withTimeout(2));
     downPov1.onTrue(reverseAmpTrap.withTimeout(2));
-    
     a1.onTrue(toWooferPosition);
     b1.onTrue(speakerShotFromPodium.withTimeout(2));
     x1.onTrue(speakerShotFromWoofer.withTimeout(2));

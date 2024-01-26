@@ -2,23 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.CartridgeShooter;
+package frc.robot.commands.Cartridge;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.CartridgeShooter;
+import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 
 public class SpeakerShotFromPodium extends Command {
   
-  private CartridgeShooter cartridgeShooter;
+  private Cartridge cartridge;
   public Intake intake;
   
-  public SpeakerShotFromPodium(CartridgeShooter cartridgeShooter, Intake intake) {
-    this.cartridgeShooter = cartridgeShooter;
+  public SpeakerShotFromPodium(Cartridge cartridge, Intake intake) {
+    this.cartridge = cartridge;
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.cartridgeShooter);
+    addRequirements(this.cartridge);
     addRequirements(this.intake);
   }
 
@@ -29,14 +29,14 @@ public class SpeakerShotFromPodium extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     cartridgeShooter.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
+     cartridge.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     //stop the shooter motor and reset the Note count to zero, after shooting
-    cartridgeShooter.setBothSpeeds(0);
+    cartridge.setBothSpeeds(0);
     intake.resetCounter();
   }
 

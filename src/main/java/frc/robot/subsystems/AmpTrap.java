@@ -10,10 +10,10 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class AmpTrapShooter extends SubsystemBase {
+public class AmpTrap extends SubsystemBase {
 private CANSparkMax motor;
   /** Creates a new TrapAmpShooter. */
-  public AmpTrapShooter() {
+  public AmpTrap() {
     motor = new CANSparkMax(Constants.MotorControllers.ID_AMP_TRAP_SHOOTER, MotorType.kBrushless);
   } 
 

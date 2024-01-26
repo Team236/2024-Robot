@@ -5,7 +5,7 @@
 package frc.robot.commands.AmpTrap;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AmpTrapShooter;
+import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Intake;
 
 public class ShootAmpTrap extends Command {
@@ -13,10 +13,10 @@ public class ShootAmpTrap extends Command {
 private double speed;
 private Intake intake;
 
-  private AmpTrapShooter ampTrapShooter;
+  private AmpTrap ampTrapShooter;
 
   /** Creates a new ShootAmpTrap. */
-  public ShootAmpTrap(AmpTrapShooter ampTrapShooter, Intake intake, double speed) {
+  public ShootAmpTrap(AmpTrap ampTrapShooter, Intake intake, double speed) {
     this.ampTrapShooter = ampTrapShooter;
     this.speed = speed;
     this.intake = intake;

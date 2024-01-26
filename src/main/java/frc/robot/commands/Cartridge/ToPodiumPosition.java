@@ -2,27 +2,26 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.CartridgeShooter;
-
+package frc.robot.commands.Cartridge;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.CartridgeShooter;
+import frc.robot.subsystems.Cartridge;
 
-public class ToWooferPosition extends Command {
 
-   private CartridgeShooter cartridgeShooter;
+public class ToPodiumPosition extends Command { 
+  //Moves the cartridge to PodiumShot position using pnuematics
 
-  /** Creates a new ToWooferShotPosition. */
+   private Cartridge cartridge;
 
-  public ToWooferPosition(CartridgeShooter cartridgeShooter) {
-    this.cartridgeShooter = cartridgeShooter;
+  public ToPodiumPosition(Cartridge cartridge) {
+    this.cartridge = cartridge;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.cartridgeShooter);
+    addRequirements(this.cartridge);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    cartridgeShooter.wooferShotPosition();
+    cartridge.podiumShotPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
