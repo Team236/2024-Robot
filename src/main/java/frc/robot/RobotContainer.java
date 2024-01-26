@@ -6,6 +6,11 @@ package frc.robot;
 
 
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromPodium;
+import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromWoofer;
+import frc.robot.commands.CartridgeShooterCommands.ToPodiumPosition;
+import frc.robot.commands.CartridgeShooterCommands.ToStowedPosition;
+import frc.robot.commands.CartridgeShooterCommands.ToWooferPosition;
 import frc.robot.commands.SetIntakeSpeed;
 import frc.robot.commands.ShootAmpTrap;
 import frc.robot.commands.Autos.AutoPIDDrive;
@@ -19,6 +24,7 @@ import frc.robot.commands.DriveCommands.LowGear;
 import frc.robot.commands.DriveCommands.TankJoysticks;
 import frc.robot.commands.DriveCommands.TankXbox;
 import frc.robot.commands.DriveCommands.ToggleGear;
+import frc.robot.subsystems.CartridgeShooter;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
@@ -53,9 +59,17 @@ public class RobotContainer {
   //create instance of each subsystem
   private final Drive drive = new Drive();
   private final Intake intake = new Intake();
+
+  private final CartridgeShooter cartridgeShooter = new CartridgeShooter();
+
+
+
   private final AmpTrapShooter ampTrapShooter = new AmpTrapShooter();
  
+
   //create instance of each command
+
+  //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
  // private final TankXbox tankXbox = new TankXbox(drive.diffDrive, driverController, drive);
  // private final CurvatureXbox curvatureXbox = new CurvatureXbox(drive.diffDrive, driverController, drive);
@@ -65,7 +79,21 @@ public class RobotContainer {
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
 
+
+ //INTAKE COMMANDS:
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
+
+ //CARTRIDGE COMMANDS:
+  private final ToPodiumPosition toPodiumPosition = new ToPodiumPosition(cartridgeShooter);
+  private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
+  private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
+
+  private final SpeakerShotFromPodium speakerShotFromPodium = new SpeakerShotFromPodium(cartridgeShooter, intake);
+  private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter, intake);
+ 
+
+
+
  
 private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
@@ -74,6 +102,7 @@ private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intak
  private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
  private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
   
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -141,16 +170,22 @@ private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intak
     menu.onTrue(highGear);
     x.onTrue(toggleGear);
     b.whileTrue(setIntakeSpeed);
-    a.onTrue(autoPIDDrive);
+    a.onTrue(toPodiumPosition);
+    y.onTrue(toStowedPosition);
     rb.onTrue(autoPIDTurn);
     lb.onTrue(autoPIDTurn1);
 
     //***** Aux Controller ******
-    a1.onTrue(shootAmpTrap.withTimeout(2));
-    b1.onTrue(reverseAmpTrap.withTimeout(2));
+    upPov1.onTrue(shootAmpTrap.withTimeout(2));
+    downPov1.onTrue(reverseAmpTrap.withTimeout(2));
+    
+    a1.onTrue(toWooferPosition);
+    b1.onTrue(speakerShotFromPodium.withTimeout(2));
+    x1.onTrue(speakerShotFromWoofer.withTimeout(2));
+    y1.onTrue(autoPIDDrive);
   }
 
-  
+  ;
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

@@ -97,6 +97,10 @@ public void resetCount() {
 
   @Override
   public void periodic() {
+
+    // This method will be called once per scheduler run
+
    SmartDashboard.putNumber("Intake periodic count is:", getIntakeCount());
+
   }
 }

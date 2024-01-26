@@ -2,26 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.CartridgeShooterCommands;
 
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
+import frc.robot.Constants;
+import frc.robot.subsystems.CartridgeShooter;
 import frc.robot.subsystems.Intake;
 
-public class SetIntakeSpeed extends Command {
-
-  private Intake intake;
-  private double speed;
-  private Counter counter;
-
-  /** Creates a new SetIntakeSpeed. */
-  public SetIntakeSpeed(Intake intake, double speed) {
-    this.speed = speed;
+public class SpeakerShotFromPodium extends Command {
+  
+  private CartridgeShooter cartridgeShooter;
+  public Intake intake;
+  
+  public SpeakerShotFromPodium(CartridgeShooter cartridgeShooter, Intake intake) {
+    this.cartridgeShooter = cartridgeShooter;
     this.intake = intake;
-    
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.cartridgeShooter);
     addRequirements(this.intake);
   }
 
@@ -32,23 +29,20 @@ public class SetIntakeSpeed extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setIntakeSpeed(speed);
-  //  SmartDashboard.put("Intake count is:", Robot.); TODO fix dashboard statement
+     cartridgeShooter.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.intakeStop();
+    //stop the shooter motor and reset the Note count to zero, after shooting
+    cartridgeShooter.setBothSpeeds(0);
+    intake.resetCounter();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    //stop intake motor when Note in robot (count > 0)
-    return intake.getIntakeCount() > 0;
-
+    return false;
   }
-  
 }
