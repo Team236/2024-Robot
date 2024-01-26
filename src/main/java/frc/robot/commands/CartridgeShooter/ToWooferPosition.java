@@ -2,27 +2,27 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.DriveCommands;
+package frc.robot.commands.CartridgeShooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.CartridgeShooter;
 
+public class ToWooferPosition extends Command {
 
-public class LowGear extends Command {
+   private CartridgeShooter cartridgeShooter;
 
-  //use "driveLG" not just "drive", so you can drive while changing gears
-private Drive driveLG;
-  /** Creates a new LowGear. */
-  public LowGear(Drive _driveLG) {
-    this.driveLG = _driveLG;
+  /** Creates a new ToWooferShotPosition. */
+
+  public ToWooferPosition(CartridgeShooter cartridgeShooter) {
+    this.cartridgeShooter = cartridgeShooter;
     // Use addRequirements() here to declare subsystem dependencies.
- addRequirements(driveLG);
+    addRequirements(this.cartridgeShooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    driveLG.setGearLow();
+    cartridgeShooter.wooferShotPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,6 +36,6 @@ private Drive driveLG;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true; //gearchange is in intializa, so returning true will release drive subsystem so you can drive
+    return true;  //*** Try false here if having trouble executing this command
   }
 }

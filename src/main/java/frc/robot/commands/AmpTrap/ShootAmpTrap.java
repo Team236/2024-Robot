@@ -2,23 +2,26 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.CartridgeShooterCommands;
+package frc.robot.commands.AmpTrap;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.CartridgeShooter;
+import frc.robot.subsystems.AmpTrapShooter;
 import frc.robot.subsystems.Intake;
 
-public class SpeakerShotFromPodium extends Command {
-  
-  private CartridgeShooter cartridgeShooter;
-  public Intake intake;
-  
-  public SpeakerShotFromPodium(CartridgeShooter cartridgeShooter, Intake intake) {
-    this.cartridgeShooter = cartridgeShooter;
+public class ShootAmpTrap extends Command {
+
+private double speed;
+private Intake intake;
+
+  private AmpTrapShooter ampTrapShooter;
+
+  /** Creates a new ShootAmpTrap. */
+  public ShootAmpTrap(AmpTrapShooter ampTrapShooter, Intake intake, double speed) {
+    this.ampTrapShooter = ampTrapShooter;
+    this.speed = speed;
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.cartridgeShooter);
+    addRequirements(this.ampTrapShooter);
     addRequirements(this.intake);
   }
 
@@ -29,15 +32,15 @@ public class SpeakerShotFromPodium extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     cartridgeShooter.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
+    ampTrapShooter.shoot(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //stop the shooter motor and reset the Note count to zero, after shooting
-    cartridgeShooter.setBothSpeeds(0);
-    intake.resetCounter();
+    //stop the shooter motor and reset the Note Count to zero, after shooting
+    ampTrapShooter.stop();
+    intake.counter.reset();
   }
 
   // Returns true when the command should end.

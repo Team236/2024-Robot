@@ -2,32 +2,42 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.CartridgeShooterCommands;
+package frc.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.CartridgeShooter;
+import frc.robot.subsystems.Drive;
 
-public class ToWooferPosition extends Command {
-
-   private CartridgeShooter cartridgeShooter;
-
-  /** Creates a new ToWooferShotPosition. */
-
-  public ToWooferPosition(CartridgeShooter cartridgeShooter) {
-    this.cartridgeShooter = cartridgeShooter;
+public class ToggleGear extends Command {
+  private Drive drive;
+  private boolean toggle;
+  /** Creates a new ToggleGear. */
+  public ToggleGear(Drive drive) {
+  this.drive = drive;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.cartridgeShooter);
+    addRequirements(this.drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    cartridgeShooter.wooferShotPosition();
-  }
+ }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  //if in low gear change to high gear and set toggle true
+  //otherwise change to low gear and set toggle true
+  //comand is finised when toggle is true 
+  toggle = false;
+
+  if (drive.isInLowGear()) {
+    drive.setGearHigh();
+  } else {
+    drive.setGearLow();
+  }
+  
+  toggle = true;
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -36,6 +46,6 @@ public class ToWooferPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;  //*** Try false here if having trouble executing this command
+    return toggle;
   }
 }

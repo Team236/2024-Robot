@@ -2,39 +2,47 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.CartridgeShooterCommands;
+package frc.robot.commands.CartridgeShooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.CartridgeShooter;
+import frc.robot.subsystems.Intake;
 
-public class ToPodiumPosition extends Command { 
-  //Moves the cartridge to PodiumShot position using pnuematics
-
-   private CartridgeShooter cartridgeShooter;
-
-  public ToPodiumPosition(CartridgeShooter cartridgeShooter) {
+public class SpeakerShotFromPodium extends Command {
+  
+  private CartridgeShooter cartridgeShooter;
+  public Intake intake;
+  
+  public SpeakerShotFromPodium(CartridgeShooter cartridgeShooter, Intake intake) {
     this.cartridgeShooter = cartridgeShooter;
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.cartridgeShooter);
+    addRequirements(this.intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    cartridgeShooter.podiumShotPosition();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+     cartridgeShooter.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    //stop the shooter motor and reset the Note count to zero, after shooting
+    cartridgeShooter.setBothSpeeds(0);
+    intake.resetCounter();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;  //*** Try false here if having trouble executing this command
+    return false;
   }
 }

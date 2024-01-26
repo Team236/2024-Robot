@@ -5,24 +5,23 @@
 package frc.robot;
 
 
-import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromPodium;
-import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromWoofer;
-import frc.robot.commands.CartridgeShooterCommands.ToPodiumPosition;
-import frc.robot.commands.CartridgeShooterCommands.ToStowedPosition;
-import frc.robot.commands.CartridgeShooterCommands.ToWooferPosition;
-import frc.robot.commands.SetIntakeSpeed;
-import frc.robot.commands.ShootAmpTrap;
+import frc.robot.commands.AmpTrap.ShootAmpTrap;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
-
-import frc.robot.commands.DriveCommands.ArcadeJoysticks;
-import frc.robot.commands.DriveCommands.ArcadeXbox;
-import frc.robot.commands.DriveCommands.CurvatureXbox;
-import frc.robot.commands.DriveCommands.HighGear;
-import frc.robot.commands.DriveCommands.LowGear;
-import frc.robot.commands.DriveCommands.TankJoysticks;
-import frc.robot.commands.DriveCommands.TankXbox;
-import frc.robot.commands.DriveCommands.ToggleGear;
+import frc.robot.commands.CartridgeShooter.SpeakerShotFromPodium;
+import frc.robot.commands.CartridgeShooter.SpeakerShotFromWoofer;
+import frc.robot.commands.CartridgeShooter.ToPodiumPosition;
+import frc.robot.commands.CartridgeShooter.ToStowedPosition;
+import frc.robot.commands.CartridgeShooter.ToWooferPosition;
+import frc.robot.commands.Drive.ArcadeJoysticks;
+import frc.robot.commands.Drive.ArcadeXbox;
+import frc.robot.commands.Drive.CurvatureXbox;
+import frc.robot.commands.Drive.HighGear;
+import frc.robot.commands.Drive.LowGear;
+import frc.robot.commands.Drive.TankJoysticks;
+import frc.robot.commands.Drive.TankXbox;
+import frc.robot.commands.Drive.ToggleGear;
+import frc.robot.commands.Intake.SetIntakeSpeed;
 import frc.robot.subsystems.CartridgeShooter;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
