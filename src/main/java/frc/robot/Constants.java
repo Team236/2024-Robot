@@ -36,9 +36,6 @@ public final class Constants {
       public static final int ID_RIGHT_FRONT = 51; //1; 
       public static final int ID_LEFT_REAR = 52;  //34;
 
-      public static final int ID_LEFT_FRONT = 50; //35
-      public static final int ID_RIGHT_FRONT = 51; //1
-      public static final int ID_LEFT_REAR = 34;
       
       public static final int ID_RIGHT_REAR = 32;
       public static final int ID_INTAKE_LEFT = 35;//TODO find IDs for left/right controllers

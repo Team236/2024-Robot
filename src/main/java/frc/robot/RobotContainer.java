@@ -54,7 +54,7 @@ public class RobotContainer {
   private final Drive drive = new Drive();
   private final Intake intake = new Intake();
   private final AmpTrapShooter ampTrapShooter = new AmpTrapShooter();
-
+ 
   //create instance of each command
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
  // private final TankXbox tankXbox = new TankXbox(drive.diffDrive, driverController, drive);
@@ -66,8 +66,8 @@ public class RobotContainer {
  private final ToggleGear toggleGear = new ToggleGear(drive); 
 
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
-
- private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+ 
+private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
   
  private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
@@ -155,7 +155,7 @@ public class RobotContainer {
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
-   * 
+* 
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
