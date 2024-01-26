@@ -74,11 +74,11 @@ public class RobotContainer {
 
  //CARTRIDGE COMMANDS:
   private final ToPodiumPosition toPodiumPosition = new ToPodiumPosition(cartridgeShooter);
- //private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
+  private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
   private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
 
   private final SpeakerShotFromPodium speakerShotFromPodium = new SpeakerShotFromPodium(cartridgeShooter, intake);
- //private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter, intake);
+  private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter, intake);
  
 
 
@@ -153,11 +153,11 @@ public class RobotContainer {
     b.whileTrue(setIntakeSpeed);
     //a1 for shortRange sol, b1 for longRange sol
     a1.onTrue(toPodiumPosition);
-    b1.onTrue(toStowedPosition);
-   // b1.onTrue(toWooferPosition);
+    x1.onTrue(toStowedPosition);
+    b1.onTrue(toWooferPosition);
 
-    y1.onTrue(speakerShotFromPodium.withTimeout(2));
-    //y1.onTrue(speakerShotFromWoofer.withTimeout(2));
+    a.onTrue(speakerShotFromPodium.withTimeout(2));
+    y.onTrue(speakerShotFromWoofer.withTimeout(2));
   }
 
   ;

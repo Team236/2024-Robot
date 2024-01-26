@@ -14,7 +14,7 @@ import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeLeft, intakeRight;
-  private Counter counter;
+  public static Counter counter;
   private boolean isCounterUnplugged = false;
 
 
@@ -86,6 +86,6 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Intake counter unplugged: ", isCounterUnplugged);
     
-    SmartDashboard.putNumber("Intake count is:", getIntakeCount());
+    SmartDashboard.putNumber("Intake periodic count is:", getIntakeCount());
   }
 }
