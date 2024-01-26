@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.commands.Autos;
+
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromPodium;
 import frc.robot.commands.CartridgeShooterCommands.SpeakerShotFromWoofer;
@@ -12,6 +12,10 @@ import frc.robot.commands.CartridgeShooterCommands.ToPodiumPosition;
 import frc.robot.commands.CartridgeShooterCommands.ToStowedPosition;
 import frc.robot.commands.CartridgeShooterCommands.ToWooferPosition;
 import frc.robot.commands.SetIntakeSpeed;
+import frc.robot.commands.ShootAmpTrap;
+import frc.robot.commands.Autos.AutoPIDDrive;
+import frc.robot.commands.Autos.AutoPIDTurn;
+
 import frc.robot.commands.DriveCommands.ArcadeJoysticks;
 import frc.robot.commands.DriveCommands.ArcadeXbox;
 import frc.robot.commands.DriveCommands.CurvatureXbox;
@@ -24,6 +28,7 @@ import frc.robot.subsystems.CartridgeShooter;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.AmpTrapShooter;
 import edu.wpi.first.math.proto.Controller;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -54,8 +59,13 @@ public class RobotContainer {
   //create instance of each subsystem
   private final Drive drive = new Drive();
   private final Intake intake = new Intake();
+
   private final CartridgeShooter cartridgeShooter = new CartridgeShooter();
 
+
+
+  private final AmpTrapShooter ampTrapShooter = new AmpTrapShooter();
+ 
 
   //create instance of each command
 
@@ -69,6 +79,7 @@ public class RobotContainer {
  private final HighGear highGear = new HighGear(drive); 
  private final ToggleGear toggleGear = new ToggleGear(drive); 
 
+
  //INTAKE COMMANDS:
  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
 
@@ -81,6 +92,16 @@ public class RobotContainer {
   private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter, intake);
  
 
+
+
+ 
+private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
+  
+ private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
+ private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
+ private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -144,20 +165,24 @@ public class RobotContainer {
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
     //assign button to comnands
-
-
     //***** driver controller ******
     view.onTrue(lowGear);
     menu.onTrue(highGear);
     x.onTrue(toggleGear);
     b.whileTrue(setIntakeSpeed);
-    //a1 for shortRange sol, b1 for longRange sol
-    a1.onTrue(toPodiumPosition);
-    x1.onTrue(toStowedPosition);
-    b1.onTrue(toWooferPosition);
+    a.onTrue(toPodiumPosition);
+    y.onTrue(toStowedPosition);
+    rb.onTrue(autoPIDTurn);
+    lb.onTrue(autoPIDTurn1);
 
-    a.onTrue(speakerShotFromPodium.withTimeout(2));
-    y.onTrue(speakerShotFromWoofer.withTimeout(2));
+    //***** Aux Controller ******
+    upPov1.onTrue(shootAmpTrap.withTimeout(2));
+    downPov1.onTrue(reverseAmpTrap.withTimeout(2));
+    
+    a1.onTrue(toWooferPosition);
+    b1.onTrue(speakerShotFromPodium.withTimeout(2));
+    x1.onTrue(speakerShotFromWoofer.withTimeout(2));
+    y1.onTrue(autoPIDDrive);
   }
 
   ;
@@ -165,6 +190,7 @@ public class RobotContainer {
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
+* 
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous

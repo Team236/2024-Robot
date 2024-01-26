@@ -4,24 +4,24 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
+import frc.robot.subsystems.AmpTrapShooter;
 import frc.robot.subsystems.Intake;
 
-public class SetIntakeSpeed extends Command {
+public class ShootAmpTrap extends Command {
 
-  private Intake intake;
-  private double speed;
-  private Counter counter;
+private double speed;
+private Intake intake;
 
-  /** Creates a new SetIntakeSpeed. */
-  public SetIntakeSpeed(Intake intake, double speed) {
+  private AmpTrapShooter ampTrapShooter;
+
+  /** Creates a new ShootAmpTrap. */
+  public ShootAmpTrap(AmpTrapShooter ampTrapShooter, Intake intake, double speed) {
+    this.ampTrapShooter = ampTrapShooter;
     this.speed = speed;
     this.intake = intake;
-    
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.ampTrapShooter);
     addRequirements(this.intake);
   }
 
@@ -32,23 +32,20 @@ public class SetIntakeSpeed extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setIntakeSpeed(speed);
-  //  SmartDashboard.put("Intake count is:", Robot.); TODO fix dashboard statement
+    ampTrapShooter.shoot(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.intakeStop();
+    //stop the shooter motor and reset the Note Count to zero, after shooting
+    ampTrapShooter.stop();
+    intake.counter.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    //stop intake motor when Note in robot (count > 0)
-    return intake.getIntakeCount() > 0;
-
+    return false;
   }
-  
 }

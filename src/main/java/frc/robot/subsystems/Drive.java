@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
@@ -29,6 +30,7 @@ public class Drive extends SubsystemBase {
 
   /** Creates a new Drive. */
   public Drive() {
+    //TODO add navX gyro in robot
     leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
@@ -158,5 +160,11 @@ public void stop() {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    SmartDashboard.getBoolean("In low gear?", isInLowGear());
+    SmartDashboard.putNumber("left Encoder Ticks", getLeftEncoder());
+    SmartDashboard.putNumber("Right Encoder Ticks", getRightEncoder());
+        SmartDashboard.putNumber("left Dist", getLeftDistance());
+    SmartDashboard.putNumber("Right Dist", getRightDistance());
   }
 }

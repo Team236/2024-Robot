@@ -31,6 +31,7 @@ public final class Constants {
 
     //these are the id numbers for the motor controllers
     public static class MotorControllers {
+
       public static final int ID_LEFT_FRONT = 50; //35
       public static final int ID_RIGHT_FRONT = 51; //1
       public static final int ID_LEFT_REAR = 34;
@@ -38,8 +39,14 @@ public final class Constants {
       public static final int ID_INTAKE_LEFT = 35;//TODO find IDs for left/right controllers
       public static final int ID_INTAKE_RIGHT = 1;
 
+
+
+      public static final int ID_AMP_TRAP_SHOOTER = 1; //TODO get real number
+
+
+
       public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
-      public static final int ID_ELEVATOR_RIGHT = 11;// TODO get rael number
+      public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
       
       public static final int ID_SHOOTER_LEFT = 40;
@@ -53,6 +60,10 @@ public final class Constants {
       public static final double OPEN_RAMP_RATE = 0.08;
       }
   
+      public static class Amp{
+        public static final double AMP_TRAP_MOTOR_SPEED = 0.5; // TODO define real spead
+         public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.5; // TODO define real spead
+      }
   public static class DriveConstants {
     //lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; //0.15???
@@ -64,17 +75,33 @@ public final class Constants {
     public static final int SOL_HIGH_GEAR = 5;//***2 previously 
 
     //external drive encoders
-    public static final int DIO_LDRIVE_ENC_A = 0;
-    public static final int DIO_LDRIVE_ENC_B = 1;
-    public static final int DIO_RDRIVE_ENC_A = 2;
-    public static final int DIO_RDRIVE_ENC_B = 3;
-
+    public static final int DIO_LDRIVE_ENC_A = 18;
+    public static final int DIO_LDRIVE_ENC_B = 19;
+    public static final int DIO_RDRIVE_ENC_A = 9; //13  TODO switch back after testing the Roborio DIO vs Gyro DIO
+    public static final int DIO_RDRIVE_ENC_B = 8; //12
+    //Calculates distance in INCHES from encoder pulses (ticks get it?)
     public static final double DIAMETER = 6;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-    public static final double GEAR_RATIO = 1;
+    public static final double GEAR_RATIO = 1; //for external encoder so no gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
-    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512;
+
+    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; //for external encoder
+    
+    //PID
+    public static final double KP_DRIVE = 0.022; //0.022 (from 2023)
+    public static final double KI_DRIVE = 0;
+    public static final double KD_DRIVE = 0;
+
+    public static final double KP_TURNL = 0.025;
+    public static final double PID_L_SETPOINT = 0.28;
+    public static final double KP_TURNR = 0.025;
+    public static final double PID_R_SETPOINT = 0.28;
+
+    public static final double AUTO_DISTANCE_1 = 36;
+
+    public static final double TURN_ANGLE_1 = 90;
+    public static final double TURN_ANGLE_2 = -90;
   } 
 
   public static class Elevator {
@@ -89,11 +116,17 @@ public final class Constants {
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
+
   }
 
   public static class Intake { 
     //DIO
-    public static final int DIO_INTAKE_COUNTER = 10; //TODO find DIO channel for counter 
+
+   // public static final int DIO_INTAKE_COUNTER = 10; //TODO find DIO channel for counter 
+
+    public static final int DIO_COUNTER = 10; //TODO find DIO channel for counter
+    
+
     //Motor
     public static final double INTAKE_SPEED = -0.2; //TODO experiment with this speed
   }

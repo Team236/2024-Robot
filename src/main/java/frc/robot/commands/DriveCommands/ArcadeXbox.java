@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
@@ -44,31 +45,14 @@ public class ArcadeXbox extends Command {
   public void execute() {
     //speed is Y-axis of left stick, rotation is X-axis of right stick
     //speed is getLeftY, rotation is getRightX, for arcade drive with 2 sticks
-    /* 
-     inLeftYDeadzone = (Math.abs(driverController.getLeftY()) <= Constants.DriveConstants.LEFT_DEADZONE);
-     inRightXDeadzone = (Math.abs(driverController.getRightX()) <= Constants.DriveConstants.RIGHT_DEADZONE);
     
-     if(inLeftYDeadzone && inRightXDeadzone){
-      leftSpeed =0;
-      rightRotation = 0;
-    } else if(!inLeftYDeadzone && !inRightXDeadzone) { 
-      leftSpeed = -driverController.getLeftY();
-      rightRotation = -driverController.getRightX();
-    } else if(inLeftYDeadzone && !inRightXDeadzone) {
-      leftSpeed = 0;
-      rightRotation = -driverController.getRightX();
-    } else if(!inLeftYDeadzone && inRightXDeadzone) {
-      leftSpeed = -driverController.getLeftY();
-      rightRotation = 0;
-  }
-*/
+
   //TODO  - replace last line in execute with the 2 lines below and see effect
   //SlewRateLimiter filter = new SlewRateLimiter(0.5);
   // limits the rate of change of the signal to 0.5 units per second
-  //diffDrive.arcadeDrive(filter.calculate(leftSpeed), rightRotation);
+
   leftSpeed = -driverController.getLeftY();
   rightRotation = -driverController.getRightX();
-
   diffDrive.arcadeDrive(leftSpeed, rightRotation);
 }
 

@@ -9,18 +9,18 @@ import frc.robot.subsystems.Drive;
 
 public class HighGear extends Command {
 
-  private Drive drive;
+  private Drive driveHG;
   /** Creates a new HighGear. */
-  public HighGear(Drive drive) {
-    this.drive = drive;
+  public HighGear(Drive _driveHG) {
+    this.driveHG = _driveHG;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.drive);
+    addRequirements(driveHG);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drive.setGearHigh();
+    driveHG.setGearHigh();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +34,6 @@ public class HighGear extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true; //gearchange is in intializa, so returning true will release drive subsystem so you can drive
   }
 }
