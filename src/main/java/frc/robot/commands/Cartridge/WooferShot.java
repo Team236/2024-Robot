@@ -10,6 +10,7 @@ import frc.robot.subsystems.Intake;
 
 
 public class WooferShot extends Command {
+    //runs cartridge at a set speed, woofer shot speed without PID
 
 private Cartridge cartridge; 
 

@@ -10,12 +10,14 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 
-public class PIDShot extends Command {
+public class PIDCartridgeMotors extends Command {
+//runs cartridge at desired velocity using PID
+
   private Cartridge cartridge;
   private double speed;
 
   /** Creates a new PIDShot. */
-  public PIDShot(Cartridge cartridge, double speed) {
+  public PIDCartridgeMotors(Cartridge cartridge, double speed) {
 
     this.cartridge = cartridge;
     this.speed = speed;

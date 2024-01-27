@@ -32,21 +32,21 @@ public final class Constants {
 
       public static final int ID_LEFT_FRONT = 42; //35
       public static final int ID_RIGHT_FRONT = 43; //1
-      public static final int ID_LEFT_REAR = 34;
-      public static final int ID_RIGHT_REAR = 32;
+      public static final int ID_LEFT_REAR = 41; //34
+      public static final int ID_RIGHT_REAR = 46; //32
 
-      public static final int ID_INTAKE_LEFT = 40; //TODO find IDs for left/right controllers
-      public static final int ID_INTAKE_RIGHT = 41;
+      public static final int ID_INTAKE_LEFT = 35; //TODO find IDs for left/right controllers
+      public static final int ID_INTAKE_RIGHT = 34;
 
-      public static final int ID_AMP_TRAP_SHOOTER = 16; //TODO get real number
+      public static final int ID_AMP_TRAP_SHOOTER = 40; //TODO get real number
 
       //Elevator
       public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
       public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
       //Cartridge shooter
-      public static final int ID_SHOOTER_LEFT = 35;
-      public static final int ID_SHOOTER_RIGHT = 1;
+      public static final int ID_SHOOTER_LEFT = 1;
+      public static final int ID_SHOOTER_RIGHT = 9;
 
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
@@ -136,7 +136,7 @@ public final class Constants {
     public static final int SOL_CARTRIDGE_2_REV = 0; //** GRIPPER REV SOL from 2023Robot
 
     public static final double PODIUM_PID_SPEED = 2500; //TODO determine speed
-    public static final double WOOFER_PID_SPEED = 1500; //TODO determine speed
+    public static final double WOOFER_PID_SPEED = 2000; //TODO determine speed
 
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;  //***//TODO tune the speed - use PID Velocity control
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
@@ -144,14 +144,14 @@ public final class Constants {
     public static final double MAX_PID_SPEED = 6000;
 
                                                 //2022 pid constants commented in
-    public static final double kPLeft = 0.00001; //0002
+    public static final double kPLeft = 0.00005; //0002
     public static final double kILeft = 0.0; //0.00000001
-    public static final double kDLeft = 0.0; //0.0565
+    public static final double kDLeft = 0.0565; //0.0565
     public static final double kFFLeft = 0.00018; //0.00021
 
-    public static final double kPRight = 0.00001; //0002
+    public static final double kPRight = 0.00005; //0002
     public static final double kIRight = 0.0; //0.00000001
-    public static final double kDRight = 0.0; //0.0565
+    public static final double kDRight = 0.0565; //0.0565
     public static final double kFFRight = 0.00018; //0.00021
  
   }

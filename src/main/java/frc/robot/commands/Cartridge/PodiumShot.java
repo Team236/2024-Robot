@@ -10,6 +10,7 @@ import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 
 public class PodiumShot extends Command {
+  //runs cartridge at a set speed, podium shot speed without PID
   
   private Cartridge cartridge;
   
