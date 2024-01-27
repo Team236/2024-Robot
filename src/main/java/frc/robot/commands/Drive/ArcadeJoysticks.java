@@ -61,7 +61,7 @@ public class ArcadeJoysticks extends Command {
 }
  */
   leftSpeed = -leftStick.getY();
-  //leftRotation = -leftStick.getZ();
+  //leftRotation = -leftStick.getZ(); TODO get rid of this?
   rightRotation = -rightStick.getX();
 
   diffDrive.arcadeDrive(leftSpeed, rightRotation);

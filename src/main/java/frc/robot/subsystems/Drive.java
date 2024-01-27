@@ -80,7 +80,6 @@ public boolean isInLowGear(){
   return transmission.get() == Value.kForward;
 }
 
-
 public void closedRampRate() {
   leftFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE); //time in seconds to go from 0 to full throttle
   rightFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
@@ -89,7 +88,6 @@ public void openRampRate() {
   leftFront.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
   rightFront.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
 }
-
 
 public void setLeftSpeed(double speed) {
   leftFront.set(speed);

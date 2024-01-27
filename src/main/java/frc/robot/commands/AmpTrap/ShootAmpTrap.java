@@ -12,8 +12,7 @@ public class ShootAmpTrap extends Command {
 
 private double speed;
 private Intake intake;
-
-  private AmpTrap ampTrapShooter;
+private AmpTrap ampTrapShooter;
 
   /** Creates a new ShootAmpTrap. */
   public ShootAmpTrap(AmpTrap ampTrapShooter, Intake intake, double speed) {

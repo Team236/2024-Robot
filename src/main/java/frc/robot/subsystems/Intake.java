@@ -49,7 +49,6 @@ public class Intake extends SubsystemBase {
   }
   
 
- 
 public int getCount() {
   return counter.get();
 }

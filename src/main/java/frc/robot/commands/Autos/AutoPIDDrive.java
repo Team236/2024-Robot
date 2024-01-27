@@ -10,7 +10,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 
 public class AutoPIDDrive extends Command {
-    private Drive drive;
+  private Drive drive;
   private double driveDistance1;
   private final PIDController pidController;
 

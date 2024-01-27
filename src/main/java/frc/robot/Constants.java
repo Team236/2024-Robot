@@ -44,16 +44,19 @@ public final class Constants {
       public static final int ID_AMP_TRAP_SHOOTER = 1; //TODO get real number
 
 
-
+      //Elevator
       public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
       public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
-      
+
+      //shooter
       public static final int ID_SHOOTER_LEFT = 40;
       public static final int ID_SHOOTER_RIGHT = 41;
 
+
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
+
 
       //Ramp rates (time in seconds to go from zero to full throttle)
       public static final double CLOSED_RAMP_RATE = 0.08;
@@ -64,15 +67,19 @@ public final class Constants {
         public static final double AMP_TRAP_MOTOR_SPEED = 0.5; // TODO define real spead
          public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.5; // TODO define real spead
       }
+      
+
   public static class DriveConstants {
     //lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; //0.15???
     public static final double RIGHT_DEADZONE = 0.05;
     public static final double DEADBAND = 0.05;
 
+
     //Transmission solenoid 
     public static final int SOL_LOW_GEAR = 4; //***3 previously
     public static final int SOL_HIGH_GEAR = 5;//***2 previously 
+
 
     //external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 18;
@@ -80,25 +87,29 @@ public final class Constants {
     public static final int DIO_RDRIVE_ENC_A = 9; //13  TODO switch back after testing the Roborio DIO vs Gyro DIO
     public static final int DIO_RDRIVE_ENC_B = 8; //12
     //Calculates distance in INCHES from encoder pulses (ticks get it?)
+
     public static final double DIAMETER = 6;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
     public static final double GEAR_RATIO = 1; //for external encoder so no gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
-
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; //for external encoder
     
+
     //PID
     public static final double KP_DRIVE = 0.022; //0.022 (from 2023)
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
+
 
     public static final double KP_TURNL = 0.025;
     public static final double PID_L_SETPOINT = 0.28;
     public static final double KP_TURNR = 0.025;
     public static final double PID_R_SETPOINT = 0.28;
 
+
     public static final double AUTO_DISTANCE_1 = 36;
+
 
     public static final double TURN_ANGLE_1 = 90;
     public static final double TURN_ANGLE_2 = -90;
@@ -109,10 +120,13 @@ public final class Constants {
     public static final double BOTTOM = 0;//TODO get real number
     public static final double TOP = 0;//TODO get real number
     
+
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;//TODO change numbers 
 
+
     public static final double ELEV_REV_TO_IN = 1; //TODO get this actual value
+
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
@@ -137,6 +151,7 @@ public final class Constants {
     public static final int SOL_CARTRIDGE_1_REV = 2; //*** SHIFT LO REV SOL from 2023Robot
     public static final int SOL_CARTRIDGE_2_FWD = 1; //** GRIPPER FWD SOL from 2023Robot
     public static final int SOL_CARTRIDGE_2_REV = 0; //** GRIPPER REV SOL from 2023Robot
+
 
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;  //***//TODO tune the speed - use PID Velocity control
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
@@ -176,6 +191,7 @@ public final class Constants {
       public static final int LM = 9;
       public static final int RM = 10;
 
+
       public static class AxesXbox {
         public static final int LX = 0;
         public static final int LY = 1;
@@ -184,6 +200,7 @@ public final class Constants {
         public static final int RX = 4;
         public static final int RY = 5;
       }
+
       public class POVXbox {
         public static final int UP_ANGLE = 0;
         public static final int RIGHT_ANGLE = 90;

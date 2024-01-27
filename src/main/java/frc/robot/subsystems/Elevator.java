@@ -29,7 +29,6 @@ public class Elevator extends SubsystemBase {
     leftElevatorMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightElevatorMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
  
-   
     leftElevatorMotor.setInverted(false);
     rightElevatorMotor.setInverted(true);//TODO check these
   
