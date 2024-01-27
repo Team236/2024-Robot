@@ -5,19 +5,26 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Cartridge extends SubsystemBase {
   private DoubleSolenoid solenoid1;//*** 
   private DoubleSolenoid solenoid2; //*** 
-  private CANSparkMax leftShooterMotor;
-  private CANSparkMax rightShooterMotor;
+  private CANSparkMax leftShooterMotor, rightShooterMotor;
+  private SparkPIDController leftPIDController, rightPIDController;
+  private RelativeEncoder leftEncoder, rightEncoder;
+  
 
 
   /** Creates a new CartridgeShooter. */
@@ -26,6 +33,7 @@ public class Cartridge extends SubsystemBase {
     solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_CARTRIDGE_2_FWD, Constants.CartridgeShooter.SOL_CARTRIDGE_2_REV);
     leftShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_LEFT, MotorType.kBrushless);
     rightShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_RIGHT, MotorType.kBrushless);
+  
 
     leftShooterMotor.restoreFactoryDefaults();
     rightShooterMotor.restoreFactoryDefaults();
@@ -35,6 +43,12 @@ public class Cartridge extends SubsystemBase {
 
     leftShooterMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightShooterMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+
+    leftPIDController = leftShooterMotor.getPIDController();
+    rightPIDController = rightShooterMotor.getPIDController();
+
+    leftEncoder = leftShooterMotor.getEncoder();
+    rightEncoder = rightShooterMotor.getEncoder();
     
   }
   //methods start here
@@ -54,6 +68,59 @@ public class Cartridge extends SubsystemBase {
   }
 
   // *** several methods updated, other deleted below
+  //setting refrence speeds for PID controllers
+  public void setSetpoint(double speed) {
+    leftPIDController.setReference(speed, ControlType.kVelocity);
+    rightPIDController.setReference(speed, ControlType.kVelocity); //TODO check to set negatives for motors
+  }
+
+  public void setP(double kPLeft, double kPRight) {
+    leftPIDController.setP(kPLeft);
+    rightPIDController.setP(kPRight);
+  }
+
+  public void setI(double kILeft, double kIRight) {
+    leftPIDController.setI(kILeft);
+    rightPIDController.setI(kIRight);
+  }
+
+  public void setD(double kDLeft, double kDRight) {
+    leftPIDController.setD(kDLeft);
+    rightPIDController.setD(kDRight);
+  }
+
+  public void setFF(double kFFLeft, double kFFRight) {
+    leftPIDController.setFF(kFFLeft);
+    rightPIDController.setFF(kFFRight);
+  }
+
+  public void setOutputRange() {
+    leftPIDController.setOutputRange(0, Constants.CartridgeShooter.MAX_PID_SPEED);
+    rightPIDController.setOutputRange(0, Constants.CartridgeShooter.MAX_PID_SPEED);
+  }
+
+  public
+   void resetEncoders() {
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
+  }
+
+  public double getLeftEncoder() {
+    return leftEncoder.getPosition();
+  }
+
+  public double getRightEncoder() {
+    return rightEncoder.getPosition();
+  }
+
+  public double getLeftVelocity() {
+    return leftEncoder.getVelocity();
+  }
+
+  public double getRightVelocity() {
+    return rightEncoder.getVelocity();
+  }
+
   // *** //set both solenoids Reverse for stowed
   public void cartridgeStowedPosition(){  //*** 
     solenoid1.set(Value.kReverse);
@@ -72,6 +139,7 @@ public class Cartridge extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Shooter Motor RPM ", getLeftVelocity());
     // This method will be called once per scheduler run
   }
 }

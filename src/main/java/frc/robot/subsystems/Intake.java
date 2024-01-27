@@ -15,7 +15,7 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeLeft, intakeRight;
   public static Counter counter;
-  private boolean isCounterUnplugged = false;
+  private static boolean isCounterUnplugged = false;
 
 //TODO add optical sensor/counter
 
@@ -79,7 +79,7 @@ public void resetCount() {
     intakeRight.set(speed);
   }
  
-  public int getIntakeCount() {
+  public static int getIntakeCount() {
     int count;
     if (isCounterUnplugged) {
       count = 0;
@@ -90,7 +90,7 @@ public void resetCount() {
     return count;
   }
 
-  public void resetCounter() {
+  public static void resetCounter() {
     counter.reset();
   }
 

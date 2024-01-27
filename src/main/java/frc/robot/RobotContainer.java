@@ -7,8 +7,9 @@ package frc.robot;
 import frc.robot.commands.AmpTrap.ShootAmpTrap;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
-import frc.robot.commands.Cartridge.SpeakerShotFromPodium;
-import frc.robot.commands.Cartridge.SpeakerShotFromWoofer;
+import frc.robot.commands.Cartridge.PIDShot;
+import frc.robot.commands.Cartridge.PodiumShot;
+import frc.robot.commands.Cartridge.WooferShot;
 import frc.robot.commands.Cartridge.ToPodiumPosition;
 import frc.robot.commands.Cartridge.ToStowedPosition;
 import frc.robot.commands.Cartridge.ToWooferPosition;
@@ -75,8 +76,10 @@ public class RobotContainer {
   private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
   private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
 
-  private final SpeakerShotFromPodium speakerShotFromPodium = new SpeakerShotFromPodium(cartridgeShooter, intake);
-  private final SpeakerShotFromWoofer speakerShotFromWoofer = new SpeakerShotFromWoofer(cartridgeShooter, intake);
+  private final PodiumShot speakerShotFromPodium = new PodiumShot(cartridgeShooter, intake);
+  private final WooferShot speakerShotFromWoofer = new WooferShot(cartridgeShooter, intake);
+  private final PIDShot pidPodiumShot = new PIDShot(cartridgeShooter, Constants.CartridgeShooter.PODIUM_PID_SPEED);
+  private final PIDShot pidWooferShot = new PIDShot(cartridgeShooter, Constants.CartridgeShooter.WOOFER_PID_SPEED);
  
   private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
@@ -162,9 +165,11 @@ public class RobotContainer {
     upPov1.onTrue(shootAmpTrap.withTimeout(2));
     downPov1.onTrue(reverseAmpTrap.withTimeout(2));
     a1.onTrue(toWooferPosition);
-    b1.onTrue(speakerShotFromPodium.withTimeout(2));
-    x1.onTrue(speakerShotFromWoofer.withTimeout(2));
+   // b1.onTrue(speakerShotFromPodium.withTimeout(2));
+   // x1.onTrue(speakerShotFromWoofer.withTimeout(2));
     y1.onTrue(autoPIDDrive);
+    b1.onTrue(pidPodiumShot.withTimeout(2));
+    x1.onTrue(pidWooferShot.withTimeout(2));
   }
 
   ;
