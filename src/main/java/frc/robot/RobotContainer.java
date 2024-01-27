@@ -21,6 +21,7 @@ import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.TankJoysticks;
 import frc.robot.commands.Drive.TankXbox;
 import frc.robot.commands.Drive.ToggleGear;
+import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.SetIntakeSpeed;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
@@ -70,6 +71,8 @@ public class RobotContainer {
 
  //INTAKE COMMANDS:
   private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
+  private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
+  private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 
  //CARTRIDGE COMMANDS:
   private final ToPodiumPosition toPodiumPosition = new ToPodiumPosition(cartridgeShooter);
@@ -162,14 +165,16 @@ public class RobotContainer {
     lb.onTrue(autoPIDTurn1);
 
     //***** Aux Controller ******
-    upPov1.onTrue(shootAmpTrap.withTimeout(2));
-    downPov1.onTrue(reverseAmpTrap.withTimeout(2));
+   //upPov1.onTrue(shootAmpTrap.withTimeout(2));
+   //downPov1.onTrue(reverseAmpTrap.withTimeout(2));
     a1.onTrue(toWooferPosition);
    // b1.onTrue(speakerShotFromPodium.withTimeout(2));
    // x1.onTrue(speakerShotFromWoofer.withTimeout(2));
     y1.onTrue(autoPIDDrive);
     b1.onTrue(pidPodiumShot.withTimeout(2));
     x1.onTrue(pidWooferShot.withTimeout(2));
+    upPov1.whileTrue(manualIntake);
+    downPov1.whileTrue(manualEject);
   }
 
   ;

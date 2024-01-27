@@ -36,8 +36,8 @@ public final class Constants {
       public static final int ID_RIGHT_FRONT = 43; //1
       public static final int ID_LEFT_REAR = 34;
       public static final int ID_RIGHT_REAR = 32;
-      public static final int ID_INTAKE_LEFT = 40;//TODO find IDs for left/right controllers
-      public static final int ID_INTAKE_RIGHT = 41;
+      public static final int ID_INTAKE_LEFT = 35;//TODO find IDs for left/right controllers
+      public static final int ID_INTAKE_RIGHT = 1;
 
 
 
@@ -50,8 +50,8 @@ public final class Constants {
 
 
       //shooter
-      public static final int ID_SHOOTER_LEFT = 35;
-      public static final int ID_SHOOTER_RIGHT = 1;
+      public static final int ID_SHOOTER_LEFT = 40;
+      public static final int ID_SHOOTER_RIGHT = 41;
 
 
       //smart current limit
@@ -142,7 +142,8 @@ public final class Constants {
     
 
     //Motor
-    public static final double INTAKE_SPEED = -0.2; //TODO experiment with this speed
+    public static final double INTAKE_SPEED = 0.2; //TODO experiment with this speed
+    public static final double EJECT_SPEED = -0.2; 
   }
 
   public static class CartridgeShooter { //*** renamed all of these cartridge constants

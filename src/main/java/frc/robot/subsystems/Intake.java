@@ -94,12 +94,24 @@ public void resetCount() {
     counter.reset();
   }
 
+  public boolean isIntakeSpinning() {
+    boolean spin;
+    if (Math.abs(intakeLeft.get()) >0.1) {
+      spin = true;
+    }
+    else {
+      spin = false;
+    }
+    return spin;
+  }
+
   @Override
   public void periodic() {
 
     // This method will be called once per scheduler run
 
    SmartDashboard.putNumber("Intake periodic count is:", getIntakeCount());
+   SmartDashboard.putBoolean("is intake spinning ", isIntakeSpinning());
 
   }
 }
