@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -22,7 +21,6 @@ public final class Constants {
     public static final int USB_DRIVECONTROLLER = 0;
     public static final int USB_AUXCONTROLLER = 1;
 
-
     //for using Joysticks vice XBox for driving
     //usb ports on the laptop, when driver using two Thrustmaster Joysticks
    // public static final int USB_LEFT_JOYSTICK = 1; 
@@ -36,27 +34,22 @@ public final class Constants {
       public static final int ID_RIGHT_FRONT = 43; //1
       public static final int ID_LEFT_REAR = 34;
       public static final int ID_RIGHT_REAR = 32;
-      public static final int ID_INTAKE_LEFT = 35;//TODO find IDs for left/right controllers
-      public static final int ID_INTAKE_RIGHT = 1;
 
-
+      public static final int ID_INTAKE_LEFT = 40; //TODO find IDs for left/right controllers
+      public static final int ID_INTAKE_RIGHT = 41;
 
       public static final int ID_AMP_TRAP_SHOOTER = 16; //TODO get real number
-
 
       //Elevator
       public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
       public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
-
-      //shooter
-      public static final int ID_SHOOTER_LEFT = 40;
-      public static final int ID_SHOOTER_RIGHT = 41;
-
+      //Cartridge shooter
+      public static final int ID_SHOOTER_LEFT = 35;
+      public static final int ID_SHOOTER_RIGHT = 1;
 
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
-
 
       //Ramp rates (time in seconds to go from zero to full throttle)
       public static final double CLOSED_RAMP_RATE = 0.08;
@@ -75,11 +68,9 @@ public final class Constants {
     public static final double RIGHT_DEADZONE = 0.05;
     public static final double DEADBAND = 0.05;
 
-
     //Transmission solenoid 
     public static final int SOL_LOW_GEAR = 4; //***3 previously
     public static final int SOL_HIGH_GEAR = 5;//***2 previously 
-
 
     //external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 18;
@@ -95,21 +86,17 @@ public final class Constants {
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; //for external encoder
     
-
     //PID
     public static final double KP_DRIVE = 0.022; //0.022 (from 2023)
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-
 
     public static final double KP_TURNL = 0.025;
     public static final double PID_L_SETPOINT = 0.28;
     public static final double KP_TURNR = 0.025;
     public static final double PID_R_SETPOINT = 0.28;
 
-
     public static final double AUTO_DISTANCE_1 = 36;
-
 
     public static final double TURN_ANGLE_1 = 90;
     public static final double TURN_ANGLE_2 = -90;
@@ -120,17 +107,13 @@ public final class Constants {
     public static final double BOTTOM = 0;//TODO get real number
     public static final double TOP = 0;//TODO get real number
     
-
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;//TODO change numbers 
 
-
     public static final double ELEV_REV_TO_IN = 1; //TODO get this actual value
-
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
-
   }
 
   public static class Intake { 
@@ -140,7 +123,6 @@ public final class Constants {
 
     public static final int DIO_COUNTER = 10; //TODO find DIO channel for counter
     
-
     //Motor
     public static final double INTAKE_SPEED = 0.2; //TODO experiment with this speed
     public static final double EJECT_SPEED = -0.2; 
@@ -172,10 +154,7 @@ public final class Constants {
     public static final double kDRight = 0.0; //0.0565
     public static final double kFFRight = 0.00018; //0.00021
  
-
-
   }
-
     public static class Thrustmaster {
         public static final int TRIGGER = 1;
         public static final int BUTTON_MIDDLE = 2;
@@ -209,7 +188,6 @@ public final class Constants {
       public static final int MENU = 8;
       public static final int LM = 9;
       public static final int RM = 10;
-
 
       public static class AxesXbox {
         public static final int LX = 0;

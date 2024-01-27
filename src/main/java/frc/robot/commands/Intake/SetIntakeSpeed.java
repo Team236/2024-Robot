@@ -11,6 +11,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Intake;
 
 public class SetIntakeSpeed extends Command {
+  //runs the intake but stops when count is greater than zero
 
   private Intake intake;
   private double speed;

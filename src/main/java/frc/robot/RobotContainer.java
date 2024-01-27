@@ -168,11 +168,11 @@ public class RobotContainer {
    //upPov1.onTrue(shootAmpTrap.withTimeout(2));
    //downPov1.onTrue(reverseAmpTrap.withTimeout(2));
     a1.onTrue(toWooferPosition);
-   // b1.onTrue(speakerShotFromPodium.withTimeout(2));
-   // x1.onTrue(speakerShotFromWoofer.withTimeout(2));
+    b1.onTrue(speakerShotFromPodium.withTimeout(2));
+    x1.onTrue(speakerShotFromWoofer.withTimeout(2));
     y1.onTrue(autoPIDDrive);
-    b1.onTrue(pidPodiumShot.withTimeout(2));
-    x1.onTrue(pidWooferShot.withTimeout(2));
+    //b1.onTrue(pidPodiumShot.withTimeout(2));
+    //x1.onTrue(pidWooferShot.withTimeout(2));
     upPov1.whileTrue(manualIntake);
     downPov1.whileTrue(manualEject);
   }
