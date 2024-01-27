@@ -12,14 +12,11 @@ import frc.robot.subsystems.Intake;
 public class WooferShot extends Command {
 
 private Cartridge cartridge; 
-private Intake intake;
 
-  public WooferShot(Cartridge cartridge, Intake intake) {
+  public WooferShot(Cartridge cartridge) {
     this.cartridge = cartridge;
-    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.cartridge);
-    addRequirements(this.intake);
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +34,7 @@ private Intake intake;
   public void end(boolean interrupted) {
     //stop the shooter motor and reset Note count to zero, after shooting
       cartridge.setBothSpeeds(0);
-      intake.resetCounter();
+      Intake.resetCounter();
   }
 
   // Returns true when the command should end.

@@ -79,13 +79,13 @@ public class RobotContainer {
   private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
   private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
 
-  private final PodiumShot speakerShotFromPodium = new PodiumShot(cartridgeShooter, intake);
-  private final WooferShot speakerShotFromWoofer = new WooferShot(cartridgeShooter, intake);
+  private final PodiumShot speakerShotFromPodium = new PodiumShot(cartridgeShooter);
+  private final WooferShot speakerShotFromWoofer = new WooferShot(cartridgeShooter);
   private final PIDShot pidPodiumShot = new PIDShot(cartridgeShooter, Constants.CartridgeShooter.PODIUM_PID_SPEED);
   private final PIDShot pidWooferShot = new PIDShot(cartridgeShooter, Constants.CartridgeShooter.WOOFER_PID_SPEED);
  
-  private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
-  private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, intake, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
+  private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
   
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
