@@ -12,14 +12,12 @@ import frc.robot.subsystems.Intake;
 public class PodiumShot extends Command {
   
   private Cartridge cartridge;
-  public Intake intake;
   
-  public PodiumShot(Cartridge cartridge, Intake intake) {
+  public PodiumShot(Cartridge cartridge) {
     this.cartridge = cartridge;
-    this.intake = intake;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.cartridge);
-    addRequirements(this.intake);
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +35,7 @@ public class PodiumShot extends Command {
   public void end(boolean interrupted) {
     //stop the shooter motor and reset the Note count to zero, after shooting
     cartridge.setBothSpeeds(0);
-    intake.resetCounter();
+    Intake.resetCounter();
   }
 
   // Returns true when the command should end.

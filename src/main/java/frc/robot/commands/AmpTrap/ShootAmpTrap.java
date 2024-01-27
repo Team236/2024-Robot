@@ -11,17 +11,14 @@ import frc.robot.subsystems.Intake;
 public class ShootAmpTrap extends Command {
 
 private double speed;
-private Intake intake;
 private AmpTrap ampTrapShooter;
 
   /** Creates a new ShootAmpTrap. */
-  public ShootAmpTrap(AmpTrap ampTrapShooter, Intake intake, double speed) {
+  public ShootAmpTrap(AmpTrap ampTrapShooter, double speed) {
     this.ampTrapShooter = ampTrapShooter;
     this.speed = speed;
-    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.ampTrapShooter);
-    addRequirements(this.intake);
   }
 
   // Called when the command is initially scheduled.
@@ -39,7 +36,7 @@ private AmpTrap ampTrapShooter;
   public void end(boolean interrupted) {
     //stop the shooter motor and reset the Note Count to zero, after shooting
     ampTrapShooter.stop();
-    intake.resetCounter();
+    Intake.resetCounter();
   }
 
   // Returns true when the command should end.
