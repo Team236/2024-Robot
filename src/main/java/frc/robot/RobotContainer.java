@@ -179,8 +179,8 @@ public class RobotContainer {
     //b1.onTrue(pidPodiumShot.withTimeout(2));
     x1.onTrue(pidWooferShot.withTimeout(15));
     //x1.whileTrue(pidWooferShot);
-    b1.onTrue(pidActualPodium);
-    b1.onTrue(cartridgeSetSpeed.withTimeout(10));
+    b1.onTrue(pidActualPodium.withTimeout(15));
+    // b1.onTrue(cartridgeSetSpeed.withTimeout(15));
     //x1.onTrue(pidActualWoofer);
     upPov1.whileTrue(manualIntake);
     downPov1.whileTrue(manualEject);

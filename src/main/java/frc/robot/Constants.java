@@ -135,8 +135,8 @@ public final class Constants {
     public static final int SOL_CARTRIDGE_2_FWD = 1; //** GRIPPER FWD SOL from 2023Robot
     public static final int SOL_CARTRIDGE_2_REV = 0; //** GRIPPER REV SOL from 2023Robot
 
-    public static final double PODIUM_PID_SPEED = 2500; //TODO determine speed
-    public static final double WOOFER_PID_SPEED = 2000; //TODO determine speed
+    public static final double PODIUM_PID_SPEED = 1500; //TODO determine speed
+    public static final double WOOFER_PID_SPEED = 2100; //TODO determine speed
 
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;  //***//TODO tune the speed - use PID Velocity control
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
