@@ -140,6 +140,7 @@ public final class Constants {
 
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;  //***//TODO tune the speed - use PID Velocity control
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
+    public static final double MANUAL_SET_SPEED = 0.1; //TODO determine speed
 
     public static final double MAX_PID_SPEED = 6000;
 

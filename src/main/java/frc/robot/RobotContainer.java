@@ -10,6 +10,7 @@ import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
 import frc.robot.commands.Cartridge.PIDCartridgeShot;
 import frc.robot.commands.Cartridge.PodiumShot;
+import frc.robot.commands.Cartridge.SetSpeed;
 import frc.robot.commands.Cartridge.WooferShot;
 import frc.robot.commands.Cartridge.ToPodiumPosition;
 import frc.robot.commands.Cartridge.ToStowedPosition;
@@ -86,6 +87,7 @@ public class RobotContainer {
   private final PIDCartridgeMotors pidWooferShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.WOOFER_PID_SPEED);
   private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_SPEED);
   private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_SPEED);
+  private final SetSpeed cartridgeSetSpeed = new SetSpeed(cartridgeShooter, Constants.CartridgeShooter.MANUAL_SET_SPEED);
  
   private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
@@ -178,6 +180,7 @@ public class RobotContainer {
     x1.onTrue(pidWooferShot.withTimeout(15));
     //x1.whileTrue(pidWooferShot);
     b1.onTrue(pidActualPodium);
+    b1.onTrue(cartridgeSetSpeed.withTimeout(10));
     //x1.onTrue(pidActualWoofer);
     upPov1.whileTrue(manualIntake);
     downPov1.whileTrue(manualEject);
