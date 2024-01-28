@@ -38,15 +38,15 @@ public final class Constants {
       public static final int ID_INTAKE_LEFT = 35; //TODO find IDs for left/right controllers
       public static final int ID_INTAKE_RIGHT = 34;
 
-      public static final int ID_AMP_TRAP_SHOOTER = 40; //TODO get real number
+      public static final int ID_AMP_TRAP_SHOOTER = 33; //TODO get real number
 
       //Elevator
-      public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
-      public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
+      public static final int ID_ELEVATOR_LEFT = 1;//TODO get real number
+      public static final int ID_ELEVATOR_RIGHT = 9;// TODO get real number
 
       //Cartridge shooter
-      public static final int ID_SHOOTER_LEFT = 1;
-      public static final int ID_SHOOTER_RIGHT = 9;
+      public static final int ID_SHOOTER_LEFT = 10;
+      public static final int ID_SHOOTER_RIGHT = 11;
 
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
@@ -96,7 +96,9 @@ public final class Constants {
     public static final double KP_TURNR = 0.025;
     public static final double PID_R_SETPOINT = 0.28;
 
+    //AUTO DISTANCES
     public static final double AUTO_DISTANCE_1 = 36;
+    public static final double WOOFERFRONT_TO_NOTE = 121;
 
     public static final double TURN_ANGLE_1 = 90;
     public static final double TURN_ANGLE_2 = -90;
@@ -114,6 +116,21 @@ public final class Constants {
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
+    //manual speeds
+    public static final double ELEV_UP_SPEED = 0.5;
+    public static final double ELEV_DOWN_SPEED = 0.2; //keep this pos
+    // PID may need seperate pid for up, down, and climb
+    public static final double KP_ELEV_UP = 0.01; //0.01?
+    public static final double KI_ELEV_UP = 0;
+    public static final double KD_ELEV_UP = 0;
+
+    public static final double KP_ELEV_DOWN = 0.01;
+    public static final double KI_ELEV_DOWN = 0;
+    public static final double KD_ELEV_DOWN = 0;
+
+    public static final double KP_ELEV_CLIMB = 0.01;
+    public static final double KI_ELEV_CLIMB = 0;
+    public static final double KD_ELEV_CLIMB = 0;
   }
 
   public static class Intake { 

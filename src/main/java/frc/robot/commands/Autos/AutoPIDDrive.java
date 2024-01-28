@@ -15,6 +15,7 @@ public class AutoPIDDrive extends Command {
   private final PIDController pidController;
 
   /** Creates a new AutoPIDDrive. */
+  //this comand uses PID to drive a distance equal to drive distance in inches
   public AutoPIDDrive(Drive drive, double driveDistance) {
     this.drive = drive;
     this.driveDistance1 = driveDistance;

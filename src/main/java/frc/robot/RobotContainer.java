@@ -4,9 +4,11 @@
 
 package frc.robot;
 
+import frc.robot.commands.AmpTrap.ActualAmpTrapShoot;
 import frc.robot.commands.AmpTrap.ShootAmpTrap;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
+import frc.robot.commands.Autos.FrontShootGrabShoot;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
 import frc.robot.commands.Cartridge.PIDCartridgeShot;
 import frc.robot.commands.Cartridge.PodiumShot;
@@ -23,12 +25,17 @@ import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.TankJoysticks;
 import frc.robot.commands.Drive.TankXbox;
 import frc.robot.commands.Drive.ToggleGear;
+import frc.robot.commands.Elevator.ElevatorPID;
+import frc.robot.commands.Elevator.ManualDown;
+import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.SetIntakeSpeed;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.AmpTrap;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -59,6 +66,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Cartridge cartridgeShooter = new Cartridge();
   private final AmpTrap ampTrapShooter = new AmpTrap();
+  private final Elevator elevator = new Elevator();
  
   //create instance of each command
   //DRIVE COMMANDS
@@ -88,14 +96,23 @@ public class RobotContainer {
   private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_SPEED);
   private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_SPEED);
   private final SetSpeed cartridgeSetSpeed = new SetSpeed(cartridgeShooter, Constants.CartridgeShooter.MANUAL_SET_SPEED);
- 
+
+ //AMPTRAP COMMANDS:
   private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
+  private final ActualAmpTrapShoot actualAmpTrapShoot = new ActualAmpTrapShoot(intake, cartridgeShooter, ampTrapShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   
+ //AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
   private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
-  
+
+  //ELEVATOR COMMANDS:
+  private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
+  private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
+  private final ElevatorPID elevatorUpPID = new ElevatorPID(elevator, 36, Constants.Elevator.KP_ELEV_UP, Constants.Elevator.KI_ELEV_UP, Constants.Elevator.KD_ELEV_UP);
+  private final ElevatorPID elevatorDownPID = new ElevatorPID(elevator, -36, Constants.Elevator.KP_ELEV_DOWN, Constants.Elevator.KI_ELEV_DOWN, Constants.Elevator.KD_ELEV_DOWN);
+  private final ElevatorPID elevatorClimbPID = new ElevatorPID(elevator, -36, Constants.Elevator.KP_ELEV_CLIMB, Constants.Elevator.KI_ELEV_CLIMB, Constants.Elevator.KD_ELEV_CLIMB);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -162,26 +179,32 @@ public class RobotContainer {
     //***** driver controller ******
     view.onTrue(lowGear);
     menu.onTrue(highGear);
-    x.onTrue(toggleGear);
-    b.whileTrue(setIntakeSpeed);
-    a.onTrue(toPodiumPosition);
-    y.onTrue(toStowedPosition);
+    //x.onTrue(toggleGear);
+    //b.whileTrue(setIntakeSpeed);
+    //a.onTrue(toPodiumPosition);
+    //y.onTrue(toStowedPosition);
+    a.onTrue(elevatorDownPID);
+    y.onTrue(elevatorUpPID);
+    b.onTrue(elevatorClimbPID);
+    //y.whileTrue(manualUp);
+    //a.whileTrue(manualDown);
     rb.onTrue(autoPIDTurn);
     lb.onTrue(autoPIDTurn1);
 
     //***** Aux Controller ******
    //upPov1.onTrue(shootAmpTrap.withTimeout(2));
    //downPov1.onTrue(reverseAmpTrap.withTimeout(2));
-    a1.onTrue(toWooferPosition);
+   // a1.onTrue(toWooferPosition);
    // b1.onTrue(speakerShotFromPodium.withTimeout(2));
    // x1.onTrue(speakerShotFromWoofer.withTimeout(2));
     y1.onTrue(autoPIDDrive);
     //b1.onTrue(pidPodiumShot.withTimeout(2));
     x1.onTrue(pidWooferShot.withTimeout(15));
     //x1.whileTrue(pidWooferShot);
-    b1.onTrue(pidActualPodium.withTimeout(15));
-    // b1.onTrue(cartridgeSetSpeed.withTimeout(15));
+    //b1.onTrue(pidActualPodium);
+    b1.onTrue(cartridgeSetSpeed.withTimeout(10));
     //x1.onTrue(pidActualWoofer);
+    a1.onTrue(actualAmpTrapShoot.withTimeout(5));
     upPov1.whileTrue(manualIntake);
     downPov1.whileTrue(manualEject);
   }

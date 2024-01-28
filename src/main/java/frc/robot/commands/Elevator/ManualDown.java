@@ -2,48 +2,43 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Cartridge;
+package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.Cartridge;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Elevator;
 
-public class PodiumShot extends Command {
-  //runs cartridge at a set speed, podium shot speed without PID
-  
-  private Cartridge cartridge;
-  
-  public PodiumShot(Cartridge cartridge) {
-    this.cartridge = cartridge;
+public class ManualDown extends Command {
 
+  private Elevator elevator;
+  private double speed;
+
+  /** Creates a new ManualUp. */
+  public ManualDown(Elevator elevator, double speed) {
+    this.speed = speed;
+    this.elevator = elevator;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.cartridge);
+    addRequirements(this.elevator);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    cartridge.podiumShotPosition();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     cartridge.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
+    elevator.setElevSpeed(-speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //stop the shooter motor and reset the Note count to zero, after shooting
-    cartridge.setBothSpeeds(0);
-    Intake.resetCounter();
+    elevator.stopElevator();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (elevator.isEBotLimit());
   }
 }
