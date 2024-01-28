@@ -41,12 +41,12 @@ public final class Constants {
       public static final int ID_AMP_TRAP_SHOOTER = 40; //TODO get real number
 
       //Elevator
-      public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
-      public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
+      public static final int ID_ELEVATOR_LEFT = 1;//TODO get real number
+      public static final int ID_ELEVATOR_RIGHT = 9;// TODO get real number
 
       //Cartridge shooter
-      public static final int ID_SHOOTER_LEFT = 1;
-      public static final int ID_SHOOTER_RIGHT = 9;
+      public static final int ID_SHOOTER_LEFT = 10;
+      public static final int ID_SHOOTER_RIGHT = 11;
 
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
@@ -114,6 +114,9 @@ public final class Constants {
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
+
+    public static final double ELEV_UP_SPEED = 0.5;
+    public static final double ELEV_DOWN_SPEED = 0.2; //keep this pos
   }
 
   public static class Intake { 
