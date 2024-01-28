@@ -4,9 +4,11 @@
 
 package frc.robot;
 
+import frc.robot.commands.AmpTrap.ActualAmpTrapShoot;
 import frc.robot.commands.AmpTrap.ShootAmpTrap;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
+import frc.robot.commands.Autos.FrontShootGrabShoot;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
 import frc.robot.commands.Cartridge.PIDCartridgeShot;
 import frc.robot.commands.Cartridge.PodiumShot;
@@ -88,13 +90,17 @@ public class RobotContainer {
   private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_SPEED);
   private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_SPEED);
   private final SetSpeed cartridgeSetSpeed = new SetSpeed(cartridgeShooter, Constants.CartridgeShooter.MANUAL_SET_SPEED);
- 
+
+ //AMPTRAP COMMANDS:
   private final ShootAmpTrap shootAmpTrap = new ShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ShootAmpTrap reverseAmpTrap = new ShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
+  private final ActualAmpTrapShoot actualAmpTrapShoot = new ActualAmpTrapShoot(intake, cartridgeShooter, ampTrapShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   
+ //AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
   private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
+  private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridgeShooter, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, 0);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -164,7 +170,8 @@ public class RobotContainer {
     menu.onTrue(highGear);
     x.onTrue(toggleGear);
     b.whileTrue(setIntakeSpeed);
-    a.onTrue(toPodiumPosition);
+    //a.onTrue(toPodiumPosition);
+    a.onTrue(frontShootGrabShoot);
     y.onTrue(toStowedPosition);
     rb.onTrue(autoPIDTurn);
     lb.onTrue(autoPIDTurn1);
@@ -172,16 +179,17 @@ public class RobotContainer {
     //***** Aux Controller ******
    //upPov1.onTrue(shootAmpTrap.withTimeout(2));
    //downPov1.onTrue(reverseAmpTrap.withTimeout(2));
-    a1.onTrue(toWooferPosition);
+   // a1.onTrue(toWooferPosition);
    // b1.onTrue(speakerShotFromPodium.withTimeout(2));
    // x1.onTrue(speakerShotFromWoofer.withTimeout(2));
     y1.onTrue(autoPIDDrive);
     //b1.onTrue(pidPodiumShot.withTimeout(2));
     x1.onTrue(pidWooferShot.withTimeout(15));
     //x1.whileTrue(pidWooferShot);
-    b1.onTrue(pidActualPodium);
+    //b1.onTrue(pidActualPodium);
     b1.onTrue(cartridgeSetSpeed.withTimeout(10));
     //x1.onTrue(pidActualWoofer);
+    a1.onTrue(actualAmpTrapShoot.withTimeout(5));
     upPov1.whileTrue(manualIntake);
     downPov1.whileTrue(manualEject);
   }
