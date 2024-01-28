@@ -114,9 +114,21 @@ public final class Constants {
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
-
+    //manual speeds
     public static final double ELEV_UP_SPEED = 0.5;
     public static final double ELEV_DOWN_SPEED = 0.2; //keep this pos
+    // PID may need seperate pid for up, down, and climb
+    public static final double KP_ELEV_UP = 0.01; //0.01?
+    public static final double KI_ELEV_UP = 0;
+    public static final double KD_ELEV_UP = 0;
+
+    public static final double KP_ELEV_DOWN = 0.01;
+    public static final double KI_ELEV_DOWN = 0;
+    public static final double KD_ELEV_DOWN = 0;
+
+    public static final double KP_ELEV_CLIMB = 0.01;
+    public static final double KI_ELEV_CLIMB = 0;
+    public static final double KD_ELEV_CLIMB = 0;
   }
 
   public static class Intake { 

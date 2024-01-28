@@ -23,6 +23,7 @@ import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.TankJoysticks;
 import frc.robot.commands.Drive.TankXbox;
 import frc.robot.commands.Drive.ToggleGear;
+import frc.robot.commands.Elevator.ElevatorPID;
 import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Intake.ManualIntake;
@@ -32,6 +33,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.AmpTrap;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -103,6 +105,9 @@ public class RobotContainer {
   //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
+  private final ElevatorPID elevatorUpPID = new ElevatorPID(elevator, 36, Constants.Elevator.KP_ELEV_UP, Constants.Elevator.KI_ELEV_UP, Constants.Elevator.KD_ELEV_UP);
+  private final ElevatorPID elevatorDownPID = new ElevatorPID(elevator, -36, Constants.Elevator.KP_ELEV_DOWN, Constants.Elevator.KI_ELEV_DOWN, Constants.Elevator.KD_ELEV_DOWN);
+  private final ElevatorPID elevatorClimbPID = new ElevatorPID(elevator, -36, Constants.Elevator.KP_ELEV_CLIMB, Constants.Elevator.KI_ELEV_CLIMB, Constants.Elevator.KD_ELEV_CLIMB);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -169,12 +174,15 @@ public class RobotContainer {
     //***** driver controller ******
     view.onTrue(lowGear);
     menu.onTrue(highGear);
-    x.onTrue(toggleGear);
-    b.whileTrue(setIntakeSpeed);
+    //x.onTrue(toggleGear);
+    //b.whileTrue(setIntakeSpeed);
     //a.onTrue(toPodiumPosition);
     //y.onTrue(toStowedPosition);
-    y.whileTrue(manualUp);
-    a.whileTrue(manualDown);
+    a.onTrue(elevatorDownPID);
+    y.onTrue(elevatorUpPID);
+    b.onTrue(elevatorClimbPID);
+    //y.whileTrue(manualUp);
+    //a.whileTrue(manualDown);
     rb.onTrue(autoPIDTurn);
     lb.onTrue(autoPIDTurn1);
 

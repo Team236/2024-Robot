@@ -88,7 +88,7 @@ public class Elevator extends SubsystemBase {
       public double getElevatorEncoder() {
       return ElevatorEncoder.getPosition(); //for a SparkMax encoder
     }
-  
+    //reads elevator distance travelled in inches 
     public double getElevatorDistance() {
       return  getElevatorEncoder() * Constants.Elevator.ELEV_REV_TO_IN;
     } 
