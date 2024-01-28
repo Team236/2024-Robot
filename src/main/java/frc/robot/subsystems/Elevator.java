@@ -17,7 +17,7 @@ public class Elevator extends SubsystemBase {
   private CANSparkMax leftElevatorMotor, rightElevatorMotor;
   private RelativeEncoder ElevatorEncoder;
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
-  private boolean isElevTopLimitUnplugged, isElevBotLimitUnplugged;
+  private boolean isTException, isBException;
   /** Creates a new Elevator. */
   public Elevator() {
     leftElevatorMotor = new CANSparkMax(Constants.MotorControllers.ID_ELEVATOR_LEFT, MotorType.kBrushless); 
@@ -38,12 +38,14 @@ public class Elevator extends SubsystemBase {
     try {
       elevatorTopLimit = new DigitalInput(Constants.Elevator.DIO_ELEV_TOP);
     } catch (Exception e) {
-      isElevTopLimitUnplugged = true;
+      isTException = true;
+      SmartDashboard.putBoolean("exception thrown for top limit: ", isTException);
     }
     try {
       elevatorBottomLimit = new DigitalInput(Constants.Elevator.DIO_ELEV_BOTTOM);
     } catch (Exception e) {
-      isElevBotLimitUnplugged = true;
+      isBException = true;
+      SmartDashboard.putBoolean("exception thrown for bottom limit: ", isBException);
     }
   }
 
@@ -57,23 +59,23 @@ public class Elevator extends SubsystemBase {
       rightElevatorMotor.setOpenLoopRampRate(Constants.Elevator.ELEV_OPEN_RAMP_RATE);
     }
 
-    public void elevatorStop() {
+    public void stopElevator() {
       leftElevatorMotor.set(0);
       rightElevatorMotor.set(0);
     }
   
     public boolean isETopLimit() {
-      if (isElevTopLimitUnplugged) {
+      if (isTException) {
         return true;
       } else {
-        return !elevatorTopLimit.get();
+        return elevatorTopLimit.get();
       }
     }
     public boolean isEBotLimit() {
-      if (isElevBotLimitUnplugged) {
+      if (isBException) {
         return true;
       } else {
-        return !elevatorBottomLimit.get();
+        return elevatorBottomLimit.get();
       }
     }
     
@@ -86,7 +88,7 @@ public class Elevator extends SubsystemBase {
       public double getElevatorEncoder() {
       return ElevatorEncoder.getPosition(); //for a SparkMax encoder
     }
-  
+    //reads elevator distance travelled in inches 
     public double getElevatorDistance() {
       return  getElevatorEncoder() * Constants.Elevator.ELEV_REV_TO_IN;
     } 
@@ -106,7 +108,7 @@ public class Elevator extends SubsystemBase {
        //TODO make sure elevator speed > 0 when going up, and top threshold as logical or below
       if (isETopLimit()) {
           // if elevator limit is tripped or elevator is near the top limit switch going up, stop 
-          elevatorStop();
+          stopElevator();
        }  else {
           // elevator going up but top limit is not tripped, go at commanded speed
           leftElevatorMotor.set(speed);
@@ -115,7 +117,7 @@ public class Elevator extends SubsystemBase {
       } else {
         if (isEBotLimit()) {
           // elevator going down and bottom limit is tripped, stop and zero encoder
-          elevatorStop();
+          stopElevator();
           resetElevatorEncoder();
         } else {
           // arm retracting but fully retracted limit is not tripped, go at commanded speed
@@ -132,7 +134,6 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("Elevator distance", getElevatorEncoder());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
-    SmartDashboard.putNumber("Elevator Distance: ", getElevatorEncoder());
     SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
     SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
 
