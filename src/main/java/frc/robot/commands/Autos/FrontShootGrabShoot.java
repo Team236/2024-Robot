@@ -16,25 +16,25 @@ import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
 public class FrontShootGrabShoot extends SequentialCommandGroup {
   /** Creates a new FrontShootGrabShoot. */
   public FrontShootGrabShoot(Intake intake, Cartridge cartridge, Drive drive, double intSpeed, double cartSpeed, double drvDistance) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+
+    //This command starts in front of the woofer, sets cartridge to woofer, shoots, (drives, runs intake, sets cartridge to podium at the same time), then shoots again
     addCommands(
       new ToWooferPosition(cartridge).withTimeout(0.5), //TODO determine time for all below
       new WaitCommand(2),
-      new PIDCartridgeShot(intake, cartridge, intSpeed, cartSpeed).withTimeout(2), 
+      new PIDCartridgeShot(intake, cartridge, intSpeed, cartSpeed, true).withTimeout(2), 
     Commands.parallel(
       new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2), 
       new SetIntakeSpeed(intake, intSpeed),
       new ToPodiumPosition(cartridge).withTimeout(1)
       ),
       new WaitCommand(2),
-      new PIDCartridgeShot(intake, cartridge, intSpeed, cartSpeed).withTimeout(5)
+      new PIDCartridgeShot(intake, cartridge, intSpeed, cartSpeed, false).withTimeout(5)
     );
 
   }

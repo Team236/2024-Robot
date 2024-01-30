@@ -93,8 +93,8 @@ public class RobotContainer {
   private final WooferShot speakerShotFromWoofer = new WooferShot(cartridgeShooter);
   private final PIDCartridgeMotors pidPodiumShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.PODIUM_PID_SPEED);
   private final PIDCartridgeMotors pidWooferShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.WOOFER_PID_SPEED);
-  private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_SPEED);
-  private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_SPEED);
+  private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_SPEED, true);
+  private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_SPEED, false);
   private final SetSpeed cartridgeSetSpeed = new SetSpeed(cartridgeShooter, Constants.CartridgeShooter.MANUAL_SET_SPEED);
 
  //AMPTRAP COMMANDS:
