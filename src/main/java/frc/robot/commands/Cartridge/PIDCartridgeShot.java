@@ -4,7 +4,8 @@
 
 package frc.robot.commands.Cartridge;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.subsystems.Cartridge;
@@ -13,15 +14,27 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PIDCartridgeShot extends ParallelCommandGroup {
+public class PIDCartridgeShot extends SequentialCommandGroup {
   /** Creates a new PIDCartridgeShot. */
-  public PIDCartridgeShot(Intake intake, Cartridge cartridge, double intSpeed, double cartSpeed) {
-    
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new ManualIntake(intake, intSpeed).withTimeout(2),
-      new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
+  public PIDCartridgeShot(Intake intake, Cartridge cartridge, double intSpeed, double cartSpeed, boolean isWoofer) {
+
+    if (isWoofer) {
+      addCommands(
+        new ToWooferPosition(cartridge),
+        Commands.parallel(
+          new ManualIntake(intake, intSpeed).withTimeout(2), //determine timeout
+          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
+        )
       );
+    } 
+      else{
+        addCommands(
+        new ToWooferPosition(cartridge),
+        Commands.parallel(
+          new ManualIntake(intake, intSpeed).withTimeout(2), //determine timeout
+          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
+        ) 
+      );
+    }
   }
 }

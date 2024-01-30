@@ -29,7 +29,7 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
       new WaitCommand(2),
       new PIDCartridgeShot(intake, cartridge, intSpeed, cartSpeed).withTimeout(2), 
     Commands.parallel(
-     // new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2), 
+      new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2), 
       new SetIntakeSpeed(intake, intSpeed),
       new ToPodiumPosition(cartridge).withTimeout(1)
       ),
