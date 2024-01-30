@@ -58,7 +58,7 @@ public final class Constants {
   
       public static class Amp{
         public static final double AMP_TRAP_MOTOR_SPEED = 0.5; // TODO define real spead
-         public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.5; // TODO define real spead
+        public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.5; // TODO define real spead
       }
       
 
@@ -152,12 +152,13 @@ public final class Constants {
     public static final int SOL_CARTRIDGE_2_FWD = 1; //** GRIPPER FWD SOL from 2023Robot
     public static final int SOL_CARTRIDGE_2_REV = 0; //** GRIPPER REV SOL from 2023Robot
 
-    public static final double PODIUM_PID_SPEED = 1500; //TODO determine speed
-    public static final double WOOFER_PID_SPEED = 2100; //TODO determine speed
+    public static final int PODIUM_PID_RPM = 1500; //TODO determine speed
+    public static final int WOOFER_PID_RPM = 2100; //TODO determine speed
 
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;  //***//TODO tune the speed - use PID Velocity control
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
-    public static final double MANUAL_SET_SPEED = 0.1; //TODO determine speed
+    public static final int AMP_PID_RPM = 2000; //TODO determine speed
+    public static final int MANUAL_SET_RPM = 2000;
 
     public static final double MAX_PID_SPEED = 6000;
 

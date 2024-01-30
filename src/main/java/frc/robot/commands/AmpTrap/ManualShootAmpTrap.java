@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Intake;
 
-public class ShootAmpTrap extends Command {
+public class ManualShootAmpTrap extends Command {
 
 private double speed;
 private AmpTrap ampTrapShooter;
 
   /** Creates a new ShootAmpTrap. */
-  public ShootAmpTrap(AmpTrap ampTrapShooter, double speed) {
+  public ManualShootAmpTrap(AmpTrap ampTrapShooter, double speed) {
     this.ampTrapShooter = ampTrapShooter;
     this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.

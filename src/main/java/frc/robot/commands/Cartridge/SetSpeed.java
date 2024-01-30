@@ -29,7 +29,7 @@ public class SetSpeed extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    cartridge.setBothSpeeds(Constants.CartridgeShooter.MANUAL_SET_SPEED);
+    cartridge.setBothSpeeds(Constants.CartridgeShooter.MANUAL_SET_RPM);
   }
 
   // Called once the command ends or is interrupted.
