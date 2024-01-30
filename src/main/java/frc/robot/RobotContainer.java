@@ -11,9 +11,9 @@ import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
 import frc.robot.commands.Cartridge.PIDCartridgeShot;
-import frc.robot.commands.Cartridge.PodiumShot;
+import frc.robot.commands.Cartridge.ManualPodiumShot;
 import frc.robot.commands.Cartridge.SetSpeed;
-import frc.robot.commands.Cartridge.WooferShot;
+import frc.robot.commands.Cartridge.ManualWooferShot;
 import frc.robot.commands.Cartridge.ToPodiumPosition;
 import frc.robot.commands.Cartridge.ToStowedPosition;
 import frc.robot.commands.Cartridge.ToWooferPosition;
@@ -89,8 +89,8 @@ public class RobotContainer {
   private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
   private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
 
-  private final PodiumShot speakerShotFromPodium = new PodiumShot(cartridgeShooter);
-  private final WooferShot speakerShotFromWoofer = new WooferShot(cartridgeShooter);
+  private final ManualPodiumShot speakerShotFromPodium = new ManualPodiumShot(cartridgeShooter);
+  private final ManualWooferShot speakerShotFromWoofer = new ManualWooferShot(cartridgeShooter);
   private final PIDCartridgeMotors pidPodiumShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.PODIUM_PID_SPEED);
   private final PIDCartridgeMotors pidWooferShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.WOOFER_PID_SPEED);
   private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_SPEED, true);
