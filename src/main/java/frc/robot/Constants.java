@@ -41,12 +41,12 @@ public final class Constants {
       public static final int ID_AMP_TRAP_SHOOTER = 33; //TODO get real number
 
       //Elevator
-      public static final int ID_ELEVATOR_LEFT = 1;//TODO get real number
-      public static final int ID_ELEVATOR_RIGHT = 9;// TODO get real number
+      public static final int ID_ELEVATOR_LEFT = 10;//TODO get real number
+      public static final int ID_ELEVATOR_RIGHT =11;// TODO get real number
 
       //Cartridge shooter
-      public static final int ID_SHOOTER_LEFT = 10;
-      public static final int ID_SHOOTER_RIGHT = 11;
+      public static final int ID_SHOOTER_LEFT = 1;
+      public static final int ID_SHOOTER_RIGHT = 9;
 
       //smart current limit
       public static final int SMART_CURRENT_LIMIT = 40;
@@ -105,9 +105,10 @@ public final class Constants {
   } 
 
   public static class Elevator {
-    public static final double MIDDLE = 0;//TODO get real number
-    public static final double BOTTOM = 0;//TODO get real number
-    public static final double TOP = 0;//TODO get real number
+    public static final double MIDDLE_HEIGHT = 0;//TODO get real number
+    public static final double BOTTOM_HEIGHT = 0;//TODO get real number
+    public static final double TOP_HEIGHT = 0;//TODO get real number
+    public static final double MAX_HEIGHT = 0;// prior to limit switch
     
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;//TODO change numbers 
@@ -152,7 +153,7 @@ public final class Constants {
     public static final int SOL_CARTRIDGE_2_FWD = 1; //** GRIPPER FWD SOL from 2023Robot
     public static final int SOL_CARTRIDGE_2_REV = 0; //** GRIPPER REV SOL from 2023Robot
 
-    public static final double PODIUM_PID_SPEED = 1500; //TODO determine speed
+    public static final double PODIUM_PID_SPEED =3000; //TODO determine speed
     public static final double WOOFER_PID_SPEED = 2100; //TODO determine speed
 
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;  //***//TODO tune the speed - use PID Velocity control
