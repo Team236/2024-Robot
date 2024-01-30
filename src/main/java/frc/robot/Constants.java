@@ -154,13 +154,11 @@ public final class Constants {
 
     public static final double PODIUM_PID_RPM = 1500; //TODO determine speed
     public static final double WOOFER_PID_RPM = 2100; //TODO determine speed
+    public static final double AMP_PID_RPM = 2000; //TODO determine speed
+    public static final double MAX_PID_SPEED = 6000;
 
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;  //***//TODO tune the speed - use PID Velocity control
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
-    public static final double AMP_PID_RPM = 2000; //TODO determine speed
-    public static final double MANUAL_SET_RPM = 2000;
-
-    public static final double MAX_PID_SPEED = 6000;
 
                                                 //2022 pid constants commented in
     public static final double kPLeft = 0.00005; //0002
