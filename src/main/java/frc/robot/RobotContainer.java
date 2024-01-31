@@ -98,12 +98,13 @@ public class RobotContainer {
  //AMPTRAP COMMANDS:
   private final ManualShootAmpTrap shootAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ManualShootAmpTrap reverseAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
-  private final AmpTrapShoot ampTrapShoot = new AmpTrapShoot(intake, cartridgeShooter, ampTrapShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  private final AmpTrapShoot manualAmpTrapShoot = new AmpTrapShoot(intake, cartridgeShooter, ampTrapShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   
  //AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
   private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
+  private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridgeShooter, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
 
   //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
@@ -190,18 +191,17 @@ public class RobotContainer {
     lb.onTrue(autoPIDTurn1);
 
     //***** Aux Controller ******
-   //upPov1.onTrue(shootAmpTrap.withTimeout(2));
    //downPov1.onTrue(reverseAmpTrap.withTimeout(2));
-   // a1.onTrue(toWooferPosition);
-   // b1.onTrue(speakerShotFromPodium.withTimeout(2));
-   // x1.onTrue(speakerShotFromWoofer.withTimeout(2));
+    //a1.onTrue(toWooferPosition);
+    b1.onTrue(speakerShotFromPodium.withTimeout(2));
+    //x1.onTrue(speakerShotFromWoofer.withTimeout(2));
     y1.onTrue(autoPIDDrive);
     //b1.onTrue(pidPodiumShot.withTimeout(2));
-    x1.onTrue(pidWooferShot.withTimeout(15));
+    //x1.onTrue(pidWooferShot.withTimeout(15));
     //x1.whileTrue(pidWooferShot);
     //b1.onTrue(pidActualPodium);
-    //x1.onTrue(pidActualWoofer);
-    a1.onTrue(ampTrapShoot.withTimeout(5));
+    x1.onTrue(frontShootGrabShoot);
+    //a1.onTrue(manualAmpTrapShoot.withTimeout(5));
     upPov1.whileTrue(manualIntake);
     downPov1.whileTrue(manualEject);
   }
