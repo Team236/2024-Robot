@@ -29,8 +29,8 @@ public class Elevator extends SubsystemBase {
     leftElevatorMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightElevatorMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
  
-    leftElevatorMotor.setInverted(false);
-    rightElevatorMotor.setInverted(true);//TODO check these
+    leftElevatorMotor.setInverted(true);
+    rightElevatorMotor.setInverted(false);//TODO check these
   
     //TODO  Determine if want to use left or right encoder here, use the one that is increasing when going up
     ElevatorEncoder = leftElevatorMotor.getEncoder(); //will use SparkMax encoder for elevator
@@ -78,6 +78,7 @@ public class Elevator extends SubsystemBase {
         return elevatorBottomLimit.get();
       }
     }
+
     
   //TODO change to elevator from here down
     public void resetElevatorEncoder() {
@@ -89,9 +90,19 @@ public class Elevator extends SubsystemBase {
       return ElevatorEncoder.getPosition(); //for a SparkMax encoder
     }
     //reads elevator distance travelled in inches 
-    public double getElevatorDistance() {
+    public double getElevatorHeight() {
       return  getElevatorEncoder() * Constants.Elevator.ELEV_REV_TO_IN;
     } 
+
+    public boolean isTop() {
+      boolean eTop;
+      if (getElevatorHeight() >= Constants.Elevator.MAX_HEIGHT) {
+        eTop = true;
+      } else {
+        eTop = false;      }
+      return eTop;
+    }
+
 
    public double getElevatorLeftSpeed() {
       return  leftElevatorMotor.get();
@@ -106,7 +117,7 @@ public class Elevator extends SubsystemBase {
   
     if (speed > 0) {  
        //TODO make sure elevator speed > 0 when going up, and top threshold as logical or below
-      if (isETopLimit()) {
+      if (isETopLimit() || isTop()) {
           // if elevator limit is tripped or elevator is near the top limit switch going up, stop 
           stopElevator();
        }  else {

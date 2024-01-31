@@ -9,38 +9,36 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Elevator;
 
-public class ElevatorPID extends Command {
+public class SetElevatorHeight extends Command {
   private Elevator elevator;
-  private double setPoint; //travel distance in inches
+  private double desiredHeight; //desired height in inches
   private final PIDController pidController;
   private double eKP, eKI, eKD;
 
-  /** Creates a new UpDownPID. */
-  public ElevatorPID(Elevator elevator, double setPoint, double eKP, double eKI, double eKD) {
+  /** Creates a new SetElevatorHeight. */
+  public SetElevatorHeight(Elevator elevator, double desiredHeight, double eKP, double eKI, double eKD) {
     this.eKP = eKP;
     this.eKI = eKI;
     this.eKD = eKD;
     pidController = new PIDController(eKP, eKI, eKD);
     this.elevator = elevator;
-    this.setPoint = setPoint;
+    this.desiredHeight = desiredHeight;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevator);
 
-    pidController.setSetpoint(setPoint);
+    pidController.setSetpoint(desiredHeight);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     pidController.reset();
-
-    elevator.resetElevatorEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.setElevSpeed(pidController.calculate(elevator.getElevatorDistance()));
+    elevator.setElevSpeed(pidController.calculate(elevator.getElevatorHeight()));
   }
 
   // Called once the command ends or is interrupted.
