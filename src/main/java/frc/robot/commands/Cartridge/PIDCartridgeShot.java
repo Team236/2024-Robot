@@ -22,7 +22,7 @@ public class PIDCartridgeShot extends SequentialCommandGroup {
 
     if (isWoofer) {
       addCommands(
-        new ToWooferPosition(cartridge),
+        //new ToWooferPosition(cartridge),
         Commands.parallel(
           new ManualIntake(intake, intSpeed).withTimeout(2), //determine timeout
           new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
@@ -31,7 +31,7 @@ public class PIDCartridgeShot extends SequentialCommandGroup {
     } 
       else{
         addCommands(
-        new ToPodiumPosition(cartridge),
+        //new ToPodiumPosition(cartridge),
         Commands.parallel(
           new ManualIntake(intake, intSpeed).withTimeout(2), //determine timeout
           new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)

@@ -53,6 +53,7 @@ public final class Constants {
     // Cartridge shooter
     public static final int ID_SHOOTER_LEFT = 10; // 1;
     public static final int ID_SHOOTER_RIGHT = 11; // 9;
+    public static final int ID_SHOOTER_ANGLE = 51;
 
     // smart current limit
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -170,6 +171,8 @@ public final class Constants {
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
 
     public static final double MANUAL_SET_SPEED = 0.1; // TODO determine speed
+
+    public static final double REVS_TO_DEG = 0.1; //TODO determine value
 
     // 2022 pid constants commented in
     public static final double kPLeft = 0.00005; // 0002

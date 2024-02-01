@@ -13,9 +13,6 @@ import frc.robot.commands.Cartridge.PIDCartridgeMotors;
 import frc.robot.commands.Cartridge.PIDCartridgeShot;
 import frc.robot.commands.Cartridge.ManualPodiumShot;
 import frc.robot.commands.Cartridge.ManualWooferShot;
-import frc.robot.commands.Cartridge.ToPodiumPosition;
-import frc.robot.commands.Cartridge.ToStowedPosition;
-import frc.robot.commands.Cartridge.ToWooferPosition;
 import frc.robot.commands.Drive.ArcadeJoysticks;
 import frc.robot.commands.Drive.ArcadeXbox;
 import frc.robot.commands.Drive.CurvatureXbox;
@@ -85,9 +82,7 @@ public class RobotContainer {
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 
  //CARTRIDGE COMMANDS:
-  private final ToPodiumPosition toPodiumPosition = new ToPodiumPosition(cartridgeShooter);
-  private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
-  private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
+//create SetCartridgeAngle Command
 
   private final ManualPodiumShot speakerShotFromPodium = new ManualPodiumShot(cartridgeShooter);
   private final ManualWooferShot speakerShotFromWoofer = new ManualWooferShot(cartridgeShooter);

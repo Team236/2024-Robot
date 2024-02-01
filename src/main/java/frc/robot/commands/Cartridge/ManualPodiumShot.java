@@ -24,7 +24,7 @@ public class ManualPodiumShot extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    cartridge.podiumShotPosition();
+    //cartridge.podiumShotPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

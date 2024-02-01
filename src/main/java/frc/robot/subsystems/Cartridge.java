@@ -18,38 +18,39 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Cartridge extends SubsystemBase {
-  private DoubleSolenoid solenoid1;//*** 
-  private DoubleSolenoid solenoid2; //*** 
-  private CANSparkMax leftShooterMotor, rightShooterMotor;
-  private SparkPIDController leftPIDController, rightPIDController;
-  private RelativeEncoder leftEncoder, rightEncoder;
+public class Cartridge extends SubsystemBase { 
+  private CANSparkMax leftShooterMotor, rightShooterMotor, angleMotor;
+  private SparkPIDController leftPIDController, rightPIDController, anglePIDController;
+  private RelativeEncoder leftEncoder, rightEncoder, angleEncoder;
   
 
 
   /** Creates a new CartridgeShooter. */
   public Cartridge() {
-    solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_CARTRIDGE_1_FWD, Constants.CartridgeShooter.SOL_CARTRIDGE_1_REV);
-    solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.CartridgeShooter.SOL_CARTRIDGE_2_FWD, Constants.CartridgeShooter.SOL_CARTRIDGE_2_REV);
     leftShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_LEFT, MotorType.kBrushless);
     rightShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_RIGHT, MotorType.kBrushless);
+    angleMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_ANGLE, MotorType.kBrushless);
   
 
     leftShooterMotor.restoreFactoryDefaults();
     rightShooterMotor.restoreFactoryDefaults();
+    angleMotor.restoreFactoryDefaults();
+
 //TODO determine which one inverted, if any
     leftShooterMotor.setInverted(true);  //*** 
     rightShooterMotor.setInverted(false); //*** 
 
     leftShooterMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightShooterMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    angleMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
     leftPIDController = leftShooterMotor.getPIDController();
     rightPIDController = rightShooterMotor.getPIDController();
+    anglePIDController = angleMotor.getPIDController();
 
     leftEncoder = leftShooterMotor.getEncoder();
     rightEncoder = rightShooterMotor.getEncoder();
-    
+    angleEncoder = angleMotor.getEncoder();
   }
   //methods start here
   public void setBothSpeeds(double speed) {
@@ -113,6 +114,10 @@ public class Cartridge extends SubsystemBase {
     return rightEncoder.getPosition();
   }
 
+  public double getAngleEncoder() {
+    return angleEncoder.getPosition();
+  }
+
   public double getLeftVelocity() {
     return leftEncoder.getVelocity();
   }
@@ -121,21 +126,10 @@ public class Cartridge extends SubsystemBase {
     return rightEncoder.getVelocity();
   }
 
-  // *** //set both solenoids Reverse for stowed
-  public void cartridgeStowedPosition(){  //*** 
-    solenoid1.set(Value.kReverse);
-    solenoid2.set(Value.kReverse);
+  public double getAngle() {
+    return getAngleEncoder() * Constants.CartridgeShooter.REVS_TO_DEG;
   }
-  //*** //set one solenoid Forward for Woofer shot
-  public void wooferShotPosition(){
-    solenoid1.set(Value.kForward);
-    solenoid2.set(Value.kReverse);
-  }
-  //*** set two solenoids forward for Podium shot
-  public void podiumShotPosition(){
-    solenoid1.set(Value.kForward);
-    solenoid2.set(Value.kForward);
-  }
+
 
   @Override
   public void periodic() {
