@@ -25,6 +25,7 @@ import frc.robot.commands.Drive.TankJoysticks;
 import frc.robot.commands.Drive.TankXbox;
 import frc.robot.commands.Drive.ToggleGear;
 import frc.robot.commands.Elevator.SetElevatorHeight;
+import frc.robot.commands.Elevator.ClimbPID;
 import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Intake.ManualIntake;
@@ -111,6 +112,7 @@ public class RobotContainer {
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
   private final SetElevatorHeight pidToTop = new SetElevatorHeight(elevator, Constants.Elevator.TOP_HEIGHT, Constants.Elevator.KP_ELEV_UP, Constants.Elevator.KI_ELEV_UP, Constants.Elevator.KD_ELEV_UP);
   private final SetElevatorHeight pidToBot = new SetElevatorHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT, Constants.Elevator.KP_ELEV_DOWN, Constants.Elevator.KI_ELEV_DOWN, Constants.Elevator.KD_ELEV_DOWN);
+  private final ClimbPID climbPID = new ClimbPID(elevator);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -182,10 +184,12 @@ public class RobotContainer {
     //y.onTrue(toStowedPosition);
     //a.onTrue(elevatorDownPID);
     //y.onTrue(elevatorUpPID);
-    //b.onTrue(elevatorClimbPID);
+    x.onTrue(pidToTop);
+    b.onTrue(pidToBot);
     y.whileTrue(manualUp);
     a.whileTrue(manualDown);
-    rb.onTrue(autoPIDTurn);
+    rb.onTrue(climbPID);
+    //rb.onTrue(autoPIDDrive);
     lb.onTrue(autoPIDTurn1);
 
     //***** Aux Controller ******
