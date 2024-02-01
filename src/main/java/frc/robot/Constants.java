@@ -41,14 +41,14 @@ public final class Constants {
     public static final int ID_LEFT_REAR = 41; // 34
     public static final int ID_RIGHT_REAR = 46; // 32
 
-    public static final int ID_INTAKE_LEFT = 35; // TODO find IDs for left/right controllers
+    public static final int ID_INTAKE_LEFT = 9; // TODO find IDs for left/right controllers
     public static final int ID_INTAKE_RIGHT = 34;
 
     public static final int ID_AMP_TRAP_SHOOTER = 33; // TODO get real number
 
     // Elevator
-    public static final int ID_ELEVATOR_LEFT = 1;// TODO get real number
-    public static final int ID_ELEVATOR_RIGHT = 9;// TODO get real number
+    public static final int ID_ELEVATOR_LEFT = 35;// TODO get real number
+    public static final int ID_ELEVATOR_RIGHT = 1;// TODO get real number
 
     // Cartridge shooter
     public static final int ID_SHOOTER_LEFT = 10; // 1;
@@ -109,17 +109,21 @@ public final class Constants {
     public static final double TURN_ANGLE_1 = 90;
     public static final double TURN_ANGLE_2 = -90;
   }
+public static class Camera {
+  public static final int PWM_CAMERA = 0;
+}
+
 
   public static class Elevator {
     public static final double MIDDLE_HEIGHT = 5;// TODO get real number
-    public static final double BOTTOM_HEIGHT = 0.2;// TODO get real number
+    public static final double BOTTOM_HEIGHT = 0.5;// TODO get real number
     public static final double TOP_HEIGHT = 30;// TODO get real number
     public static final double MAX_HEIGHT = 30.5;// prior to limit switch
 
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;// TODO change numbers
 
-    public static final double ELEV_REV_TO_IN = 1; // TODO get this actual value
+    public static final double ELEV_REV_TO_IN = 2.2629; // TODO get this actual value
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
