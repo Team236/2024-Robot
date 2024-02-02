@@ -8,12 +8,17 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,10 +31,13 @@ public class Robot extends TimedRobot {
   private Compressor compressor;
 
   public AHRS navx = new AHRS();
-  public UsbCamera usbCamera0;
+
+  public UsbCamera usbRearCam;
+  public UsbCamera usbFrontCam;
+  public static Servo frontCamServo;
+  NetworkTableEntry cameraSelection;
 
   private RobotContainer m_robotContainer;
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -41,6 +49,35 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     compressor = new Compressor(PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
+
+  //Cameras- PERIODIC CODE SWITCHES TO REAR CAMERA VIEW WHEN MENU1 IS PRESSED
+    frontCamServo = new Servo(Constants.PWM_FRONT_CAM);
+  try {
+    usbFrontCam = CameraServer.startAutomaticCapture(0);
+    usbRearCam = CameraServer.startAutomaticCapture(1);
+} catch (Exception e)  {
+    SmartDashboard.putString("camera capture failed", "failed");
+  }
+
+  cameraSelection = NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection");
+
+  //if using Limelight:  don't use driver mode, rather create "driver" pipeline, reduce exposure,
+  //use the "stream" NT key to enable picture in picture mode (USB cam / LL) - big reduction in bandwidth
+  //hardware settings: 320x240 Res, MJPEG format, 15-20 FPS (reduce as needed to cpu usage)
+  //stream settings: 320x240 Res, MJPEG, 10-15 FPS, compression 30 (adjust as needed to get desired cpu usage)
+  //TODO:  how to set stream settings?
+
+  //TODO - BE SURE TO SET DASHBOARD RESOLUTION SAME AS THIS
+    usbFrontCam.setResolution(320, 240);
+    usbRearCam.setResolution(320,240);
+    usbFrontCam.setBrightness(60);// 0 to 100,  percentage
+    usbRearCam.setBrightness(60);// 0 to 100,  percentage
+    usbFrontCam.setExposureManual(50);// 0 to 100, as a percentage
+    usbRearCam.setExposureManual(50);// 0 to 100, as a percentage
+      // usbFrontCam.setFPS(15);
+   // usbRearCam.setFPS(15);
+    SmartDashboard.putNumber("FrontCam FPS: ", usbFrontCam.getActualFPS());
+    SmartDashboard.putNumber("RearCam FPS: ", usbFrontCam.getActualFPS());
   }
 
   /**
@@ -71,16 +108,10 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-  try {
-    usbCamera0 = CameraServer.startAutomaticCapture(0);
-} catch (Exception e)  {
-    SmartDashboard.putString("camera capture filed", "failed");
-
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-  }
   }
 
   /** This function is called periodically during autonomous. */
@@ -100,7 +131,18 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    //Selects FrontCamera when menu1 not pressed; RearCamera when menu1 pressed
+     XboxController auxController = new XboxController(Constants.Controller.USB_AUXCONTROLLER);
+     JoystickButton menu1 = new JoystickButton(auxController, Constants.XboxController.MENU);
+    if (menu1.getAsBoolean()) {
+      SmartDashboard.putBoolean("Switching camera to Rear Camera: ", true);
+      cameraSelection.setString(usbRearCam.getName());
+    } else {
+       SmartDashboard.putBoolean("Using Front Camera: ", true);
+        cameraSelection.setString(usbFrontCam.getName());
+    }
+    }
 
   @Override
   public void testInit() {

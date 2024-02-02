@@ -9,6 +9,8 @@ import frc.robot.commands.AmpTrap.ManualShootAmpTrap;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
+import frc.robot.commands.Camera.AmpCameraAngle;
+import frc.robot.commands.Camera.FloorCameraAngle;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
 import frc.robot.commands.Cartridge.PIDCartridgeShot;
 import frc.robot.commands.Cartridge.ManualPodiumShot;
@@ -184,15 +186,20 @@ public class RobotContainer {
     //y.onTrue(toStowedPosition);
     //a.onTrue(elevatorDownPID);
     //y.onTrue(elevatorUpPID);
-    x.onTrue(pidToTop);
-    b.onTrue(pidToBot);
-    y.whileTrue(manualUp);
-    a.whileTrue(manualDown);
+    a.onTrue(new AmpCameraAngle(ampTrapShooter));
+    b.onTrue(new FloorCameraAngle(ampTrapShooter));
+
+    
+    //x.onTrue(pidToTop);
+    //b.onTrue(pidToBot);
+    //y.whileTrue(manualUp);
+    //a.whileTrue(manualDown);
     rb.onTrue(climbPID);
     //rb.onTrue(autoPIDDrive);
     lb.onTrue(autoPIDTurn1);
 
     //***** Aux Controller ******
+    //NOTE ********  SAVE MENU1 FOR CAMERA SELECTION - PER ROBOT.JAVA CODE *********
    //downPov1.onTrue(reverseAmpTrap.withTimeout(2));
     //a1.onTrue(toWooferPosition);
     b1.onTrue(speakerShotFromPodium.withTimeout(2));

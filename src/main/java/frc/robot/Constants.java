@@ -18,6 +18,12 @@ package frc.robot;
  */
 public final class Constants {
 
+  //camera servo motor, created in Robot.java:
+  public static final int PWM_FRONT_CAM = 0;
+  //for aiming camera at Amp/Trap or at Floor (from 0 to 1, for 0 to 180 degrees)
+  public static final double FRONT_CAM_AMP = 0.5;  //TODO adjust these as needed
+  public static final double FRONT_CAM_FLOOR = 0.8;
+
   public static class Controller {
     // usb port on the laptop for the Xbox controller used by the Controller
     // Operator (not driver)
