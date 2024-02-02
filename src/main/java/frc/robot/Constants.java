@@ -35,7 +35,6 @@ public final class Constants {
 
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
-
     public static final int ID_LEFT_FRONT = 42; // 35
     public static final int ID_RIGHT_FRONT = 43; // 1
     public static final int ID_LEFT_REAR = 41; // 34
@@ -47,13 +46,13 @@ public final class Constants {
     public static final int ID_AMP_TRAP_SHOOTER = 33; // TODO get real number
 
     // Elevator
-    public static final int ID_ELEVATOR_LEFT = 35;// TODO get real number
-    public static final int ID_ELEVATOR_RIGHT = 1;// TODO get real number
+    public static final int ID_ELEVATOR_LEFT = 47; // TODO get real number
+    public static final int ID_ELEVATOR_RIGHT = 48;// TODO get real number
 
     // Cartridge shooter
     public static final int ID_SHOOTER_LEFT = 10; // 1;
     public static final int ID_SHOOTER_RIGHT = 11; // 9;
-    public static final int ID_SHOOTER_ANGLE = 51;
+    public static final int ID_CARTRIDGE_TILT = 35;
 
     // smart current limit
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -142,21 +141,15 @@ public final class Constants {
   }
 
   public static class Intake {
-    // DIO
-
-    // public static final int DIO_INTAKE_COUNTER = 10; //TODO find DIO channel for
-    // counter
-
+    // public static final int DIO_INTAKE_COUNTER = 10; //TODO find DIO channel for counter
     public static final int DIO_COUNTER = 10; // TODO find DIO channel for counter
-
     // Motor
     public static final double INTAKE_SPEED = 0.2; // TODO experiment with this speed
     public static final double EJECT_SPEED = -0.2;
   }
 
-  public static class CartridgeShooter { // *** renamed all of these cartridge constants
-    // updated SOL channels to match FWD/REV and pair correctly with 2023 Robot
-    // wiring
+  public static class CartridgeShooter { 
+    // SHOOTER MOTORS STUFF:
     public static final int SOL_CARTRIDGE_1_FWD = 3; // *** SHIFT HI FWD SOL from 2023Robot
     public static final int SOL_CARTRIDGE_1_REV = 2; // *** SHIFT LO REV SOL from 2023Robot
     public static final int SOL_CARTRIDGE_2_FWD = 1; // ** GRIPPER FWD SOL from 2023Robot
@@ -167,14 +160,11 @@ public final class Constants {
     public static final double AMP_PID_RPM = 2000; //TODO determine speed
     public static final double MAX_PID_SPEED = 6000;
 
-    public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2; // ***//TODO tune the speed - use PID Velocity control
+    public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
 
     public static final double MANUAL_SET_SPEED = 0.1; // TODO determine speed
-
-    public static final double REVS_TO_DEG = 0.1; //TODO determine value
-
-    // 2022 pid constants commented in
+                                            // 2022 pid constants commented in
     public static final double kPLeft = 0.00005; // 0002
     public static final double kILeft = 0.0; // 0.00000001
     public static final double kDLeft = 0.0565; // 0.0565
@@ -185,6 +175,17 @@ public final class Constants {
     public static final double kDRight = 0.0565; // 0.0565
     public static final double kFFRight = 0.00018; // 0.00021
 
+    //TILT MOTOR STUFF:
+    public static final int DIO_TILT_EXT_LIMIT = 0;
+    public static final int DIO_TILT_RET_LIMIT = 1;
+    public static final double MAX_TILT_ENC_REVS = 0;  //TODO FIND THESE VALUES FOR TILT ENCODER
+    public static final double TILT_ENC_REVS_WOOFER = 200; 
+    public static final double TILT_ENC_REVS_PODIUM = 300;
+    public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
+
+    public static final double KP_TILT = 0.01;
+    public static final double KI_TILT = 0;
+    public static final double KD_TILT = 0;
   }
 
   public static class Thrustmaster {
