@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -145,6 +147,22 @@ public final class Constants {
     public static final double KI_ELEV_CLIMB = 0;
     public static final double KD_ELEV_CLIMB = 0;
   }
+
+  public static class Camera {
+    /*  position of camera relative to center of robot (right-hand-rule)
+    /   robot forward +y out front, 
+    /   robot side    +x positive right 
+    /   robot up      +z  
+    /   these are positioned relative to if you were the robot
+    */
+    public static double LIMELIGHT_FWRD =Units.inchesToMeters(-4);       // - behind the center forward
+    public static double LIMELIGHT_SIDE =Units.inchesToMeters(8); // right of center 
+    public static double LIMELIGHT_UP =Units.inchesToMeters(24);  // up off the floor
+    public static double LIMELIGHT_ROLL =Units.degreesToRadians(0);   // roll rotation around Y
+    public static double LIMELIGHT_PITCH =Units.degreesToRadians(4);  // pitch rotation around X
+    public static double LIMELIGHT_YAW =Units.degreesToRadians(0);    // yaw rotation around Z
+  }
+  
 
   public static class Intake {
     // DIO
