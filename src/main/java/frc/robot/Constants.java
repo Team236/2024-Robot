@@ -41,8 +41,7 @@ public final class Constants {
     public static final int ID_LEFT_REAR = 41; // 34
     public static final int ID_RIGHT_REAR = 46; // 32
 
-    public static final int ID_INTAKE_LEFT = 9; // TODO find IDs for left/right controllers
-    public static final int ID_INTAKE_RIGHT = 34;
+    public static final int ID_INTAKE = 9; // TODO find IDs for controller
 
     public static final int ID_AMP_TRAP_SHOOTER = 33; // TODO get real number
 
