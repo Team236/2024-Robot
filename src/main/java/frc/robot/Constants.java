@@ -36,22 +36,22 @@ public final class Constants {
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
 
-    public static final int ID_LEFT_FRONT = 42; // 35
-    public static final int ID_RIGHT_FRONT = 43; // 1
-    public static final int ID_LEFT_REAR = 41; // 34
-    public static final int ID_RIGHT_REAR = 46; // 32
+    public static final int ID_LEFT_FRONT = 35; // 42
+    public static final int ID_RIGHT_FRONT = 59; // 43
+    public static final int ID_LEFT_REAR = 58; // 41
+    public static final int ID_RIGHT_REAR = 32; // 46
 
-    public static final int ID_INTAKE = 9; // TODO find IDs for controller
+    public static final int ID_INTAKE = 1; // TODO find IDs for controller
 
-    public static final int ID_AMP_TRAP_SHOOTER = 33; // TODO get real number
+    public static final int ID_AMP_TRAP_SHOOTER = 13; // TODO get real number
 
     // Elevator
-    public static final int ID_ELEVATOR_LEFT = 32; //35;// TODO get real number
-    public static final int ID_ELEVATOR_RIGHT = 34;//1;// TODO get real number
+    public static final int ID_ELEVATOR_LEFT = 11; //35;// TODO get real number
+    public static final int ID_ELEVATOR_RIGHT = 12;//34;// TODO get real number
 
     // Cartridge shooter
     public static final int ID_SHOOTER_LEFT = 10; // 1;
-    public static final int ID_SHOOTER_RIGHT = 11; // 9;
+    public static final int ID_SHOOTER_RIGHT = 34; // 9;
 
     // smart current limit
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -62,8 +62,8 @@ public final class Constants {
       }
   
       public static class Amp{
-        public static final double AMP_TRAP_MOTOR_SPEED = 0.5; // TODO define real spead
-        public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.5; // TODO define real spead
+        public static final double AMP_TRAP_MOTOR_SPEED = 0.2; // TODO define real spead
+        public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.2; // TODO define real spead
       }
       
 
@@ -145,7 +145,7 @@ public final class Constants {
     // public static final int DIO_INTAKE_COUNTER = 10; //TODO find DIO channel for
     // counter
 
-    public static final int DIO_COUNTER = 10; // TODO find DIO channel for counter
+    public static final int DIO_COUNTER = 0; // TODO find DIO channel for counter
 
     // Motor
     public static final double INTAKE_SPEED = 0.2; // TODO experiment with this speed

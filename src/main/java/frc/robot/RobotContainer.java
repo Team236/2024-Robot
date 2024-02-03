@@ -184,13 +184,17 @@ public class RobotContainer {
     //y.onTrue(toStowedPosition);
     //a.onTrue(elevatorDownPID);
     //y.onTrue(elevatorUpPID);
-    x.onTrue(pidToTop);
-    b.onTrue(pidToBot);
+    //x.onTrue(pidToTop);
+    //b.onTrue(pidToBot);
     y.whileTrue(manualUp);
     a.whileTrue(manualDown);
     //rb.onTrue(climbPID);
     //rb.onTrue(autoPIDDrive);
-    lb.onTrue(autoPIDTurn1);
+    //lb.onTrue(autoPIDTurn1);
+    upPov.whileTrue(manualIntake);
+    downPov.whileTrue(manualEject);
+    x.onTrue(shootAmpTrap.withTimeout(5));
+    b.onTrue(reverseAmpTrap.withTimeout(5));
 
     //***** Aux Controller ******
    //downPov1.onTrue(reverseAmpTrap.withTimeout(2));
@@ -203,9 +207,6 @@ public class RobotContainer {
     //x1.whileTrue(pidWooferShot);
     //b1.onTrue(pidActualPodium); n
     x1.onTrue(frontShootGrabShoot);
-    a1.onTrue(manualAmpTrapShoot.withTimeout(5));
-    upPov1.whileTrue(manualIntake);
-    downPov1.whileTrue(manualEject);
   }
 
   
