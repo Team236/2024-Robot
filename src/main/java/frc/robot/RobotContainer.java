@@ -188,7 +188,7 @@ public class RobotContainer {
     b.onTrue(pidToBot);
     y.whileTrue(manualUp);
     a.whileTrue(manualDown);
-    rb.onTrue(climbPID);
+    //rb.onTrue(climbPID);
     //rb.onTrue(autoPIDDrive);
     lb.onTrue(autoPIDTurn1);
 
@@ -201,13 +201,14 @@ public class RobotContainer {
     //b1.onTrue(pidPodiumShot.withTimeout(2));
     //x1.onTrue(pidWooferShot.withTimeout(15));
     //x1.whileTrue(pidWooferShot);
-    //b1.onTrue(pidActualPodium);
+    //b1.onTrue(pidActualPodium); n
     x1.onTrue(frontShootGrabShoot);
     a1.onTrue(manualAmpTrapShoot.withTimeout(5));
     upPov1.whileTrue(manualIntake);
     downPov1.whileTrue(manualEject);
   }
 
+  
   ;
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

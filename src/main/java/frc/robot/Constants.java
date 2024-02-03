@@ -46,8 +46,8 @@ public final class Constants {
     public static final int ID_AMP_TRAP_SHOOTER = 33; // TODO get real number
 
     // Elevator
-    public static final int ID_ELEVATOR_LEFT = 35;// TODO get real number
-    public static final int ID_ELEVATOR_RIGHT = 1;// TODO get real number
+    public static final int ID_ELEVATOR_LEFT = 32; //35;// TODO get real number
+    public static final int ID_ELEVATOR_RIGHT = 34;//1;// TODO get real number
 
     // Cartridge shooter
     public static final int ID_SHOOTER_LEFT = 10; // 1;
@@ -123,8 +123,8 @@ public final class Constants {
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
-    public static final double ELEV_UP_SPEED = 0.06;
-    public static final double ELEV_DOWN_SPEED = 0.06; // keep this pos
+    public static final double ELEV_UP_SPEED = 0.2;
+    public static final double ELEV_DOWN_SPEED = 0.2; // keep this pos
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.01; // 0.01?
     public static final double KI_ELEV_UP = 0;
