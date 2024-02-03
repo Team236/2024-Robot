@@ -112,7 +112,7 @@ public class RobotContainer {
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
   private final SetElevatorHeight pidToTop = new SetElevatorHeight(elevator, Constants.Elevator.TOP_HEIGHT, Constants.Elevator.KP_ELEV_UP, Constants.Elevator.KI_ELEV_UP, Constants.Elevator.KD_ELEV_UP);
   private final SetElevatorHeight pidToBot = new SetElevatorHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT, Constants.Elevator.KP_ELEV_DOWN, Constants.Elevator.KI_ELEV_DOWN, Constants.Elevator.KD_ELEV_DOWN);
-  private final ClimbPID climbPID = new ClimbPID(elevator);
+  private final ClimbPID climbPID = new ClimbPID(elevator, ampTrapShooter, intake, cartridgeShooter);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
