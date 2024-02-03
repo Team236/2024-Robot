@@ -152,7 +152,7 @@ public final class Constants {
     /*  position of camera relative to center of robot (right-hand-rule)
     /   robot forward +y out front, 
     /   robot side    +x positive right 
-    /   robot up      +z  
+    /   robot up      +z off the floor
     /   these are positioned relative to if you were the robot
     */
     public static double LIMELIGHT_FWRD =Units.inchesToMeters(-4);       // - behind the center forward

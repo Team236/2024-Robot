@@ -78,6 +78,13 @@ public class Robot extends TimedRobot {
    // usbRearCam.setFPS(15);
     SmartDashboard.putNumber("FrontCam FPS: ", usbFrontCam.getActualFPS());
     SmartDashboard.putNumber("RearCam FPS: ", usbFrontCam.getActualFPS());
+    
+    // set camera position in robot relative to center on floor in meters 
+    LimelightHelpers.setCameraPose_RobotSpace("limelight",
+        Constants.Camera.LIMELIGHT_FWRD , Constants.Camera.LIMELIGHT_SIDE , Constants.Camera.LIMELIGHT_UP, 
+        Constants.Camera.LIMELIGHT_ROLL, Constants.Camera.LIMELIGHT_PITCH, Constants.Camera.LIMELIGHT_YAW );
+    // publish field location relative to _____ alience based on AprilTags    
+    SmartDashboard.putNumberArray("limelightRobotPose",LimelightHelpers.getBotPose("limelight"));
   }
 
   /**
@@ -94,6 +101,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putNumberArray("limelightRobotPose",LimelightHelpers.getBotPose("limelight"));
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
