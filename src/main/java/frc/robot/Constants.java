@@ -125,7 +125,7 @@ public final class Constants {
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.06;
-    public static final double ELEV_DOWN_SPEED = 0.06; // keep this pos
+    public static final double ELEV_DOWN_SPEED = 0.06;//keep this positive, the method adds the negative 
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.01; // 0.01?
     public static final double KI_ELEV_UP = 0;
@@ -178,12 +178,14 @@ public final class Constants {
     //TILT MOTOR STUFF:
     public static final int DIO_TILT_EXT_LIMIT = 0;
     public static final int DIO_TILT_RET_LIMIT = 1;
-    public static final double MAX_TILT_ENC_REVS = 0;  //TODO FIND THESE VALUES FOR TILT ENCODER
-    public static final double TILT_ENC_REVS_WOOFER = 200; 
-    public static final double TILT_ENC_REVS_PODIUM = 300;
+    public static final double MAX_TILT_ENC_REVS = 1000;  //MUST BE HIGHER THAN VALUES BELOW
+    public static final double TILT_ENC_REVS_WOOFER = 20; //TODO FIND REAL ENCODER VALUES
+    public static final double TILT_ENC_REVS_PODIUM = 40;
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
+    public static final double MAN_EXT_SPEED = 0.3; //TODO find these EXT/RET constants
+    public static final double MAN_RET_SPEED = 0.4;  //should be positive, the method adds the negative
 
-    public static final double KP_TILT = 0.01;
+    public static final double KP_TILT = 0.0001;
     public static final double KI_TILT = 0;
     public static final double KD_TILT = 0;
   }

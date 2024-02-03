@@ -50,7 +50,6 @@ public class Cartridge extends SubsystemBase {
 
     leftPIDController = leftShooterMotor.getPIDController();
     rightPIDController = rightShooterMotor.getPIDController();
-    tiltPIDController = tiltMotor.getPIDController();
 
     leftEncoder = leftShooterMotor.getEncoder();
     rightEncoder = rightShooterMotor.getEncoder();
@@ -88,8 +87,7 @@ public class Cartridge extends SubsystemBase {
     rightShooterMotor.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
   }
 
-  // *** several methods updated, other deleted below
-  //setting refrence speeds for PID controllers
+  //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is done using WPILIB PID **********
   public void setSetpoint(double speed) {
     leftPIDController.setReference(speed, ControlType.kVelocity);
     rightPIDController.setReference(speed, ControlType.kVelocity); //TODO check to set negatives for motors
@@ -140,8 +138,8 @@ public class Cartridge extends SubsystemBase {
   public double getRightVelocity() {
     return rightEncoder.getVelocity();
   }
-
   
+ //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is done using WPILIB PID **********  
   public double getTiltEncoder() {  //gives encoder reading in Revs
     return tiltEncoder.getPosition();
   }

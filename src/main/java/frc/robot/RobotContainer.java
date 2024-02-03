@@ -12,7 +12,9 @@ import frc.robot.commands.Autos.FrontShootGrabShoot;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
 import frc.robot.commands.Cartridge.PIDCartridgeShot;
 import frc.robot.commands.Cartridge.PIDCartridgeTilt;
+import frc.robot.commands.Cartridge.ManualExtCartridge;
 import frc.robot.commands.Cartridge.ManualPodiumShot;
+import frc.robot.commands.Cartridge.ManualRetractCartridge;
 import frc.robot.commands.Cartridge.ManualWooferShot;
 import frc.robot.commands.Drive.ArcadeJoysticks;
 import frc.robot.commands.Drive.ArcadeXbox;
@@ -90,12 +92,14 @@ public class RobotContainer {
   private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
   private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
  
-   private final PIDCartridgeTilt toPodiumPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_PODIUM, 
-  Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
+  private final PIDCartridgeTilt toPodiumPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_PODIUM, 
+                 Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
   private final PIDCartridgeTilt toWooferPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_WOOFER, 
-  Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
-   private final PIDCartridgeTilt toStowPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_STOW, 
-  Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
+                 Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
+  private final PIDCartridgeTilt toStowPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_STOW, 
+                Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
+  private final ManualRetractCartridge manualRetract = new ManualRetractCartridge(cartridgeShooter, Constants.CartridgeShooter.MAN_RET_SPEED);
+  private final ManualExtCartridge manualExtend = new ManualExtCartridge(cartridgeShooter, Constants.CartridgeShooter.MAN_EXT_SPEED);
 
  //AMPTRAP COMMANDS:
   private final ManualShootAmpTrap shootAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
