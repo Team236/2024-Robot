@@ -205,8 +205,9 @@ public class RobotContainer {
     //lb.onTrue(autoPIDTurn1);
     upPov.whileTrue(manualIntake);
     downPov.whileTrue(manualEject);
-    
-    x.onTrue(shootAmpTrap.withTimeout(5));
+
+    // x.onTrue(shootAmpTrap.withTimeout(5));
+    x.onTrue(shootAmpTrap);
     b.whileTrue(manualIntake);
    // b.onTrue(reverseAmpTrap.withTimeout(5));
 
