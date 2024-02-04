@@ -43,7 +43,7 @@ public final class Constants {
 
     public static final int ID_INTAKE = 46; // TODO find IDs for controller
 
-    public static final int ID_AMP_TRAP_SHOOTER = 33; // TODO get real number
+    public static final int ID_AMP_TRAP_SHOOTER = 10; // TODO get real number
 
     // Elevator
     public static final int ID_ELEVATOR_LEFT = 1; // TODO get real number
@@ -53,7 +53,7 @@ public final class Constants {
     public static final int ID_SHOOTER_LEFT = 6; // 1;
     public static final int ID_SHOOTER_RIGHT = 7;//11; // 9;
     //Tilt
-    public static final int ID_CARTRIDGE_TILT = 10; //35;
+    public static final int ID_CARTRIDGE_TILT = 33; //35;
 
 
     // smart current limit
