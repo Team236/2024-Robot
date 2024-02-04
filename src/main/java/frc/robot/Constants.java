@@ -41,7 +41,7 @@ public final class Constants {
     public static final int ID_RIGHT_REAR = 32; // 46
 
 
-    public static final int ID_INTAKE = 1; // TODO find IDs for controller
+    public static final int ID_INTAKE = 10; // TODO find IDs for controller
 
     public static final int ID_AMP_TRAP_SHOOTER = 13; // TODO get real number
 
@@ -52,7 +52,7 @@ public final class Constants {
     // Cartridge shooter
     public static final int ID_SHOOTER_LEFT = 1; // 1;
     public static final int ID_SHOOTER_RIGHT = 35;//11; // 9;
-    public static final int ID_CARTRIDGE_TILT = 1; //35;
+    public static final int ID_CARTRIDGE_TILT = 33; //35;
 
 
     // smart current limit
@@ -144,7 +144,6 @@ public final class Constants {
 
   public static class Intake {
     public static final int DIO_COUNTER = 10; // TODO find DIO channel for counter
-
     // Motor
     public static final double INTAKE_SPEED = 0.2; // TODO experiment with this speed
     public static final double EJECT_SPEED = -0.2;

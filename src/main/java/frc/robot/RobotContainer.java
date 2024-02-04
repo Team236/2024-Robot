@@ -100,6 +100,8 @@ public class RobotContainer {
                 Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
   private final ManualRetractCartridge manualRetract = new ManualRetractCartridge(cartridgeShooter, Constants.CartridgeShooter.MAN_RET_SPEED);
   private final ManualExtCartridge manualExtend = new ManualExtCartridge(cartridgeShooter, Constants.CartridgeShooter.MAN_EXT_SPEED);
+private final PIDCartridgeShot wooferShot = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
+private final PIDCartridgeShot podiumShot = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
 
  //AMPTRAP COMMANDS:
   private final ManualShootAmpTrap shootAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);

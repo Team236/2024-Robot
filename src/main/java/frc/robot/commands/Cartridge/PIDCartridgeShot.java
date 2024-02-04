@@ -16,7 +16,8 @@ import frc.robot.subsystems.Intake;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
 public class PIDCartridgeShot extends SequentialCommandGroup {
-  /** Creates a new PIDCartridgeShot. */
+  //Moves the cartridge to Woofer or Podium position, then runs intake at set speed and Cartridge at PID controlled velocity
+
   //intake speed should be between -1 and 1, cartridge speed should be in RPM
   public PIDCartridgeShot(Intake intake, Cartridge cartridge, double intSpeed, double cartSpeed, boolean isWoofer) {
 
