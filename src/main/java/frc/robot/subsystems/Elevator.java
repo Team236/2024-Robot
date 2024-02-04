@@ -29,8 +29,8 @@ public class Elevator extends SubsystemBase {
     leftElevatorMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightElevatorMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
  
-    leftElevatorMotor.setInverted(true);
-    rightElevatorMotor.setInverted(false);//TODO check these
+    leftElevatorMotor.setInverted(false);
+    rightElevatorMotor.setInverted(true);//TODO check these
   
     //TODO  Determine if want to use left or right encoder here, use the one that is increasing when going up
     elevatorEncoder = leftElevatorMotor.getEncoder(); //will use SparkMax encoder for elevator

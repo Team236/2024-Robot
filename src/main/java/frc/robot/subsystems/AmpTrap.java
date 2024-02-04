@@ -15,6 +15,12 @@ private CANSparkMax motor;
   /** Creates a new TrapAmpShooter. */
   public AmpTrap() {
     motor = new CANSparkMax(Constants.MotorControllers.ID_AMP_TRAP_SHOOTER, MotorType.kBrushless);
+    motor.restoreFactoryDefaults();
+
+    motor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+ 
+    motor.setInverted(true);
+  
   } 
 
     public void shoot(double speed) {

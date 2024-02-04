@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
-  private CANSparkMax intakeLeft, intakeRight;
+  private CANSparkMax intake;
   public static Counter counter;
   private static boolean isCounterUnplugged = false;
 
@@ -21,17 +21,13 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Intake() {
-    intakeLeft = new CANSparkMax(Constants.MotorControllers.ID_INTAKE_LEFT, MotorType.kBrushless);
-    intakeRight = new CANSparkMax(Constants.MotorControllers.ID_INTAKE_RIGHT, MotorType.kBrushless);
+    intake= new CANSparkMax(Constants.MotorControllers.ID_INTAKE, MotorType.kBrushless);
 
-    intakeLeft.restoreFactoryDefaults();
-    intakeRight.restoreFactoryDefaults();
+    intake.restoreFactoryDefaults();
 
-    intakeLeft.setInverted(false); //TODO determine inverted motors
-    intakeRight.setInverted(true);
+    intake.setInverted(false); //TODO determine inverted motors
 
-    intakeLeft.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    intakeRight.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    intake.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
     try {
       counter = new Counter();
@@ -43,9 +39,7 @@ public class Intake extends SubsystemBase {
     }
  
     SmartDashboard.putBoolean("is counter unplugged:", isCounterUnplugged);
-
-   counter.reset(); //sets counter to zero
-
+    counter.reset(); //sets counter to zero
   }
   
 
@@ -60,23 +54,19 @@ public void resetCount() {
 
  //Methods start here
   public void openRampRate() {
-    intakeLeft.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
-    intakeRight.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
+    intake.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
   }
 
   public void closedRampRate() {
-    intakeLeft.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
-    intakeRight.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
+    intake.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
   }
 
   public void intakeStop() {
-    intakeLeft.set(0);
-    intakeRight.set(0);
+    intake.set(0);
   }
 
   public void setIntakeSpeed(double speed) {
-    intakeLeft.set(speed);
-    intakeRight.set(speed);
+    intake.set(speed);
   }
  
   public static int getIntakeCount() {
@@ -96,7 +86,7 @@ public void resetCount() {
 
   public boolean isIntakeSpinning() {
     boolean spin;
-    if (Math.abs(intakeLeft.get()) >0.1) {
+    if (Math.abs(intake.get()) >0.1) {
       spin = true;
     }
     else {
@@ -107,11 +97,8 @@ public void resetCount() {
 
   @Override
   public void periodic() {
-
     // This method will be called once per scheduler run
-
    SmartDashboard.putNumber("Intake periodic count is:", getIntakeCount());
    SmartDashboard.putBoolean("is intake spinning ", isIntakeSpinning());
-
   }
 }

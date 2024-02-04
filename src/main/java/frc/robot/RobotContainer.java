@@ -118,7 +118,7 @@ public class RobotContainer {
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
   private final SetElevatorHeight pidToTop = new SetElevatorHeight(elevator, Constants.Elevator.TOP_HEIGHT, Constants.Elevator.KP_ELEV_UP, Constants.Elevator.KI_ELEV_UP, Constants.Elevator.KD_ELEV_UP);
   private final SetElevatorHeight pidToBot = new SetElevatorHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT, Constants.Elevator.KP_ELEV_DOWN, Constants.Elevator.KI_ELEV_DOWN, Constants.Elevator.KD_ELEV_DOWN);
-  private final ClimbPID climbPID = new ClimbPID(elevator);
+  private final ClimbPID climbPID = new ClimbPID(elevator, ampTrapShooter, intake, cartridgeShooter);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -190,14 +190,20 @@ public class RobotContainer {
     //y.onTrue(toStowPosition);
     //a.onTrue(elevatorDownPID);
     //y.onTrue(elevatorUpPID);
-
    // x.onTrue(pidToTop);
    // b.onTrue(pidToBot);
     //y.whileTrue(manualUp);
+    //x.onTrue(pidToTop);
+    //b.onTrue(pidToBot);
+    y.whileTrue(manualUp);
     a.whileTrue(manualDown);
-    rb.onTrue(climbPID);
+    //rb.onTrue(climbPID);
     //rb.onTrue(autoPIDDrive);
-    lb.onTrue(autoPIDTurn1);
+    //lb.onTrue(autoPIDTurn1);
+    upPov.whileTrue(manualIntake);
+    downPov.whileTrue(manualEject);
+    x.onTrue(shootAmpTrap.withTimeout(5));
+    b.onTrue(reverseAmpTrap.withTimeout(5));
 
     //***** Aux Controller ******
     x1.whileTrue(manualExtend);
@@ -216,8 +222,10 @@ public class RobotContainer {
     // a1.onTrue(manualAmpTrapShoot.withTimeout(5));
     // upPov1.whileTrue(manualIntake);
     // downPov1.whileTrue(manualEject);
+    //b1.onTrue(pidActualPodium); n
   }
 
+  
   ;
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

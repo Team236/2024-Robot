@@ -35,15 +35,15 @@ public final class Constants {
 
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
-    public static final int ID_LEFT_FRONT =  29;//35;
-    public static final int ID_RIGHT_FRONT = 28;//1;
-    public static final int ID_LEFT_REAR = 41; // 34
-    public static final int ID_RIGHT_REAR = 46; // 32
+    public static final int ID_LEFT_FRONT = 35; // 42
+    public static final int ID_RIGHT_FRONT = 59; // 43
+    public static final int ID_LEFT_REAR = 58; // 41
+    public static final int ID_RIGHT_REAR = 32; // 46
 
-    public static final int ID_INTAKE_LEFT = 9; // TODO find IDs for left/right controllers
-    public static final int ID_INTAKE_RIGHT = 34;
 
-    public static final int ID_AMP_TRAP_SHOOTER = 33; // TODO get real number
+    public static final int ID_INTAKE = 1; // TODO find IDs for controller
+
+    public static final int ID_AMP_TRAP_SHOOTER = 13; // TODO get real number
 
     // Elevator
     public static final int ID_ELEVATOR_LEFT = 47; // TODO get real number
@@ -54,6 +54,7 @@ public final class Constants {
     public static final int ID_SHOOTER_RIGHT = 35;//11; // 9;
     public static final int ID_CARTRIDGE_TILT = 1; //35;
 
+
     // smart current limit
     public static final int SMART_CURRENT_LIMIT = 40;
 
@@ -63,8 +64,8 @@ public final class Constants {
       }
   
       public static class Amp{
-        public static final double AMP_TRAP_MOTOR_SPEED = 0.5; // TODO define real spead
-        public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.5; // TODO define real spead
+        public static final double AMP_TRAP_MOTOR_SPEED = 0.2; // TODO define real spead
+        public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.2; // TODO define real spead
       }
       
 
@@ -124,8 +125,9 @@ public final class Constants {
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
-    public static final double ELEV_UP_SPEED = 0.06;
-    public static final double ELEV_DOWN_SPEED = 0.06;//keep this positive, the method adds the negative 
+    public static final double ELEV_UP_SPEED = 0.2;
+    public static final double ELEV_DOWN_SPEED = 0.2; // keep this pos
+
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.01; // 0.01?
     public static final double KI_ELEV_UP = 0;
@@ -141,8 +143,8 @@ public final class Constants {
   }
 
   public static class Intake {
-    // public static final int DIO_INTAKE_COUNTER = 10; //TODO find DIO channel for counter
     public static final int DIO_COUNTER = 10; // TODO find DIO channel for counter
+
     // Motor
     public static final double INTAKE_SPEED = 0.2; // TODO experiment with this speed
     public static final double EJECT_SPEED = -0.2;
