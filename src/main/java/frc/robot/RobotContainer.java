@@ -205,8 +205,10 @@ public class RobotContainer {
     //lb.onTrue(autoPIDTurn1);
     upPov.whileTrue(manualIntake);
     downPov.whileTrue(manualEject);
+    
     x.onTrue(shootAmpTrap.withTimeout(5));
-    b.onTrue(reverseAmpTrap.withTimeout(5));
+    b.whileTrue(manualIntake);
+   // b.onTrue(reverseAmpTrap.withTimeout(5));
 
     //***** Aux Controller ******
     //x1.whileTrue(manualExtend);

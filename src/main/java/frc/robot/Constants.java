@@ -41,7 +41,7 @@ public final class Constants {
     public static final int ID_RIGHT_REAR = 32; // 46
 
 
-    public static final int ID_INTAKE = 10; // TODO find IDs for controller
+    public static final int ID_INTAKE = 1; // TODO find IDs for controller
 
     public static final int ID_AMP_TRAP_SHOOTER = 13; // TODO get real number
 
@@ -50,7 +50,7 @@ public final class Constants {
     public static final int ID_ELEVATOR_RIGHT = 48;// TODO get real number
 
     // Cartridge shooter
-    public static final int ID_SHOOTER_LEFT = 1; // 1;
+    public static final int ID_SHOOTER_LEFT = 10; // 1;
     public static final int ID_SHOOTER_RIGHT = 35;//11; // 9;
     public static final int ID_CARTRIDGE_TILT = 33; //35;
 
