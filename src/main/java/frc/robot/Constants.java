@@ -35,25 +35,25 @@ public final class Constants {
 
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
-    public static final int ID_LEFT_FRONT = 34; // 42
+    public static final int ID_LEFT_FRONT = 44; // 42
     public static final int ID_RIGHT_FRONT = 59; // 43
     public static final int ID_LEFT_REAR = 58; // 41
-    public static final int ID_RIGHT_REAR = 32; // 46
+    public static final int ID_RIGHT_REAR = 45; // 46
 
 
-    public static final int ID_INTAKE = 10; // TODO find IDs for controller
+    public static final int ID_INTAKE = 46; // TODO find IDs for controller
 
     public static final int ID_AMP_TRAP_SHOOTER = 33; // TODO get real number
 
     // Elevator
-    public static final int ID_ELEVATOR_LEFT = 47; // TODO get real number
-    public static final int ID_ELEVATOR_RIGHT = 48;// TODO get real number
+    public static final int ID_ELEVATOR_LEFT = 1; // TODO get real number
+    public static final int ID_ELEVATOR_RIGHT = 35;// TODO get real number
 
     // Cartridge shooter
-    public static final int ID_SHOOTER_LEFT = 1; // 1;
-    public static final int ID_SHOOTER_RIGHT = 35;//11; // 9;
+    public static final int ID_SHOOTER_LEFT = 6; // 1;
+    public static final int ID_SHOOTER_RIGHT = 7;//11; // 9;
     //Tilt
-    public static final int ID_CARTRIDGE_TILT = 13; //35;
+    public static final int ID_CARTRIDGE_TILT = 10; //35;
 
 
     // smart current limit
@@ -146,8 +146,8 @@ public final class Constants {
   public static class Intake {
     public static final int DIO_COUNTER = 10; // TODO find DIO channel for counter
     // Motor
-    public static final double INTAKE_SPEED = 0.2; // TODO experiment with this speed
-    public static final double EJECT_SPEED = -0.2;
+    public static final double INTAKE_SPEED = 0.6; // TODO experiment with this speed
+    public static final double EJECT_SPEED = -0.6;
   }
 
   public static class CartridgeShooter { 
