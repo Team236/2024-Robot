@@ -34,6 +34,7 @@ import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Tilt;
 import frc.robot.subsystems.AmpTrap;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
@@ -67,6 +68,7 @@ public class RobotContainer {
   private final Cartridge cartridgeShooter = new Cartridge();
   private final AmpTrap ampTrapShooter = new AmpTrap();
   private final Elevator elevator = new Elevator();
+  private final Tilt tilt = new Tilt();
  
   //create instance of each command
   //DRIVE COMMANDS
@@ -89,20 +91,19 @@ public class RobotContainer {
   private final ManualWooferShot speakerShotFromWoofer = new ManualWooferShot(cartridgeShooter);
   private final PIDCartridgeMotors pidPodiumShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.PODIUM_PID_RPM);
   private final PIDCartridgeMotors pidWooferShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.WOOFER_PID_RPM);
-  private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
-  private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
+  private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
+  private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
  
-  private final PIDCartridgeTilt toPodiumPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_PODIUM, 
-                 Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
-  private final PIDCartridgeTilt toWooferPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_WOOFER, 
-                 Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
-  private final PIDCartridgeTilt toStowPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_STOW, 
-                Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
-  private final ManualRetractCartridge manualRetract = new ManualRetractCartridge(cartridgeShooter, Constants.CartridgeShooter.MAN_RET_SPEED);
-  private final ManualExtCartridge manualExtend = new ManualExtCartridge(cartridgeShooter, Constants.CartridgeShooter.MAN_EXT_SPEED);
-  private final PIDCartridgeShot wooferShot = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
-  private final PIDCartridgeShot podiumShot = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
- 
+  private final PIDCartridgeTilt toPodiumPosition = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM, 
+                 Constants.Tilt.KP_TILT,  Constants.Tilt.KI_TILT,  Constants.Tilt.KD_TILT);
+  private final PIDCartridgeTilt toWooferPosition = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER, 
+                 Constants.Tilt.KP_TILT,  Constants.Tilt.KI_TILT,  Constants.Tilt.KD_TILT);
+  private final PIDCartridgeTilt toStowPosition = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW, 
+                Constants.Tilt.KP_TILT,  Constants.Tilt.KI_TILT,  Constants.Tilt.KD_TILT);
+ private final ManualRetractCartridge manualRetract = new ManualRetractCartridge(tilt, Constants.Tilt.MAN_RET_SPEED);
+ private final ManualExtCartridge manualExtend = new ManualExtCartridge(tilt, Constants.Tilt.MAN_EXT_SPEED);
+ private final PIDCartridgeShot wooferShot = new PIDCartridgeShot(intake, cartridgeShooter, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
+ private final PIDCartridgeShot podiumShot = new PIDCartridgeShot(intake, cartridgeShooter, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
   //AMPTRAP COMMANDS:
   private final ManualShootAmpTrap shootAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ManualShootAmpTrap reverseAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
@@ -113,7 +114,7 @@ public class RobotContainer {
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
   private final AutoPIDTurn autoPIDTurn1 =
    new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
-  private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridgeShooter, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
+  private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridgeShooter, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
 
   //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
@@ -218,8 +219,8 @@ public class RobotContainer {
     //x1.onTrue(speakerShotFromWoofer.withTimeout(2));
    ///b1.onTrue(podiumShot.withTimeout(2));
     //x1.onTrue(wooferShot.withTimeout(3));
-    x1.whileTrue(pidWooferShot);
-    b1.onTrue(pidActualPodium);
+    //x1.onTrue(wooferShot);
+    //b1.onTrue(podiumShot);
     //x1.onTrue(frontShootGrabShoot);
     // a1.onTrue(manualAmpTrapShoot.withTimeout(5));
     // upPov1.whileTrue(manualIntake);

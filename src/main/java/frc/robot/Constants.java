@@ -171,7 +171,9 @@ public final class Constants {
     public static final double kIRight = 0.0; // 0.00000001
     public static final double kDRight = 0.0565; // 0.0565
     public static final double kFFRight = 0.00018; // 0.00021
+  }
 
+  public static class Tilt { 
     //TILT MOTOR STUFF:
     public static final int DIO_TILT_EXT_LIMIT = 0;
     public static final int DIO_TILT_RET_LIMIT = 1;

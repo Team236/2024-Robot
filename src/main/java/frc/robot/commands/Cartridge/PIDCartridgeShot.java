@@ -5,40 +5,50 @@
 package frc.robot.commands.Cartridge;
 
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Tilt;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-public class PIDCartridgeShot extends SequentialCommandGroup {
+public class PIDCartridgeShot extends ParallelCommandGroup {
   //Moves cartridge to Woofer or Podium position, then runs intake at set speed and Cartridge at PID controlled velocity
   //intake speed should be between -1 and 1, cartridge speed should be in RPM
-  public PIDCartridgeShot(Intake intake, Cartridge cartridge, double intSpeed, double cartSpeed, boolean isWoofer) {
+  public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed, boolean isWoofer) {
 
+    //runs wait and tilt in series, while running intake/cartridge in parallel
+    //the wait makes the cartridge extend and hold extended, while the shot takes place after the wait
     if (isWoofer) {
       addCommands(
-        new PIDCartridgeTilt(cartridge, Constants.CartridgeShooter.TILT_ENC_REVS_WOOFER, Constants.CartridgeShooter.KP_TILT,
-        Constants.CartridgeShooter.KI_TILT, Constants.CartridgeShooter.KD_TILT),
-        Commands.parallel(
-          new ManualIntake(intake, intSpeed).withTimeout(2), //determine timeout
-          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
-        )
-      );
+          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER, 
+                                Constants.Tilt.KP_TILT, Constants.Tilt.KI_TILT, Constants.Tilt.KD_TILT),
+        Commands.sequence(
+          new WaitCommand(4),  //adjust to min time needed to extened cartridge
+          new ManualIntake(intake, intSpeed).withTimeout(2)),
+          
+        Commands.sequence(
+          new WaitCommand(4),
+          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)));
     } 
       else{
         addCommands(
-         new PIDCartridgeTilt(cartridge, Constants.CartridgeShooter.TILT_ENC_REVS_PODIUM, Constants.CartridgeShooter.KP_TILT,
-        Constants.CartridgeShooter.KI_TILT, Constants.CartridgeShooter.KD_TILT),
-        Commands.parallel(
-          new ManualIntake(intake, intSpeed).withTimeout(2), //determine timeout
-          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
-        ) 
-      );
+        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM, 
+                                Constants.Tilt.KP_TILT, Constants.Tilt.KI_TILT, Constants.Tilt.KD_TILT),
+        Commands.sequence(
+          new WaitCommand(4),  //adjust to min time needed to extened cartridge
+          new ManualIntake(intake, intSpeed).withTimeout(2)),
+          
+        Commands.sequence(
+          new WaitCommand(4),
+          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)));
     }
+
   }
+
 }

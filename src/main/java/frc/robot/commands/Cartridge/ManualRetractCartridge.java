@@ -5,18 +5,18 @@
 package frc.robot.commands.Cartridge;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Cartridge;
+import frc.robot.subsystems.Tilt;
 
 public class ManualRetractCartridge extends Command {
   //Retracts the cartridge manually, stopping at the limit
-  private Cartridge cartridge;
+  private Tilt tilt;
   private double speed;
 
-  public ManualRetractCartridge(Cartridge cartridge, double speed) {
+  public ManualRetractCartridge(Tilt tilt, double speed) {
     this.speed = speed;
-    this.cartridge= cartridge;
+    this.tilt= tilt;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.cartridge);
+    addRequirements(this.tilt);
   }
 
 
@@ -27,18 +27,19 @@ public class ManualRetractCartridge extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    cartridge.setTiltSpeed(-speed);
+  
+    tilt.setTiltSpeed(-speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    cartridge.stopTilt();
+    tilt.stopTilt();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return cartridge.isTRetLimit();
+    return tilt.isTRetLimit();
   }
 }

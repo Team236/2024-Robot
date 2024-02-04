@@ -7,24 +7,25 @@ package frc.robot.commands.Cartridge;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Cartridge;
+import frc.robot.subsystems.Tilt;
 
 public class PIDCartridgeTilt extends Command {
 
-  private Cartridge cartridge;
+  private Tilt tilt;
   private double desiredRevs; //desired height in inches
   private final PIDController pidController;
   private double KP, KI, KD;
 
   /** Creates a new PIDCartridgeTilt. */
-  public PIDCartridgeTilt(Cartridge cartridge, double desiredRevs, double KP, double KI, double KD) {
+  public PIDCartridgeTilt(Tilt tilt, double desiredRevs, double KP, double KI, double KD) {
     this.KP = KP;
     this.KI = KI;
     this.KD = KD;
     pidController = new PIDController(KP, KI, KD);
-    this.cartridge = cartridge;
+    this.tilt = tilt;
     this.desiredRevs = desiredRevs;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(cartridge);
+    addRequirements(tilt);
     pidController.setSetpoint(desiredRevs);
 }
 
@@ -37,13 +38,13 @@ public class PIDCartridgeTilt extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    cartridge.setTiltSpeed(pidController.calculate(cartridge.getTiltEncoder()));
+    tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    cartridge.stopTilt();
+    tilt.stopTilt();
   }
 
   // Returns true when the command should end.
