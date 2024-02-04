@@ -189,8 +189,8 @@ public class RobotContainer {
     menu.onTrue(highGear);
     //x.onTrue(toggleGear);
     //b.whileTrue(setIntakeSpeed);
-    //a.onTrue(toPodiumPosition);
-    //y.onTrue(toStowPosition);
+    a.onTrue(toPodiumPosition);
+    y.onTrue(toStowPosition);
     //a.onTrue(elevatorDownPID);
     //y.onTrue(elevatorUpPID);
    // x.onTrue(pidToTop);
@@ -209,8 +209,8 @@ public class RobotContainer {
     b.onTrue(reverseAmpTrap.withTimeout(5));
 
     //***** Aux Controller ******
-    //x1.whileTrue(manualExtend);
-   // b1.whileTrue(manualRetract);
+   x1.whileTrue(manualExtend);
+   b1.whileTrue(manualRetract);
     y1.onTrue(toWooferPosition);
     a1.onTrue(toStowPosition);
    //downPov1.onTrue(reverseAmpTrap.withTimeout(2));

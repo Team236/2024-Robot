@@ -52,6 +52,7 @@ public final class Constants {
     // Cartridge shooter
     public static final int ID_SHOOTER_LEFT = 1; // 1;
     public static final int ID_SHOOTER_RIGHT = 35;//11; // 9;
+    //Tilt
     public static final int ID_CARTRIDGE_TILT = 33; //35;
 
 
