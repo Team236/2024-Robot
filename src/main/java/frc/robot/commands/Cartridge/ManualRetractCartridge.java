@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Cartridge;
 
 public class ManualRetractCartridge extends Command {
-  /** Creates a new ManualExtCartridge. */
+  //Retracts the cartridge manually, stopping at the limit
   private Cartridge cartridge;
   private double speed;
 

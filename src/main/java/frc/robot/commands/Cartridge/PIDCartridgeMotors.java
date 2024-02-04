@@ -11,7 +11,7 @@ import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 
 public class PIDCartridgeMotors extends Command {
-//runs cartridge at desired velocity using PID.  Speed should be specified in RPM.
+//runs cartridge motors at desired velocity using PID.  Speed should be specified in RPM.
 
   private Cartridge cartridge;
   private double speed;

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Cartridge;
 
 public class ManualExtCartridge extends Command {
-  /** Creates a new ManualExtCartridge. */
+  //Extends the cartridge manually, stopping at the limit or max extend value
   private Cartridge cartridge;
   private double speed;
 
