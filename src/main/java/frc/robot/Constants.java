@@ -46,8 +46,8 @@ public final class Constants {
     public static final int ID_AMP_TRAP_SHOOTER = 10; // TODO get real number
 
     // Elevator
-    public static final int ID_ELEVATOR_LEFT = 1; // TODO get real number
-    public static final int ID_ELEVATOR_RIGHT = 35;// TODO get real number
+    public static final int ID_ELEVATOR_LEFT = 12; // TODO get real number
+    public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
     // Cartridge shooter
     public static final int ID_SHOOTER_LEFT = 6; // 1;
