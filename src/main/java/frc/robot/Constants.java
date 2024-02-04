@@ -144,7 +144,6 @@ public final class Constants {
 
   public static class Intake {
     public static final int DIO_COUNTER = 10; // TODO find DIO channel for counter
-
     // Motor
     public static final double INTAKE_SPEED = 0.2; // TODO experiment with this speed
     public static final double EJECT_SPEED = -0.2;
