@@ -35,7 +35,7 @@ public final class Constants {
 
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
-    public static final int ID_LEFT_FRONT = 35; // 42
+    public static final int ID_LEFT_FRONT = 34; // 42
     public static final int ID_RIGHT_FRONT = 59; // 43
     public static final int ID_LEFT_REAR = 58; // 41
     public static final int ID_RIGHT_REAR = 32; // 46
