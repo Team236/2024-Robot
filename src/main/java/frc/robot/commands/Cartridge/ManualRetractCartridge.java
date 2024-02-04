@@ -27,7 +27,7 @@ public class ManualRetractCartridge extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    cartridge.setBothSpeeds(-speed);
+    cartridge.setTiltSpeed(-speed);
   }
 
   // Called once the command ends or is interrupted.

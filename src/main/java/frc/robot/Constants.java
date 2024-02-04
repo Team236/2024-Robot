@@ -35,8 +35,8 @@ public final class Constants {
 
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
-    public static final int ID_LEFT_FRONT = 42; // 35
-    public static final int ID_RIGHT_FRONT = 43; // 1
+    public static final int ID_LEFT_FRONT =  29;//35;
+    public static final int ID_RIGHT_FRONT = 28;//1;
     public static final int ID_LEFT_REAR = 41; // 34
     public static final int ID_RIGHT_REAR = 46; // 32
 
@@ -50,9 +50,9 @@ public final class Constants {
     public static final int ID_ELEVATOR_RIGHT = 48;// TODO get real number
 
     // Cartridge shooter
-    public static final int ID_SHOOTER_LEFT = 10; // 1;
-    public static final int ID_SHOOTER_RIGHT = 11; // 9;
-    public static final int ID_CARTRIDGE_TILT = 35;
+    public static final int ID_SHOOTER_LEFT = 1; // 1;
+    public static final int ID_SHOOTER_RIGHT = 35;//11; // 9;
+    public static final int ID_CARTRIDGE_TILT = 1; //35;
 
     // smart current limit
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -150,11 +150,6 @@ public final class Constants {
 
   public static class CartridgeShooter { 
     // SHOOTER MOTORS STUFF:
-    public static final int SOL_CARTRIDGE_1_FWD = 3; // *** SHIFT HI FWD SOL from 2023Robot
-    public static final int SOL_CARTRIDGE_1_REV = 2; // *** SHIFT LO REV SOL from 2023Robot
-    public static final int SOL_CARTRIDGE_2_FWD = 1; // ** GRIPPER FWD SOL from 2023Robot
-    public static final int SOL_CARTRIDGE_2_REV = 0; // ** GRIPPER REV SOL from 2023Robot
-
     public static final double PODIUM_PID_RPM = 1500; //TODO determine speed
     public static final double WOOFER_PID_RPM = 2100; //TODO determine speed
     public static final double AMP_PID_RPM = 2000; //TODO determine speed
@@ -164,7 +159,7 @@ public final class Constants {
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
 
     public static final double MANUAL_SET_SPEED = 0.1; // TODO determine speed
-                                            // 2022 pid constants commented in
+   //CartridgeShooterMotor PID // 2022 pid constants commented in
     public static final double kPLeft = 0.00005; // 0002
     public static final double kILeft = 0.0; // 0.00000001
     public static final double kDLeft = 0.0565; // 0.0565
@@ -178,14 +173,14 @@ public final class Constants {
     //TILT MOTOR STUFF:
     public static final int DIO_TILT_EXT_LIMIT = 0;
     public static final int DIO_TILT_RET_LIMIT = 1;
-    public static final double MAX_TILT_ENC_REVS = 1000;  //MUST BE HIGHER THAN VALUES BELOW
-    public static final double TILT_ENC_REVS_WOOFER = 20; //TODO FIND REAL ENCODER VALUES
-    public static final double TILT_ENC_REVS_PODIUM = 40;
+    public static final double MAX_TILT_ENC_REVS = 120;  //MUST BE HIGHER THAN VALUES BELOW
+    public static final double TILT_ENC_REVS_WOOFER = 50; //TODO FIND REAL ENCODER VALUES
+    public static final double TILT_ENC_REVS_PODIUM = 100;
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
     public static final double MAN_EXT_SPEED = 0.3; //TODO find these EXT/RET constants
     public static final double MAN_RET_SPEED = 0.4;  //should be positive, the method adds the negative
-
-    public static final double KP_TILT = 0.0001;
+    //CARTRIDGE TILT PID:
+    public static final double KP_TILT = 0.01;
     public static final double KI_TILT = 0;
     public static final double KD_TILT = 0;
   }

@@ -109,7 +109,8 @@ public class RobotContainer {
  //AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
-  private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
+  private final AutoPIDTurn autoPIDTurn1 =
+   new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
   private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridgeShooter, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
 
   //ELEVATOR COMMANDS:
@@ -186,12 +187,9 @@ public class RobotContainer {
     //x.onTrue(toggleGear);
     //b.whileTrue(setIntakeSpeed);
     //a.onTrue(toPodiumPosition);
-    //y.onTrue(toStowedPosition);
+    //y.onTrue(toStowPosition);
     //a.onTrue(elevatorDownPID);
     //y.onTrue(elevatorUpPID);
-    x1.onTrue(toWooferPosition);
-    b1.onTrue(toStowPosition);
-    y1.onTrue(toPodiumPosition);
 
    // x.onTrue(pidToTop);
    // b.onTrue(pidToBot);
@@ -202,19 +200,22 @@ public class RobotContainer {
     lb.onTrue(autoPIDTurn1);
 
     //***** Aux Controller ******
+    x1.whileTrue(manualExtend);
+    b1.whileTrue(manualRetract);
+    y1.onTrue(toWooferPosition);
+    a1.onTrue(toStowPosition);
    //downPov1.onTrue(reverseAmpTrap.withTimeout(2));
-    //a1.onTrue(toWooferPosition);
+   //a1.onTrue(toWooferPosition);
    // b1.onTrue(speakerShotFromPodium.withTimeout(2));
     //x1.onTrue(speakerShotFromWoofer.withTimeout(2));
-   // y1.onTrue(autoPIDDrive);
-    //b1.onTrue(pidPodiumShot.withTimeout(2));
-    //x1.onTrue(pidWooferShot.withTimeout(15));
+   ///b1.onTrue(pidPodiumShot.withTimeout(2));
+    //x1.onTrue(pidWooferShot.withTimeout(3));
     //x1.whileTrue(pidWooferShot);
     //b1.onTrue(pidActualPodium);
     //x1.onTrue(frontShootGrabShoot);
-    a1.onTrue(manualAmpTrapShoot.withTimeout(5));
-    upPov1.whileTrue(manualIntake);
-    downPov1.whileTrue(manualEject);
+    // a1.onTrue(manualAmpTrapShoot.withTimeout(5));
+    // upPov1.whileTrue(manualIntake);
+    // downPov1.whileTrue(manualEject);
   }
 
   ;

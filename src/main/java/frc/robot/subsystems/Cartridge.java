@@ -143,7 +143,7 @@ public class Cartridge extends SubsystemBase {
   public double getTiltEncoder() {  //gives encoder reading in Revs
     return tiltEncoder.getPosition();
   }
-
+  
   public void resetTiltEncoder() {
     tiltEncoder.setPosition(0);
   }
@@ -200,8 +200,10 @@ public void setTiltSpeed(double speed) {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Shooter Motor RPM ", getLeftVelocity());
+    
     SmartDashboard.putBoolean("Tilt Extend Limit: ", isTExtLimit());
     SmartDashboard.putBoolean("Tilt Retract Limit: ", isTRetLimit());
     SmartDashboard.putNumber("Tilt Encoder REvolutions: ", getTiltEncoder());
+    SmartDashboard.putBoolean("Tilte is fully extended: ", isFullyExtended());
   }
 }
