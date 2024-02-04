@@ -23,7 +23,7 @@ private Cartridge cartridge;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    cartridge.wooferShotPosition();
+    //cartridge.wooferShotPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

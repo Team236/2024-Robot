@@ -4,41 +4,46 @@
 
 package frc.robot.commands.Cartridge;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.Cartridge;
-import frc.robot.subsystems.Intake;
 
-public class ManualPodiumShot extends Command {
-  //runs cartridge at a set speed, podium shot speed without PID
-  
+public class PIDCartridgeTilt extends Command {
+
   private Cartridge cartridge;
-  
-  public ManualPodiumShot(Cartridge cartridge) {
-    this.cartridge = cartridge;
+  private double desiredRevs; //desired height in inches
+  private final PIDController pidController;
+  private double KP, KI, KD;
 
+  /** Creates a new PIDCartridgeTilt. */
+  public PIDCartridgeTilt(Cartridge cartridge, double desiredRevs, double KP, double KI, double KD) {
+    this.KP = KP;
+    this.KI = KI;
+    this.KD = KD;
+    pidController = new PIDController(KP, KI, KD);
+    this.cartridge = cartridge;
+    this.desiredRevs = desiredRevs;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.cartridge);
-  }
+    addRequirements(cartridge);
+    pidController.setSetpoint(desiredRevs);
+}
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //cartridge.podiumShotPosition();
+    pidController.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     cartridge.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
+    cartridge.setTiltSpeed(pidController.calculate(cartridge.getTiltEncoder()));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //stop the shooter motor and reset the Note count to zero, after shooting
-    cartridge.setBothSpeeds(0);
-    Intake.resetCounter();
+    cartridge.stopTilt();
   }
 
   // Returns true when the command should end.

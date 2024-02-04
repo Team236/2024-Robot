@@ -11,11 +11,11 @@ import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
 import frc.robot.commands.Cartridge.PIDCartridgeShot;
+import frc.robot.commands.Cartridge.PIDCartridgeTilt;
+import frc.robot.commands.Cartridge.ManualExtCartridge;
 import frc.robot.commands.Cartridge.ManualPodiumShot;
+import frc.robot.commands.Cartridge.ManualRetractCartridge;
 import frc.robot.commands.Cartridge.ManualWooferShot;
-import frc.robot.commands.Cartridge.ToPodiumPosition;
-import frc.robot.commands.Cartridge.ToStowedPosition;
-import frc.robot.commands.Cartridge.ToWooferPosition;
 import frc.robot.commands.Drive.ArcadeJoysticks;
 import frc.robot.commands.Drive.ArcadeXbox;
 import frc.robot.commands.Drive.CurvatureXbox;
@@ -85,10 +85,6 @@ public class RobotContainer {
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 
  //CARTRIDGE COMMANDS:
-  private final ToPodiumPosition toPodiumPosition = new ToPodiumPosition(cartridgeShooter);
-  private final ToWooferPosition toWooferPosition = new ToWooferPosition(cartridgeShooter);
-  private final ToStowedPosition toStowedPosition = new ToStowedPosition(cartridgeShooter);
-
   private final ManualPodiumShot speakerShotFromPodium = new ManualPodiumShot(cartridgeShooter);
   private final ManualWooferShot speakerShotFromWoofer = new ManualWooferShot(cartridgeShooter);
   private final PIDCartridgeMotors pidPodiumShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.PODIUM_PID_RPM);
@@ -96,6 +92,15 @@ public class RobotContainer {
   private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
   private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
  
+  private final PIDCartridgeTilt toPodiumPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_PODIUM, 
+                 Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
+  private final PIDCartridgeTilt toWooferPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_WOOFER, 
+                 Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
+  private final PIDCartridgeTilt toStowPosition = new PIDCartridgeTilt(cartridgeShooter, Constants.CartridgeShooter.TILT_ENC_REVS_STOW, 
+                Constants.CartridgeShooter.KP_TILT,  Constants.CartridgeShooter.KI_TILT,  Constants.CartridgeShooter.KD_TILT);
+  private final ManualRetractCartridge manualRetract = new ManualRetractCartridge(cartridgeShooter, Constants.CartridgeShooter.MAN_RET_SPEED);
+  private final ManualExtCartridge manualExtend = new ManualExtCartridge(cartridgeShooter, Constants.CartridgeShooter.MAN_EXT_SPEED);
+
  //AMPTRAP COMMANDS:
   private final ManualShootAmpTrap shootAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final ManualShootAmpTrap reverseAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
@@ -104,7 +109,8 @@ public class RobotContainer {
  //AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
-  private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
+  private final AutoPIDTurn autoPIDTurn1 =
+   new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
   private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridgeShooter, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
 
   //ELEVATOR COMMANDS:
@@ -181,9 +187,12 @@ public class RobotContainer {
     //x.onTrue(toggleGear);
     //b.whileTrue(setIntakeSpeed);
     //a.onTrue(toPodiumPosition);
-    //y.onTrue(toStowedPosition);
+    //y.onTrue(toStowPosition);
     //a.onTrue(elevatorDownPID);
     //y.onTrue(elevatorUpPID);
+   // x.onTrue(pidToTop);
+   // b.onTrue(pidToBot);
+    //y.whileTrue(manualUp);
     //x.onTrue(pidToTop);
     //b.onTrue(pidToBot);
     y.whileTrue(manualUp);
@@ -197,16 +206,23 @@ public class RobotContainer {
     b.onTrue(reverseAmpTrap.withTimeout(5));
 
     //***** Aux Controller ******
+    x1.whileTrue(manualExtend);
+    b1.whileTrue(manualRetract);
+    y1.onTrue(toWooferPosition);
+    a1.onTrue(toStowPosition);
    //downPov1.onTrue(reverseAmpTrap.withTimeout(2));
-    //a1.onTrue(toWooferPosition);
-    b1.onTrue(speakerShotFromPodium.withTimeout(2));
+   //a1.onTrue(toWooferPosition);
+   // b1.onTrue(speakerShotFromPodium.withTimeout(2));
     //x1.onTrue(speakerShotFromWoofer.withTimeout(2));
-    y1.onTrue(autoPIDDrive);
-    //b1.onTrue(pidPodiumShot.withTimeout(2));
-    //x1.onTrue(pidWooferShot.withTimeout(15));
+   ///b1.onTrue(pidPodiumShot.withTimeout(2));
+    //x1.onTrue(pidWooferShot.withTimeout(3));
     //x1.whileTrue(pidWooferShot);
+    //b1.onTrue(pidActualPodium);
+    //x1.onTrue(frontShootGrabShoot);
+    // a1.onTrue(manualAmpTrapShoot.withTimeout(5));
+    // upPov1.whileTrue(manualIntake);
+    // downPov1.whileTrue(manualEject);
     //b1.onTrue(pidActualPodium); n
-    x1.onTrue(frontShootGrabShoot);
   }
 
   

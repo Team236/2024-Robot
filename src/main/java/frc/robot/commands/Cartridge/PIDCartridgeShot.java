@@ -22,7 +22,8 @@ public class PIDCartridgeShot extends SequentialCommandGroup {
 
     if (isWoofer) {
       addCommands(
-        new ToWooferPosition(cartridge),
+        new PIDCartridgeTilt(cartridge, Constants.CartridgeShooter.TILT_ENC_REVS_WOOFER, Constants.CartridgeShooter.KP_TILT,
+        Constants.CartridgeShooter.KI_TILT, Constants.CartridgeShooter.KD_TILT),
         Commands.parallel(
           new ManualIntake(intake, intSpeed).withTimeout(2), //determine timeout
           new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
@@ -31,7 +32,8 @@ public class PIDCartridgeShot extends SequentialCommandGroup {
     } 
       else{
         addCommands(
-        new ToPodiumPosition(cartridge),
+         new PIDCartridgeTilt(cartridge, Constants.CartridgeShooter.TILT_ENC_REVS_PODIUM, Constants.CartridgeShooter.KP_TILT,
+        Constants.CartridgeShooter.KI_TILT, Constants.CartridgeShooter.KD_TILT),
         Commands.parallel(
           new ManualIntake(intake, intSpeed).withTimeout(2), //determine timeout
           new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)

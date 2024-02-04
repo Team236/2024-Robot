@@ -7,7 +7,6 @@ package frc.robot.commands.AmpTrap;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
-import frc.robot.commands.Cartridge.ToStowedPosition;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
@@ -23,7 +22,7 @@ public class AmpTrapShoot extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ToStowedPosition(cartridge),
+      //new ToStowedPosition(cartridge),
     Commands.parallel(
       new ManualIntake(intake, intSpeed),
       new PIDCartridgeMotors(cartridge, cartSpeed),

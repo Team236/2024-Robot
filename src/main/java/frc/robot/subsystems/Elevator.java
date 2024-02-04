@@ -15,7 +15,7 @@ import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
   private CANSparkMax leftElevatorMotor, rightElevatorMotor;
-  private RelativeEncoder ElevatorEncoder;
+  private RelativeEncoder elevatorEncoder;
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
   /** Creates a new Elevator. */
@@ -33,7 +33,7 @@ public class Elevator extends SubsystemBase {
     rightElevatorMotor.setInverted(true);//TODO check these
   
     //TODO  Determine if want to use left or right encoder here, use the one that is increasing when going up
-    ElevatorEncoder = leftElevatorMotor.getEncoder(); //will use SparkMax encoder for elevator
+    elevatorEncoder = leftElevatorMotor.getEncoder(); //will use SparkMax encoder for elevator
     
     try {
       elevatorTopLimit = new DigitalInput(Constants.Elevator.DIO_ELEV_TOP);
@@ -82,12 +82,12 @@ public class Elevator extends SubsystemBase {
     
   //TODO change to elevator from here down
     public void resetElevatorEncoder() {
-      ElevatorEncoder.setPosition(0); //SparkMax encoder (left only)
+      elevatorEncoder.setPosition(0); //SparkMax encoder (left only)
     }
    
     //returns encoder position in REVOLUTIONS (number of rotations)
       public double getElevatorEncoder() {
-      return ElevatorEncoder.getPosition(); //for a SparkMax encoder
+      return elevatorEncoder.getPosition(); //for a SparkMax encoder
     }
     //reads elevator distance travelled in inches 
     public double getElevatorHeight() {
