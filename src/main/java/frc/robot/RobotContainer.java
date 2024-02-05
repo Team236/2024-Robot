@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.commands.AmpTrap.AmpTrapShoot;
 import frc.robot.commands.AmpTrap.ManualShootAmpTrap;
-import frc.robot.commands.AmpTrap.WaitShootTrap;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
@@ -123,7 +122,7 @@ public class RobotContainer {
   private final SetElevatorHeight pidToTop = new SetElevatorHeight(elevator, Constants.Elevator.TOP_HEIGHT, Constants.Elevator.KP_ELEV_UP, Constants.Elevator.KI_ELEV_UP, Constants.Elevator.KD_ELEV_UP);
   private final SetElevatorHeight pidToBot = new SetElevatorHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT, Constants.Elevator.KP_ELEV_DOWN, Constants.Elevator.KI_ELEV_DOWN, Constants.Elevator.KD_ELEV_DOWN);
   private final ClimbPID climbPID = new ClimbPID(elevator, ampTrapShooter, intake, cartridgeShooter);
-  private final WaitShootTrap waitShootTrap = new WaitShootTrap(intake, cartridgeShooter, ampTrapShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+ 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -201,7 +200,6 @@ public class RobotContainer {
     //lb.onTrue(autoPIDTurn1);
     //upPoV.whileTrue(manualIntake);
     //downPov.whileTrue(manualEject);
-
 
     //***** Aux Controller ******
    //x1.whileTrue(manualExtend);
