@@ -30,5 +30,6 @@ public class ShootAmp extends SequentialCommandGroup {
       new AmpMotor(ampTrap, ampSpeed)
       )
     );
+    Intake.resetCounter();  //reset counter after shooting a Note
   }
 }
