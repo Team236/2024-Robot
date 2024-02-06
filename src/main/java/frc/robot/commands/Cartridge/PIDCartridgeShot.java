@@ -29,11 +29,11 @@ public class PIDCartridgeShot extends ParallelCommandGroup {
           new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER, 
                                 Constants.Tilt.KP_TILT, Constants.Tilt.KI_TILT, Constants.Tilt.KD_TILT),
         Commands.sequence(
-          new WaitCommand(4),  //adjust to min time needed to extened cartridge
+          new WaitCommand(1.5),  //TODO adjust to min time needed to extened cartridge
           new ManualIntake(intake, intSpeed).withTimeout(2)),
           
         Commands.sequence(
-          new WaitCommand(4),
+          new WaitCommand(1.5),   //TODO adjust to min time needed to extened cartridge
           new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)));
     } 
       else{
@@ -41,14 +41,14 @@ public class PIDCartridgeShot extends ParallelCommandGroup {
         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM, 
                                 Constants.Tilt.KP_TILT, Constants.Tilt.KI_TILT, Constants.Tilt.KD_TILT),
         Commands.sequence(
-          new WaitCommand(4),  //adjust to min time needed to extened cartridge
+          new WaitCommand(1.5),  //TODO adjust to min time needed to extened cartridge
           new ManualIntake(intake, intSpeed).withTimeout(2)),
           
         Commands.sequence(
-          new WaitCommand(4),
+          new WaitCommand(1.5), //TODO adjust to min time needed to extened cartridge
           new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)));
     }
-
+    Intake.resetCounter();  //reset counter after shooting a Note
   }
 
 }
