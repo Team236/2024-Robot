@@ -35,15 +35,16 @@ public final class Constants {
 
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
-    public static final int ID_LEFT_FRONT = 34; // 42
+    public static final int ID_LEFT_FRONT = 44; // 42
     public static final int ID_RIGHT_FRONT = 59; // 43
     public static final int ID_LEFT_REAR = 58; // 41
-    public static final int ID_RIGHT_REAR = 32; // 46
-
+    public static final int ID_RIGHT_REAR = 45; // 46
 
     public static final int ID_INTAKE = 1; // TODO find IDs for controller
 
-    public static final int ID_AMP_TRAP_SHOOTER = 13; // TODO get real number
+    public static final int ID_INTAKE = 1; // TODO find IDs for controller
+
+    public static final int ID_AMP_TRAP_SHOOTER = 10; // TODO get real number
 
     // Elevator
     public static final int ID_ELEVATOR_LEFT = 12; // TODO get real number

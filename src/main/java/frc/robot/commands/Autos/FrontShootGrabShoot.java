@@ -23,7 +23,7 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
   public FrontShootGrabShoot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, double intSpeed, double cartSpeed, double drvDistance) {
     //This command starts in front of the woofer, sets cartridge to woofer, shoots, (drives, runs intake, sets cartridge to podium at the same time), then shoots again
     addCommands(
-   //PIDCartridgeShot brings the cartridge to the Woofer or Podium angle, and then runs intake and cartridge motors
+   //PIDCartridgeShot brings the cartridge to the Woofer or Podium angle (holds with PID), and then runs intake and cartridge motors
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(2), 
       new WaitCommand(1),
     Commands.parallel(
