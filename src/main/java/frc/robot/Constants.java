@@ -42,8 +42,6 @@ public final class Constants {
 
     public static final int ID_INTAKE = 1; // TODO find IDs for controller
 
-    public static final int ID_INTAKE = 1; // TODO find IDs for controller
-
     public static final int ID_AMP_TRAP_SHOOTER = 10; // TODO get real number
 
     // Elevator
