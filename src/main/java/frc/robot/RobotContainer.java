@@ -185,17 +185,16 @@ public class RobotContainer {
 
     //assign button to comnands
     //***** driver controller ******
-    view.onTrue(lowGear);
-    menu.onTrue(highGear);
+    //view.onTrue(lowGear);
+   // menu.onTrue(highGear);
     //x.onTrue(toggleGear);
     //b.whileTrue(setIntakeSpeed);
     //a.onTrue(toPodiumPosition);
     //y.onTrue(toStowPosition);
-    //a.onTrue(elevatorDownPID);
-    //y.onTrue(elevatorUpPID);
+    // a.onTrue(elevatorDownPID);
+    // y.onTrue(elevatorUpPID);
    // x.onTrue(pidToTop);
    // b.onTrue(pidToBot);
-    //y.whileTrue(manualUp);
     //x.onTrue(pidToTop);
     //b.onTrue(pidToBot);
     y.whileTrue(manualUp);
@@ -207,9 +206,9 @@ public class RobotContainer {
     downPov.whileTrue(manualEject);
 
     // x.onTrue(shootAmpTrap.withTimeout(5));
-    x.onTrue(shootAmpTrap);
-    b.whileTrue(manualIntake);
-   // b.onTrue(reverseAmpTrap.withTimeout(5));
+    b.whileTrue(shootAmpTrap);
+    x.whileTrue(manualIntake);
+   //b.onTrue(reverseAmpTrap.withTimeout(5));
 
     //***** Aux Controller ******
     //x1.whileTrue(manualExtend);

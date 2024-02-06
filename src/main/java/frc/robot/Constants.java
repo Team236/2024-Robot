@@ -46,8 +46,8 @@ public final class Constants {
     public static final int ID_AMP_TRAP_SHOOTER = 13; // TODO get real number
 
     // Elevator
-    public static final int ID_ELEVATOR_LEFT = 47; // TODO get real number
-    public static final int ID_ELEVATOR_RIGHT = 48;// TODO get real number
+    public static final int ID_ELEVATOR_LEFT = 12; // TODO get real number
+    public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
     // Cartridge shooter
     public static final int ID_SHOOTER_LEFT = 10; // 1;
@@ -64,7 +64,7 @@ public final class Constants {
       }
   
       public static class Amp{
-        public static final double AMP_TRAP_MOTOR_SPEED = 0.2; // TODO define real spead
+        public static final double AMP_TRAP_MOTOR_SPEED = 1.0; // TODO define real spead
         public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.2; // TODO define real spead
       }
       
@@ -145,7 +145,7 @@ public final class Constants {
   public static class Intake {
     public static final int DIO_COUNTER = 10; // TODO find DIO channel for counter
     // Motor
-    public static final double INTAKE_SPEED = 0.2; // TODO experiment with this speed
+    public static final double INTAKE_SPEED = 0.6; // TODO experiment with this speed
     public static final double EJECT_SPEED = -0.2;
   }
 
