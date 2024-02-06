@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-import frc.robot.commands.AmpTrap.AmpTrapShoot;
-import frc.robot.commands.AmpTrap.ManualShootAmpTrap;
+import frc.robot.commands.AmpTrap.ShootAmp;
+import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
@@ -13,9 +13,9 @@ import frc.robot.commands.Cartridge.PIDCartridgeMotors;
 import frc.robot.commands.Cartridge.PIDCartridgeShot;
 import frc.robot.commands.Cartridge.PIDCartridgeTilt;
 import frc.robot.commands.Cartridge.ManualExtCartridge;
-import frc.robot.commands.Cartridge.ManualPodiumShot;
+import frc.robot.commands.Cartridge.ManualPodiumCartOnly;
 import frc.robot.commands.Cartridge.ManualRetractCartridge;
-import frc.robot.commands.Cartridge.ManualWooferShot;
+import frc.robot.commands.Cartridge.ManualWooferCartOnly;
 import frc.robot.commands.Drive.ArcadeJoysticks;
 import frc.robot.commands.Drive.ArcadeXbox;
 import frc.robot.commands.Drive.CurvatureXbox;
@@ -87,13 +87,13 @@ public class RobotContainer {
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 
  //CARTRIDGE COMMANDS:
-  private final ManualPodiumShot speakerShotFromPodium = new ManualPodiumShot(cartridgeShooter);
-  private final ManualWooferShot speakerShotFromWoofer = new ManualWooferShot(cartridgeShooter);
+  private final ManualPodiumCartOnly speakerShotFromPodium = new ManualPodiumCartOnly(cartridgeShooter);
+  private final ManualWooferCartOnly speakerShotFromWoofer = new ManualWooferCartOnly(cartridgeShooter);
   private final PIDCartridgeMotors pidPodiumShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.PODIUM_PID_RPM);
   private final PIDCartridgeMotors pidWooferShot = new PIDCartridgeMotors(cartridgeShooter, Constants.CartridgeShooter.WOOFER_PID_RPM);
   private final PIDCartridgeShot pidActualWoofer = new PIDCartridgeShot(intake, cartridgeShooter, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
   private final PIDCartridgeShot pidActualPodium = new PIDCartridgeShot(intake, cartridgeShooter, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
- 
+
   private final PIDCartridgeTilt toPodiumPosition = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM, 
                  Constants.Tilt.KP_TILT,  Constants.Tilt.KI_TILT,  Constants.Tilt.KD_TILT);
   private final PIDCartridgeTilt toWooferPosition = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER, 
@@ -102,18 +102,16 @@ public class RobotContainer {
                 Constants.Tilt.KP_TILT,  Constants.Tilt.KI_TILT,  Constants.Tilt.KD_TILT);
  private final ManualRetractCartridge manualRetract = new ManualRetractCartridge(tilt, Constants.Tilt.MAN_RET_SPEED);
  private final ManualExtCartridge manualExtend = new ManualExtCartridge(tilt, Constants.Tilt.MAN_EXT_SPEED);
- private final PIDCartridgeShot wooferShot = new PIDCartridgeShot(intake, cartridgeShooter, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
- private final PIDCartridgeShot podiumShot = new PIDCartridgeShot(intake, cartridgeShooter, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
-  //AMPTRAP COMMANDS:
-  private final ManualShootAmpTrap shootAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
-  private final ManualShootAmpTrap reverseAmpTrap = new ManualShootAmpTrap(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
-  private final AmpTrapShoot manualAmpTrapShoot = new AmpTrapShoot(intake, cartridgeShooter, ampTrapShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  
+ //AMPTRAP COMMANDS:
+  private final AmpMotor ampMotorForward = new AmpMotor(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  private final AmpMotor ampMotorReverse = new AmpMotor(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
+  private final ShootAmp shootAmpMotor = new ShootAmp(intake, cartridgeShooter, ampTrapShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   
  //AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
-  private final AutoPIDTurn autoPIDTurn1 =
-   new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
+  private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
   private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridgeShooter, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
 
   //ELEVATOR COMMANDS:
@@ -126,15 +124,10 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
-    //drive.setDefaultCommand(tankXbox);
-    //drive.setDefaultCommand(curvatureXbox);
-    //drive.setDefaultCommand(tankJoysticks); //uses left Z to turn, not right X
-    //drive.setDefaultCommand(arcadeJoysticks);
 
     // Configure the trigger bindings
     configureBindings();
   }
-
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
@@ -145,14 +138,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    //new Trigger(m_exampleSubsystem::exampleCondition)
-        //.onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-         // CREATE BUTTONS
+    // CREATE BUTTONS
     // *XBOXCONTROLLER - DRIVER CONTROLLER
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
@@ -184,62 +170,46 @@ public class RobotContainer {
     POVButton leftPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
-    //assign button to comnands
+    //Assign button to comnands
+    
     //***** driver controller ******
     //view.onTrue(lowGear);
    // menu.onTrue(highGear);
     //x.onTrue(toggleGear);
     //b.whileTrue(setIntakeSpeed);
-    //a.onTrue(toPodiumPosition);
-    //y.onTrue(toStowPosition);
     // a.onTrue(elevatorDownPID);
     // y.onTrue(elevatorUpPID);
    // x.onTrue(pidToTop);
    // b.onTrue(pidToBot);
-    //x.onTrue(pidToTop);
-    //b.onTrue(pidToBot);
     //rb.onTrue(climbPID);
     //rb.onTrue(autoPIDDrive);
     //lb.onTrue(autoPIDTurn1);
     upPov.whileTrue(manualIntake);
     downPov.whileTrue(manualEject);
 
-    // x.onTrue(shootAmpTrap.withTimeout(5));
-    b.whileTrue(shootAmpTrap);
-    x.whileTrue(manualIntake);
-   //b.onTrue(reverseAmpTrap.withTimeout(5));
+    b.whileTrue(ampMotorForward);
+    x.onTrue(ampMotorReverse.withTimeout(5));
+    y.onTrue(shootAmpMotor.withTimeout(5));
 
     //***** Aux Controller ******
    //x1.whileTrue(manualExtend);
    //b1.whileTrue(manualRetract);
    // y1.onTrue(toWooferPosition);
     //a1.onTrue(toStowPosition);
-    //y1.whileTrue(pidPodiumShot);
-    //a133hileTrue(pidWooferShot);
-    //y1.onTrue(pidToTop);
-   //a1.onTrue(pidToBot);
-  // b1.onTrue(waitShootTrap);
+ 
     //y1.whileTrue(manualUp);
     //a1.whileTrue(manualDown);
   a1.onTrue(toPodiumPosition);
    y1.onTrue(toStowPosition);
    b1.onTrue(toWooferPosition);
-    //upPov1.onTrue(shootAmpTrap.withTimeout(2));
-   // downPov1.onTrue(reverseAmpTrap.withTimeout(2));
-   //a1.onTrue(toWooferPosition);
+  
   // b1.onTrue(speakerShotFromPodium.withTimeout(2));
   //x1.onTrue(speakerShotFromWoofer.withTimeout(2));
-   ///b1.onTrue(podiumShot.withTimeout(2));
-    //x1.onTrue(wooferShot.withTimeout(3));
-    //x1.onTrue(wooferShot);
-   // b1.onTrue(podiumShot);
-    //x1.onTrue(shootAmpTrap.withTimeout(5));
-   // b1.whileTrue(manualAmpTrapShoot.withTimeout(5));
-    //x1.onTrue(frontShootGrabShoot);
-    // a1.onTrue(manualAmpTrapShoot.withTimeout(5));
-    // upPov1.whileTrue(manualIntake);
-    // downPov1.whileTrue(manualEject);
-    //b1.onTrue(pidActualPodium); 
+  //y1.whileTrue(pidPodiumShot);
+  //a1.whileTrue(pidWooferShot);
+   //b1.onTrue(pidActualWoofer.withTimeout(2));
+  //x1.onTrue(pidActualPodium);
+  //x1.onTrue(frontShootGrabShoot);
   }
 
   /**
