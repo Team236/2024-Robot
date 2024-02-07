@@ -116,7 +116,8 @@ public final class Constants {
   }
 
   public static class Elevator {
-    public static final double MIDDLE_HEIGHT = 5;// TODO get real number
+    public static final double JUST_ABOVE_CHAIN_HEIGHT = 25;// TODO get real number-somewhere above chain
+    public static final double JUST_ABOVE_NOTE_HEIGHT = 8;// TODO get real number-where Note can pass through
     public static final double BOTTOM_HEIGHT = 0;
     public static final double TOP_HEIGHT = 30;
     public static final double MAX_HEIGHT = 30.5; //limit switch is at 30.25
