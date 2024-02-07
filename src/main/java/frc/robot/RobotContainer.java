@@ -186,60 +186,18 @@ public class RobotContainer {
 
     //assign button to comnands
     //***** driver controller ******
-    //view.onTrue(lowGear);
-   // menu.onTrue(highGear);
-    //x.onTrue(toggleGear);
-    //b.whileTrue(setIntakeSpeed);
-    //a.onTrue(toPodiumPosition);
-    //y.onTrue(toStowPosition);
-    // a.onTrue(elevatorDownPID);
-    // y.onTrue(elevatorUpPID);
-   // x.onTrue(pidToTop);
-   // b.onTrue(pidToBot);
-    //x.onTrue(pidToTop);
-    //b.onTrue(pidToBot);
-    //rb.onTrue(climbPID);
-    //rb.onTrue(autoPIDDrive);
-    //lb.onTrue(autoPIDTurn1);
+
     upPov.whileTrue(manualIntake);
     downPov.whileTrue(manualEject);
 
     // x.onTrue(shootAmpTrap.withTimeout(5));
     b.whileTrue(shootAmpTrap);
     x.whileTrue(manualIntake);
-   //b.onTrue(reverseAmpTrap.withTimeout(5));
-
-    //***** Aux Controller ******
-   //x1.whileTrue(manualExtend);
-   //b1.whileTrue(manualRetract);
-   // y1.onTrue(toWooferPosition);
-    //a1.onTrue(toStowPosition);
-    //y1.whileTrue(pidPodiumShot);
-    //a133hileTrue(pidWooferShot);
-    //y1.onTrue(pidToTop);
-   //a1.onTrue(pidToBot);
-  // b1.onTrue(waitShootTrap);
-    //y1.whileTrue(manualUp);
-    //a1.whileTrue(manualDown);
-  a1.onTrue(toPodiumPosition);
-   y1.onTrue(toStowPosition);
-   b1.onTrue(toWooferPosition);
-    //upPov1.onTrue(shootAmpTrap.withTimeout(2));
-   // downPov1.onTrue(reverseAmpTrap.withTimeout(2));
-   //a1.onTrue(toWooferPosition);
-  // b1.onTrue(speakerShotFromPodium.withTimeout(2));
-  //x1.onTrue(speakerShotFromWoofer.withTimeout(2));
-   ///b1.onTrue(podiumShot.withTimeout(2));
-    //x1.onTrue(wooferShot.withTimeout(3));
-    //x1.onTrue(wooferShot);
-   // b1.onTrue(podiumShot);
-    //x1.onTrue(shootAmpTrap.withTimeout(5));
-   // b1.whileTrue(manualAmpTrapShoot.withTimeout(5));
-    //x1.onTrue(frontShootGrabShoot);
-    // a1.onTrue(manualAmpTrapShoot.withTimeout(5));
-    // upPov1.whileTrue(manualIntake);
-    // downPov1.whileTrue(manualEject);
-    //b1.onTrue(pidActualPodium); 
+   
+    a1.onTrue(toPodiumPosition);
+    y1.onTrue(toStowPosition);
+    b1.onTrue(toWooferPosition);
+    
   }
 
   /**
