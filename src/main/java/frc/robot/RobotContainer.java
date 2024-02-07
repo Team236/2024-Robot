@@ -9,6 +9,9 @@ import frc.robot.commands.AmpTrap.AmpShot;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
+import frc.robot.commands.CameraLimelight.AmpCameraAngle;
+import frc.robot.commands.CameraLimelight.FloorCameraAngle;
+import frc.robot.commands.CameraLimelight.LLAngle;
 //import frc.robot.commands.Camera.AmpCameraAngle;
 //import frc.robot.commands.Camera.FloorCameraAngle;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
@@ -116,6 +119,11 @@ public class RobotContainer {
   private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT);
   private final PIDClimb climbPID = new PIDClimb(elevator, ampTrap, intake, tilt, cartridge);
 
+  //CAMERA AND LIMELIGHT COMMANDS
+private final LLAngle llAngle = new LLAngle(drive, 0);
+private final AmpCameraAngle ampCameraAngle = new AmpCameraAngle(ampTrap);
+private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive.setDefaultCommand(arcadeXbox);
@@ -196,6 +204,11 @@ public class RobotContainer {
     b.onTrue(pidToBot);
     rb.onTrue(autoPIDDrive);
     //lb.onTrue(autoPIDTurn1);
+
+    leftPov.whileTrue(llAngle);
+    downPov.onTrue(ampCameraAngle);
+    upPov.onTrue(floorCameraAngle);
+
 
     //***** Aux Controller ******
    //upPov1.whileTrue(ampMotorForward);
