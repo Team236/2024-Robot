@@ -17,6 +17,8 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  //camera servo motor, created in Robot.java:
+  public static final int PWM_FRONT_CAM = 0;
 
   public static class Controller {
     // usb port on the laptop for the Xbox controller used by the Controller
@@ -115,9 +117,6 @@ public final class Constants {
     public static final double BOTTOM_HEIGHT = 0;
     public static final double TOP_HEIGHT = 30;
     public static final double MAX_HEIGHT = 30.5; //limit switch is at 30.25
-    public static final double BOTTOM_HEIGHT = 0.5;// TODO get real number
-    public static final double TOP_HEIGHT = 29;// TODO get real number
-    public static final double MAX_HEIGHT = 30;// prior to limit switch
 
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;

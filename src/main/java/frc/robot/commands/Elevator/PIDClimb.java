@@ -8,11 +8,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.AmpTrap.ShootAmp;
+import frc.robot.commands.AmpTrap.AmpShot;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Tilt;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -20,14 +21,14 @@ import frc.robot.subsystems.Intake;
 public class PIDClimb extends SequentialCommandGroup {
   /** Creates a new PIDElevClim. */
 
-  public PIDClimb(Elevator elevator, AmpTrap ampTrap, Intake intake, Cartridge cartridge) {
+  public PIDClimb(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PIDUptoHeight(elevator, Constants.Elevator.TOP_HEIGHT).withTimeout(5),
        Commands.parallel(
          new PIDDownToHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT),
-        Commands.sequence(new WaitCommand(5), new ShootAmp(intake, cartridge, ampTrap, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED))
+        Commands.sequence(new WaitCommand(5), new AmpShot(intake, cartridge, ampTrap, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED))
       )
     );
     

@@ -6,24 +6,23 @@ package frc.robot.commands.AmpTrap;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
+import frc.robot.commands.Cartridge.PIDCartridgeTilt;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Tilt;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShootAmp extends SequentialCommandGroup {
-  /** Creates a new ShootAmp */
+public class AmpShot extends SequentialCommandGroup {
   //Shoots Amp - spins intake, cartridge (PID velocity), and Amp motors
-  public ShootAmp(Intake intake, Cartridge cartridge, AmpTrap ampTrap, double intSpeed, double cartSpeed, double ampSpeed) {
-
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+  public AmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt, double intSpeed, double cartSpeed, double ampSpeed) {
     addCommands(
-      //new ToStowedPosition(cartridge),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW, Constants.Tilt.KP_TILT, Constants.Tilt.KI_TILT, Constants.Tilt.KD_TILT),
     Commands.parallel(
       new ManualIntake(intake, intSpeed),
       new PIDCartridgeMotors(cartridge, cartSpeed),

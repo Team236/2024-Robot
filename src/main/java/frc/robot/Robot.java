@@ -8,8 +8,10 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,6 +29,7 @@ public class Robot extends TimedRobot {
 
   public AHRS navx = new AHRS();
   public UsbCamera usbCamera0;
+   public static Servo cameraServo;
 
   private RobotContainer m_robotContainer;
 
@@ -41,6 +44,19 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     compressor = new Compressor(PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
+    
+  //USB camera and servo:
+   cameraServo = new Servo(Constants.PWM_FRONT_CAM);
+		try {
+      usbCamera0 = CameraServer.startAutomaticCapture(0);
+}  catch (Exception e)  {
+    SmartDashboard.putString("camera capture filed", "failed");
+
+  //Need to do this once only in order to have Limelight communication while tethered
+  for (int port = 5800; port <= 5805; port++){
+    PortForwarder.add(port, "limelight.local", port);
+  }
+}
   }
 
   /**
