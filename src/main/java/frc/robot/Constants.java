@@ -112,33 +112,36 @@ public final class Constants {
 
   public static class Elevator {
     public static final double MIDDLE_HEIGHT = 5;// TODO get real number
-    public static final double BOTTOM_HEIGHT = 0.5;// TODO get real number
-    public static final double TOP_HEIGHT = 30;// TODO get real number
-    public static final double MAX_HEIGHT = 30.5;// prior to limit switch
+    public static final double BOTTOM_HEIGHT = 0;
+    public static final double TOP_HEIGHT = 30;
+    public static final double MAX_HEIGHT = 30.5; //limit switch is at 30.25
 
     public static final int DIO_ELEV_TOP = 4;
-    public static final int DIO_ELEV_BOTTOM = 5;// TODO change numbers
+    public static final int DIO_ELEV_BOTTOM = 5;
 
-    public static final double ELEV_REV_TO_IN = 2.2629; // TODO get this actual value
+    public static final double ELEV_REV_TO_IN = 2.2629;
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.2;
-    public static final double ELEV_DOWN_SPEED = 0.2; // keep this pos
+    public static final double ELEV_DOWN_SPEED = 0.1; // keep this pos
 
     // PID may need seperate pid for up, down, and climb
-    public static final double KP_ELEV_UP = 0.01; // 0.01?
+    public static final double KP_ELEV_UP = 0.03; // 0.01?
     public static final double KI_ELEV_UP = 0;
     public static final double KD_ELEV_UP = 0;
+    public static final double KFF_ELEV_UP = 0;//only use KFF with velocity control
 
-    public static final double KP_ELEV_DOWN = 0.01;
+    public static final double KP_ELEV_DOWN = 0.03;
     public static final double KI_ELEV_DOWN = 0;
     public static final double KD_ELEV_DOWN = 0;
+      public static final double KFF_ELEV_DOWN = 0;
 
-    public static final double KP_ELEV_CLIMB = 0.01;
+    public static final double KP_ELEV_CLIMB = 0.03;
     public static final double KI_ELEV_CLIMB = 0;
     public static final double KD_ELEV_CLIMB = 0;
+      public static final double KFF_ELEV_CLIMB = 0;
   }
 
   public static class Intake {

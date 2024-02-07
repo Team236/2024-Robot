@@ -4,41 +4,34 @@
 
 package frc.robot.commands.Elevator;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Elevator;
 
-public class SetElevatorHeight extends Command {
+public class PIDDownToHeight extends Command {
   private Elevator elevator;
   private double desiredHeight; //desired height in inches
-  private final PIDController pidController;
-  private double eKP, eKI, eKD;
 
-  /** Creates a new SetElevatorHeight. */
-  public SetElevatorHeight(Elevator elevator, double desiredHeight, double eKP, double eKI, double eKD) {
-    this.eKP = eKP;
-    this.eKI = eKI;
-    this.eKD = eKD;
-    pidController = new PIDController(eKP, eKI, eKD);
+public PIDDownToHeight(Elevator elevator, double desiredHeight) {
     this.elevator = elevator;
     this.desiredHeight = desiredHeight;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevator);
-
-    pidController.setSetpoint(desiredHeight);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    pidController.reset();
+    //!!!! pidController.reset();
+    elevator.setP(Constants.Elevator.KP_ELEV_DOWN);
+    elevator.setI(Constants.Elevator.KI_ELEV_DOWN);
+    elevator.setD(Constants.Elevator.KD_ELEV_DOWN);
+    elevator.setFF(Constants.Elevator.KFF_ELEV_DOWN);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
   public void execute() {
-    elevator.setElevSpeed(pidController.calculate(elevator.getElevatorHeight()));
+    elevator.setSetpoint(desiredHeight);
   }
 
   // Called once the command ends or is interrupted.
@@ -51,6 +44,6 @@ public class SetElevatorHeight extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return elevator.isEBotLimit();
   }
 }

@@ -17,16 +17,16 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ClimbPID extends SequentialCommandGroup {
-  /** Creates a new ClimbPID. */
+public class PIDClimb extends SequentialCommandGroup {
+  /** Creates a new PIDElevClim. */
 
-  public ClimbPID(Elevator elevator, AmpTrap ampTrap, Intake intake, Cartridge cartridge) {
+  public PIDClimb(Elevator elevator, AmpTrap ampTrap, Intake intake, Cartridge cartridge) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetElevatorHeight(elevator, Constants.Elevator.TOP_HEIGHT, Constants.Elevator.KP_ELEV_UP, Constants.Elevator.KI_ELEV_UP, Constants.Elevator.KD_ELEV_UP).withTimeout(5),
+      new PIDUptoHeight(elevator, Constants.Elevator.TOP_HEIGHT).withTimeout(5),
        Commands.parallel(
-         new SetElevatorHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT, Constants.Elevator.KP_ELEV_CLIMB, Constants.Elevator.KI_ELEV_CLIMB, Constants.Elevator.KD_ELEV_CLIMB),
+         new PIDDownToHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT),
         Commands.sequence(new WaitCommand(5), new ShootAmp(intake, cartridge, ampTrap, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED))
       )
     );

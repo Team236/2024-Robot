@@ -24,8 +24,9 @@ import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.TankJoysticks;
 import frc.robot.commands.Drive.TankXbox;
 import frc.robot.commands.Drive.ToggleGear;
-import frc.robot.commands.Elevator.SetElevatorHeight;
-import frc.robot.commands.Elevator.ClimbPID;
+import frc.robot.commands.Elevator.PIDUptoHeight;
+import frc.robot.commands.Elevator.PIDClimb;
+import frc.robot.commands.Elevator.PIDDownToHeight;
 import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Intake.ManualIntake;
@@ -106,7 +107,7 @@ public class RobotContainer {
  //AMPTRAP COMMANDS:
   private final AmpMotor ampMotorForward = new AmpMotor(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final AmpMotor ampMotorReverse = new AmpMotor(ampTrapShooter, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
-  private final ShootAmp shootAmpMotor = new ShootAmp(intake, cartridgeShooter, ampTrapShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+  private final ShootAmp shootAmp = new ShootAmp(intake, cartridgeShooter, ampTrapShooter, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   
  //AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
@@ -117,9 +118,9 @@ public class RobotContainer {
   //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
-  private final SetElevatorHeight pidToTop = new SetElevatorHeight(elevator, Constants.Elevator.TOP_HEIGHT, Constants.Elevator.KP_ELEV_UP, Constants.Elevator.KI_ELEV_UP, Constants.Elevator.KD_ELEV_UP);
-  private final SetElevatorHeight pidToBot = new SetElevatorHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT, Constants.Elevator.KP_ELEV_DOWN, Constants.Elevator.KI_ELEV_DOWN, Constants.Elevator.KD_ELEV_DOWN);
-  private final ClimbPID climbPID = new ClimbPID(elevator, ampTrapShooter, intake, cartridgeShooter);
+  private final PIDUptoHeight pidToTop = new PIDUptoHeight(elevator, Constants.Elevator.TOP_HEIGHT);
+  private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT);
+  private final PIDClimb pidClimb = new PIDClimb(elevator, ampTrapShooter, intake, cartridgeShooter);
  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -177,19 +178,19 @@ public class RobotContainer {
    // menu.onTrue(highGear);
     //x.onTrue(toggleGear);
     //b.whileTrue(setIntakeSpeed);
-    // a.onTrue(elevatorDownPID);
-    // y.onTrue(elevatorUpPID);
-   // x.onTrue(pidToTop);
-   // b.onTrue(pidToBot);
-    //rb.onTrue(climbPID);
+    a.whileTrue(manualDown);
+    y.whileTrue(manualUp);
+    x.onTrue(pidToTop);
+    b.onTrue(pidToBot);
+    rb.onTrue(pidClimb);
     //rb.onTrue(autoPIDDrive);
     //lb.onTrue(autoPIDTurn1);
     upPov.whileTrue(manualIntake);
     downPov.whileTrue(manualEject);
 
-    b.whileTrue(ampMotorForward);
-    x.onTrue(ampMotorReverse.withTimeout(5));
-    y.onTrue(shootAmpMotor.withTimeout(5));
+   // b.whileTrue(ampMotorForward);
+   // x.onTrue(ampMotorReverse.withTimeout(5));
+    //y.onTrue(shootAmp.withTimeout(5));
 
     //***** Aux Controller ******
    //x1.whileTrue(manualExtend);

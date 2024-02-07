@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -15,6 +17,7 @@ import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
   private CANSparkMax leftElevatorMotor, rightElevatorMotor;
+  private SparkPIDController leftPIDController, rightPIDController; //!!!!
   private RelativeEncoder elevatorEncoder;
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
@@ -114,7 +117,6 @@ public class Elevator extends SubsystemBase {
   
   
     public void setElevSpeed(double speed) {
-  
     if (speed > 0) {  
        //TODO make sure elevator speed > 0 when going up, and top threshold as logical or below
       if (isETopLimit() || isTop()) {
@@ -135,9 +137,36 @@ public class Elevator extends SubsystemBase {
           leftElevatorMotor.set(speed);
           rightElevatorMotor.set(speed);
         }
-        
        }
-  }
+         }
+
+//!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
+ //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is done using WPILIB PID **********
+ public void setSetpoint(double speed) {
+  leftPIDController.setReference(speed, ControlType.kPosition);
+  rightPIDController.setReference(speed, ControlType.kPosition); //TODO check to set negatives for motors
+}
+
+public void setP(double kP) {
+  leftPIDController.setP(kP);
+  rightPIDController.setP(kP);
+}
+
+public void setI(double kI) {
+  leftPIDController.setI(kI);
+  rightPIDController.setI(kI);
+}
+
+public void setD(double kD) {
+  leftPIDController.setD(kD);
+  rightPIDController.setD(kD);
+}
+
+public void setFF(double kFF) {
+  leftPIDController.setFF(kFF);
+  rightPIDController.setFF(kFF);
+}
+
 
   @Override
   public void periodic() {
