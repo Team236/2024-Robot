@@ -9,12 +9,12 @@ import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 
 
-public class ManualWooferCartOnly extends Command {
+public class ManualWooferSpeed extends Command {
     //runs cartridge at a set speed, woofer shot speed without PID
 
 private Cartridge cartridge; 
 
-  public ManualWooferCartOnly(Cartridge cartridge) {
+  public ManualWooferSpeed(Cartridge cartridge) {
     this.cartridge = cartridge;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.cartridge);

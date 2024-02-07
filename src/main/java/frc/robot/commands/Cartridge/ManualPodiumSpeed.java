@@ -9,12 +9,12 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 
-public class ManualPodiumCartOnly extends Command {
+public class ManualPodiumSpeed extends Command {
   //runs cartridge at a set speed, podium shot speed without PID
   
   private Cartridge cartridge;
   
-  public ManualPodiumCartOnly(Cartridge cartridge) {
+  public ManualPodiumSpeed(Cartridge cartridge) {
     this.cartridge = cartridge;
 
     // Use addRequirements() here to declare subsystem dependencies.
