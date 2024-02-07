@@ -44,7 +44,7 @@ public class PIDUptoHeight extends Command {
   // Called every time the scheduler runs while the command is scheduled.
 
   public void execute() {
-    elevator.setSetpoint(desiredHeight);
+    elevator.setSetpoint(desiredHeight*Constants.Elevator.ELEV_IN_TO_REV);
     //****elevator.setElevSpeed(pidController.calculate(elevator.getElevatorHeight()));
   }
 

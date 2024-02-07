@@ -34,6 +34,9 @@ public class Elevator extends SubsystemBase {
  
     leftElevatorMotor.setInverted(true);
     rightElevatorMotor.setInverted(false);//TODO check these
+
+    leftPIDController = leftElevatorMotor.getPIDController();
+    rightPIDController = rightElevatorMotor.getPIDController();
   
     //TODO  Determine if want to use left or right encoder here, use the one that is increasing when going up
     elevatorEncoder = leftElevatorMotor.getEncoder(); //will use SparkMax encoder for elevator
@@ -142,6 +145,7 @@ public class Elevator extends SubsystemBase {
 
 //!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
  //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is done using WPILIB PID **********
+
  public void setSetpoint(double speed) {
   leftPIDController.setReference(speed, ControlType.kPosition);
   rightPIDController.setReference(speed, ControlType.kPosition); //TODO check to set negatives for motors

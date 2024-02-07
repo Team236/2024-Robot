@@ -30,7 +30,6 @@ public class PIDCartridgeMotors extends Command {
   @Override
   public void initialize() {
     cartridge.resetEncoders();
-
     cartridge.setP(Constants.CartridgeShooter.kPLeft, Constants.CartridgeShooter.kPRight);
     cartridge.setI(Constants.CartridgeShooter.kILeft, Constants.CartridgeShooter.kIRight);
     cartridge.setD(Constants.CartridgeShooter.kDLeft, Constants.CartridgeShooter.kDRight);

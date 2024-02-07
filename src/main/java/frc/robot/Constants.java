@@ -126,12 +126,13 @@ public final class Constants {
     public static final int DIO_ELEV_BOTTOM = 5;
 
     public static final double ELEV_REV_TO_IN = 2.2629;
+    public static final double ELEV_IN_TO_REV = 1/2.2629;
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.1;
-    public static final double ELEV_DOWN_SPEED = 0.06; // keep this pos
+    public static final double ELEV_DOWN_SPEED = 0.1; // keep this pos
 
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.03; // 0.01?

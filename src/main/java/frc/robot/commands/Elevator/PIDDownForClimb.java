@@ -14,7 +14,7 @@ public class PIDDownForClimb extends Command {
 
 public PIDDownForClimb(Elevator elevator, double desiredHeight) {
     this.elevator = elevator;
-    this.desiredHeight = desiredHeight;
+    this.desiredHeight = desiredHeight*Constants.Elevator.ELEV_IN_TO_REV;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevator);
   }

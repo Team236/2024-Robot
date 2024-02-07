@@ -31,7 +31,7 @@ public PIDDownToHeight(Elevator elevator, double desiredHeight) {
 
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
-    elevator.setSetpoint(desiredHeight);
+    elevator.setSetpoint(desiredHeight*Constants.Elevator.ELEV_IN_TO_REV);
   }
 
   // Called once the command ends or is interrupted.
