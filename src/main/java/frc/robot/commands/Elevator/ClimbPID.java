@@ -25,10 +25,11 @@ public class ClimbPID extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new SetElevatorHeight(elevator, Constants.Elevator.TOP_HEIGHT, Constants.Elevator.KP_ELEV_UP, Constants.Elevator.KI_ELEV_UP, Constants.Elevator.KD_ELEV_UP).withTimeout(5),
-       Commands.parallel(
-         new SetElevatorHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT, Constants.Elevator.KP_ELEV_CLIMB, Constants.Elevator.KI_ELEV_CLIMB, Constants.Elevator.KD_ELEV_CLIMB),
-        Commands.sequence(new WaitCommand(5), new ShootAmp(intake, cartridge, ampTrap, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED))
-      )
+      new SetElevatorHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT, Constants.Elevator.KP_ELEV_CLIMB, Constants.Elevator.KI_ELEV_CLIMB, Constants.Elevator.KD_ELEV_CLIMB)
+       //Commands.parallel(
+         //new SetElevatorHeight(elevator, Constants.Elevator.BOTTOM_HEIGHT, Constants.Elevator.KP_ELEV_CLIMB, Constants.Elevator.KI_ELEV_CLIMB, Constants.Elevator.KD_ELEV_CLIMB),
+        //Commands.sequence(new WaitCommand(5), new ShootAmp(intake, cartridge, ampTrap, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED))
+      //)
     );
     
     

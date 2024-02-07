@@ -177,19 +177,19 @@ public class RobotContainer {
    // menu.onTrue(highGear);
     //x.onTrue(toggleGear);
     //b.whileTrue(setIntakeSpeed);
-    // a.onTrue(elevatorDownPID);
-    // y.onTrue(elevatorUpPID);
-   // x.onTrue(pidToTop);
-   // b.onTrue(pidToBot);
-    //rb.onTrue(climbPID);
+    a.whileTrue(manualDown);
+    y.whileTrue(manualUp);
+    x.onTrue(pidToTop);
+    b.onTrue(pidToBot);
+    rb.onTrue(climbPID);
     //rb.onTrue(autoPIDDrive);
     //lb.onTrue(autoPIDTurn1);
     upPov.whileTrue(manualIntake);
     downPov.whileTrue(manualEject);
 
     // x.onTrue(shootAmpTrap.withTimeout(5));
-    b.whileTrue(shootAmpTrap);
-    x.whileTrue(manualIntake);
+    // b.whileTrue(shootAmpTrap);
+    //x.whileTrue(manualIntake);
    //b.onTrue(reverseAmpTrap.withTimeout(5));
 
     //***** Aux Controller ******
