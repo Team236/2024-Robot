@@ -2,40 +2,42 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.AmpTrap;
+package frc.robot.commands.Cartridge;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AmpTrap;
+import frc.robot.Constants;
+import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 
-public class ManualShootAmpTrap extends Command {
+public class ManualPodiumCartOnly extends Command {
+  //runs cartridge at a set speed, podium shot speed without PID
+  
+  private Cartridge cartridge;
+  
+  public ManualPodiumCartOnly(Cartridge cartridge) {
+    this.cartridge = cartridge;
 
-private double speed;
-private AmpTrap ampTrapShooter;
-
-  /** Creates a new ShootAmpTrap. */
-  public ManualShootAmpTrap(AmpTrap ampTrapShooter, double speed) {
-    this.ampTrapShooter = ampTrapShooter;
-    this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.ampTrapShooter);
+    addRequirements(this.cartridge);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //cartridge.podiumShotPosition();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ampTrapShooter.shoot(speed);
+     cartridge.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //stop the shooter motor and reset the Note Count to zero, after shooting
-    ampTrapShooter.stop();
+    //stop the shooter motor and reset the Note count to zero, after shooting
+    cartridge.setBothSpeeds(0);
     Intake.resetCounter();
   }
 

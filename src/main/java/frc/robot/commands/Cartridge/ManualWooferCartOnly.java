@@ -3,20 +3,19 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Cartridge;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 
-public class ManualPodiumShot extends Command {
-  //runs cartridge at a set speed, podium shot speed without PID
-  
-  private Cartridge cartridge;
-  
-  public ManualPodiumShot(Cartridge cartridge) {
-    this.cartridge = cartridge;
 
+public class ManualWooferCartOnly extends Command {
+    //runs cartridge at a set speed, woofer shot speed without PID
+
+private Cartridge cartridge; 
+
+  public ManualWooferCartOnly(Cartridge cartridge) {
+    this.cartridge = cartridge;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.cartridge);
   }
@@ -24,21 +23,21 @@ public class ManualPodiumShot extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //cartridge.podiumShotPosition();
+    //cartridge.wooferShotPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     cartridge.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
+    cartridge.setBothSpeeds(Constants.CartridgeShooter.WOOFER_SHOT_MOTOR_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //stop the shooter motor and reset the Note count to zero, after shooting
-    cartridge.setBothSpeeds(0);
-    Intake.resetCounter();
+    //stop the shooter motor and reset Note count to zero, after shooting
+      cartridge.setBothSpeeds(0);
+      Intake.resetCounter();
   }
 
   // Returns true when the command should end.
@@ -46,4 +45,5 @@ public class ManualPodiumShot extends Command {
   public boolean isFinished() {
     return false;
   }
+
 }

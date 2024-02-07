@@ -2,42 +2,42 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Cartridge;
+package frc.robot.commands.AmpTrap;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.Cartridge;
+import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Intake;
 
+public class AmpMotor extends Command {
 
-public class ManualWooferShot extends Command {
-    //runs cartridge at a set speed, woofer shot speed without PID
+private double speed;
+private AmpTrap ampTrapShooter;
 
-private Cartridge cartridge; 
-
-  public ManualWooferShot(Cartridge cartridge) {
-    this.cartridge = cartridge;
+  /** Creates a new AmpMotor. */
+  //Spins just the Amp motor, at a set speed
+  public AmpMotor(AmpTrap ampTrapShooter, double speed) {
+    this.ampTrapShooter = ampTrapShooter;
+    this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.cartridge);
+    addRequirements(this.ampTrapShooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    //cartridge.wooferShotPosition();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    cartridge.setBothSpeeds(Constants.CartridgeShooter.WOOFER_SHOT_MOTOR_SPEED);
+    ampTrapShooter.shoot(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //stop the shooter motor and reset Note count to zero, after shooting
-      cartridge.setBothSpeeds(0);
-      Intake.resetCounter();
+    //stop the shooter motor and reset the Note Count to zero, after shooting
+    ampTrapShooter.stop();
+    Intake.resetCounter();
   }
 
   // Returns true when the command should end.
@@ -45,5 +45,4 @@ private Cartridge cartridge;
   public boolean isFinished() {
     return false;
   }
-
 }

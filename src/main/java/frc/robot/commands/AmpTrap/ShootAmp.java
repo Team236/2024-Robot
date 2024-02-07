@@ -15,9 +15,10 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AmpTrapShoot extends SequentialCommandGroup {
-  /** Creates a new ActualAmpTrapShoot. */
-  public AmpTrapShoot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, double intSpeed, double cartSpeed, double ampSpeed) {
+public class ShootAmp extends SequentialCommandGroup {
+  /** Creates a new ShootAmp */
+  //Shoots Amp - spins intake, cartridge (PID velocity), and Amp motors
+  public ShootAmp(Intake intake, Cartridge cartridge, AmpTrap ampTrap, double intSpeed, double cartSpeed, double ampSpeed) {
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
@@ -26,8 +27,9 @@ public class AmpTrapShoot extends SequentialCommandGroup {
     Commands.parallel(
       new ManualIntake(intake, intSpeed),
       new PIDCartridgeMotors(cartridge, cartSpeed),
-      new ManualShootAmpTrap(ampTrap, ampSpeed)
+      new AmpMotor(ampTrap, ampSpeed)
       )
     );
+    Intake.resetCounter();  //reset counter after shooting a Note
   }
 }
