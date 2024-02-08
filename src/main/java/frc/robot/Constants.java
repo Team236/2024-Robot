@@ -131,7 +131,7 @@ public final class Constants {
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.1;
-    public static final double ELEV_DOWN_SPEED = 0.1; // keep this pos
+    public static final double ELEV_DOWN_SPEED = 0.5; // keep this pos, use 0.5 to test climb manually
 
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.03; // 0.01?

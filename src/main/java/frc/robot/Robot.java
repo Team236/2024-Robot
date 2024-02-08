@@ -50,13 +50,16 @@ public class Robot extends TimedRobot {
 		try {
       usbCamera0 = CameraServer.startAutomaticCapture(0);
 }  catch (Exception e)  {
-    SmartDashboard.putString("camera capture filed", "failed");
+    SmartDashboard.putString("camera capture failed", "failed");
 
   //Need to do this once only in order to have Limelight communication while tethered
   for (int port = 5800; port <= 5805; port++){
     PortForwarder.add(port, "limelight.local", port);
   }
 }
+ //usbCamera0.setResolution(320, 240);
+ //usbCamera0.setBrightness(50);// percentage 0 to 100
+ //usbCamera0.setExposureManual(50); //percentage 0 to 100
   }
 
   /**
