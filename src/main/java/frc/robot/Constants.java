@@ -45,19 +45,18 @@ public final class Constants {
     public static final int ID_LEFT_REAR = 58; // 41
     public static final int ID_RIGHT_REAR = 45; // 46
 
-    public static final int ID_INTAKE = 1; // TODO find IDs for controller
+    public static final int ID_INTAKE = 13; // TODO find IDs for controller
 
-    public static final int ID_AMP_TRAP_SHOOTER = 10; // TODO get real number
+    public static final int ID_AMP_TRAP_SHOOTER = 35; // TODO get real number
 
     // Elevator
     public static final int ID_ELEVATOR_LEFT = 12; // TODO get real number
     public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
     // Cartridge shooter
-    public static final int ID_SHOOTER_LEFT = 34; // 1;
-    public static final int ID_SHOOTER_RIGHT = 35;//11; // 9;
+    public static final int ID_SHOOTER_LEFT = 1; // 1;
+    public static final int ID_SHOOTER_RIGHT = 34;//11; // 9;
     public static final int ID_CARTRIDGE_TILT = 33; //35;
-
 
     // smart current limit
     public static final int SMART_CURRENT_LIMIT = 40;

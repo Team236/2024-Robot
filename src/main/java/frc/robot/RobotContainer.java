@@ -203,15 +203,17 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     upPov.onTrue(floorCameraAngle);
 
     //***** Aux Controller ******
-   //upPov1.whileTrue(ampMotorForward);
-   //downPov1.whileTrue(ampMotorReverse);
-    x1.whileTrue(pidWooferSpeed);//cartridge motors only
-    b1.whileTrue(pidPodiumSpeed);//cartridge motors only
-    x1.onTrue(pidWooferShot); //intake and cart motors, also tilt
-    y1.onTrue(pidPodiumShot); //intake and cart motors, also tilt
-   // x1.onTrue(frontShootGrabShoot);
-    upPov1.whileTrue(manualIntake);
-    downPov1.whileTrue(manualEject);
+   upPov1.whileTrue(ampMotorForward);
+   downPov1.whileTrue(ampMotorReverse);
+   y1.whileTrue(manualWooferSpeed);
+   a1.whileTrue(manualPodiumSpeed);
+   x1.whileTrue(pidWooferSpeed);//cartridge motors only
+   b1.whileTrue(pidPodiumSpeed);//cartridge motors only
+    //x1.onTrue(pidWooferShot); //intake and cart motors, also tilt
+    //y1.onTrue(pidPodiumShot); //intake and cart motors, also tilt
+    // x1.onTrue(frontShootGrabShoot);
+    //upPov1.whileTrue(manualIntake);
+    //downPov1.whileTrue(manualEject);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

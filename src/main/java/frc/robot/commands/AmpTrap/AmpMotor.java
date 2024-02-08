@@ -11,15 +11,15 @@ import frc.robot.subsystems.Intake;
 public class AmpMotor extends Command {
 
 private double speed;
-private AmpTrap ampTrapShooter;
+private AmpTrap ampTrap;
 
   /** Creates a new AmpMotor. */
   //Spins just the Amp motor, at a set speed
-  public AmpMotor(AmpTrap ampTrapShooter, double speed) {
-    this.ampTrapShooter = ampTrapShooter;
+  public AmpMotor(AmpTrap ampTrap, double speed) {
+    this.ampTrap = ampTrap;
     this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.ampTrapShooter);
+    addRequirements(this.ampTrap);
   }
 
   // Called when the command is initially scheduled.
@@ -29,14 +29,14 @@ private AmpTrap ampTrapShooter;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ampTrapShooter.shoot(speed);
+    ampTrap.shoot(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     //stop the shooter motor and reset the Note Count to zero, after shooting
-    ampTrapShooter.stop();
+    ampTrap.stop();
     Intake.resetCounter();
   }
 
