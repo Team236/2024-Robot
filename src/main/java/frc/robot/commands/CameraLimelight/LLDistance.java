@@ -21,9 +21,9 @@ public class LLDistance extends Command {
 
   private double kY = 0.02; //0.00725;
   
-  private double h1 = 32.5; //inches, from ground to center of camera lens
+  private double h1 = 34;// approx ht now = was 32.5; //inches, from ground to center of camera lens
   //private double h2 = 18; // inches, same unit as d, to center of target
-  private double a1 = Math.toRadians(7); //7 degrees, camera tilt
+  private double a1 = Math.toRadians(6); //6 degrees, camera tilt
   private double dist; // desired distance from camera to target in inches; pass into command
   private Drive drive;
   private double pipeline;

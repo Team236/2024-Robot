@@ -24,9 +24,9 @@ public class LLTarget extends Command {
   private double kX = 0.017;//ADJUST!!!  0.005??
   private double kY = 0.03; //0.00725;
   private Drive drive;
-  private double h1 = 32.5; //inches, distance from floor to center of camera lens
+  private double h1 = 34; //approx ht now, was 32.5 in 2023 //inches, distance from floor to center of camera lens
   //private double h2 = 18; // inches, same unit as d, to center of target
-  private double a1 = Math.toRadians(20); //20 degrees - camera angle
+  private double a1 = Math.toRadians(6); //was 20 degrees in 2023 - camera angle
   private double dist; //desired distance from camera to target - pass into command
   private double steeringAdjust;
   private double cameraXoffset; 

@@ -12,6 +12,8 @@ import frc.robot.commands.Autos.FrontShootGrabShoot;
 import frc.robot.commands.CameraLimelight.AmpCameraAngle;
 import frc.robot.commands.CameraLimelight.FloorCameraAngle;
 import frc.robot.commands.CameraLimelight.LLAngle;
+import frc.robot.commands.CameraLimelight.LLDistance;
+import frc.robot.commands.CameraLimelight.LLTarget;
 //import frc.robot.commands.Camera.AmpCameraAngle;
 //import frc.robot.commands.Camera.FloorCameraAngle;
 import frc.robot.commands.Cartridge.PIDCartridgeMotors;
@@ -116,7 +118,9 @@ public class RobotContainer {
   private final PIDClimb climbPID = new PIDClimb(elevator, ampTrap, intake, tilt, cartridge);
 
   //CAMERA AND LIMELIGHT COMMANDS
-private final LLAngle llAngle = new LLAngle(drive, 0);
+private final LLAngle llAngle= new LLAngle(drive, 0);
+private final LLDistance llDistance = new LLDistance(drive, 0, 40, 18);
+private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
 private final AmpCameraAngle ampCameraAngle = new AmpCameraAngle(ampTrap);
 private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
 
@@ -199,8 +203,10 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     //rb.onTrue(autoPIDDrive);
     //lb.onTrue(autoPIDTurn1);
     leftPov.whileTrue(llAngle);
-    downPov.onTrue(ampCameraAngle);
-    upPov.onTrue(floorCameraAngle);
+    downPov.whileTrue(llDistance);
+    upPov.whileTrue(llTarget);
+    //downPov.onTrue(ampCameraAngle);
+   // upPov.onTrue(floorCameraAngle);
 
     //***** Aux Controller ******
    upPov1.whileTrue(ampMotorForward);
