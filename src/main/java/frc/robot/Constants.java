@@ -124,8 +124,8 @@ public final class Constants {
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
 
-    public static final double ELEV_REV_TO_IN = 2.2629;
-    public static final double ELEV_IN_TO_REV = 1/2.2629;
+    public static final double ELEV_REV_TO_IN = 0.32327; // gear ratio changed old - 2.2629;
+    public static final double ELEV_IN_TO_REV = 1/(0.32327);
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
