@@ -29,12 +29,11 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
     Commands.parallel(
       new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2), 
       new SetIntakeSpeed(intake, intSpeed),
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW, Constants.Tilt.KP_TILT,  Constants.Tilt.KI_TILT,  Constants.Tilt.KD_TILT)
-      //new ToPodiumPosition(cartridge)
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW, Constants.Tilt.KP_TILT,  Constants.Tilt.KI_TILT,  Constants.Tilt.KD_TILT) //is this necesary?
       ),
+      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE),
       new WaitCommand(2),
-      new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, false).withTimeout(5)
+      new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(5)
     );
-
   }
 }
