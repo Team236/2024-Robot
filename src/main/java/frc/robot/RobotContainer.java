@@ -119,7 +119,7 @@ public class RobotContainer {
 
   //CAMERA AND LIMELIGHT COMMANDS
 private final LLAngle llAngle= new LLAngle(drive, 0);
-private final LLDistance llDistance = new LLDistance(drive, 0, 40, 18);
+private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
 private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
 private final AmpCameraAngle ampCameraAngle = new AmpCameraAngle(ampTrap);
 private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);

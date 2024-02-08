@@ -40,23 +40,23 @@ public final class Constants {
 
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
-    public static final int ID_LEFT_FRONT = 44; // 42
-    public static final int ID_RIGHT_FRONT = 59; // 43
-    public static final int ID_LEFT_REAR = 58; // 41
-    public static final int ID_RIGHT_REAR = 45; // 46
+    public static final int ID_LEFT_FRONT = 35; 
+    public static final int ID_RIGHT_FRONT = 1;
+    public static final int ID_LEFT_REAR = 34;  
+    public static final int ID_RIGHT_REAR = 32; // 46
 
     public static final int ID_INTAKE = 13; // TODO find IDs for controller
 
-    public static final int ID_AMP_TRAP_SHOOTER = 35; // TODO get real number
+    public static final int ID_AMP_TRAP_SHOOTER = 53; // TODO get real number
 
     // Elevator
     public static final int ID_ELEVATOR_LEFT = 12; // TODO get real number
     public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
 
     // Cartridge shooter
-    public static final int ID_SHOOTER_LEFT = 1; // 1;
-    public static final int ID_SHOOTER_RIGHT = 34;//11; // 9;
-    public static final int ID_CARTRIDGE_TILT = 33; //35;
+    public static final int ID_SHOOTER_LEFT =50;
+    public static final int ID_SHOOTER_RIGHT = 51;
+    public static final int ID_CARTRIDGE_TILT = 52; 
 
     // smart current limit
     public static final int SMART_CURRENT_LIMIT = 40;

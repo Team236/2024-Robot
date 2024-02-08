@@ -62,8 +62,8 @@ public class LLDistance extends Command {
         errorY = dist - dx;  
     //NOTE:  CAN TRY TO USE THE Z VALUE OF THE POSE FOR errorY (use [2] or [0] for other directions)
       double distanceAdjust = kY * errorY;
-       drive.setLeftSpeed(-distanceAdjust); //negative since LL is in back of robot this year
-       drive.setRightSpeed(-distanceAdjust);  //negative since LL is in back of robot this year
+       drive.setLeftSpeed(-distanceAdjust); //change to negative since LL is in back of robot this year
+       drive.setRightSpeed(-distanceAdjust);  //change to negative since LL is in back of robot this year
       SmartDashboard.putNumber("dx, Y dist from target:", dx); //test this - use later for cartridge angle equation
       SmartDashboard.putNumber("ErrorY:", errorY);
       SmartDashboard.putNumber("Ty, degrees:", disY);
