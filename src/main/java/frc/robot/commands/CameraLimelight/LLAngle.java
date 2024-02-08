@@ -26,7 +26,7 @@ public class LLAngle extends Command {
     SmartDashboard.putNumber("LLangle init", pipeline);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
-    cameraXoffset = 4; //need to figure out
+    cameraXoffset = 0; //TODO - change if camera not centered
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,8 +42,9 @@ public class LLAngle extends Command {
       if (Math.abs(errorX)>0.5){
       SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
         double steeringAdjust = kX * errorX;
-        drive.setLeftSpeed(steeringAdjust);//if cam in back, use - here?
-        drive.setRightSpeed(-steeringAdjust); //if cam in back, use + here?
+    //****IF TESTING WITH 2023 ROBOT, CHANGE LEFT TO POSITIVE, RIGHT TO NEGATIVE SINCE CAM IN FRONT *********//
+        drive.setLeftSpeed(-steeringAdjust);//since cam in back, use - here (was + in 2023)
+        drive.setRightSpeed(steeringAdjust); //since cam in back, use + here (was - in 2023)
         }   
       else{
       SmartDashboard.putNumber("No Shoot Target", tv);

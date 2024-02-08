@@ -12,7 +12,7 @@ import frc.robot.Constants;
 
 public class AmpTrap extends SubsystemBase {
 private CANSparkMax motor;
-  /** Creates a new TrapAmpShooter. */
+  /** Creates a new TrapAmp. */
   public AmpTrap() {
     motor = new CANSparkMax(Constants.MotorControllers.ID_AMP_TRAP_SHOOTER, MotorType.kBrushless);
     motor.restoreFactoryDefaults();
