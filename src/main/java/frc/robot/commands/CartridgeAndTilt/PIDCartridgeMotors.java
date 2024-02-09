@@ -2,20 +2,25 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Cartridge;
+package frc.robot.commands.CartridgeAndTilt;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 
-public class ManualPodiumSpeed extends Command {
-  //runs cartridge at a set speed, podium shot speed without PID
-  
+public class PIDCartridgeMotors extends Command {
+//runs cartridge motors at desired velocity using PID.  Speed should be specified in RPM.
+
   private Cartridge cartridge;
-  
-  public ManualPodiumSpeed(Cartridge cartridge) {
+  private double speed;
+
+  /** Creates a new PIDShot. */
+  public PIDCartridgeMotors(Cartridge cartridge, double speed) {
+
     this.cartridge = cartridge;
+    this.speed = speed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.cartridge);
@@ -24,19 +29,26 @@ public class ManualPodiumSpeed extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //cartridge.podiumShotPosition();
+    cartridge.resetEncoders();
+    cartridge.setP(Constants.CartridgeShooter.kPLeft, Constants.CartridgeShooter.kPRight);
+    cartridge.setI(Constants.CartridgeShooter.kILeft, Constants.CartridgeShooter.kIRight);
+    cartridge.setD(Constants.CartridgeShooter.kDLeft, Constants.CartridgeShooter.kDRight);
+    cartridge.setFF(Constants.CartridgeShooter.kFFLeft, Constants.CartridgeShooter.kFFRight);
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     cartridge.setBothSpeeds(Constants.CartridgeShooter.PODIUM_SHOT_MOTOR_SPEED);
+    cartridge.setOutputRange();
+    cartridge.setSetpoint(speed);
+
+   // SmartDashboard.putNumber("Speed setpoint is ", speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //stop the shooter motor and reset the Note count to zero, after shooting
     cartridge.setBothSpeeds(0);
     Intake.resetCounter();
   }
