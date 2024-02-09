@@ -109,9 +109,16 @@ public final class Constants {
     // AUTO DISTANCES
     public static final double AUTO_DISTANCE_1 = 36;
     public static final double WOOFERFRONT_TO_NOTE = 121;
+    public static final double WOOFER_PULL_AWAY = 3;
+    public static final double PULL_AWAY_TO_NOTE = 54;
 
+    // TURNING ANGLES
     public static final double TURN_ANGLE_1 = 90;
     public static final double TURN_ANGLE_2 = -90;
+    public static final double TURN_SIDE_OF_WOOFER = 40;
+
+    // TIMEOUTS (in sec)
+    public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
   }
 
   public static class Elevator {
