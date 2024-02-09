@@ -7,8 +7,8 @@ package frc.robot.commands.AmpTrap;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.Cartridge.PIDCartridgeMotors;
-import frc.robot.commands.Cartridge.PIDCartridgeTilt;
+import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
+import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
@@ -22,7 +22,7 @@ public class AmpShot extends SequentialCommandGroup {
   //Shoots Amp - spins intake, cartridge (PID velocity), and Amp motors
   public AmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt, double intSpeed, double cartSpeed, double ampSpeed) {
     addCommands(
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW, Constants.Tilt.KP_TILT, Constants.Tilt.KI_TILT, Constants.Tilt.KD_TILT),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW),
     Commands.parallel(
       new ManualIntake(intake, intSpeed),
       new PIDCartridgeMotors(cartridge, cartSpeed),

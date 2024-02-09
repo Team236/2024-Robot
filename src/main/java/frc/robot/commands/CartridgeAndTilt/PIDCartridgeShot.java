@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Cartridge;
+package frc.robot.commands.CartridgeAndTilt;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -26,8 +26,7 @@ public class PIDCartridgeShot extends ParallelCommandGroup {
     //the wait makes the cartridge extend and hold extended, while the shot takes place after the wait
     if (isWoofer) {
       addCommands(
-          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER, 
-                                Constants.Tilt.KP_TILT, Constants.Tilt.KI_TILT, Constants.Tilt.KD_TILT),
+          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER),
         Commands.sequence(
           new WaitCommand(1.5),  //TODO adjust to min time needed to extened cartridge
           new ManualIntake(intake, intSpeed).withTimeout(2)),
@@ -38,8 +37,7 @@ public class PIDCartridgeShot extends ParallelCommandGroup {
     } 
       else{
         addCommands(
-        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM, 
-                                Constants.Tilt.KP_TILT, Constants.Tilt.KI_TILT, Constants.Tilt.KD_TILT),
+        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM),
         Commands.sequence(
           new WaitCommand(1.5),  //TODO adjust to min time needed to extened cartridge
           new ManualIntake(intake, intSpeed).withTimeout(2)),

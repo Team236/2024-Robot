@@ -7,6 +7,9 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,6 +18,7 @@ import frc.robot.Constants;
 public class Tilt extends SubsystemBase {
   private CANSparkMax tiltMotor;
   private RelativeEncoder tiltEncoder;
+   private SparkPIDController tiltPIDController;
   private boolean isTExtException, isTRetException;
   private DigitalInput tiltExtLimit, tiltRetLimit;
 
@@ -26,6 +30,7 @@ public class Tilt extends SubsystemBase {
     tiltMotor.setInverted(false);
     tiltMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     tiltEncoder = tiltMotor.getEncoder();
+    tiltPIDController = tiltMotor.getPIDController();
 
       try {
       tiltExtLimit = new DigitalInput(Constants.Tilt.DIO_TILT_EXT_LIMIT);
@@ -103,11 +108,37 @@ public void setTiltSpeed(double speed) {
      }
 }
 
+public double getTiltSpeed() {
+  return tiltMotor.get();
+}
+
+//!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
+ //**** NOTE Using SPARKMAX PID, BUT Drive PID is done using WPILIB PID **********
+
+ public void setSetpoint(double speed) {
+  tiltPIDController.setReference(speed, ControlType.kPosition);
+}
+
+public void setP(double kP) {
+  tiltPIDController.setP(kP);
+}
+
+public void setI(double kI) {
+  tiltPIDController.setI(kI);
+}
+
+public void setD(double kD) {
+  tiltPIDController.setD(kD);
+}
+
+public void setFF(double kFF) {
+  tiltPIDController.setFF(kFF);
+}
     @Override
   public void periodic() {
     SmartDashboard.putBoolean("Tilt Extend Limit: ", isTExtLimit());
     SmartDashboard.putBoolean("Tilt Retract Limit: ", isTRetLimit());
-    SmartDashboard.putNumber("Tilt Encoder REvolutions: ", getTiltEncoder());
+    SmartDashboard.putNumber("Tilt Encoder Revolutions: ", getTiltEncoder());
     SmartDashboard.putBoolean("Tilte is fully extended: ", isFullyExtended());
   }
 

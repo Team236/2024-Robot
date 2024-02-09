@@ -144,7 +144,7 @@ public class Elevator extends SubsystemBase {
          }
 
 //!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
- //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is done using WPILIB PID **********
+ //**** NOTE - This PID is done using SPARKMAX PID, BUT DRIVE PID is done using WPILIB PID **********
 
  public void setSetpoint(double speed) {
   leftPIDController.setReference(speed, ControlType.kPosition);
