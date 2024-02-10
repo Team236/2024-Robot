@@ -83,6 +83,18 @@ public final class Constants {
     public static final double STAGE_TAG_DISTANCE = Units.inchesToMeters(23);   
   }
 
+  public static class Limelight{
+    // orientaion as defined in LimelightHelpers.setCameraPose_RobotSpace method
+    //  double forward, double side, double up, 
+    //  double roll, double pitch, double yaw
+    public static final double CAMERA_FWD_POSITION = Units.inchesToMeters(-0.5);    // FWD position 
+    public static final double CAMERA_SIDE_POSITION = Units.inchesToMeters(-4);    // SIDE position 
+    public static final double CAMERA_UP_POSITION = Units.inchesToMeters(32);    // UP position 
+    public static final double CAMERA_ROLL_ROTATION = 0;    // ROLL position 
+    public static final double CAMERA_PITCH_ROTATION = 4;    // PITCH position 
+    public static final double CAMERA_YAW_ROTATION = 0;    // yaw rot around x degrees,    // YAW position 
+  }
+
   public static class DriveConstants {
     // lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; // 0.15???
