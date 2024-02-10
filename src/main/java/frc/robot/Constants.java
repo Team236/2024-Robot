@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -69,8 +71,18 @@ public final class Constants {
       public static class Amp{
         public static final double AMP_TRAP_MOTOR_SPEED = 1.0; // TODO define real spead
         public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.2; // TODO define real spead
+        public static final double AMP_TAG_DISTANCE = Units.inchesToMeters(16);
+        public static final double AMP_TAG_MAX_DISTANCE = Units.inchesToMeters(80);
+        }
       }
       
+      public static class Speaker{
+        public static final double SPEAKER_TAG_DISTANCE = Units.inchesToMeters(1);   
+      }
+
+      public static class Stage{
+        public static final double STAGE_TAG_DISTANCE = Units.inchesToMeters(23);   
+      }
 
   public static class DriveConstants {
     // lets us ignore small joystick inputs
