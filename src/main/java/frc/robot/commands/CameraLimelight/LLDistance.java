@@ -24,23 +24,19 @@ public class LLDistance extends Command {
   private double kY = 0.02; //0.00725;
   
   
-  private double h1 = 34;// approx ht now = was 32.5; //inches, from ground to center of camera lens
-  //private double h2 = 18; // inches, same unit as d, to center of target
-  private double a1 = Math.toRadians(6); //6 degrees, camera tilt
-  private double dist; // desired distance from camera to target in inches; pass into command
+  
   private Drive drive;
   private int pipeline;
-  private double targetHeight;//18" for Atag, from floor to center of target
-  private double tv, disY, a2, dx, errorY;
+  private double standoff, disY, dx, errorY;
   private double[] limeTarget;
-  private double tag_id=0;
+  private double tag_id = 0;
   
   /** CONSTRUCTOR - Creates a new LLAngle. */
-  public LLDistance(Drive drive, int pipeline, double standoff, double targetHeight) {
+  public LLDistance(Drive drive, int pipeline, double standoff) {
     this.drive = drive;
     this.pipeline = pipeline;
-    this.dist = standoff;
-    this.targetHeight = targetHeight;
+    this.standoff = standoff;
+
     addRequirements(this.drive);
   }
 
@@ -72,6 +68,7 @@ public class LLDistance extends Command {
 
    // if has_target should change to switch case with tag_id
    // alternative is if then statement tag_id > 0 do something 
+
    switch ((int)tag_id) {
     case 1,2: 
     // do samething for the 1,2 Red Blue Amp
@@ -79,17 +76,21 @@ public class LLDistance extends Command {
     break;
     case 3, 4:
       // do something for the 3,4 Red speaker 
-      driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+      // Do we want to declare standoff values in command use or via set constants
+      if (standoff==0) { driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+      } else  driveDistance(standoff);
       break;
     case 7, 8:
       // do something for the 7,8 Blue speaker
-      driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+      if (standoff==0) { driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+      } else  driveDistance(standoff);
       break;
     case 11,12,13:     // do something for the 11,12,13 Blue stage
         // falls through to to next break if 'break' is missing
     case 14,15,16:
       // do something for the 14,15,16 Red stage
-      driveDistance(Constants.Stage.STAGE_TAG_DISTANCE);
+      if (standoff==0) { driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+      } else  driveDistance(standoff);
       break;
     default:   // default used undeclared or nothing if no default action
       break;      
@@ -98,7 +99,7 @@ public class LLDistance extends Command {
     
    private void driveDistance(double distance) {
    if(tag_id>0){
-        dx = limeTarget[2];  // TODO verify position 2 Y-distance is correct axis for 'TargetPose_RobotSpace'   
+        dx = limeTarget[2];       // TODO verify position 2 Y-distance is correct axis for 'TargetPose_RobotSpace'   
         errorY = distance - dx;  
     //NOTE:  CAN TRY TO USE THE Z VALUE OF THE POSE FOR errorY (use [2] or [0] for other directions)
       double distanceAdjust = kY * errorY;
@@ -122,18 +123,16 @@ public class LLDistance extends Command {
   @Override
   public boolean isFinished() {
     //return false;
-    if(tv==1 && Math.abs(errorY)<=1){
+    if(Math.abs(errorY)<=1){
       SmartDashboard.putBoolean("LLDistance isFinished:", true);
       return true;
       }   
-      else if(tv==1 && Math.abs(errorY)>1){
+      else if(Math.abs(errorY)>1){
         return false;
       }
       else
       {
-      SmartDashboard.putNumber("No Shoot Target", tv);
       return true;
       }
-      
 }
   }
