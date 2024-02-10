@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -44,7 +45,12 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     compressor = new Compressor(PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
-    
+    // set CAMERA relative to ROBOT POSITION
+    LimelightHelpers.setCameraPose_RobotSpace("limelight",
+        Constants.Limelight.CAMERA_FWD_POSITION, Constants.Limelight.CAMERA_SIDE_POSITION, 
+        Constants.Limelight.CAMERA_UP_POSITION, Constants.Limelight.CAMERA_ROLL_ROTATION, 
+        Constants.Limelight.CAMERA_PITCH_ROTATION, Constants.Limelight.CAMERA_YAW_ROTATION );
+  
   //USB camera and servo:
    cameraServo = new Servo(Constants.PWM_FRONT_CAM);
 		try {
