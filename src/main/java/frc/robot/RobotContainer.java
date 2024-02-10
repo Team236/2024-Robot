@@ -9,6 +9,8 @@ import frc.robot.commands.AmpTrap.AmpShot;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
+import frc.robot.commands.Autos.WooferLeft;
+import frc.robot.commands.Autos.WooferRight;
 import frc.robot.commands.CameraLimelight.AmpCameraAngle;
 import frc.robot.commands.CameraLimelight.FloorCameraAngle;
 import frc.robot.commands.CameraLimelight.LLAngle;
@@ -107,6 +109,8 @@ public class RobotContainer {
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
   private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
   private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
+  private final WooferLeft wooferLeft = new WooferLeft(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM);
+  private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM);
 
   //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
@@ -194,7 +198,8 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     //x.onTrue(stowTilt);
     //a.onTrue(new AmpCameraAngle(ampTrapShooter));
     //b.onTrue(new FloorCameraAngle(ampTrapShooter));
-    a.whileTrue(manualDown);
+    //a.whileTrue(manualDown);
+    a.whileTrue(wooferLeft);
     y.whileTrue(manualUp);
     x.onTrue(pidToTop);
     b.onTrue(pidToBot);

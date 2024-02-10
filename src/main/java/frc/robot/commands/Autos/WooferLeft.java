@@ -20,21 +20,23 @@ import frc.robot.subsystems.Tilt;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class WooferLeft extends SequentialCommandGroup {
   /** Creates a new RedLeft. */
-  public WooferLeft(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, double intSpeed, double cartSpeed, double drvDistance) {
+  public WooferLeft(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, double intSpeed, double cartSpeed) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      //new AutoPIDTurn(drive, 180).withTimeout(2),
+      //new AutoPIDTurn(drive, -180).withTimeout(2),
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(Constants.DriveConstants.CARTRIDGE_SHOOT_TIMEOUT), //fix
       new WaitCommand(1), //just for testing
-      new AutoPIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY),
-      new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER),
+      new AutoPIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),
+      new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
     Commands.parallel(
-      new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE),
-      new SetIntakeSpeed(intake, intSpeed)
+      new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
+      new SetIntakeSpeed(intake, intSpeed).withTimeout(2)
       ),
-      new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE),
-      new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER),
-      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY),
+      new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
+      new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
+      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),
       new WaitCommand(1), //just for testing
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(Constants.DriveConstants.CARTRIDGE_SHOOT_TIMEOUT) //fix
     );

@@ -85,8 +85,8 @@ public final class Constants {
     // external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 18;
     public static final int DIO_LDRIVE_ENC_B = 19;
-    public static final int DIO_RDRIVE_ENC_A = 9; // 13 TODO switch back after testing the Roborio DIO vs Gyro DIO
-    public static final int DIO_RDRIVE_ENC_B = 8; // 12
+    public static final int DIO_RDRIVE_ENC_A = 8; // 13 TODO switch back after testing the Roborio DIO vs Gyro DIO
+    public static final int DIO_RDRIVE_ENC_B = 9; // 12
     // Calculates distance in INCHES from encoder pulses (ticks get it?)
 
     public static final double DIAMETER = 6;
@@ -108,14 +108,14 @@ public final class Constants {
 
     // AUTO DISTANCES
     public static final double AUTO_DISTANCE_1 = 36;
-    public static final double WOOFERFRONT_TO_NOTE = 121;
-    public static final double WOOFER_PULL_AWAY = 3;
-    public static final double PULL_AWAY_TO_NOTE = 54;
+    public static final double WOOFERFRONT_TO_NOTE = 60;
+    public static final double WOOFER_PULL_AWAY = 10;
+    public static final double PULL_AWAY_TO_NOTE = 60;
 
     // TURNING ANGLES
     public static final double TURN_ANGLE_1 = 90;
     public static final double TURN_ANGLE_2 = -90;
-    public static final double TURN_SIDE_OF_WOOFER = 40;
+    public static final double TURN_SIDE_OF_WOOFER = 57;
 
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
