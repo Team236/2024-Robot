@@ -44,10 +44,11 @@ public class LLDistance extends Command {
   @Override
   public void initialize() {
     limeTarget = LimelightHelpers.getTargetPose_RobotSpace("limelight");
-    SmartDashboard.putNumber("LLDistance init", pipeline);
+    SmartDashboard.putNumber("LLDistance pipe", pipeline);
     SmartDashboard.putNumberArray("tag_target_array",LimelightHelpers.getTargetPose_RobotSpace("limelight"));
     LimelightHelpers.setLEDMode_ForceOff("limelight");
     LimelightHelpers.setPipelineIndex("limelight",pipeline);
+    // SmartDashboard.putNumber("limelight X Distance",LLarray[0]);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -72,25 +73,22 @@ public class LLDistance extends Command {
    switch ((int)tag_id) {
     case 1,2: 
     // do samething for the 1,2 Red Blue Amp
-    driveDistance(Constants.Amp.AMP_TAG_DISTANCE);
+    driveDistance(40);
+    //driveDistance(Constants.Amp.AMP_TAG_DISTANCE);
     break;
     case 3, 4:
       // do something for the 3,4 Red speaker 
-      // Do we want to declare standoff values in command use or via set constants
-      if (standoff==0) { driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
-      } else  driveDistance(standoff);
+      driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
       break;
     case 7, 8:
       // do something for the 7,8 Blue speaker
-      if (standoff==0) { driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
-      } else  driveDistance(standoff);
+      driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
       break;
     case 11,12,13:     // do something for the 11,12,13 Blue stage
         // falls through to to next break if 'break' is missing
     case 14,15,16:
       // do something for the 14,15,16 Red stage
-      if (standoff==0) { driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
-      } else  driveDistance(standoff);
+      driveDistance(Constants.Stage.STAGE_TAG_DISTANCE);
       break;
     default:   // default used undeclared or nothing if no default action
       break;      
@@ -132,6 +130,7 @@ public class LLDistance extends Command {
       }
       else
       {
+      SmartDashboard.putNumber("No Shoot Target", tv);
       return true;
       }
 }
