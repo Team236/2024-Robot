@@ -80,7 +80,7 @@ public class LLDistance extends Command {
    } else {
       SmartDashboard.putNumber("No Target", tag_id);
    }
-  }
+
 
     // switch ((int)tag_id) {
     //   case 1,2: 
@@ -109,7 +109,7 @@ public class LLDistance extends Command {
     //   default:   // default used undeclared or nothing if no default action
     //     break;      
     // }
-}  
+    }
     
    private void driveDistance(double distance) {
     if(tag_id>0){

@@ -4,9 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
@@ -20,10 +23,13 @@ public class OdometryDrive extends SubsystemBase {
 
 	private CANSparkMax leftFront, leftRear, rightFront, rightRear;
 	private DifferentialDrive diffDrive;
+	private DifferentialDriveOdometry diffDriveOdometry; 
+
 	private DoubleSolenoid transmission;
 
 	//these are external encoders not SparkMAX
 	private Encoder leftEncoder, rightEncoder;
+	private AHRS gyro;
 	
 		/** Creates a new OdometryDrive. */				 
 	public OdometryDrive() {
@@ -32,45 +38,70 @@ public class OdometryDrive extends SubsystemBase {
     rightFront = new CANSparkMax(MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
     rightRear = new CANSparkMax(MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
 
-    leftFront.restoreFactoryDefaults();
-    rightFront.restoreFactoryDefaults();
+    	leftFront.restoreFactoryDefaults();
+    	rightFront.restoreFactoryDefaults();
 
-    leftFront.setInverted(false);
-    rightFront.setInverted(true); //determine via bench testing
-    
-    leftRear.follow(leftFront);
-    rightRear.follow(rightFront);
+    	leftFront.setInverted(false);
+    	rightFront.setInverted(true); //determine via bench testing
+		
+    	leftRear.follow(leftFront);
+    	rightRear.follow(rightFront);
 
-    leftFront.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
-    rightFront.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
-    leftRear.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
-    rightRear.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
+    	leftFront.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
+    	rightFront.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
+
+    	leftRear.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
+    	rightRear.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
     
+		gyro = new AHRS();
+
+		this.setGearLow();
+
     //creates a new diffdrive
     diffDrive = new DifferentialDrive(leftFront, rightFront); 
-    diffDrive.setSafetyEnabled(false);
-    diffDrive.setDeadband(DriveConstants.DEADBAND);
+    	diffDrive.setSafetyEnabled(false);
+    	diffDrive.setDeadband(DriveConstants.DEADBAND);
 
-    //external encoders
+	diffDriveOdometry = new DifferentialDriveOdometry(
+		gyro.getRotation2d(), 			//  gyro angle as Rotation2D 
+		leftEncoder.getDistance(), 		//  encoder left distance
+		rightEncoder.getDistance());  	//  encoder right distance
+		
+    
+	//external encoders
     leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B); 
     rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDRIVE_ENC_B); 
 
+	// TODO check that the distance per pulse is valid for 4 inch wheels
     rightEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
     leftEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
 
-    //pneumatic double solenoid
-    transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.SOL_LOW_GEAR, DriveConstants.SOL_HIGH_GEAR);
+    	//pneumatic double solenoid
+    	transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.SOL_LOW_GEAR, DriveConstants.SOL_HIGH_GEAR);
 }
 
+ @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+	SmartDashboard.getBoolean("In low gear?", isInLowGear());
 
-//methods start here
+	// Update the odometry in the periodic block
+	diffDriveOdometry.update(gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());								 
+  }
+
+
+//other methods start here
+public Pose2d getPose() {
+	return diffDriveOdometry.getPoseMeters();
+	}
+
 	public void setGearHigh(){
 	transmission.set(Value.kReverse);
 	}
 	
-	public void setGearLow(){
-	transmission.set(Value.kForward);
-	}
+public void setGearLow(){
+transmission.set(Value.kForward);
+}
 	
 	public boolean isInLowGear(){
 	return transmission.get() == Value.kForward;
@@ -109,8 +140,6 @@ public class OdometryDrive extends SubsystemBase {
 	}
 	
 	public double getLeftSpeed(){
-	//return leftEncoder.getVelocity(); //use for internal SparkMax encoder?
-	
 	//getRate units are distance per second, as scaled by the value of DistancePerPulse
 		return leftEncoder.getRate(); //use for external drive encoders
 	}
@@ -119,28 +148,19 @@ public class OdometryDrive extends SubsystemBase {
 		return rightEncoder.getRate(); //use for external drive encoders
 	}
 	
-	public double getLeftEncoder() {
-		return leftEncoder.getRaw();
-	}
-	
-	public double getRightEncoder() {
-		return rightEncoder.getRaw();
-	}
-	
-	public double getLeftDistance() {
-		return getLeftEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
-		// distance per pulse * encoder reading = inches
-	}
-	
-	public double getRightDistance() {
-		//return rightEncoder.getDistance();
-		return getRightEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
+	public void resetOdometry(Pose2D pose) {
+		resetEncoders();
+			diffDriveOdometry.resetPosition(gyro.getRotation2d(),
+			leftEncoder.getDistance(),
+			rightEncoder.getDistance(),
+			pose );
 	}
 
-	public double getAvgDistance() {
-		return (getLeftDistance() + getRightDistance())/2 ;
-	}
-  
+public void resetEncoders(){
+	leftEncoder.reset();
+	rightEncoder.reset();
+}
+
 	public void resetLeftEncoder() {
     leftEncoder.reset();
 	}
@@ -150,15 +170,71 @@ public class OdometryDrive extends SubsystemBase {
 		rightEncoder.reset();
     }
 
-	public void stop() {
-		leftFront.set(0);
-		rightFront.set(0);
-	}
 	
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+/**
+ * @return distance 
+ */
+public double getLeftDistance() {
+	return leftEncoder.getDistance();
+}
 
-	SmartDashboard.getBoolean("In low gear?", isInLowGear());														 
+private double getRightDistance() {
+	return rightEncoder.getDistance()	
+	}
+
+public Encoder getLeftEncoder(){
+	return leftEncoder;
+}
+
+public Encoder getRightEncoder(){
+	return rightEncoder;
+}
+
+public void zeroHeading() {
+	gyro.reset();
+}
+
+	public double getAvgDistance() {
+		return (getLeftDistance() + getRightDistance())/2 ;
+	}
+  
+
+
+public void stop() {
+	leftFront.set(0);
+	rightFront.set(0);
+}
+
+public void setMaxOutput(double maxOutput) {
+	diffDrive.setMaxOutput(maxOutput);
   }
+
+/**
+ * @param fwd
+ * @param rot
+ */
+public void ArcadeDrive(double fwd, double rot) {
+	diffDrive.arcadeDrive(fwd, rot);
+}
+
+/**
+ * @param leftVolts
+ * @param rightVolts
+ */
+public void tankDiveVolts(double leftVolts, double rightVolts) {
+	leftFront.setVoltage(leftVolts);
+	rightFront.setVoltage(rightVolts);
+	diffDrive.feed();
+}
+
+/**
+ * @return the turn rate of the robot in drees per second 
+ *  in Clockwise direction
+ */
+public double getTurnRate() {
+	return -gyro.getRate();
+}
+
+	
+ 
 }
