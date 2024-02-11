@@ -45,9 +45,11 @@ public class LLDistance extends Command {
   public void initialize() {
     limeTarget = LimelightHelpers.getTargetPose_RobotSpace("limelight");
     SmartDashboard.putNumber("LLDistance init", pipeline);
+    SmartDashboard.putNumber("LLDistance init", pipeline);
     SmartDashboard.putNumberArray("tag_target_array",LimelightHelpers.getTargetPose_RobotSpace("limelight"));
     LimelightHelpers.setLEDMode_ForceOff("limelight");
     LimelightHelpers.setPipelineIndex("limelight",pipeline);
+    // SmartDashboard.putNumber("limelight X Distance",LLarray[0]);
     // SmartDashboard.putNumber("limelight X Distance",LLarray[0]);
     // SmartDashboard.putNumber("limelight X Distance",LLarray[0]);
   }
