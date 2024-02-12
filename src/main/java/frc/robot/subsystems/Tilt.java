@@ -96,7 +96,7 @@ public void setTiltSpeed(double speed) {
         // cartridge extending out but fully extended limit is not tripped, go at commanded speed
        tiltMotor.set(speed);
       }
-    } else {
+    } else if (speed <= 0) {
       if (isTRetLimit()) {
         // cartridge retracting and retract limit is tripped, stop and zero encoder
         stopTilt();

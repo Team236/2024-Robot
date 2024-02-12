@@ -44,6 +44,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
 import frc.robot.subsystems.AmpTrap;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -111,6 +112,12 @@ public class RobotContainer {
   private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
   private final WooferLeft wooferLeft = new WooferLeft(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM);
   private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM);
+
+ //AUTO SWITCHES
+  private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
+  private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
+  private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
+  private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_4);
 
   //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
@@ -189,8 +196,19 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
 
     //assign button to comnands
     //***** driver controller ******
-    view.onTrue(lowGear);
-    menu.onTrue(highGear);
+    a.whileTrue(setIntakeSpeed); 
+    x.whileTrue(manualRetCartridge);
+    b.whileTrue(manualExtCartridge);
+    rm.whileTrue(manualEject);
+    rb.whileTrue(manualIntake); 
+    view.whileTrue(lowGear);
+    menu.whileTrue(highGear);
+    downPov.whileTrue(stowTilt);
+    leftPov.whileTrue(podiumTilt);
+    rightPov.whileTrue(wooferTilt);
+
+    //view.onTrue(lowGear);
+    //menu.onTrue(highGear);
     //x.onTrue(toggleGear);
     //b.whileTrue(setIntakeSpeed);
     //a.onTrue(podiumTilt);
@@ -199,25 +217,36 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     //a.onTrue(new AmpCameraAngle(ampTrapShooter));
     //b.onTrue(new FloorCameraAngle(ampTrapShooter));
     //a.whileTrue(manualDown);
-    a.whileTrue(wooferLeft);
-    y.whileTrue(manualUp);
-    x.onTrue(pidToTop);
-    b.onTrue(pidToBot);
+    //a.whileTrue(wooferLeft);
+    //y.whileTrue(manualUp);
+    //x.onTrue(pidToTop);
+    //b.onTrue(pidToBot);
     //rb.onTrue(autoPIDDrive);
     //lb.onTrue(autoPIDTurn1);
-    leftPov.whileTrue(llAngle);
-    downPov.whileTrue(llDistance);
-    upPov.whileTrue(llTarget);
+    //leftPov.whileTrue(llAngle);
+    //downPov.whileTrue(llDistance);
+    //upPov.whileTrue(llTarget);
     //downPov.onTrue(ampCameraAngle);
-   // upPov.onTrue(floorCameraAngle);
+    // upPov.onTrue(floorCameraAngle);
 
     //***** Aux Controller ******
-   upPov1.whileTrue(ampMotorForward);
-   downPov1.whileTrue(ampMotorReverse);
-   y1.whileTrue(manualWooferSpeed);
-   a1.whileTrue(manualPodiumSpeed);
-   x1.whileTrue(pidWooferSpeed);//cartridge motors only
-   b1.whileTrue(pidPodiumSpeed);//cartridge motors only
+    a1.whileTrue(pidPodiumSpeed);
+    x1.whileTrue(manualPodiumSpeed);
+    b1.whileTrue(pidWooferSpeed);
+    y1.whileTrue(manualWooferSpeed);
+    view1.whileTrue(ampMotorReverse);
+    menu1.whileTrue(ampMotorForward);
+    upPov1.whileTrue(pidToTop);
+    downPov1.whileTrue(pidToBot);
+    leftPov1.whileTrue(manualDown);
+    rightPov1.whileTrue(manualUp);
+    
+    //upPov1.whileTrue(ampMotorForward);
+    //downPov1.whileTrue(ampMotorReverse);
+    //y1.whileTrue(manualWooferSpeed);
+    //a1.whileTrue(manualPodiumSpeed);
+    //x1.whileTrue(pidWooferSpeed);//cartridge motors only
+    //b1.whileTrue(pidPodiumSpeed);//cartridge motors only
     //x1.onTrue(pidWooferShot); //intake and cart motors, also tilt
     //y1.onTrue(pidPodiumShot); //intake and cart motors, also tilt
     // x1.onTrue(frontShootGrabShoot);
@@ -231,8 +260,17 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
 * 
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    //return Autos.exampleAuto(m_exampleSubsystem);
-    return null;
+    if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
+      return (new WooferLeft(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
+    } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get())
+  {
+    return (new WooferRight(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
+  } else if (!autoSwitch3.get()) {
+      return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));} 
+      else if (!autoSwitch4.get()) {
+        return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));
+      } else {
+        return null;
+      }
+    }
   }
-}

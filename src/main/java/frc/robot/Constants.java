@@ -40,23 +40,23 @@ public final class Constants {
 
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
-    public static final int ID_LEFT_FRONT = 35; 
-    public static final int ID_RIGHT_FRONT = 1;
+    public static final int ID_LEFT_FRONT = 40; 
+    public static final int ID_RIGHT_FRONT = 41;
     public static final int ID_LEFT_REAR = 34;  
     public static final int ID_RIGHT_REAR = 32; // 46
 
-    public static final int ID_INTAKE = 13; // TODO find IDs for controller
+    public static final int ID_INTAKE = 33; // TODO find IDs for controller
 
-    public static final int ID_AMP_TRAP_SHOOTER = 53; // TODO get real number
+    public static final int ID_AMP_TRAP_SHOOTER = 12; // TODO get real number
 
     // Elevator
-    public static final int ID_ELEVATOR_LEFT = 12; // TODO get real number
-    public static final int ID_ELEVATOR_RIGHT = 11;// TODO get real number
+    public static final int ID_ELEVATOR_LEFT = 1; // TODO get real number
+    public static final int ID_ELEVATOR_RIGHT = 35;// TODO get real number
 
     // Cartridge shooter
-    public static final int ID_SHOOTER_LEFT =50;
-    public static final int ID_SHOOTER_RIGHT = 51;
-    public static final int ID_CARTRIDGE_TILT = 52; 
+    public static final int ID_SHOOTER_LEFT = 52;
+    public static final int ID_SHOOTER_RIGHT = 54;
+    public static final int ID_CARTRIDGE_TILT = 53; 
 
     // smart current limit
     public static final int SMART_CURRENT_LIMIT = 40;
@@ -66,11 +66,10 @@ public final class Constants {
       public static final double OPEN_RAMP_RATE = 0.08;
       }
   
-      public static class Amp{
-        public static final double AMP_TRAP_MOTOR_SPEED = 1.0; // TODO define real spead
-        public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.2; // TODO define real spead
-      }
-      
+  public static class Amp{
+    public static final double AMP_TRAP_MOTOR_SPEED = 1.0; // TODO define real spead
+    public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.2; // TODO define real spead
+    }
 
   public static class DriveConstants {
     // lets us ignore small joystick inputs
@@ -119,13 +118,19 @@ public final class Constants {
 
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
+
+    //AUTO SWITCHES
+    public static final int DIO_AUTO_1 = 0;
+    public static final int DIO_AUTO_2 = 1;
+    public static final int DIO_AUTO_3 = 2;
+    public static final int DIO_AUTO_4 = 3;
   }
 
   public static class Elevator {
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 25;// TODO get real number-somewhere above chain
     public static final double JUST_ABOVE_NOTE_HEIGHT = 8;// TODO get real number-where Note can pass through
     public static final double BOTTOM_HEIGHT = 0;
-    public static final double TOP_HEIGHT = 30;
+    public static final double TOP_HEIGHT = 28;
     public static final double MAX_HEIGHT = 30.5; //limit switch is at 30.25
 
     public static final int DIO_ELEV_TOP = 4;
@@ -165,7 +170,7 @@ public final class Constants {
   }
 
   public static class CartridgeShooter { 
-    // SHOOTER MOTORS STUFF:
+    // SHOOTER MOTORS
     public static final double PODIUM_PID_RPM = 1500; //TODO determine speed
     public static final double WOOFER_PID_RPM = 2100; //TODO determine speed
     public static final double AMP_PID_RPM = 2000; //TODO determine speed
@@ -189,8 +194,8 @@ public final class Constants {
 
   public static class Tilt { 
     //TILT MOTOR STUFF:
-    public static final int DIO_TILT_EXT_LIMIT = 0;
-    public static final int DIO_TILT_RET_LIMIT = 1;
+    public static final int DIO_TILT_EXT_LIMIT = 22;
+    public static final int DIO_TILT_RET_LIMIT = 23;
     public static final double MAX_TILT_ENC_REVS = 120;  //MUST BE HIGHER THAN VALUES BELOW
     public static final double TILT_ENC_REVS_WOOFER = 50; //TODO FIND REAL ENCODER VALUES
     public static final double TILT_ENC_REVS_PODIUM = 100;

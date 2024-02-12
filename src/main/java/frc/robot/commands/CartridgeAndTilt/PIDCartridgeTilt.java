@@ -60,6 +60,7 @@ public class PIDCartridgeTilt extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+     /* 
     boolean isAtLimit;
     if ( (tilt.getTiltSpeed() > 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {
       isAtLimit = true;
@@ -70,6 +71,8 @@ public class PIDCartridgeTilt extends Command {
     else isAtLimit = false;
 
     return isAtLimit;
+    */
+    return false;
     }
 
   }
