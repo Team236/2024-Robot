@@ -76,49 +76,67 @@ public class OdometryDrive extends SubsystemBase {
 	return transmission.get() == Value.kForward;
 	}
 	
-	public void closedRampRate() {	  //time in seconds to go from 0 to full throttle
-	leftFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE); 
-	rightFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE);
-	}
-	public void openRampRate() {
-	leftFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
-	rightFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
-	}
+	// public void closedRampRate() {	  //time in seconds to go from 0 to full throttle
+	// leftFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE); 
+	// rightFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE);
+	// }
+	// public void openRampRate() {
+	// leftFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
+	// rightFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
+	// }
 	
+	/**
+	 * @return
+	 */
 	public void setLeftSpeed(double speed) {
 	leftFront.set(speed);
 	}
 	
+	 /**
+	 * @return
+	 */
 	public void setRightSpeed(double speed) {
 	rightFront.set(speed);
 	}
 	
+/**
+	 * @return
+	 */
 	public void setBothSpeeds(double speed) {
 	leftFront.set(speed);
 	rightFront.set(speed);
 	}
 	
+
 	public void setTurnCWSpeeds(double speed) {
 	leftFront.set(speed);
 	rightFront.set(-speed);
 	}
 	
+
 	public void setTurnCCWSpeeds(double speed) {
 	leftFront.set(-speed);
 	rightFront.set(speed);
 	}
 	
+	/**
+	 * @return double 
+	 */
 	public double getLeftSpeed(){
-	//return leftEncoder.getVelocity(); //use for internal SparkMax encoder?
-	
-	//getRate units are distance per second, as scaled by the value of DistancePerPulse
+		//getRate units are distance per second, as scaled by the value of DistancePerPulse
 		return leftEncoder.getRate(); //use for external drive encoders
 	}
 	
+	/**
+	 * @return double
+	 */
 	public double getRightSpeed(){
 		return rightEncoder.getRate(); //use for external drive encoders
 	}
 	
+	/**
+	 * @return double
+	 */
 	public double getLeftEncoder() {
 		return leftEncoder.getRaw();
 	}
