@@ -57,8 +57,7 @@ public class runTrajectory extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(odometryDrive);
 
-  Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
+  Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
             new Pose2d(0, 0, new Rotation2d(0)),
             // Pass through these two interior waypoints, making an 's' curve path
@@ -69,27 +68,23 @@ public class runTrajectory extends Command {
             config);
     
     RamseteCommand ramseteCommand = new RamseteCommand(
-            exampleTrajectory,
-            odometryDrive::getPose, 
+            exampleTrajectory, m_Drive::getPose, 
             new RamseteController(), 
-            new SimpleMotorFeedforward(
-                DriveConstants.ksVolts,
-                DriveConstants.kvVoltSecondsPerMeter,
-                DriveConstants.kaVoltSecondsSquaredPerMeter),
-            DriveConstants.kDriveKinematics,
+            new SimpleMotorFeedforward( DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
+                DriveConstants.kaVoltSecondsSquaredPerMeter), DriveConstants.kDriveKinematics,
             odometryDrive::getWheelSpeeds,
             new PIDController(DriveConstants.kPDriveVel, 0, 0),
             new PIDController(DriveConstants.kPDriveVel, 0, 0),
             // RamseteCommand passes volts to the callback
-            odometryDrive::tankDriveVolts,
-            odometryDrive);
+            m_Drive::tankDriveVolts, 
+            odometryDrive );
 
     // Reset odometry to the initial pose of the trajectory, run path following
     // command, then stop at the end.
 
-    return Commands.runOnce(() -> odometryDrive.resetOdometry(exampleTrajectory.getInitialPose()))
+    return Commands.runOnce(() -> m_Drive.resetOdometry(exampleTrajectory.getInitialPose()))
         .andThen(ramseteCommand)
-        .andThen(Commands.runOnce(() -> odometryDrive.tankDriveVolts(0, 0)));
+        .andThen(Commands.runOnce(() -> m_Drive.tankDriveVolts(0, 0)));
   }
 
   // Called when the command is initially scheduled.
