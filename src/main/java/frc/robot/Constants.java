@@ -4,7 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Distance;
+import edu.wpi.first.units.Measure;
+import edu.wpi.first.units.Velocity;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -142,6 +146,16 @@ public final class Constants {
 
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
+
+    // constants to support the path following tutorial
+    public static final double ksVolts = 0;
+    public static final double kvVoltSecondsPerMeter = 0;
+    public static final double kaVoltSecondsSquaredPerMeter = 0;
+    public static final DifferentialDriveKinematics kDriveKenematics = null;
+    public static final Measure<Velocity<Distance>> kMaxSpeedMetersPerSecond = null;
+    public static final Measure<Velocity<Velocity<Distance>>> kMaxAccelerationMetersPerSecondSquared = null;
+    public static final double kPDriveVel = 0;
+    public static DifferentialDriveKinematics kDriveKinematics;
   }
 
   public static class Elevator {
