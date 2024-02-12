@@ -168,66 +168,28 @@ transmission.set(Value.kForward);
 	/**
 	 * @return double
 	 */
-	public double getLeftEncoder() {
-		return leftEncoder.getRaw();
-	}
-	
-	public double getRightEncoder() {
-		return rightEncoder.getRaw();
-	}
-	
-	public double getLeftDistance() {
-		return getLeftEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
-		// distance per pulse * encoder reading = inches
-	}
-	
-	public double getRightDistance() {
-		//return rightEncoder.getDistance();
-		return getRightEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
-	}
-
-	public double getAvgDistance() {
-		return (getLeftDistance() + getRightDistance())/2 ;
-	}
   
 	public void resetLeftEncoder() {
     leftEncoder.reset();
 	}
   
-  
-	public void resetRightEncoder() {
-		rightEncoder.reset();
-    }
+  	public void resetRightEncoder() { rightEncoder.reset(); }
 
-	
 /**
  * @return distance 
  */
-public double getLeftDistance() {
-	return leftEncoder.getDistance();
-}
+public double getLeftDistance() { return leftEncoder.getDistance(); }
 
-private double getRightDistance() {
-	return rightEncoder.getDistance()	
-	}
+private double getRightDistance() { return rightEncoder.getDistance(); }
 
-public Encoder getLeftEncoder(){
-	return leftEncoder;
-}
+public Encoder getLeftEncoder(){ return leftEncoder;}
 
-public Encoder getRightEncoder(){
-	return rightEncoder;
-}
+public Encoder getRightEncoder(){ return rightEncoder;}
 
-public void zeroHeading() {
-	gyro.reset();
-}
+public void zeroHeading() {	gyro.reset();}
 
-	public double getAvgDistance() {
-		return (getLeftDistance() + getRightDistance())/2 ;
-	}
+public double getAvgDistance() { return (getLeftDistance() + getRightDistance())/2 ; }
   
-
 
 public void stop() {
 	leftFront.set(0);
