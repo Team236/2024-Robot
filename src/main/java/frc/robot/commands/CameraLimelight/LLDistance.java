@@ -45,9 +45,13 @@ public class LLDistance extends Command {
   public void initialize() {
     limeTarget = LimelightHelpers.getTargetPose_RobotSpace("limelight");
     SmartDashboard.putNumber("LLDistance init", pipeline);
+    SmartDashboard.putNumber("LLDistance init", pipeline);
     SmartDashboard.putNumberArray("tag_target_array",LimelightHelpers.getTargetPose_RobotSpace("limelight"));
     LimelightHelpers.setLEDMode_ForceOff("limelight");
     LimelightHelpers.setPipelineIndex("limelight",pipeline);
+    // SmartDashboard.putNumber("limelight X Distance",LLarray[0]);
+    // SmartDashboard.putNumber("limelight X Distance",LLarray[0]);
+    // SmartDashboard.putNumber("limelight X Distance",LLarray[0]);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -69,48 +73,58 @@ public class LLDistance extends Command {
    // if has_target should change to switch case with tag_id
    // alternative is if then statement tag_id > 0 do something 
 
-   switch ((int)tag_id) {
-    case 1,2: 
-    // do samething for the 1,2 Red Blue Amp
-    driveDistance(Constants.Amp.AMP_TAG_DISTANCE);
-    break;
-    case 3, 4:
-      // do something for the 3,4 Red speaker 
-      // Do we want to declare standoff values in command use or via set constants
-      if (standoff==0) { driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
-      } else  driveDistance(standoff);
-      break;
-    case 7, 8:
-      // do something for the 7,8 Blue speaker
-      if (standoff==0) { driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
-      } else  driveDistance(standoff);
-      break;
-    case 11,12,13:     // do something for the 11,12,13 Blue stage
-        // falls through to to next break if 'break' is missing
-    case 14,15,16:
-      // do something for the 14,15,16 Red stage
-      if (standoff==0) { driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
-      } else  driveDistance(standoff);
-      break;
-    default:   // default used undeclared or nothing if no default action
-      break;      
-   }
-  }  
-    
-   private void driveDistance(double distance) {
-   if(tag_id>0){
-        dx = limeTarget[2];       // TODO verify position 2 Y-distance is correct axis for 'TargetPose_RobotSpace'   
-        errorY = distance - dx;  
-    //NOTE:  CAN TRY TO USE THE Z VALUE OF THE POSE FOR errorY (use [2] or [0] for other directions)
-      double distanceAdjust = kY * errorY;
-       drive.setLeftSpeed(-distanceAdjust);   //change to negative since LL is in back of robot this year
-       drive.setRightSpeed(-distanceAdjust);  //change to negative since LL is in back of robot this year
-      SmartDashboard.putNumber("dx, Y dist from target:", dx); //test this - use later for cartridge angle equation
-      SmartDashboard.putNumber("ErrorY:", errorY);
-      SmartDashboard.putNumber("Ty, degrees:", disY);
-   } else{
+  if (tag_id==3 || tag_id==4 )
+   {
+      driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+      SmartDashboard.putNumber("No Target", tag_id);
+   } else {
       SmartDashboard.putNumber("No Target", tag_id);
    }
+
+
+    // switch ((int)tag_id) {
+    //   case 1,2: 
+    //   // do samething for the 1,2 Red Blue Amp
+    //   driveDistance(40);
+    //   //driveDistance(40);
+    //   //driveDistance(Constants.Amp.AMP_TAG_DISTANCE);
+    //   break;
+    //   case 3, 4:
+    //     // do something for the 3,4 Red speaker 
+    //     driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+    //     driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+    //     break;
+    //   case 7, 8:
+    //     // do something for the 7,8 Blue speaker
+    //     driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+    //     driveDistance(Constants.Speaker.SPEAKER_TAG_DISTANCE);
+    //     break;
+    //   case 11,12,13:     // do something for the 11,12,13 Blue stage
+    //       // falls through to to next break if 'break' is missing
+    //   case 14,15,16:
+    //     // do something for the 14,15,16 Red stage
+    //     driveDistance(Constants.Stage.STAGE_TAG_DISTANCE);
+    //     driveDistance(Constants.Stage.STAGE_TAG_DISTANCE);
+    //     break;
+    //   default:   // default used undeclared or nothing if no default action
+    //     break;      
+    // }
+    }
+    
+   private void driveDistance(double distance) {
+    if(tag_id>0){
+         dx = limeTarget[2];       // TODO verify position 2 Y-distance is correct axis for 'TargetPose_RobotSpace'   
+         errorY = distance - dx;  
+     //NOTE:  CAN TRY TO USE THE Z VALUE OF THE POSE FOR errorY (use [2] or [0] for other directions)
+       double distanceAdjust = kY * errorY;
+        drive.setLeftSpeed(-distanceAdjust);   //change to negative since LL is in back of robot this year
+        drive.setRightSpeed(-distanceAdjust);  //change to negative since LL is in back of robot this year
+       SmartDashboard.putNumber("dx, Y dist from target:", dx); //test this - use later for cartridge angle equation
+       SmartDashboard.putNumber("ErrorY:", errorY);
+       SmartDashboard.putNumber("Ty, degrees:", disY);
+    } else{
+       SmartDashboard.putNumber("No Target", tag_id);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -126,13 +140,11 @@ public class LLDistance extends Command {
     if(Math.abs(errorY)<=1){
       SmartDashboard.putBoolean("LLDistance isFinished:", true);
       return true;
-      }   
-      else if(Math.abs(errorY)>1){
+      } else if(Math.abs(errorY)>1) {
         return false;
-      }
-      else
-      {
+      }  else  {
+      SmartDashboard.putNumber("No Shoot Target", 0 );
       return true;
       }
-}
   }
+}

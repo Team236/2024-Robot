@@ -12,15 +12,7 @@ import frc.robot.subsystems.Drive;
 
 
 public class LLTarget extends Command {
-     //tV = 1 if there are any targets found, =0 if not
-    //ty = vertical offset from crosshair to target -20.5 to +20.5 degrees
-    //h1 = distance from floor to center of Limelight lens
-    //h2 = distance from floor to center of target
-    //a1 = angle between floor (horizontal) and camera's centerline (camera mount angle, how far rotated from vertical?)
-    //a2 = getTy (angle between camera's centerline and line extending from center of camera to center of target)
-    //d = Distance to target (want 14" or 16" distance in order to be in front of Grid)
-    //tan(a1 +a2)  = (h2-h1)/dx;
-
+  
   private double kX = 0.017;//ADJUST!!!  0.005??
   private double kY = 0.03; //0.00725;
   private Drive drive;
