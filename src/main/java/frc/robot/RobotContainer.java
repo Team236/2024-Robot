@@ -252,9 +252,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
    * @return the command to run in autonomous
-* 
    */
   public Command getAutonomousCommand() {
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
