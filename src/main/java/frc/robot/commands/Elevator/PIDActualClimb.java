@@ -18,20 +18,20 @@ import frc.robot.subsystems.Tilt;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PIDClimb extends SequentialCommandGroup {
+public class PIDActualClimb extends SequentialCommandGroup {
   /** Creates a new PIDElevClim. */
 
-  public PIDClimb(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
+  public PIDActualClimb(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
     //Start at the middle height before going to climbPID, somewhere near the chain 
     //TODO - determine if going up or down to mid height - this assumes up from some low initial position
     addCommands(
       new PIDUptoHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(2),
        Commands.parallel(
-         new PIDDownForClimb(elevator, Constants.Elevator.BOTTOM_HEIGHT),
+         new PIDDownForClimb(elevator, Constants.Elevator.MIN_HEIGHT),
         Commands.sequence(new WaitCommand(5), new AmpShot(intake, cartridge, ampTrap, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED))
       )
     );
 
-    
+  
   }
 }

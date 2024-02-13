@@ -84,7 +84,7 @@ public class Elevator extends SubsystemBase {
         return elevatorBottomLimit.get();
       }
     }
-
+   
     public void resetElevatorEncoder() {
       elevatorEncoder.setPosition(0); //SparkMax encoder (left only)
     }
@@ -107,8 +107,7 @@ public class Elevator extends SubsystemBase {
         eTop = false;      }
       return eTop;
     }
-
-
+ 
    public double getElevatorLeftSpeed() {
       return  leftElevatorMotor.get();
     }  
@@ -120,7 +119,6 @@ public class Elevator extends SubsystemBase {
   
     public void setElevSpeed(double speed) {
     if (speed > 0) {  
-       //TODO make sure elevator speed > 0 when going up
       if (isETopLimit() || isTop()) {
           // if elevator limit is tripped or elevator is near the top limit switch going up, stop 
           stopElevator();
@@ -129,13 +127,14 @@ public class Elevator extends SubsystemBase {
           leftElevatorMotor.set(speed);
           rightElevatorMotor.set(speed);
         }
-      } else {
+      } 
+      else if (speed <= 0) {
         if (isEBotLimit()) {
-          // elevator going down and bottom limit is tripped, stop and zero encoder
+          //elevator going down and is at the bottom,stop and zero encoder
           stopElevator();
           resetElevatorEncoder();
         } else {
-          // arm retracting but fully retracted limit is not tripped, go at commanded speed
+        // elevator going down but not at the bottom, go at commanded speed
           leftElevatorMotor.set(speed);
           rightElevatorMotor.set(speed);
         }
@@ -146,7 +145,7 @@ public class Elevator extends SubsystemBase {
 //**** NOTE - This PID is done using SPARKMAX PID, BUT DRIVE PID is with WPILIB PID *******
  public void setSetpoint(double speed) {
   leftPIDController.setReference(speed, ControlType.kPosition);
-  rightPIDController.setReference(speed, ControlType.kPosition); //TODO check to set negatives for motors
+  rightPIDController.setReference(speed, ControlType.kPosition);
 }
 
 public void setP(double kP) {
@@ -168,7 +167,6 @@ public void setFF(double kFF) {
   leftPIDController.setFF(kFF);
   rightPIDController.setFF(kFF);
 }
-
 
   @Override
   public void periodic() {

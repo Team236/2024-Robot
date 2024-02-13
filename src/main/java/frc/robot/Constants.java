@@ -10,11 +10,6 @@ package frc.robot;
  * constants. This class should not be used for any other purpose. All constants
  * should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>
- * It is advised to statically import this class (or one of its inner classes)
- * wherever the
- * constants are needed, to reduce verbosity.
  */
 public final class Constants {
   //camera servo motor, created in Robot.java:
@@ -24,21 +19,14 @@ public final class Constants {
   public static final double FRONT_CAM_FLOOR = 0.8;
 
   public static class Controller {
-    // usb port on the laptop for the Xbox controller used by the Controller
-    // Operator (not driver)
-    // public static final int USB_AUXCONTROLLER = 1;
-
     // usb port on the laptop when driver using XBox controller
-    public static final int USB_DRIVECONTROLLER = 0;
-    public static final int USB_AUXCONTROLLER = 1;
-
-    // for using Joysticks vice XBox for driving
+    public static final int USB_DRIVECONTROLLER = 0;//for driver
+    public static final int USB_AUXCONTROLLER = 1; // for controller operator
     // usb ports on the laptop, when driver using two Thrustmaster Joysticks
     // public static final int USB_LEFT_JOYSTICK = 1;
     // public static final int USB_RIGHT_JOYSTICK = 2;
   }
-
-  // these are the id numbers for the motor controllers
+  // ID numbers for the motor controllers:
   public static class MotorControllers {
     public static final int ID_LEFT_FRONT = 40; 
     public static final int ID_LEFT_REAR = 41;  
@@ -114,11 +102,11 @@ public final class Constants {
     public static final int DIO_AUTO_4 = 3;
   }
   public static class Elevator {
-    public static final double JUST_ABOVE_CHAIN_HEIGHT = 25;// TODO get real number-somewhere above chain
-    public static final double JUST_ABOVE_NOTE_HEIGHT = 8;// TODO get real number-where Note can pass through
-    public static final double BOTTOM_HEIGHT = 0;
-    public static final double TOP_HEIGHT = 28;
-    public static final double MAX_HEIGHT = 30.5; //limit switch is at 30.25
+    public static final double JUST_ABOVE_CHAIN_HEIGHT = 20;// TODO get real number-somewhere above chain
+    public static final double MATCH_HEIGHT= 20; // TODO determine - ideally same as just above chain
+    public static final double MIN_HEIGHT = 0; //bottom limit switch at zero
+    public static final double MAX_HEIGHT = 29; //TODO: limit switch height above MAX_HEIGHT
+    public static final double CLIMB_HEIGHT = 0.5; //should be a bit above zero
 
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
