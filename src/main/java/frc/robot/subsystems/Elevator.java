@@ -85,8 +85,6 @@ public class Elevator extends SubsystemBase {
       }
     }
 
-    
-  //TODO change to elevator from here down
     public void resetElevatorEncoder() {
       elevatorEncoder.setPosition(0); //SparkMax encoder (left only)
     }
@@ -95,6 +93,7 @@ public class Elevator extends SubsystemBase {
       public double getElevatorEncoder() {
       return elevatorEncoder.getPosition(); //for a SparkMax encoder
     }
+
     //reads elevator distance travelled in inches 
     public double getElevatorHeight() {
       return  getElevatorEncoder() * Constants.Elevator.ELEV_REV_TO_IN;
@@ -121,7 +120,7 @@ public class Elevator extends SubsystemBase {
   
     public void setElevSpeed(double speed) {
     if (speed > 0) {  
-       //TODO make sure elevator speed > 0 when going up, and top threshold as logical or below
+       //TODO make sure elevator speed > 0 when going up
       if (isETopLimit() || isTop()) {
           // if elevator limit is tripped or elevator is near the top limit switch going up, stop 
           stopElevator();
@@ -144,8 +143,7 @@ public class Elevator extends SubsystemBase {
          }
 
 //!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
- //**** NOTE - This PID is done using SPARKMAX PID, BUT DRIVE PID is done using WPILIB PID **********
-
+//**** NOTE - This PID is done using SPARKMAX PID, BUT DRIVE PID is with WPILIB PID *******
  public void setSetpoint(double speed) {
   leftPIDController.setReference(speed, ControlType.kPosition);
   rightPIDController.setReference(speed, ControlType.kPosition); //TODO check to set negatives for motors
@@ -178,8 +176,5 @@ public void setFF(double kFF) {
     SmartDashboard.putNumber("Elevator height", getElevatorHeight());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
-    SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
-    SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
-
   }
 }

@@ -34,7 +34,6 @@ public class PIDCartridgeMotors extends Command {
     cartridge.setI(Constants.CartridgeShooter.kILeft, Constants.CartridgeShooter.kIRight);
     cartridge.setD(Constants.CartridgeShooter.kDLeft, Constants.CartridgeShooter.kDRight);
     cartridge.setFF(Constants.CartridgeShooter.kFFLeft, Constants.CartridgeShooter.kFFRight);
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
