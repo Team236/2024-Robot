@@ -4,21 +4,18 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import edu.wpi.first.math.filter.SlewRateLimiter;
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.Thrustmaster;
 
 public class Drive extends SubsystemBase {
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
@@ -30,7 +27,7 @@ public class Drive extends SubsystemBase {
 
   /** Creates a new Drive. */
   public Drive() {
-    //TODO add navX gyro in robot
+    
     leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
@@ -157,12 +154,34 @@ public void stop() {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-
-    SmartDashboard.getBoolean("In low gear?", isInLowGear());
-    SmartDashboard.putNumber("left Encoder Ticks", getLeftEncoder());
-    SmartDashboard.putNumber("Right Encoder Ticks", getRightEncoder());
-        SmartDashboard.putNumber("left Dist", getLeftDistance());
-    SmartDashboard.putNumber("Right Dist", getRightDistance());
+    // SmartDashboard.getBoolean("In low gear?", isInLowGear());
+   
   }
+
+  /**
+   * Drives the robot using arcade controls.
+   * @param fwd the commanded forward movement
+   * @param rot the commanded rotation
+   */
+  public void arcadeDrive(double fwd, double rot) {
+    diffDrive.arcadeDrive(fwd, rot);
+  }
+
+  /**
+   * Controls the left and right sides of the drive directly with voltages.
+   * @param leftVolts the commanded left output
+   * @param rightVolts the commanded right output
+   */
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    leftFront.setVoltage(leftVolts);
+    rightFront.setVoltage(rightVolts);
+    diffDrive.feed();
+  }
+
+  /** Resets the drive encoders to currently read a position of 0. */
+  public void resetEncoders() {
+    leftEncoder.reset();
+    rightEncoder.reset();
+  }
+
 }

@@ -4,12 +4,27 @@
 
 package frc.robot;
 
+import java.util.List;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.AmpTrap.AmpShot;
 import frc.robot.commands.Autos.AutoPIDDrive;
@@ -42,6 +57,7 @@ import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.OdometryDrive;
 import frc.robot.subsystems.Tilt;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -59,6 +75,7 @@ public class RobotContainer {
 
   //create instance of each subsystem
   private final Drive drive = new Drive();
+  private final OdometryDrive odometryDrive  = new OdometryDrive();
   private final Intake intake = new Intake();
   private final Cartridge cartridge = new Cartridge();
   private final AmpTrap ampTrap = new AmpTrap();
@@ -118,11 +135,12 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    // set only one default command for driving
     drive.setDefaultCommand(arcadeXbox);
-    //drive.setDefaultCommand(tankXbox);
-    //drive.setDefaultCommand(curvatureXbox);
-    //drive.setDefaultCommand(tankJoysticks); //uses left Z to turn, not right X
-    //drive.setDefaultCommand(arcadeJoysticks);
+    // drive.setDefaultCommand(tankXbox);
+    // drive.setDefaultCommand(curvatureXbox);
+    // drive.setDefaultCommand(tankJoysticks); //uses left Z to turn, not right X
+    // drive.setDefaultCommand(arcadeJoysticks);
 
     // Configure the trigger bindings
     configureBindings();
@@ -145,8 +163,10 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-         // CREATE BUTTONS
-    // *XBOXCONTROLLER - DRIVER CONTROLLER
+    
+    // CREATE BUTTONS
+    
+         // *XBOXCONTROLLER - DRIVER CONTROLLER
     JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
@@ -222,6 +242,60 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
-    return null;
-  }
+        // Create a voltage constraint to ensure we don't accelerate too fast
+    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+      new SimpleMotorFeedforward(
+        DriveConstants.ksVolts, 
+        DriveConstants.kvVoltSecondsPerMeter,
+        DriveConstants.kaVoltSecondsSquaredPerMeter),  
+        DriveConstants.kDriveKinematics, 
+        10);   // 10 volts declared as maxumum 
+
+    
+      // Create config for trajectory
+      TrajectoryConfig config =
+        new TrajectoryConfig(
+                DriveConstants.kMaxSpeedMetersPerSecond,
+                DriveConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+
+
+  Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(3, 0, new Rotation2d(0)),
+            // Pass config
+            config);
+    
+    final RamseteCommand ramseteCommand = new RamseteCommand( 
+        exampleTrajectory, 
+        odometryDrive::getPose, 
+        new RamseteController(),    // use default B and Zeta values for ramset
+        new SimpleMotorFeedforward( 
+              DriveConstants.ksVolts, 
+              DriveConstants.kvVoltSecondsPerMeter, 
+              DriveConstants.kaVoltSecondsSquaredPerMeter), 
+          DriveConstants.kDriveKinematics,
+          Constants.DriveConstants.kDriveKinematics,
+          new PIDController(DriveConstants.kPDriveVel, 0, 0),
+          new PIDController(DriveConstants.kPDriveVel, 0, 0),
+            odometryDrive::tankDiveVolts, 
+          odometryDrive );
+
+    // Reset odometry to the initial pose of the trajectory, run path following
+    // command, then stop at the end.
+
+   return Commands.runOnce(() -> odometryDrive.resetOdometry(exampleTrajectory.getInitialPose()))
+        .andThen(ramseteCommand)
+        .andThen(Commands.runOnce(() -> odometryDrive.stop()));
+      }
+
+ 
 }
+

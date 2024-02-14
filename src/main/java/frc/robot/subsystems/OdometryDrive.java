@@ -5,11 +5,12 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
@@ -17,7 +18,8 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.*;
+import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
 public class OdometryDrive extends SubsystemBase {
 
@@ -33,10 +35,10 @@ public class OdometryDrive extends SubsystemBase {
 	
 		/** Creates a new OdometryDrive. */				 
 	public OdometryDrive() {
-	leftFront = new CANSparkMax(MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
-    leftRear = new CANSparkMax(MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
-    rightFront = new CANSparkMax(MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
-    rightRear = new CANSparkMax(MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
+		leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
+    	leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
+    	rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
+    	rightRear = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
 
     	leftFront.restoreFactoryDefaults();
     	rightFront.restoreFactoryDefaults();
@@ -47,15 +49,12 @@ public class OdometryDrive extends SubsystemBase {
     	leftRear.follow(leftFront);
     	rightRear.follow(rightFront);
 
-    	leftFront.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
-    	rightFront.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
-
-    	leftRear.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
-    	rightRear.setSmartCurrentLimit(MotorControllers.SMART_CURRENT_LIMIT);
+    	leftFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    	rightFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    		leftRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    		rightRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     
 		gyro = new AHRS();
-
-		this.setGearLow();
 
     //creates a new diffdrive
     diffDrive = new DifferentialDrive(leftFront, rightFront); 
@@ -66,7 +65,6 @@ public class OdometryDrive extends SubsystemBase {
 		gyro.getRotation2d(), 			//  gyro angle as Rotation2D 
 		leftEncoder.getDistance(), 		//  encoder left distance
 		rightEncoder.getDistance());  	//  encoder right distance
-		
     
 	//external encoders
     leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B); 
@@ -77,7 +75,7 @@ public class OdometryDrive extends SubsystemBase {
     leftEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
 
     	//pneumatic double solenoid
-    	transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.SOL_LOW_GEAR, DriveConstants.SOL_HIGH_GEAR);
+    transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.SOL_LOW_GEAR, DriveConstants.SOL_HIGH_GEAR);
 }
 
  @Override
@@ -95,18 +93,36 @@ public Pose2d getPose() {
 	return diffDriveOdometry.getPoseMeters();
 	}
 
+	// TODO determine what method to use for sparkmax to controll max output?
+	/**  
+	* Sets the max output of the drive. Useful for scaling the drive to drive more slowly.
+	* @param maxOutput the maximum output to which the drive will be constrained
+	*/
+
+
+	/**
+   * Returns the current wheel speeds of the robot.
+   * @return The current wheel speeds.
+   */
+	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    	return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
+	}
+
+
 	public void setGearHigh(){
-	transmission.set(Value.kReverse);
+		transmission.set(Value.kReverse);
 	}
 	
-public void setGearLow(){
-transmission.set(Value.kForward);
-}
+	public void setGearLow(){
+	transmission.set(Value.kForward);
+	}
 	
 	public boolean isInLowGear(){
 	return transmission.get() == Value.kForward;
 	}
 	
+
+
 	// public void closedRampRate() {	  //time in seconds to go from 0 to full throttle
 	// leftFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE); 
 	// rightFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE);
@@ -130,7 +146,7 @@ transmission.set(Value.kForward);
 	rightFront.set(speed);
 	}
 	
-/**
+	/**
 	 * @return
 	 */
 	public void setBothSpeeds(double speed) {
@@ -168,26 +184,24 @@ transmission.set(Value.kForward);
 	/**
 	 * @return double
 	 */
-  
-	public void resetLeftEncoder() {
-    leftEncoder.reset();
-	}
+	public void resetLeftEncoder() { leftEncoder.reset(); }
   
   	public void resetRightEncoder() { rightEncoder.reset(); }
 
+	public void resetEncoders() { 
+		leftEncoder.reset(); 
+		rightEncoder.reset();
+	}
+  
 /**
  * @return distance 
  */
 public double getLeftDistance() { return leftEncoder.getDistance(); }
-
 private double getRightDistance() { return rightEncoder.getDistance(); }
-
 public Encoder getLeftEncoder(){ return leftEncoder;}
-
 public Encoder getRightEncoder(){ return rightEncoder;}
 
 public void zeroHeading() {	gyro.reset();}
-
 public double getAvgDistance() { return (getLeftDistance() + getRightDistance())/2 ; }
   
 
@@ -209,10 +223,8 @@ public void ArcadeDrive(double fwd, double rot) {
 }
 
 /**
- * @param leftVolts
- * @param rightVolts
  */
-public void tankDiveVolts(double leftVolts, double rightVolts) {
+public void tankDiveVolts() {
 	leftFront.setVoltage(leftVolts);
 	rightFront.setVoltage(rightVolts);
 	diffDrive.feed();
@@ -227,5 +239,4 @@ public double getTurnRate() {
 }
 
 	
- 
 }
