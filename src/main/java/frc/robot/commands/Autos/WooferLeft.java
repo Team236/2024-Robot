@@ -29,7 +29,7 @@ public class WooferLeft extends SequentialCommandGroup {
       //new AutoPIDTurn(drive, 180).withTimeout(2),
       //new AutoPIDTurn(drive, -180).withTimeout(2),
       Commands.parallel(
-         new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT), //bring elevator up to match height
+         new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
          new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(Constants.DriveConstants.CARTRIDGE_SHOOT_TIMEOUT)//fix
       ),
       new WaitCommand(1), //just for testing

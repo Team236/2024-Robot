@@ -22,6 +22,7 @@ public class Cartridge extends SubsystemBase {
   private RelativeEncoder leftEncoder, rightEncoder;
 
   /** Creates a new CartridgeShooter. */
+  //TODO:  CHECK IF CARTRIDGE POSITION HOLDS WHEN PIDCartridgeTilt ends
   public Cartridge() {
     leftShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_LEFT, MotorType.kBrushless);
     rightShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_SHOOTER_RIGHT, MotorType.kBrushless);

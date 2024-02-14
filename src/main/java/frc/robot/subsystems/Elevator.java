@@ -22,6 +22,7 @@ public class Elevator extends SubsystemBase {
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
   /** Creates a new Elevator. */
+    //TODO:  CHECK IF ELEVATOR POSITION HOLDS WHEN PID up ends
   public Elevator() {
     leftElevatorMotor = new CANSparkMax(Constants.MotorControllers.ID_ELEVATOR_LEFT, MotorType.kBrushless); 
     rightElevatorMotor = new CANSparkMax(Constants.MotorControllers.ID_ELEVATOR_RIGHT, MotorType.kBrushless); 

@@ -27,7 +27,7 @@ public class WooferRight extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     Commands.parallel(
-      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT), //bring elevator up to match height
+      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(Constants.DriveConstants.CARTRIDGE_SHOOT_TIMEOUT) //fix
       ), 
       new WaitCommand(1), //just for testing

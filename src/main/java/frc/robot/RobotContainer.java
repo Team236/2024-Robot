@@ -192,6 +192,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
     //assign button to comnands
+    
     //***** driver controller ******
     a.whileTrue(setIntakeSpeed); 
     x.whileTrue(manualRetCartridge);
@@ -203,7 +204,18 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     downPov.whileTrue(stowTilt);
     leftPov.whileTrue(podiumTilt);
     rightPov.whileTrue(wooferTilt);
-
+    //***** Aux Controller ******
+    a1.whileTrue(pidPodiumSpeed);
+    x1.whileTrue(manualPodiumSpeed);
+    b1.whileTrue(pidWooferSpeed);
+    y1.whileTrue(manualWooferSpeed);
+    view1.whileTrue(ampMotorReverse);
+    menu1.whileTrue(ampMotorForward);
+    upPov1.whileTrue(pidToTop);
+    downPov1.whileTrue(pidToBot);
+    leftPov1.whileTrue(manualDown);
+    rightPov1.whileTrue(manualUp);
+    
     //view.onTrue(lowGear);
     //menu.onTrue(highGear);
     //x.onTrue(toggleGear);
@@ -225,19 +237,6 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     //upPov.whileTrue(llTarget);
     //downPov.onTrue(ampCameraAngle);
     // upPov.onTrue(floorCameraAngle);
-
-    //***** Aux Controller ******
-    a1.whileTrue(pidPodiumSpeed);
-    x1.whileTrue(manualPodiumSpeed);
-    b1.whileTrue(pidWooferSpeed);
-    y1.whileTrue(manualWooferSpeed);
-    view1.whileTrue(ampMotorReverse);
-    menu1.whileTrue(ampMotorForward);
-    upPov1.whileTrue(pidToTop);
-    downPov1.whileTrue(pidToBot);
-    leftPov1.whileTrue(manualDown);
-    rightPov1.whileTrue(manualUp);
-    
     //upPov1.whileTrue(ampMotorForward);
     //downPov1.whileTrue(ampMotorReverse);
     //y1.whileTrue(manualWooferSpeed);
