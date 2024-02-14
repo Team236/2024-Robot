@@ -75,7 +75,7 @@ public class RobotContainer {
 
   //create instance of each subsystem
   private final Drive drive = new Drive();
-  private final OdometryDrive odometryDrive  = new OdometryDrive();
+  private final OdometryDrive odometryDrive;
   private final Intake intake = new Intake();
   private final Cartridge cartridge = new Cartridge();
   private final AmpTrap ampTrap = new AmpTrap();
@@ -275,7 +275,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     
     final RamseteCommand ramseteCommand = new RamseteCommand( 
         exampleTrajectory, 
-        odometryDrive::getPose, 
+        odometryDrive.getPose(), 
         new RamseteController(),    // use default B and Zeta values for ramset
         new SimpleMotorFeedforward( 
               DriveConstants.ksVolts, 
@@ -285,7 +285,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
           Constants.DriveConstants.kDriveKinematics,
           new PIDController(DriveConstants.kPDriveVel, 0, 0),
           new PIDController(DriveConstants.kPDriveVel, 0, 0),
-            odometryDrive::tankDiveVolts, 
+            odometryDrive.tankDiveVolts(0, 0), 
           odometryDrive );
 
     // Reset odometry to the initial pose of the trajectory, run path following

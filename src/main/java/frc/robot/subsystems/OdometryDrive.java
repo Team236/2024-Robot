@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.MotorControllers;
 
 public class OdometryDrive extends SubsystemBase {
 
@@ -122,15 +124,14 @@ public Pose2d getPose() {
 	}
 	
 
-
-	// public void closedRampRate() {	  //time in seconds to go from 0 to full throttle
-	// leftFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE); 
-	// rightFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE);
-	// }
-	// public void openRampRate() {
-	// leftFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
-	// rightFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
-	// }
+	public void closedRampRate() {	  //time in seconds to go from 0 to full throttle
+	leftFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE); 
+	rightFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE);
+	}
+	public void openRampRate() {
+	leftFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
+	rightFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
+	}
 	
 	/**
 	 * @return
@@ -214,6 +215,7 @@ public void setMaxOutput(double maxOutput) {
 	diffDrive.setMaxOutput(maxOutput);
   }
 
+
 /**
  * @param fwd
  * @param rot
@@ -224,7 +226,7 @@ public void ArcadeDrive(double fwd, double rot) {
 
 /**
  */
-public void tankDiveVolts() {
+public void tankDiveVolts(double leftVolts, double rightVolts) {
 	leftFront.setVoltage(leftVolts);
 	rightFront.setVoltage(rightVolts);
 	diffDrive.feed();
@@ -232,11 +234,29 @@ public void tankDiveVolts() {
 
 /**
  * @return the turn rate of the robot in drees per second 
- *  in Clockwise direction
+ *  in Clockwise direction?
  */
 public double getTurnRate() {
 	return -gyro.getRate();
 }
 
-	
+public void resetOdometry(Pose2d pose){
+	 // this seems to be valid
+	diffDriveOdometry.resetPosition(gyro.getAngle(),0,0,pose);
+}
+
+/**
+   * Resets the odometry to limelight if tag is not zero
+   * @param pose The pose to which to set the odometry.
+   */
+  public void resetOdometry() {
+    resetEncoders();
+	if (LimelightHelpers.getFiducialID("limelight") != 0 ) {
+    	diffDriveOdometry.resetPosition( 
+			gyro.getAngle(),
+			0,
+			0,
+			LimelightHelpers.getBotPose2d("limelight") );
+		}
+	}
 }
