@@ -78,8 +78,8 @@ public final class Constants {
     public static final double DEADBAND = 0.05;
 
     // Transmission solenoid
-    public static final int SOL_LOW_GEAR = 4; // ***3 previously
-    public static final int SOL_HIGH_GEAR = 5;// ***2 previously
+    public static final int SOL_LOW_GEAR = 3; // ***3 previously
+    public static final int SOL_HIGH_GEAR = 2;// ***2 previously
 
     // external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 18;

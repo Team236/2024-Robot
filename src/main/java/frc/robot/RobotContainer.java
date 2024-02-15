@@ -240,7 +240,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     downPov1.whileTrue(pidToBot);
     leftPov1.whileTrue(manualDown);
     rightPov1.whileTrue(manualUp);
-    
+
     //upPov1.whileTrue(ampMotorForward);
     //downPov1.whileTrue(ampMotorReverse);
     //y1.whileTrue(manualWooferSpeed);
