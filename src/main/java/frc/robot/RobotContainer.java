@@ -46,6 +46,7 @@ import frc.robot.subsystems.AmpTrap;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -70,7 +71,7 @@ public class RobotContainer {
   private final AmpTrap ampTrap = new AmpTrap();
   private final Elevator elevator = new Elevator();
   private final Tilt tilt = new Tilt();
- 
+
   //create instance of each command
   //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
@@ -254,6 +255,10 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+        SmartDashboard.putBoolean("Autoswitch1: ", !autoSwitch1.get());
+        SmartDashboard.putBoolean("Autoswitch2: ", !autoSwitch2.get());
+        SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
+        SmartDashboard.putBoolean("Autoswitch4: ", !autoSwitch4.get());
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       return wooferLeft;
      //return (new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
