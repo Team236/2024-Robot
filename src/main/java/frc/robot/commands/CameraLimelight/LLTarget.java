@@ -75,8 +75,8 @@ public class LLTarget extends Command {
          errorY = dist - dx;
          distanceAdjust = kY * errorY; 
          
-       drive.setLeftSpeed(-distanceAdjust + steeringAdjust);
-       drive.setRightSpeed(-distanceAdjust - steeringAdjust); 
+       drive.setLeftSpeed(-distanceAdjust - steeringAdjust); //signs are due to camera in back of robot
+       drive.setRightSpeed(-distanceAdjust + steeringAdjust); //signs are due to camera in back of robot
        
       SmartDashboard.putNumber("ErrorX - Angle Error tX", errorX);
       SmartDashboard.putNumber("dx, Y dist from target:", dx);
