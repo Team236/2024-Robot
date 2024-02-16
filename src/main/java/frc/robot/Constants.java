@@ -10,11 +10,6 @@ package frc.robot;
  * constants. This class should not be used for any other purpose. All constants
  * should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>
- * It is advised to statically import this class (or one of its inner classes)
- * wherever the
- * constants are needed, to reduce verbosity.
  */
 public final class Constants {
   //camera servo motor, created in Robot.java:
@@ -24,46 +19,35 @@ public final class Constants {
   public static final double FRONT_CAM_FLOOR = 0.8;
 
   public static class Controller {
-    // usb port on the laptop for the Xbox controller used by the Controller
-    // Operator (not driver)
-    // public static final int USB_AUXCONTROLLER = 1;
-
     // usb port on the laptop when driver using XBox controller
-    public static final int USB_DRIVECONTROLLER = 0;
-    public static final int USB_AUXCONTROLLER = 1;
-
-    // for using Joysticks vice XBox for driving
+    public static final int USB_DRIVECONTROLLER = 0;//for driver
+    public static final int USB_AUXCONTROLLER = 1; // for controller operator
     // usb ports on the laptop, when driver using two Thrustmaster Joysticks
     // public static final int USB_LEFT_JOYSTICK = 1;
     // public static final int USB_RIGHT_JOYSTICK = 2;
   }
-
-  // these are the id numbers for the motor controllers
+  // ID numbers for the motor controllers:
   public static class MotorControllers {
     public static final int ID_LEFT_FRONT = 40; 
-    public static final int ID_RIGHT_FRONT = 41;
-    public static final int ID_LEFT_REAR = 34;  
-    public static final int ID_RIGHT_REAR = 32; // 46
+    public static final int ID_LEFT_REAR = 41;  
+    public static final int ID_RIGHT_FRONT = 42;
+    public static final int ID_RIGHT_REAR = 43;
 
-    public static final int ID_INTAKE = 33; // TODO find IDs for controller
-
-    public static final int ID_AMP_TRAP_SHOOTER = 12; // TODO get real number
-
+    public static final int ID_INTAKE = 48;
+    public static final int ID_AMP_TRAP_SHOOTER = 49;
     // Elevator
-    public static final int ID_ELEVATOR_LEFT = 1; // TODO get real number
-    public static final int ID_ELEVATOR_RIGHT = 35;// TODO get real number
-
+    public static final int ID_ELEVATOR_LEFT = 46;
+    public static final int ID_ELEVATOR_RIGHT = 47;
     // Cartridge shooter
-    public static final int ID_SHOOTER_LEFT = 52;
-    public static final int ID_SHOOTER_RIGHT = 54;
-    public static final int ID_CARTRIDGE_TILT = 53; 
+    public static final int ID_SHOOTER_LEFT = 44; //AKA CartridgeLeft
+    public static final int ID_SHOOTER_RIGHT = 45;//AKA CartridgeRight
 
-    // smart current limit
+    public static final int ID_CARTRIDGE_TILT = 51; 
+
     public static final int SMART_CURRENT_LIMIT = 40;
-
-      //Ramp rates (time in seconds to go from zero to full throttle)
-      public static final double CLOSED_RAMP_RATE = 0.08;
-      public static final double OPEN_RAMP_RATE = 0.08;
+    //Ramp rates (time in seconds to go from zero to full throttle)
+    public static final double CLOSED_RAMP_RATE = 0.08;
+    public static final double OPEN_RAMP_RATE = 0.08;
       }
   
   public static class Amp{
@@ -76,25 +60,21 @@ public final class Constants {
     public static final double LEFT_DEADZONE = 0.05; // 0.15???
     public static final double RIGHT_DEADZONE = 0.05;
     public static final double DEADBAND = 0.05;
-
     // Transmission solenoid
-    public static final int SOL_LOW_GEAR = 3; // ***3 previously
-    public static final int SOL_HIGH_GEAR = 2;// ***2 previously
-
+    public static final int SOL_LOW_GEAR = 0; 
+    public static final int SOL_HIGH_GEAR = 1;
     // external drive encoders
-    public static final int DIO_LDRIVE_ENC_A = 18;
-    public static final int DIO_LDRIVE_ENC_B = 19;
-    public static final int DIO_RDRIVE_ENC_A = 8; // 13 TODO switch back after testing the Roborio DIO vs Gyro DIO
-    public static final int DIO_RDRIVE_ENC_B = 9; // 12
+    public static final int DIO_LDRIVE_ENC_A = 6;
+    public static final int DIO_LDRIVE_ENC_B = 7;
+    public static final int DIO_RDRIVE_ENC_A = 10; 
+    public static final int DIO_RDRIVE_ENC_B = 11; 
     // Calculates distance in INCHES from encoder pulses (ticks get it?)
-
     public static final double DIAMETER = 6;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-    public static final double GEAR_RATIO = 1; // for external encoder so no gear ratio
+    public static final double GEAR_RATIO = 1; //for external encoder - no gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
-    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K / 512; // for external encoder
-
+    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; // for external encoder
     // PID
     public static final double KP_DRIVE = 0.022; // 0.022 (from 2023)
     public static final double KI_DRIVE = 0;
@@ -104,39 +84,34 @@ public final class Constants {
     public static final double PID_L_SETPOINT = 0.28;
     public static final double KP_TURNR = 0.025;
     public static final double PID_R_SETPOINT = 0.28;
-
     // AUTO DISTANCES
     public static final double AUTO_DISTANCE_1 = 36;
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 10;
     public static final double PULL_AWAY_TO_NOTE = 60;
-
     // TURNING ANGLES
     public static final double TURN_ANGLE_1 = 90;
     public static final double TURN_ANGLE_2 = -90;
     public static final double TURN_SIDE_OF_WOOFER = 57;
-
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
-
     //AUTO SWITCHES
     public static final int DIO_AUTO_1 = 0;
     public static final int DIO_AUTO_2 = 1;
     public static final int DIO_AUTO_3 = 2;
     public static final int DIO_AUTO_4 = 3;
   }
-
   public static class Elevator {
-    public static final double JUST_ABOVE_CHAIN_HEIGHT = 25;// TODO get real number-somewhere above chain
-    public static final double JUST_ABOVE_NOTE_HEIGHT = 8;// TODO get real number-where Note can pass through
-    public static final double BOTTOM_HEIGHT = 0;
-    public static final double TOP_HEIGHT = 28;
-    public static final double MAX_HEIGHT = 30.5; //limit switch is at 30.25
+    public static final double JUST_ABOVE_CHAIN_HEIGHT = 20;// TODO get real number-somewhere above chain
+    public static final double MATCH_HEIGHT= 20; // TODO determine - ideally same as just above chain
+    public static final double MIN_HEIGHT = 0; //bottom limit switch at zero
+    public static final double MAX_HEIGHT = 29; //TODO: limit switch height above MAX_HEIGHT
+    public static final double CLIMB_HEIGHT = 0.5; //should be a bit above zero
 
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
 
-    public static final double ELEV_REV_TO_IN = 0.32327; // gear ratio changed old - 2.2629;
+    public static final double ELEV_REV_TO_IN = 0.32327;//gear ratio changed, old 2.2629;
     public static final double ELEV_IN_TO_REV = 1/(0.32327);
 
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
@@ -144,7 +119,6 @@ public final class Constants {
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.1;
     public static final double ELEV_DOWN_SPEED = 0.5; // keep this pos, use 0.5 to test climb manually
-
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.03; // 0.01?
     public static final double KI_ELEV_UP = 0;
@@ -163,12 +137,10 @@ public final class Constants {
   }
 
   public static class Intake {
-    public static final int DIO_COUNTER = 10; // TODO find DIO channel for counter
-    // Motor
+    public static final int DIO_COUNTER = 12;
     public static final double INTAKE_SPEED = 0.6; // TODO experiment with this speed
     public static final double EJECT_SPEED = -0.2;
   }
-
   public static class CartridgeShooter { 
     // SHOOTER MOTORS
     public static final double PODIUM_PID_RPM = 1500; //TODO determine speed
@@ -176,10 +148,9 @@ public final class Constants {
     public static final double AMP_PID_RPM = 2000; //TODO determine speed
     public static final double MAX_PID_SPEED = 6000;
 
-    public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2;
+    public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2; //TODO determine these speeds
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
-
-    public static final double MANUAL_SET_SPEED = 0.1; // TODO determine speed
+    public static final double MANUAL_SET_SPEED = 0.3; 
    //CartridgeShooterMotor PID // 2022 pid constants commented in
     public static final double kPLeft = 0.00005; // 0002
     public static final double kILeft = 0.0; // 0.00000001
@@ -191,16 +162,15 @@ public final class Constants {
     public static final double kDRight = 0.0565; // 0.0565
     public static final double kFFRight = 0.00018; // 0.00021
   }
-
   public static class Tilt { 
     //TILT MOTOR STUFF:
-    public static final int DIO_TILT_EXT_LIMIT = 22;
-    public static final int DIO_TILT_RET_LIMIT = 23;
+    public static final int DIO_TILT_EXT_LIMIT = 8;
+    public static final int DIO_TILT_RET_LIMIT = 9;
     public static final double MAX_TILT_ENC_REVS = 120;  //MUST BE HIGHER THAN VALUES BELOW
     public static final double TILT_ENC_REVS_WOOFER = 50; //TODO FIND REAL ENCODER VALUES
     public static final double TILT_ENC_REVS_PODIUM = 100;
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
-    public static final double MAN_EXT_SPEED = 0.3; //TODO find these EXT/RET constants
+    public static final double MAN_EXT_SPEED = 0.3; //TODO find these EXT/RET speeds
     public static final double MAN_RET_SPEED = 0.4;  //should be positive, the method adds the negative
     //CARTRIDGE TILT PID:
     public static final double KP_TILT = 0.01;

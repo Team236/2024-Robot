@@ -39,4 +39,10 @@ public PIDDownForClimb(Elevator elevator, double desiredHeight) {
   public void end(boolean interrupted) {
     elevator.stopElevator();
   }
+
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return elevator.isEBotLimit();
+  }
 }

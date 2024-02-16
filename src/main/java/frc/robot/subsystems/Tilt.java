@@ -45,10 +45,8 @@ public class Tilt extends SubsystemBase {
       SmartDashboard.putBoolean("exception thrown for bottom limit: ", isTRetException);
     }
   }
-
 //MEHTODS START HERE
-  //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is done using WPILIB PID **********  
-  
+  //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is with WPILIB PID ****** 
   public double getTiltEncoder() {  //gives encoder reading in Revs
     return tiltEncoder.getPosition();
   }
@@ -88,7 +86,7 @@ public boolean isFullyExtended() {
 
 public void setTiltSpeed(double speed) {
   if (speed > 0) {  
-     //TODO make sure elevator speed > 0 when going up, and top threshold as logical or below
+     //TODO make sure elevator speed > 0 when going up
     if (isTExtLimit() || isFullyExtended()) {
         // if fully extended limit is tripped or cartridge at the maximum desired extension and going out, stop 
         stopTilt();
@@ -113,8 +111,7 @@ public double getTiltSpeed() {
 }
 
 //!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
- //**** NOTE Using SPARKMAX PID, BUT Drive PID is done using WPILIB PID **********
-
+//**** NOTE Using SPARKMAX PID, BUT Drive PID is done using WPILIB PID **********
  public void setSetpoint(double speed) {
   tiltPIDController.setReference(speed, ControlType.kPosition);
 }

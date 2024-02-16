@@ -14,24 +14,13 @@ public class PIDCartridgeTilt extends Command {
 
   private Tilt tilt;
   private double desiredRevs; //desired height in inches
-  //private final PIDController pidController;
-  //private double KP, KI, KD;
 
   /** Creates a new PIDCartridgeTilt. */
-  //Removed since using SparkMax PID
-  /*
-  public PIDCartridgeTilt(Tilt tilt, double desiredRevs, double KP, double KI, double KD) {
-    this.KP = KP;
-    this.KI = KI;
-    this.KD = KD;
-    pidController = new PIDController(KP, KI, KD);
-    */
  public PIDCartridgeTilt(Tilt tilt, double desiredRevs) {
     this.tilt = tilt;
     this.desiredRevs = desiredRevs;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(tilt);
-    //pidController.setSetpoint(desiredRevs);
 }
 
   // Called when the command is initially scheduled.
@@ -48,7 +37,6 @@ public class PIDCartridgeTilt extends Command {
   @Override
   public void execute() {
     tilt.setSetpoint(desiredRevs);
-    //tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
   }
 
   // Called once the command ends or is interrupted.
@@ -60,7 +48,6 @@ public class PIDCartridgeTilt extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-     /* 
     boolean isAtLimit;
     if ( (tilt.getTiltSpeed() > 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {
       isAtLimit = true;
@@ -71,8 +58,7 @@ public class PIDCartridgeTilt extends Command {
     else isAtLimit = false;
 
     return isAtLimit;
-    */
-    return false;
+   // return false;
     }
 
   }

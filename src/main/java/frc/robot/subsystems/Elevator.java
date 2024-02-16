@@ -22,6 +22,7 @@ public class Elevator extends SubsystemBase {
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
   /** Creates a new Elevator. */
+    //TODO:  CHECK IF ELEVATOR POSITION HOLDS WHEN PID up ends
   public Elevator() {
     leftElevatorMotor = new CANSparkMax(Constants.MotorControllers.ID_ELEVATOR_LEFT, MotorType.kBrushless); 
     rightElevatorMotor = new CANSparkMax(Constants.MotorControllers.ID_ELEVATOR_RIGHT, MotorType.kBrushless); 
@@ -84,9 +85,7 @@ public class Elevator extends SubsystemBase {
         return elevatorBottomLimit.get();
       }
     }
-
-    
-  //TODO change to elevator from here down
+   
     public void resetElevatorEncoder() {
       elevatorEncoder.setPosition(0); //SparkMax encoder (left only)
     }
@@ -95,6 +94,7 @@ public class Elevator extends SubsystemBase {
       public double getElevatorEncoder() {
       return elevatorEncoder.getPosition(); //for a SparkMax encoder
     }
+
     //reads elevator distance travelled in inches 
     public double getElevatorHeight() {
       return  getElevatorEncoder() * Constants.Elevator.ELEV_REV_TO_IN;
@@ -108,8 +108,7 @@ public class Elevator extends SubsystemBase {
         eTop = false;      }
       return eTop;
     }
-
-
+ 
    public double getElevatorLeftSpeed() {
       return  leftElevatorMotor.get();
     }  
@@ -121,7 +120,6 @@ public class Elevator extends SubsystemBase {
   
     public void setElevSpeed(double speed) {
     if (speed > 0) {  
-       //TODO make sure elevator speed > 0 when going up, and top threshold as logical or below
       if (isETopLimit() || isTop()) {
           // if elevator limit is tripped or elevator is near the top limit switch going up, stop 
           stopElevator();
@@ -130,13 +128,14 @@ public class Elevator extends SubsystemBase {
           leftElevatorMotor.set(speed);
           rightElevatorMotor.set(speed);
         }
-      } else {
+      } 
+      else if (speed <= 0) {
         if (isEBotLimit()) {
-          // elevator going down and bottom limit is tripped, stop and zero encoder
+          //elevator going down and is at the bottom,stop and zero encoder
           stopElevator();
           resetElevatorEncoder();
         } else {
-          // arm retracting but fully retracted limit is not tripped, go at commanded speed
+        // elevator going down but not at the bottom, go at commanded speed
           leftElevatorMotor.set(speed);
           rightElevatorMotor.set(speed);
         }
@@ -144,11 +143,10 @@ public class Elevator extends SubsystemBase {
          }
 
 //!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
- //**** NOTE - This PID is done using SPARKMAX PID, BUT DRIVE PID is done using WPILIB PID **********
-
+//**** NOTE - This PID is done using SPARKMAX PID, BUT DRIVE PID is with WPILIB PID *******
  public void setSetpoint(double speed) {
   leftPIDController.setReference(speed, ControlType.kPosition);
-  rightPIDController.setReference(speed, ControlType.kPosition); //TODO check to set negatives for motors
+  rightPIDController.setReference(speed, ControlType.kPosition);
 }
 
 public void setP(double kP) {
@@ -171,15 +169,11 @@ public void setFF(double kFF) {
   rightPIDController.setFF(kFF);
 }
 
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Elevator height", getElevatorHeight());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
-    SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
-    SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
-
   }
 }
