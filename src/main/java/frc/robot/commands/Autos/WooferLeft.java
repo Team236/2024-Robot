@@ -29,7 +29,9 @@ public class WooferLeft extends SequentialCommandGroup {
       //new AutoPIDTurn(drive, 180).withTimeout(2),
       //new AutoPIDTurn(drive, -180).withTimeout(2),
       Commands.parallel(
-         new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
+
+      //TODO Determine if elevator stays at match height - or need to hold the PID  
+      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
          new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(Constants.DriveConstants.CARTRIDGE_SHOOT_TIMEOUT)//fix
       ),
       new WaitCommand(1), //just for testing
@@ -44,6 +46,8 @@ public class WooferLeft extends SequentialCommandGroup {
       new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),
       new WaitCommand(1), //just for testing
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(Constants.DriveConstants.CARTRIDGE_SHOOT_TIMEOUT) //fix
-    );
+      //TODO Determine if line below needed - to hold elev with PID during teleop
+      // ,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
+      );
   }
 }

@@ -103,9 +103,10 @@ public final class Constants {
   }
   public static class Elevator {
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 20;// TODO get real number-somewhere above chain
-    public static final double MATCH_HEIGHT= 20; // TODO determine - ideally same as just above chain
-    public static final double MIN_HEIGHT = 0; //bottom limit switch at zero
-    public static final double MAX_HEIGHT = 29; //TODO: limit switch height above MAX_HEIGHT
+
+    public static final double MATCH_HEIGHT= 20; // TODO determine, ideally same as just-above-chain
+    public static final double MIN_HEIGHT = 0.5; //TODO: adjust this, bottom limit switch at zero
+    public static final double MAX_HEIGHT = 27; //TODO: determine actual, must be below limit switch height
     public static final double CLIMB_HEIGHT = 0.5; //should be a bit above zero
 
     public static final int DIO_ELEV_TOP = 4;
@@ -119,8 +120,9 @@ public final class Constants {
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.1;
     public static final double ELEV_DOWN_SPEED = 0.5; // keep this pos, use 0.5 to test climb manually
+
     // PID may need seperate pid for up, down, and climb
-    public static final double KP_ELEV_UP = 0.03; // 0.01?
+    public static final double KP_ELEV_UP = 0.03; //
     public static final double KI_ELEV_UP = 0;
     public static final double KD_ELEV_UP = 0;
     public static final double KFF_ELEV_UP = 0;//only use KFF with velocity control
@@ -173,7 +175,7 @@ public final class Constants {
     public static final double MAN_EXT_SPEED = 0.3; //TODO find these EXT/RET speeds
     public static final double MAN_RET_SPEED = 0.4;  //should be positive, the method adds the negative
     //CARTRIDGE TILT PID:
-    public static final double KP_TILT = 0.01;
+    public static final double KP_TILT = 0.001;
     public static final double KI_TILT = 0;
     public static final double KD_TILT = 0;
     public static final double KFF_TILT = 0;

@@ -28,6 +28,8 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
    //PIDCartridgeShot brings the cartridge to the Woofer or Podium angle (holds with PID), and then runs intake and cartridge motors
     Commands.parallel(
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(2), 
+
+      //TODO Determine if elevator stays at match height - or need to hold the PID
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2) //bring elevator up to match height
       ),
       new WaitCommand(1),
@@ -37,8 +39,8 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
       //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2)//is this necesary?
       ),
       new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE),
-      new WaitCommand(2),
-      new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(5)
+      new WaitCommand(2)
+      //,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
     );
   }
 }
