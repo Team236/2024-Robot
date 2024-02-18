@@ -219,6 +219,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     leftPov.onTrue(pidPodiumShot);
     rightPov.onTrue(pidWooferShot);
     lb.onTrue(ampShot);
+    rb.whileTrue(llAngle);
 
 
     //***** Aux Controller ******
