@@ -12,6 +12,7 @@ import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
+import frc.robot.commands.Intake.ManualIntakeWithWait;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
@@ -26,7 +27,7 @@ public class AmpShot extends SequentialCommandGroup {
     addCommands(
       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(3),
     Commands.parallel(
-      new ManualIntake(intake, intSpeed), //use manualIntake here since count = 1
+      new ManualIntakeWithWait(intake, intSpeed), //use manualIntake here since count = 1
       new PIDCartridgeMotors(cartridge, cartSpeed),
       new AmpMotor(ampTrap, ampSpeed)
       )

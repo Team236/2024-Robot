@@ -4,10 +4,13 @@
 
 package frc.robot.commands.Shots;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.Intake.ManualIntake;
+import frc.robot.commands.Intake.ManualIntakeWithWait;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
@@ -21,8 +24,8 @@ public class RunIntkCartMotors extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ManualIntake(intake, intSpeed),
-      new PIDCartridgeMotors(cartridge, cartSpeed)
+      new PIDCartridgeMotors(cartridge, cartSpeed),
+      new ManualIntakeWithWait(intake, intSpeed)
     );
   }
 }

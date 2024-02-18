@@ -204,9 +204,9 @@ public class RobotContainer {
     //TILT- zero at the retracted limit before using PID!!!
     x.whileTrue(manualRetCartridge);
     b.whileTrue(manualExtCartridge);
-    y.whileTrue(stowTilt); //PID
-    menu.whileTrue(podiumTilt); //PID
-    view.whileTrue(wooferTilt); //PID
+    y.onTrue(stowTilt); //PID
+    menu.onTrue(podiumTilt); //PID
+    view.onTrue(wooferTilt); //PID
    //SHOT COMMAND GROUPS
     upPov.whileTrue(runIntCartAmpMotors); //runs all shot motors, cart motors set to AMP_PID_RPM
     downPov.whileTrue(wooferIntkCartMotors); //runs intake and cart motors, cart motors set to WOOFER_PID_RPM
@@ -231,8 +231,8 @@ public class RobotContainer {
     leftPov1.onTrue(pidUpToMatchHeight); //do this going up
     //leftPov1.whileTrue(climbManualDown);//for climb with constant speed 0.8
     rightPov1.onTrue(climbPID);
-    lb.whileTrue(manualUp);
-    rb.whileTrue(manualDown);
+    lb1.whileTrue(manualUp);
+    rb1.whileTrue(manualDown);
 
     //DRIVE
     //view1.onTrue(lowGear);
