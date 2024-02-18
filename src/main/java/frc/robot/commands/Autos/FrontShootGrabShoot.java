@@ -12,6 +12,7 @@ import frc.robot.Constants.CartridgeShooter;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.IntakeWithCounter;
+import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.subsystems.Tilt;
 import frc.robot.subsystems.Cartridge;
@@ -27,22 +28,21 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
     addCommands(
    //PIDCartridgeShot brings the cartridge to the Woofer or Podium angle (holds with PID), and then runs intake and cartridge motors
     Commands.parallel(
-      new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(2), 
-
+      new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(4), 
       //TODO Determine if elevator stays at match height - or need to hold the PID
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2) //bring elevator up to match height
       ),
       new WaitCommand(1),
     Commands.parallel(
-      new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2) 
-      //new SetIntakeSpeed(intake, intSpeed),
-      //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2)//is this necesary?
+      new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(4),
+      new ManualIntake(intake, intSpeed).withTimeout(5),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(5)//is this necesary?
       ),
-      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE),
-      new WaitCommand(2)
-      //,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
-
-      
-    );
+      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(4),
+      new WaitCommand(2),
+      new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(4))
+      //TODO Determine if line below needed - to hold elev with PID during teleop
+      // ,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
+      ;
   }
 }

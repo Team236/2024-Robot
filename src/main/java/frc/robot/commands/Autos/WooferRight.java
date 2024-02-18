@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.IntakeWithCounter;
+import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
@@ -32,15 +33,15 @@ public class WooferRight extends SequentialCommandGroup {
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(Constants.DriveConstants.CARTRIDGE_SHOOT_TIMEOUT) //fix
       ), 
       new WaitCommand(1), //just for testing
-      new AutoPIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY),
-      new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER),
+      new AutoPIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),
+      new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
     Commands.parallel(
-      new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE),
-      new IntakeWithCounter(intake, intSpeed)
+      new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(3),
+      new ManualIntake(intake, intSpeed).withTimeout(4)
       ),
-      new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE),
-      new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER),
-      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY),
+      new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
+      new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
+      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY)withTimeout(2),
       new WaitCommand(1), //just for testing
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(Constants.DriveConstants.CARTRIDGE_SHOOT_TIMEOUT) //fix
       //TODO Determine if line below needed - to hold elev with PID during teleop

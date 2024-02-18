@@ -85,15 +85,16 @@ public class RobotContainer {
 //SHOTS
  private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
  private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
+ private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
  private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
  private final RunIntkCartAmpMotors runIntCartAmpMotors = new RunIntkCartAmpMotors(intake, cartridge, ampTrap,  Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
 
- //INTAKE COMMANDS:
+//INTAKE COMMANDS:
   private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 
- //CARTRIDGE AND TILT COMMANDS:
+//CARTRIDGE AND TILT COMMANDS:
   private final ManualExtCartridge manualExtCartridge = new ManualExtCartridge(tilt, Constants.Tilt.MAN_EXT_SPEED);
   private final ManualRetractCartridge manualRetCartridge = new ManualRetractCartridge(tilt, Constants.Tilt.MAN_RET_SPEED);
   private final PIDCartridgeTilt podiumTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM);
@@ -104,15 +105,12 @@ public class RobotContainer {
   private final ManualWooferSpeed manualWooferSpeed = new ManualWooferSpeed(cartridge);
   private final PIDCartridgeMotors pidPodiumSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_RPM);
   private final PIDCartridgeMotors pidWooferSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM);
-  private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
  
- 
- //AMPTRAP COMMANDS:
+//AMPTRAP COMMANDS:
   private final AmpMotor ampMotorForward = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
- 
   
- //AUTO COMMANDS
+//AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
   private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
@@ -120,13 +118,13 @@ public class RobotContainer {
   private final WooferLeft wooferLeft = new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM);
   private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM);
 
- //AUTO SWITCHES
+//AUTO SWITCHES
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
   private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
   private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
   private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_4);
 
-  //ELEVATOR COMMANDS:
+//ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
    private final ManualDown climbManualDown = new ManualDown(elevator, Constants.Elevator.ELEV_MAN_DOWN_SPEED);
@@ -134,7 +132,7 @@ public class RobotContainer {
   private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT);
   private final PIDActualClimb climbPID = new PIDActualClimb(elevator, ampTrap, intake, tilt, cartridge);
 
-  //CAMERA AND LIMELIGHT COMMANDS
+//CAMERA AND LIMELIGHT COMMANDS
 private final LLAngle llAngle= new LLAngle(drive, 0);
 private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
 private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
@@ -206,52 +204,48 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     
     //***** driver controller ******
     //INTAKE
-    a.whileTrue(intakeWithCounter); 
     rm.whileTrue(manualEject);
     rb.whileTrue(manualIntake); 
-    //CARTRIDGE
+    a.whileTrue(intakeWithCounter); //USE THIS FOR MATCH!!
+    //TILT- zero at the retracted limit before using PID!!!
     x.whileTrue(manualRetCartridge);
     b.whileTrue(manualExtCartridge);
+    y.whileTrue(stowTilt); //PID
+    menu.whileTrue(podiumTilt); //PID
+    view.whileTrue(wooferTilt); //PID
    //SHOT COMMAND GROUPS
-    menu.whileTrue(runIntCartAmpMotors); //runs all shot motors, cart motors set to AMP_PID_RPM
-    view.whileTrue(wooferIntkCartMotors); //runs intake and cart motors, cart motors set to WOOFER_PID_RPM
-    y.onTrue(pidWooferShot);
+    upPov.whileTrue(runIntCartAmpMotors); //runs all shot motors, cart motors set to AMP_PID_RPM
+    downPov.whileTrue(wooferIntkCartMotors); //runs intake and cart motors, cart motors set to WOOFER_PID_RPM
+    leftPov.onTrue(pidPodiumShot);
+    rightPov.onTrue(pidWooferShot);
+    lb.onTrue(ampShot);
 
-   // y.whileTrue(climbManualDown);
-   //y.onTrue(climbPID);
-  //  menu.onTrue(ampShot);
-   // view.whileTrue(lowGear);
-   // menu.whileTrue(highGear);
-    downPov.whileTrue(stowTilt);
-    leftPov1.whileTrue(podiumTilt);
-    rightPov1.whileTrue(wooferTilt);
-//a.whileTrue(pidWooferShot);
+
     //***** Aux Controller ******
+    //CARTRIDGE MOTORS
     a1.whileTrue(pidPodiumSpeed);
+    b1.whileTrue(pidWooferSpeed);
     x1.whileTrue(manualPodiumSpeed);
-   b1.whileTrue(pidWooferSpeed);
     y1.whileTrue(manualWooferSpeed);
     //AMP
-    view.whileTrue(ampMotorReverse);
-    menu.whileTrue(ampMotorForward);
-    //ELEVATOR
-    upPov1.whileTrue(pidToTop);
-    downPov1.whileTrue(pidToBot);
-   
-    //view.onTrue(lowGear);
+    view1.whileTrue(ampMotorReverse);
+    menu1.whileTrue(ampMotorForward);
+    //ELEVATOR - zero at the lower limit before using PID!!!
+    upPov1.onTrue(pidToTop);
+    downPov1.onTrue(pidToBot);
+    leftPov1.whileTrue(climbManualDown);//for climb with constant speed 0.8
+    rightPov1.onTrue(climbPID);
+    lb.whileTrue(manualUp);
+    rb.whileTrue(manualDown);
+
+    //DRIVE
+    //view1.onTrue(lowGear);
     //menu.onTrue(highGear);
+    // x1.onTrue(frontShootGrabShoot);
+    //a.whileTrue(wooferLeft);
     //x.onTrue(toggleGear);
     //b.whileTrue(setIntakeSpeed);
-    //a.onTrue(podiumTilt);
-    //y.onTrue(wooferTilt);
-    //x.onTrue(stowTilt);
-    //a.onTrue(new AmpCameraAngle(ampTrapShooter));
-    //b.onTrue(new FloorCameraAngle(ampTrapShooter));
-    //a.whileTrue(manualDown);
-    //a.whileTrue(wooferLeft);
     //y.whileTrue(manualUp);
-    //x.onTrue(pidToTop);
-    //b.onTrue(pidToBot);
     //rb.onTrue(autoPIDDrive);
     //lb.onTrue(autoPIDTurn1);
     //leftPov.whileTrue(llAngle);
@@ -259,16 +253,6 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     //upPov.whileTrue(llTarget);
     //downPov.onTrue(ampCameraAngle);
     // upPov.onTrue(floorCameraAngle);
-    //upPov1.whileTrue(ampMotorForward);
-    //downPov1.whileTrue(ampMotorReverse);
-    //y1.whileTrue(manualWooferSpeed);
-    //a1.whileTrue(manualPodiumSpeed);
-    //x1.whileTrue(pidWooferSpeed);//cartridge motors only
-    //b1.whileTrue(pidPodiumSpeed);//cartridge motors only
-    //x1.onTrue(pidWooferShot); //intake and cart motors, also tilt
-    //y1.onTrue(pidPodiumShot); //intake and cart motors, also tilt
-    // x1.onTrue(frontShootGrabShoot);
-
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
