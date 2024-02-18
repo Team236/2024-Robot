@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.MotorControllers;
+import frc.robot.LimelightHelpers;
 
 public class OdometryDrive extends SubsystemBase {
 
@@ -242,7 +242,7 @@ public double getTurnRate() {
 
 public void resetOdometry(Pose2d pose){
 	 // this seems to be valid
-	diffDriveOdometry.resetPosition(gyro.getAngle(),0,0,pose);
+	diffDriveOdometry.resetPosition(gyro.getRotation2d(),0,0,pose);
 }
 
 /**
@@ -253,7 +253,7 @@ public void resetOdometry(Pose2d pose){
     resetEncoders();
 	if (LimelightHelpers.getFiducialID("limelight") != 0 ) {
     	diffDriveOdometry.resetPosition( 
-			gyro.getAngle(),
+			gyro.getRotation2d(),
 			0,
 			0,
 			LimelightHelpers.getBotPose2d("limelight") );

@@ -141,7 +141,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     // drive.setDefaultCommand(curvatureXbox);
     // drive.setDefaultCommand(tankJoysticks); //uses left Z to turn, not right X
     // drive.setDefaultCommand(arcadeJoysticks);
-
+	
     // Configure the trigger bindings
     configureBindings();
   }
@@ -156,20 +156,19 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    //new Trigger(m_exampleSubsystem::exampleCondition)
-        //.onTrue(new ExampleCommand(m_exampleSubsystem));
-
+    //  Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    //  new Trigger(m_exampleSubsystem::exampleCondition)
+    //    .onTrue(new ExampleCommand(m_exampleSubsystem));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    //   m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
     
     // CREATE BUTTONS
     
-         // *XBOXCONTROLLER - DRIVER CONTROLLER
-    JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
+    // *XBOXCONTROLLER - DRIVER CONTROLLER
     JoystickButton a = new JoystickButton(driverController, Constants.XboxController.A);
     JoystickButton b = new JoystickButton(driverController, Constants.XboxController.B);
+    JoystickButton x = new JoystickButton(driverController, Constants.XboxController.X);
     JoystickButton y = new JoystickButton(driverController, Constants.XboxController.Y);
     JoystickButton lb = new JoystickButton(driverController, Constants.XboxController.LB);
     JoystickButton rb = new JoystickButton(driverController, Constants.XboxController.RB);
@@ -181,10 +180,11 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     POVButton downPov = new POVButton(driverController,Constants.XboxController.POVXbox.DOWN_ANGLE); 
     POVButton leftPov = new POVButton(driverController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov = new POVButton(driverController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
+
 // XBOX CONTROLLER - AUX CONTROLLER
-    JoystickButton x1 = new JoystickButton(auxController, Constants.XboxController.X);
     JoystickButton a1 = new JoystickButton(auxController, Constants.XboxController.A);
     JoystickButton b1 = new JoystickButton(auxController, Constants.XboxController.B);
+	JoystickButton x1 = new JoystickButton(auxController, Constants.XboxController.X);
     JoystickButton y1 = new JoystickButton(auxController, Constants.XboxController.Y);
     JoystickButton lb1 = new JoystickButton(auxController, Constants.XboxController.LB);
     JoystickButton rb1 = new JoystickButton(auxController, Constants.XboxController.RB);
@@ -197,41 +197,56 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     POVButton leftPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
-    //assign button to comnands
-    //***** driver controller ******
-    view.onTrue(lowGear);
-    menu.onTrue(highGear);
-    //x.onTrue(toggleGear);
-    //b.whileTrue(setIntakeSpeed);
-    //a.onTrue(podiumTilt);
-    //y.onTrue(wooferTilt);
-    //x.onTrue(stowTilt);
-    //a.onTrue(new AmpCameraAngle(ampTrapShooter));
-    //b.onTrue(new FloorCameraAngle(ampTrapShooter));
-    a.whileTrue(manualDown);
-    y.whileTrue(manualUp);
-    x.onTrue(pidToTop);
+//      assign button to comnands
+//***** driver primary controller ******
+
+//A
+   a.whileTrue(manualDown);
+	 //a.onTrue(podiumTilt);
+	 //a.onTrue(new AmpCameraAngle(ampTrapShooter));
+//B
     b.onTrue(pidToBot);
-    //rb.onTrue(autoPIDDrive);
-    //lb.onTrue(autoPIDTurn1);
+     //b.whileTrue(setIntakeSpeed);
+     //b.onTrue(new FloorCameraAngle(ampTrapShooter));
+//X
+    x.onTrue(pidToTop);
+    //x.onTrue(toggleGear);
+    //x.onTrue(stowTilt);
+//Y
+    y.whileTrue(manualUp);
+     //y.onTrue(wooferTilt);
+//other	
+     //rb.onTrue(autoPIDDrive);
+     //lb.onTrue(autoPIDTurn1);	
+    view.onTrue(lowGear);
+    menu.onTrue(highGear);	
+//POV
+    upPov.whileTrue(llTarget);
+	 // upPov.onTrue(floorCameraAngle);
     leftPov.whileTrue(llAngle);
     downPov.whileTrue(llDistance);
-    upPov.whileTrue(llTarget);
-    //downPov.onTrue(ampCameraAngle);
-   // upPov.onTrue(floorCameraAngle);
+     //downPov.onTrue(ampCameraAngle);
 
-    //***** Aux Controller ******
-   upPov1.whileTrue(ampMotorForward);
-   downPov1.whileTrue(ampMotorReverse);
-   y1.whileTrue(manualWooferSpeed);
-   a1.whileTrue(manualPodiumSpeed);
-   x1.whileTrue(pidWooferSpeed);//cartridge motors only
-   b1.whileTrue(pidPodiumSpeed);//cartridge motors only
-    //x1.onTrue(pidWooferShot); //intake and cart motors, also tilt
-    //y1.onTrue(pidPodiumShot); //intake and cart motors, also tilt
-    // x1.onTrue(frontShootGrabShoot);
-    //upPov1.whileTrue(manualIntake);
-    //downPov1.whileTrue(manualEject);
+//***** Aux Secondary Controller ******
+
+//A
+	a1.whileTrue(manualPodiumSpeed);
+//B 
+	b1.whileTrue(pidPodiumSpeed);//cartridge motors only
+//X
+	x1.whileTrue(pidWooferSpeed);//cartridge motors only
+	 //x1.onTrue(pidWooferShot); //intake and cart motors, also tilt
+	 // x1.onTrue(frontShootGrabShoot);
+//Y
+	y1.whileTrue(manualWooferSpeed);
+	 //y1.onTrue(pidPodiumShot); //intake and cart motors, also tilt
+//other	
+
+//POV
+	upPov1.whileTrue(ampMotorForward);
+	 //upPov1.whileTrue(manualIntake);
+	downPov1.whileTrue(ampMotorReverse);
+	 //downPov1.whileTrue(manualEject);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -273,19 +288,16 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
             // Pass config
             config);
     
-    final RamseteCommand ramseteCommand = new RamseteCommand( 
-        exampleTrajectory, 
-        odometryDrive.getPose(), 
-        new RamseteController(),    // use default B and Zeta values for ramset
-        new SimpleMotorFeedforward( 
-              DriveConstants.ksVolts, 
-              DriveConstants.kvVoltSecondsPerMeter, 
-              DriveConstants.kaVoltSecondsSquaredPerMeter), 
-          DriveConstants.kDriveKinematics,
+    final RamseteCommand ramseteCommand = new RamseteCommand( exampleTrajectory, 
+        odometryDrive.getPose(), new RamseteController(), 
+        new SimpleMotorFeedforward(
+          DriveConstants.ksVolts,
+          DriveConstants.kvVoltSecondsPerMeter, 
+          DriveConstants.kaVoltSecondsSquaredPerMeter ),
           Constants.DriveConstants.kDriveKinematics,
           new PIDController(DriveConstants.kPDriveVel, 0, 0),
           new PIDController(DriveConstants.kPDriveVel, 0, 0),
-            odometryDrive.tankDiveVolts(0, 0), 
+            odometryDrive::tankDiveVolts,
           odometryDrive );
 
     // Reset odometry to the initial pose of the trajectory, run path following
