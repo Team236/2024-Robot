@@ -40,8 +40,7 @@ public class WooferLeft extends SequentialCommandGroup {
       new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
     Commands.parallel(
       new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(3),
-      new ManualIntake(intake, intSpeed).withTimeout(4)
-      ),
+      new ManualIntake(intake, intSpeed).withTimeout(4)),
       new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
       new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
       new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),

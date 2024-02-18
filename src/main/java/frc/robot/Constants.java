@@ -79,7 +79,6 @@ public final class Constants {
     public static final double KP_DRIVE = 0.022; // 0.022 (from 2023)
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-
     public static final double KP_TURNL = 0.025;
     public static final double PID_L_SETPOINT = 0.28;
     public static final double KP_TURNR = 0.025;
@@ -90,8 +89,8 @@ public final class Constants {
     public static final double WOOFER_PULL_AWAY = 10;
     public static final double PULL_AWAY_TO_NOTE = 60;
     // TURNING ANGLES
-    public static final double TURN_ANGLE_1 = 90;
-    public static final double TURN_ANGLE_2 = -90;
+    public static final double TURN_ANGLE_1 = 180;
+    public static final double TURN_ANGLE_2 = -180;
     public static final double TURN_SIDE_OF_WOOFER = 57;
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
@@ -120,7 +119,6 @@ public final class Constants {
     public static final double ELEV_UP_SPEED = 0.1;
     public static final double ELEV_DOWN_SPEED = 0.05; // keep this pos, use 0.5 to test climb manually
     public static final double ELEV_MAN_DOWN_SPEED = 0.8;
-
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.03; //
     public static final double KI_ELEV_UP = 0;
@@ -137,7 +135,6 @@ public final class Constants {
     public static final double KD_ELEV_CLIMB = 0;
       public static final double KFF_ELEV_CLIMB = 0;
   }
-
   public static class Intake {
     public static final int DIO_COUNTER = 12;
     public static final double INTAKE_SPEED = 0.6; // TODO experiment with this speed

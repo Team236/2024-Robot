@@ -46,10 +46,9 @@ public class Drive extends SubsystemBase {
     rightFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     leftRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-  //***NOTE - NEED TO DO THE FOLLOW COMMAND AFTER setSmartCurrentLImits - don't do rear stuff after the follow */
+
     leftRear.follow(leftFront);
     rightRear.follow(rightFront);
-
 
     //creates a new diffdrive
     diffDrive = new DifferentialDrive(leftFront, rightFront); 
@@ -79,7 +78,7 @@ public void setGearLow(){
 public boolean isInLowGear(){
   return transmission.get() == Value.kForward;
 }
-
+/* 
 public void closedRampRate() {
   leftFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE); //time in seconds to go from 0 to full throttle
   rightFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
@@ -88,7 +87,7 @@ public void openRampRate() {
   leftFront.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
   rightFront.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
 }
-
+*/
 public void setLeftSpeed(double speed) {
   leftFront.set(speed);
 }

@@ -37,11 +37,10 @@ public class WooferRight extends SequentialCommandGroup {
       new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
     Commands.parallel(
       new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(3),
-      new ManualIntake(intake, intSpeed).withTimeout(4)
-      ),
+      new ManualIntake(intake, intSpeed).withTimeout(4)),
       new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
       new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
-      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY)withTimeout(2),
+      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),
       new WaitCommand(1), //just for testing
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(Constants.DriveConstants.CARTRIDGE_SHOOT_TIMEOUT) //fix
       //TODO Determine if line below needed - to hold elev with PID during teleop

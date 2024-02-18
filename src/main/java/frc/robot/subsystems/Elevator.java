@@ -55,7 +55,7 @@ public class Elevator extends SubsystemBase {
       SmartDashboard.putBoolean("exception thrown for bottom limit: ", isBException);
     }
   }
-
+/* 
     public void closedRampRate() {
       leftElevatorMotor.setClosedLoopRampRate(Constants.Elevator.ELEV_CLOSED_RAMP_RATE);
       rightElevatorMotor.setClosedLoopRampRate(Constants.Elevator.ELEV_CLOSED_RAMP_RATE);
@@ -65,7 +65,7 @@ public class Elevator extends SubsystemBase {
       leftElevatorMotor.setOpenLoopRampRate(Constants.Elevator.ELEV_OPEN_RAMP_RATE);
       rightElevatorMotor.setOpenLoopRampRate(Constants.Elevator.ELEV_OPEN_RAMP_RATE);
     }
-
+*/
     public void stopElevator() {
       leftElevatorMotor.set(0);
       rightElevatorMotor.set(0);
