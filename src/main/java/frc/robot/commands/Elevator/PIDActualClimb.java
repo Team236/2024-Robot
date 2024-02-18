@@ -24,11 +24,12 @@ public class PIDActualClimb extends SequentialCommandGroup {
   public PIDActualClimb(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
     //Start at the middle height before going to climbPID, somewhere near the chain 
     //TODO - determine if going up or down to mid height - this assumes up from some low initial position
-    addCommands(
-      new PIDUptoHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(2),
+    addCommands( //assumes elevator starts at top
+      new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(2),
        Commands.parallel(
          new PIDDownForClimb(elevator, Constants.Elevator.MIN_HEIGHT),
-        Commands.sequence(new WaitCommand(2),
+        Commands.sequence
+        (new WaitCommand(2),
          new AmpShot(intake, cartridge, ampTrap, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED))
       )
     );
