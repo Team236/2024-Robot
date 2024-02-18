@@ -50,10 +50,10 @@ public class PIDCartridgeTilt extends Command {
   public boolean isFinished() {
     //added last condition to check if tilt holds on brake (PID ends)
     boolean isAtLimit;
-    if ( (tilt.getTiltSpeed() > 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended())  || tilt.getTiltEncoder() >= 0.95*desiredRevs ) {
+    if ( (tilt.getTiltSpeed() > 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended())) {
       isAtLimit = true;
     } 
-    else if ( (tilt.getTiltSpeed() <= 0) && (tilt.isTRetLimit() || tilt.getTiltEncoder() <= 1.05*desiredRevs) ) {
+    else if ( (tilt.getTiltSpeed() <= 0) && (tilt.isTRetLimit() )) {
       isAtLimit = true; 
     }
     else isAtLimit = false;

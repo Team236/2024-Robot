@@ -34,7 +34,7 @@ public class Elevator extends SubsystemBase {
     rightElevatorMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
  
     leftElevatorMotor.setInverted(true);
-    rightElevatorMotor.setInverted(false);//TODO check these
+    rightElevatorMotor.setInverted(false);
 
     leftPIDController = leftElevatorMotor.getPIDController();
     rightPIDController = rightElevatorMotor.getPIDController();
@@ -126,7 +126,7 @@ public class Elevator extends SubsystemBase {
        }  else {
           // elevator going up but top limit is not tripped, go at commanded speed
           leftElevatorMotor.set(speed);
-          rightElevatorMotor.set(speed);
+         rightElevatorMotor.set(speed);
         }
       } 
       else if (speed <= 0) {
@@ -175,5 +175,6 @@ public void setFF(double kFF) {
     SmartDashboard.putNumber("Elevator height", getElevatorHeight());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
+    SmartDashboard.putNumber("Left elevator encoder", getElevatorEncoder()); 
   }
 }

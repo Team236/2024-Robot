@@ -105,8 +105,8 @@ public final class Constants {
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 20;// TODO get real number-somewhere above chain
     public static final double MATCH_HEIGHT= 20; // TODO determine, ideally same as just-above-chain
     public static final double MIN_HEIGHT = 0.5; //TODO: adjust this, bottom limit switch at zero
-    public static final double MAX_HEIGHT = 27; //TODO: determine actual, must be below limit switch height
-    public static final double CLIMB_HEIGHT = 0.5; //should be a bit above zero
+    public static final double MAX_HEIGHT = 35; //TODO: determine actual, must be below limit switch height
+    public static final double CLIMB_HEIGHT = 1.0; //should be a bit above zero
 
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
@@ -117,8 +117,8 @@ public final class Constants {
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
-    public static final double ELEV_UP_SPEED = 0.1;
-    public static final double ELEV_DOWN_SPEED = 0.05; // keep this pos, use 0.5 to test climb manually
+    public static final double ELEV_UP_SPEED = 0.3;
+    public static final double ELEV_DOWN_SPEED = 0.3; // keep this pos, use 0.5 to test climb manually
     public static final double ELEV_MAN_DOWN_SPEED = 0.8;
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.03; //

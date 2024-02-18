@@ -28,7 +28,8 @@ public class PIDActualClimb extends SequentialCommandGroup {
       new PIDUptoHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(2),
        Commands.parallel(
          new PIDDownForClimb(elevator, Constants.Elevator.MIN_HEIGHT),
-        Commands.sequence(new WaitCommand(5), new AmpShot(intake, cartridge, ampTrap, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED))
+        Commands.sequence(new WaitCommand(2),
+         new AmpShot(intake, cartridge, ampTrap, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.MANUAL_SET_SPEED, Constants.Amp.AMP_TRAP_MOTOR_SPEED))
       )
     );
 

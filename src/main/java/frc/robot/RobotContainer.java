@@ -213,7 +213,7 @@ public class RobotContainer {
     leftPov.onTrue(pidPodiumShot);
     rightPov.onTrue(pidWooferShot);
     lb.onTrue(ampShot);
-    rb.whileTrue(llAngle);
+    //rb.whileTrue(llAngle);
 
 
     //***** Aux Controller ******
