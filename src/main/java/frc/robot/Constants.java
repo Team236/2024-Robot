@@ -67,8 +67,8 @@ public final class Constants {
     // external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 6;
     public static final int DIO_LDRIVE_ENC_B = 7;
-    public static final int DIO_RDRIVE_ENC_A = 11; 
-    public static final int DIO_RDRIVE_ENC_B = 10; 
+    public static final int DIO_RDRIVE_ENC_A = 11; //changed!
+    public static final int DIO_RDRIVE_ENC_B = 10; //changed!
     // Calculates distance in INCHES from encoder pulses (ticks get it?)
     public static final double DIAMETER = 6;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
@@ -138,8 +138,8 @@ public final class Constants {
   }
   public static class Intake {
     public static final int DIO_COUNTER = 12;
-    public static final double INTAKE_SPEED = 0.6; // TODO experiment with this speed
-    public static final double EJECT_SPEED = -0.2;
+    public static final double INTAKE_SPEED = 0.7; // TODO experiment with this speed
+    public static final double EJECT_SPEED = -0.5;
   }
   public static class CartridgeShooter { 
     // SHOOTER MOTORS
