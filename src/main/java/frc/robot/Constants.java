@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -66,8 +67,8 @@ public final class Constants {
     // external drive encoders
     public static final int DIO_LDRIVE_ENC_A = 6;
     public static final int DIO_LDRIVE_ENC_B = 7;
-    public static final int DIO_RDRIVE_ENC_A = 10; 
-    public static final int DIO_RDRIVE_ENC_B = 11; 
+    public static final int DIO_RDRIVE_ENC_A = 11; 
+    public static final int DIO_RDRIVE_ENC_B = 10; 
     // Calculates distance in INCHES from encoder pulses (ticks get it?)
     public static final double DIAMETER = 6;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
