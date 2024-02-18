@@ -4,20 +4,12 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide
- * numerical or boolean
- * constants. This class should not be used for any other purpose. All constants
- * should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- */
 public final class Constants {
   //camera servo motor, created in Robot.java:
   public static final int PWM_FRONT_CAM = 0;
   //for aiming camera at Amp/Trap or at Floor (from 0 to 1, for 0 to 180 degrees)
   public static final double FRONT_CAM_AMP = 0.5;  //TODO adjust these as needed
-  public static final double FRONT_CAM_FLOOR = 0.8;
+  public static final double FRONT_CAM_FLOOR = 0.8; //TODO adjust as needed
 
   public static class Controller {
     // usb port on the laptop when driver using XBox controller
@@ -33,15 +25,15 @@ public final class Constants {
     public static final int ID_LEFT_REAR = 41;  
     public static final int ID_RIGHT_FRONT = 42;
     public static final int ID_RIGHT_REAR = 43;
-
+    //Intake and Amp
     public static final int ID_INTAKE = 48;
     public static final int ID_AMP_TRAP_SHOOTER = 49;
     // Elevator
     public static final int ID_ELEVATOR_LEFT = 46;
     public static final int ID_ELEVATOR_RIGHT = 47;
     // Cartridge shooter
-    public static final int ID_SHOOTER_LEFT = 44; //AKA CartridgeLeft
-    public static final int ID_SHOOTER_RIGHT = 45;//AKA CartridgeRight
+    public static final int ID_CARTRIDGE_LEFT = 44; 
+    public static final int ID_CARTRIDGE_RIGHT = 45;
 
     public static final int ID_CARTRIDGE_TILT = 51; 
 
@@ -53,7 +45,7 @@ public final class Constants {
   
   public static class Amp{
     public static final double AMP_TRAP_MOTOR_SPEED = 1.0; // TODO define real spead
-    public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.2; // TODO define real spead
+    public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.4; // TODO define real spead
     }
 
   public static class DriveConstants {
