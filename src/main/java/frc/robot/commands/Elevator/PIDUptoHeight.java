@@ -59,6 +59,7 @@ public class PIDUptoHeight extends Command {
   @Override
   public boolean isFinished() {
     //return false;
-    return (elevator.isTop() || elevator.isETopLimit());
+    //added last contiditon to test if elevator holds using just the brake (PID ends 2% early)
+    return (elevator.isTop() || elevator.isETopLimit() || elevator.getElevatorHeight() >= 0.98*desiredHeight);
   }
 }
