@@ -17,6 +17,7 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -255,7 +256,28 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
 * 
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
+        SmartDashboard.putBoolean("Autoswitch1: ", !autoSwitch1.get());
+        SmartDashboard.putBoolean("Autoswitch2: ", !autoSwitch2.get());
+        SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
+        SmartDashboard.putBoolean("Autoswitch4: ", !autoSwitch4.get());
+    if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
+      return wooferLeft;
+     //return (new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
+    } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
+      return wooferRight;
+    //return (new WooferRight(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
+    } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
+     return frontShootGrabShoot;
+     //return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));} 
+    } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
+      return frontShootGrabShoot;
+      //  return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));
+    } else {
+      return null;
+      }
+    }
+
+    /* // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
         // Create a voltage constraint to ensure we don't accelerate too fast
     var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
@@ -307,7 +329,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
         .andThen(ramseteCommand)
         .andThen(Commands.runOnce(() -> odometryDrive.stop()));
       }
-
+ */
  
 }
 
