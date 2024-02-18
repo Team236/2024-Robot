@@ -24,9 +24,9 @@ public class AmpShot extends SequentialCommandGroup {
   //Shoots Amp - spins intake, cartridge (PID velocity), and Amp motors
   public AmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt, double intSpeed, double cartSpeed, double ampSpeed) {
     addCommands(
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(3),
     Commands.parallel(
-      new IntakeWithCounter(intake, intSpeed),
+      new ManualIntake(intake, intSpeed), //use manualIntake here since count = 1
       new PIDCartridgeMotors(cartridge, cartSpeed),
       new AmpMotor(ampTrap, ampSpeed)
       )

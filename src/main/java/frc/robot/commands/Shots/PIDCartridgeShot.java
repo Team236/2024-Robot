@@ -4,8 +4,11 @@
 
 package frc.robot.commands.Shots;
 
+import javax.sound.midi.Sequence;
+
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
@@ -20,7 +23,7 @@ import frc.robot.subsystems.Tilt;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-public class PIDCartridgeShot extends ParallelCommandGroup {
+public class PIDCartridgeShot extends SequentialCommandGroup {
   //Moves cartridge to Woofer or Podium position, then runs intake at set speed and Cartridge at PID controlled velocity
   //intake speed should be between -1 and 1, cartridge speed should be in RPM
   public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed, boolean isWoofer) {
@@ -29,25 +32,17 @@ public class PIDCartridgeShot extends ParallelCommandGroup {
     //the wait makes the cartridge extend and hold extended, while the shot takes place after the wait
     if (isWoofer) {
       addCommands(
-          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER),
-        Commands.sequence(
-          new WaitCommand(1.5),  //TODO adjust to min time needed to extened cartridge
-          new ManualIntake(intake, intSpeed).withTimeout(2)),
-          
-        Commands.sequence(
-          new WaitCommand(1.5),   //TODO adjust to min time needed to extened cartridge
-          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)));
-    } 
+          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3),
+        Commands.parallel(
+          new ManualIntake(intake, intSpeed).withTimeout(5)), //use manualIntake since counter =1 here
+          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(5));
+    }
       else{
         addCommands(
-        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM),
-        Commands.sequence(
-          new WaitCommand(1.5),  //TODO adjust to min time needed to extened cartridge
-          new IntakeWithCounter(intake, intSpeed).withTimeout(2)),
-          
-        Commands.sequence(
-          new WaitCommand(1.5), //TODO adjust to min time needed to extened cartridge
-          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)));
+          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(3),
+        Commands.parallel(
+          new ManualIntake(intake, intSpeed).withTimeout(5)), //use manualIntake since counter =1 here
+          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(5));
     }
     Intake.resetCounter();  //reset counter after shooting a Note
   }

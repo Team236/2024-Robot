@@ -38,6 +38,8 @@ import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Shots.AmpShot;
 import frc.robot.commands.Shots.PIDCartridgeShot;
+import frc.robot.commands.Shots.RunIntkCartAmpMotors;
+import frc.robot.commands.Shots.RunIntkCartMotors;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
@@ -74,11 +76,17 @@ public class RobotContainer {
   private final Tilt tilt = new Tilt();
 
   //create instance of each command
-  //DRIVE COMMANDS
+//DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
   private final LowGear lowGear = new LowGear(drive); 
   private final HighGear highGear = new HighGear(drive); 
   private final ToggleGear toggleGear = new ToggleGear(drive); 
+  
+//SHOTS
+ private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+ private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
+ private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
+ private final RunIntkCartAmpMotors runIntCartAmpMotors = new RunIntkCartAmpMotors(intake, cartridge, ampTrap,  Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
 
  //INTAKE COMMANDS:
   private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
@@ -97,12 +105,12 @@ public class RobotContainer {
   private final PIDCartridgeMotors pidPodiumSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_RPM);
   private final PIDCartridgeMotors pidWooferSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM);
   private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, true);
-  private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, false);
+ 
  
  //AMPTRAP COMMANDS:
   private final AmpMotor ampMotorForward = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
-  private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+ 
   
  //AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
@@ -204,9 +212,12 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     //CARTRIDGE
     x.whileTrue(manualRetCartridge);
     b.whileTrue(manualExtCartridge);
-  //COMMANDGROUP SHOTS
+   //SHOT COMMAND GROUPS
+    menu.whileTrue(runIntCartAmpMotors); //runs all shot motors, cart motors set to AMP_PID_RPM
+    view.whileTrue(wooferIntkCartMotors); //runs intake and cart motors, cart motors set to WOOFER_PID_RPM
     y.onTrue(pidWooferShot);
-  // y.whileTrue(climbManualDown);
+
+   // y.whileTrue(climbManualDown);
    //y.onTrue(climbPID);
   //  menu.onTrue(ampShot);
    // view.whileTrue(lowGear);
@@ -257,8 +268,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     //x1.onTrue(pidWooferShot); //intake and cart motors, also tilt
     //y1.onTrue(pidPodiumShot); //intake and cart motors, also tilt
     // x1.onTrue(frontShootGrabShoot);
-    //upPov1.whileTrue(manualIntake);
-    //downPov1.whileTrue(manualEject);
+
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
