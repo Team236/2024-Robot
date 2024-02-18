@@ -17,7 +17,7 @@ import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
   private CANSparkMax leftElevatorMotor, rightElevatorMotor;
-  private SparkPIDController leftPIDController, rightPIDController; //!!!!
+  private SparkPIDController leftPIDController, rightPIDController; 
   private RelativeEncoder elevatorEncoder;
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
@@ -39,7 +39,6 @@ public class Elevator extends SubsystemBase {
     leftPIDController = leftElevatorMotor.getPIDController();
     rightPIDController = rightElevatorMotor.getPIDController();
   
-    //TODO  Determine if want to use left or right encoder here, use the one that is increasing when going up
     elevatorEncoder = leftElevatorMotor.getEncoder(); //will use SparkMax encoder for elevator
     
     try {

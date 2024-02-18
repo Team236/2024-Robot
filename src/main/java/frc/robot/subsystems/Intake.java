@@ -17,15 +17,13 @@ public class Intake extends SubsystemBase {
   public static Counter counter;
   private static boolean isCounterUnplugged = false;
 
-//TODO add optical sensor/counter
-
   /** Creates a new Intake. */
   public Intake() {
     intake= new CANSparkMax(Constants.MotorControllers.ID_INTAKE, MotorType.kBrushless);
 
     intake.restoreFactoryDefaults();
 
-    intake.setInverted(false); //TODO determine inverted motors
+    intake.setInverted(false); 
 
     intake.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
 
@@ -41,7 +39,6 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putBoolean("is counter unplugged:", isCounterUnplugged);
     counter.reset(); //sets counter to zero
   }
-  
 
 public int getCount() {
   return counter.get();
@@ -51,14 +48,9 @@ public void resetCount() {
   counter.reset();
 }
 
-
  //Methods start here
   public void openRampRate() {
     intake.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
-  }
-
-  public void closedRampRate() {
-    intake.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
   }
 
   public void intakeStop() {
@@ -94,6 +86,12 @@ public void resetCount() {
     }
     return spin;
   }
+
+    /* 
+  public void closedRampRate() {
+    intake.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
+  }
+*/
 
   @Override
   public void periodic() {

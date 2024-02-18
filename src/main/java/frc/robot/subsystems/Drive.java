@@ -30,7 +30,6 @@ public class Drive extends SubsystemBase {
 
   /** Creates a new Drive. */
   public Drive() {
-    //TODO add navX gyro in robot
     leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
     leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
     rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
@@ -40,7 +39,7 @@ public class Drive extends SubsystemBase {
     rightFront.restoreFactoryDefaults();
 
     leftFront.setInverted(false);
-    rightFront.setInverted(true); //determine via bench testing
+    rightFront.setInverted(true);
  
     leftFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);

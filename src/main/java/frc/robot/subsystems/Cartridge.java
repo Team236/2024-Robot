@@ -30,7 +30,6 @@ public class Cartridge extends SubsystemBase {
     leftShooterMotor.restoreFactoryDefaults();
     rightShooterMotor.restoreFactoryDefaults();
 
-//TODO determine which one inverted, if any
     leftShooterMotor.setInverted(true);  //*** 
     rightShooterMotor.setInverted(false); //*** 
 
@@ -49,7 +48,7 @@ public class Cartridge extends SubsystemBase {
     leftShooterMotor.set(speed);
     rightShooterMotor.set(speed);
   }
-
+/* 
   public void closedRampRate() {
     leftShooterMotor.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE); //time in seconds to go from 0 to full throttle
     rightShooterMotor.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
@@ -59,11 +58,11 @@ public class Cartridge extends SubsystemBase {
     leftShooterMotor.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
     rightShooterMotor.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
   }
-
+*/
   //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is done using WPILIB PID **********
   public void setSetpoint(double speed) {
     leftPIDController.setReference(speed, ControlType.kVelocity);
-    rightPIDController.setReference(speed, ControlType.kVelocity); //TODO check to set negatives for motors
+    rightPIDController.setReference(speed, ControlType.kVelocity); 
   }
 
   public void setP(double kPLeft, double kPRight) {

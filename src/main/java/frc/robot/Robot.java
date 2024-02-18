@@ -27,10 +27,9 @@ import frc.robot.subsystems.Intake;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Compressor compressor;
-
   public AHRS navx = new AHRS();
   public UsbCamera usbCamera0;
-   public static Servo cameraServo;
+  public static Servo cameraServo;
 
   private RobotContainer m_robotContainer;
 
@@ -96,7 +95,7 @@ public class Robot extends TimedRobot {
   try {
     usbCamera0 = CameraServer.startAutomaticCapture(0);
 } catch (Exception e)  {
-    SmartDashboard.putString("camera capture filed", "failed");
+    SmartDashboard.putString("camera capture failed", "failed");
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
