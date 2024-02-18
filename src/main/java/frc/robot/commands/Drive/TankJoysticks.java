@@ -30,7 +30,7 @@ public class TankJoysticks extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drive.openRampRate();
+   // drive.openRampRate();
     //TODO try without ramp rate, also try adding slew rate in driveTank method
     //drive.resetLeftEncoder();
     //drive.resetRightEncoder();
