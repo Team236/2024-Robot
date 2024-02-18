@@ -119,7 +119,8 @@ public final class Constants {
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.1;
-    public static final double ELEV_DOWN_SPEED = 0.5; // keep this pos, use 0.5 to test climb manually
+    public static final double ELEV_DOWN_SPEED = 0.05; // keep this pos, use 0.5 to test climb manually
+    public static final double ELEV_MAN_DOWN_SPEED = 0.8;
 
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.03; //
@@ -168,14 +169,14 @@ public final class Constants {
     //TILT MOTOR STUFF:
     public static final int DIO_TILT_EXT_LIMIT = 8;
     public static final int DIO_TILT_RET_LIMIT = 9;
-    public static final double MAX_TILT_ENC_REVS = 120;  //MUST BE HIGHER THAN VALUES BELOW
-    public static final double TILT_ENC_REVS_WOOFER = 50; //TODO FIND REAL ENCODER VALUES
-    public static final double TILT_ENC_REVS_PODIUM = 100;
+    public static final double MAX_TILT_ENC_REVS = 78;  //really 79.8, 64deg from top
+    public static final double TILT_ENC_REVS_WOOFER = 26.85; //34.4 deg//TODO FIND REAL ENCODER VALUES
+    public static final double TILT_ENC_REVS_PODIUM = 46.71; //47 deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
-    public static final double MAN_EXT_SPEED = 0.3; //TODO find these EXT/RET speeds
-    public static final double MAN_RET_SPEED = 0.4;  //should be positive, the method adds the negative
+    public static final double MAN_EXT_SPEED = 0.1; //TODO find these EXT/RET speeds
+    public static final double MAN_RET_SPEED = 0.04;  //should be positive, the method adds the negative
     //CARTRIDGE TILT PID:
-    public static final double KP_TILT = 0.001;
+    public static final double KP_TILT = 0.015;
     public static final double KI_TILT = 0;
     public static final double KD_TILT = 0;
     public static final double KFF_TILT = 0;

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Intake;
 
-public class SetIntakeSpeed extends Command {
+public class IntakeWithCounter extends Command {
   //runs the intake but stops when count is greater than zero
 
   private Intake intake;
@@ -18,7 +18,7 @@ public class SetIntakeSpeed extends Command {
   private Counter counter;
 
   /** Creates a new SetIntakeSpeed. */
-  public SetIntakeSpeed(Intake intake, double speed) {
+  public IntakeWithCounter(Intake intake, double speed) {
     this.speed = speed;
     this.intake = intake;
     
@@ -28,7 +28,9 @@ public class SetIntakeSpeed extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+   // intake.resetCount(); //TODO NEED TO REMOVE THIS FOR TEST?
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

@@ -5,7 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.AmpTrap.AmpMotor;
-import frc.robot.commands.AmpTrap.AmpShot;
+
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
@@ -21,7 +21,6 @@ import frc.robot.commands.CartridgeAndTilt.ManualPodiumSpeed;
 import frc.robot.commands.CartridgeAndTilt.ManualRetractCartridge;
 import frc.robot.commands.CartridgeAndTilt.ManualWooferSpeed;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
-import frc.robot.commands.CartridgeAndTilt.PIDCartridgeShot;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Drive.ArcadeXbox;
 import frc.robot.commands.Drive.CurvatureXbox;
@@ -36,7 +35,9 @@ import frc.robot.commands.Elevator.PIDActualClimb;
 import frc.robot.commands.Elevator.PIDDownToHeight;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.ManualIntake;
-import frc.robot.commands.Intake.SetIntakeSpeed;
+import frc.robot.commands.Intake.IntakeWithCounter;
+import frc.robot.commands.Shots.AmpShot;
+import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
@@ -80,7 +81,7 @@ public class RobotContainer {
   private final ToggleGear toggleGear = new ToggleGear(drive); 
 
  //INTAKE COMMANDS:
-  private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
+  private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 
@@ -120,6 +121,7 @@ public class RobotContainer {
   //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
+   private final ManualDown climbManualDown = new ManualDown(elevator, Constants.Elevator.ELEV_MAN_DOWN_SPEED);
   private final PIDUptoHeight pidToTop = new PIDUptoHeight(elevator, Constants.Elevator.MAX_HEIGHT);
   private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT);
   private final PIDActualClimb climbPID = new PIDActualClimb(elevator, ampTrap, intake, tilt, cartridge);
@@ -195,28 +197,36 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     //assign button to comnands
     
     //***** driver controller ******
-    a.whileTrue(setIntakeSpeed); 
-    x.whileTrue(manualRetCartridge);
-    b.whileTrue(manualExtCartridge);
+    //INTAKE
+    a.whileTrue(intakeWithCounter); 
     rm.whileTrue(manualEject);
     rb.whileTrue(manualIntake); 
-    view.whileTrue(lowGear);
-    menu.whileTrue(highGear);
+    //CARTRIDGE
+    x.whileTrue(manualRetCartridge);
+    b.whileTrue(manualExtCartridge);
+  //COMMANDGROUP SHOTS
+    y.onTrue(pidWooferShot);
+  // y.whileTrue(climbManualDown);
+   //y.onTrue(climbPID);
+  //  menu.onTrue(ampShot);
+   // view.whileTrue(lowGear);
+   // menu.whileTrue(highGear);
     downPov.whileTrue(stowTilt);
-    leftPov.whileTrue(podiumTilt);
-    rightPov.whileTrue(wooferTilt);
+    leftPov1.whileTrue(podiumTilt);
+    rightPov1.whileTrue(wooferTilt);
+//a.whileTrue(pidWooferShot);
     //***** Aux Controller ******
     a1.whileTrue(pidPodiumSpeed);
     x1.whileTrue(manualPodiumSpeed);
-    b1.whileTrue(pidWooferSpeed);
+   b1.whileTrue(pidWooferSpeed);
     y1.whileTrue(manualWooferSpeed);
-    view1.whileTrue(ampMotorReverse);
-    menu1.whileTrue(ampMotorForward);
+    //AMP
+    view.whileTrue(ampMotorReverse);
+    menu.whileTrue(ampMotorForward);
+    //ELEVATOR
     upPov1.whileTrue(pidToTop);
     downPov1.whileTrue(pidToBot);
-    leftPov1.whileTrue(manualDown);
-    rightPov1.whileTrue(manualUp);
-    
+   
     //view.onTrue(lowGear);
     //menu.onTrue(highGear);
     //x.onTrue(toggleGear);

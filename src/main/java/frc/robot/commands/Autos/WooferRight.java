@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.CartridgeAndTilt.PIDCartridgeShot;
 import frc.robot.commands.Elevator.PIDUptoHeight;
-import frc.robot.commands.Intake.SetIntakeSpeed;
+import frc.robot.commands.Intake.IntakeWithCounter;
+import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
@@ -36,7 +36,7 @@ public class WooferRight extends SequentialCommandGroup {
       new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER),
     Commands.parallel(
       new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE),
-      new SetIntakeSpeed(intake, intSpeed)
+      new IntakeWithCounter(intake, intSpeed)
       ),
       new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE),
       new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER),

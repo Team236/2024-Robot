@@ -27,7 +27,7 @@ public class Tilt extends SubsystemBase {
     tiltMotor = new CANSparkMax(Constants.MotorControllers.ID_CARTRIDGE_TILT, MotorType.kBrushless);
 
     tiltMotor.restoreFactoryDefaults();
-    tiltMotor.setInverted(false);
+    tiltMotor.setInverted(true);
     tiltMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     tiltEncoder = tiltMotor.getEncoder();
     tiltPIDController = tiltMotor.getPIDController();

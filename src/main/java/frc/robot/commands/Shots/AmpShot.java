@@ -2,13 +2,15 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.AmpTrap;
+package frc.robot.commands.Shots;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
+import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
@@ -24,7 +26,7 @@ public class AmpShot extends SequentialCommandGroup {
     addCommands(
       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW),
     Commands.parallel(
-      new ManualIntake(intake, intSpeed),
+      new IntakeWithCounter(intake, intSpeed),
       new PIDCartridgeMotors(cartridge, cartSpeed),
       new AmpMotor(ampTrap, ampSpeed)
       )

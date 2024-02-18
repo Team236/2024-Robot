@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.CartridgeShooter;
-import frc.robot.commands.CartridgeAndTilt.PIDCartridgeShot;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Elevator.PIDUptoHeight;
-import frc.robot.commands.Intake.SetIntakeSpeed;
+import frc.robot.commands.Intake.IntakeWithCounter;
+import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.subsystems.Tilt;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
@@ -41,6 +41,8 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
       new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE),
       new WaitCommand(2)
       //,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
+
+      
     );
   }
 }

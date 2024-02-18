@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -57,9 +58,11 @@ public class Robot extends TimedRobot {
     PortForwarder.add(port, "limelight.local", port);
   }
 }
- usbCamera0.setResolution(320, 240);
- usbCamera0.setBrightness(50);// percentage 0 to 100
- usbCamera0.setExposureManual(50); //percentage 0 to 100
+ //usbCamera0.setResolution(320, 240);
+// usbCamera0.setBrightness(50);// percentage 0 to 100
+ //usbCamera0.setExposureManual(50); //percentage 0 to 100
+ //Set the counter to zero at the start
+ Intake.resetCounter();
   }
 
   /**

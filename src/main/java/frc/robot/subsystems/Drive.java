@@ -41,15 +41,15 @@ public class Drive extends SubsystemBase {
 
     leftFront.setInverted(false);
     rightFront.setInverted(true); //determine via bench testing
-    
-    leftRear.follow(leftFront);
-    rightRear.follow(rightFront);
-
+ 
     leftFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     leftRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    
+  //***NOTE - NEED TO DO THE FOLLOW COMMAND AFTER setSmartCurrentLImits - don't do rear stuff after the follow */
+    leftRear.follow(leftFront);
+    rightRear.follow(rightFront);
+
 
     //creates a new diffdrive
     diffDrive = new DifferentialDrive(leftFront, rightFront); 

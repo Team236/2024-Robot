@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.AmpTrap.AmpShot;
+import frc.robot.commands.Shots.AmpShot;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Elevator;
