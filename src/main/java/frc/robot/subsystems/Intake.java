@@ -40,10 +40,6 @@ public class Intake extends SubsystemBase {
     counter.reset(); //sets counter to zero
   }
 
-public int getCount() {
-  return counter.get();
-}
-
 public void resetCount() {
   counter.reset();
 }
@@ -60,7 +56,12 @@ public void resetCount() {
   public void setIntakeSpeed(double speed) {
     intake.set(speed);
   }
- 
+ /* 
+public int getCount() {
+  return counter.get();
+}
+*/
+//STATIC METHOD BELOW - TO KEEP COUNT ACROSS VARIOUS SUBSYSTEMS
   public static int getIntakeCount() {
     int count;
     if (isCounterUnplugged) {
