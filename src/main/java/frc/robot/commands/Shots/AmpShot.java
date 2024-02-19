@@ -23,13 +23,13 @@ import frc.robot.subsystems.Tilt;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AmpShot extends SequentialCommandGroup {
   //Shoots Amp - spins intake, cartridge (PID velocity), and Amp motors
-  public AmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt, double intSpeed, double cartSpeed, double ampSpeed) {
+  public AmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt) {
     addCommands(
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(3),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2),
     Commands.parallel(
-      new ManualIntakeWithWait(intake, intSpeed), //use manualIntake here since count = 1
-      new PIDCartridgeMotors(cartridge, cartSpeed),
-      new AmpMotor(ampTrap, ampSpeed)
+      new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED), //use manualIntake here since count = 1
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM),
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED)
       )
     );
     Intake.resetCounter();  //reset counter after shooting a Note

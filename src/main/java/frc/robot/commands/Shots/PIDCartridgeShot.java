@@ -27,25 +27,17 @@ import frc.robot.subsystems.Tilt;
 public class PIDCartridgeShot extends SequentialCommandGroup {
   //Moves cartridge to Woofer or Podium position, then runs Cartridge at PID controlled velocity, then adds intake motors after a delay
   //intake speed between -1 and 1, cartridge speed in RPM
-  public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed, boolean isWoofer) {
-
-    //runs wait and tilt in series, while running intake/cartridge in parallel
-    //the wait makes the cartridge extend and hold extended, while the shot takes place after the wait
-    if (isWoofer) {
+  public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed, double desiredRevs) {
       addCommands(
-           new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3),
+          new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(3),
           Commands.parallel(
-           new ManualIntakeWithWait(intake, intSpeed).withTimeout(5)), //use manualIntake since counter =1 here
-           new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(5));
-    }
-      else{
-        addCommands(
-          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(3),
-        Commands.parallel(
-          new ManualIntakeWithWait(intake, intSpeed).withTimeout(5)), //use manualIntake since counter =1 here
-          new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(5));
-    }
+            new ManualIntakeWithWait(intake, intSpeed).withTimeout(5), //use manualIntake since counter =1 here
+            new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(5)
+            )
+      );
     Intake.resetCounter();  //reset counter after shooting a Note
   }
 
 }
+
+

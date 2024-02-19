@@ -137,7 +137,7 @@ public final class Constants {
     // SHOOTER MOTORS
     public static final double PODIUM_PID_RPM = 1500; //TODO determine speed
     public static final double WOOFER_PID_RPM = 2100; //TODO determine speed
-    public static final double AMP_PID_RPM = 2000; //TODO determine speed
+    public static final double AMP_PID_RPM = 2100; //TODO determine speed
     public static final double MAX_PID_SPEED = 6000;
 
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2; //TODO determine these speeds
