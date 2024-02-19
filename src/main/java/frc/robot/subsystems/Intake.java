@@ -61,7 +61,7 @@ public int getCount() {
   return counter.get();
 }
 */
-//STATIC METHOD BELOW - TO KEEP COUNT ACROSS VARIOUS SUBSYSTEMS
+//TWO STATIC METHODS BELOW - TO KEEP COUNT ACROSS VARIOUS SUBSYSTEMS
   public static int getIntakeCount() {
     int count;
     if (isCounterUnplugged) {

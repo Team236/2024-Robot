@@ -13,7 +13,7 @@ public class ManualIntake extends Command {
 
   private Intake intake;
   private double speed;
-  private Counter counter;
+  //private Counter counter;
 
   /** Creates a new ManualIntake. */
   public ManualIntake(Intake intake, double speed) {
@@ -27,7 +27,7 @@ public class ManualIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.counter.reset();
+    Intake.resetCounter();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
