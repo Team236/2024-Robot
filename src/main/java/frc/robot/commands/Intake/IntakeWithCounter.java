@@ -15,7 +15,6 @@ public class IntakeWithCounter extends Command {
 
   private Intake intake;
   private double speed;
-  private Counter counter;
 
   /** Creates a new SetIntakeSpeed. */
   public IntakeWithCounter(Intake intake, double speed) {
@@ -50,7 +49,7 @@ public class IntakeWithCounter extends Command {
   public boolean isFinished() {
 
     //stop intake motor when Note in robot (count > 0)
-    return intake.getIntakeCount() > 0;
+    return Intake.getIntakeCount() > 0;
 
   }
   

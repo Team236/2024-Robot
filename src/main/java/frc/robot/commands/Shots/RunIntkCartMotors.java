@@ -27,5 +27,6 @@ public class RunIntkCartMotors extends ParallelCommandGroup {
       new PIDCartridgeMotors(cartridge, cartSpeed),
       new ManualIntakeWithWait(intake, intSpeed)
     );
+    Intake.resetCounter();  //reset counter after shooting a Note
   }
 }

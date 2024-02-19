@@ -16,13 +16,10 @@ private CANSparkMax motor;
   public AmpTrap() {
     motor = new CANSparkMax(Constants.MotorControllers.ID_AMP_TRAP_SHOOTER, MotorType.kBrushless);
     motor.restoreFactoryDefaults();
-
     motor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
- 
     motor.setInverted(true);
-  
   } 
-
+//Methods start here:
     public void shoot(double speed) {
     motor.set(speed);
   }
@@ -30,7 +27,6 @@ private CANSparkMax motor;
   public void stop(){
     motor.set(0);
   }
-
 
   @Override
   public void periodic() {

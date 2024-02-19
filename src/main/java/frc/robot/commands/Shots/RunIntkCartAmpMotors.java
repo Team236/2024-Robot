@@ -30,6 +30,7 @@ public class RunIntkCartAmpMotors extends ParallelCommandGroup {
       new AmpMotor(ampTrap, ampSpeed),
       new PIDCartridgeMotors(cartridge, cartSpeed)
       );
+      Intake.resetCounter();  //reset counter after shooting a Note
   }
 }
 

@@ -36,6 +36,7 @@ public class AutoPIDTurn extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //uses WPIPID and external encoder, not SPARKMAX encoder or SparkPID
     double leftSpeed = leftPidController.calculate(drive.getLeftDistance());
     double rightSpeed = rightPidController.calculate(drive.getRightDistance());
     drive.setLeftSpeed(leftSpeed);
