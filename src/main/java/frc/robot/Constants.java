@@ -95,7 +95,7 @@ public final class Constants {
   }
   public static class Elevator {
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 20;// TODO get real number-somewhere above chain
-    public static final double MATCH_HEIGHT= 8; // TODO determine, ideally same as just-above-chain
+    public static final double MATCH_HEIGHT= 6; // TODO determine, ideally same as just-above-chain
     public static final double MIN_HEIGHT = 1.0; 
     public static final double MAX_HEIGHT = 27; 
     public static final double CLIMB_HEIGHT = 1.0;
@@ -109,16 +109,16 @@ public final class Constants {
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
-    public static final double ELEV_UP_SPEED = 0.3;
-    public static final double ELEV_DOWN_SPEED = 0.3; // keep this pos, use 0.5 to test climb manually
-    public static final double ELEV_MAN_DOWN_SPEED = 0.8;
+    public static final double ELEV_UP_SPEED = 0.2;
+    public static final double ELEV_DOWN_SPEED = 0.1; // keep this pos
+    public static final double ELEV_MAN_DOWN_SPEED = 0.8; //just for testing climbing without PID
     // PID may need seperate pid for up, down, and climb
-    public static final double KP_ELEV_UP = 0.03; //
+    public static final double KP_ELEV_UP = 0.025; //
     public static final double KI_ELEV_UP = 0;
     public static final double KD_ELEV_UP = 0;
     public static final double KFF_ELEV_UP = 0;//only use KFF with velocity control
 
-    public static final double KP_ELEV_DOWN = 0.03;
+    public static final double KP_ELEV_DOWN = 0.02;
     public static final double KI_ELEV_DOWN = 0;
     public static final double KD_ELEV_DOWN = 0;
       public static final double KFF_ELEV_DOWN = 0;
@@ -140,7 +140,7 @@ public final class Constants {
     public static final double AMP_PID_RPM = 2100; //TODO determine speed
     public static final double MAX_PID_SPEED = 6000;
 
-    public static final double WOOFER_SHOT_MOTOR_SPEED = 0.2; //TODO determine these speeds
+    public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6; //just for bench test - use PID in match
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
     public static final double MANUAL_SET_SPEED = 0.3; 
    //CartridgeShooterMotor PID // 2022 pid constants commented in
@@ -162,8 +162,8 @@ public final class Constants {
     public static final double TILT_ENC_REVS_WOOFER = 26.85; //34.4 deg//TODO FIND REAL ENCODER VALUES
     public static final double TILT_ENC_REVS_PODIUM = 46.71; //47 deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
-    public static final double MAN_EXT_SPEED = 0.1; //TODO find these EXT/RET speeds
-    public static final double MAN_RET_SPEED = 0.04;  //should be positive, the method adds the negative
+    public static final double MAN_EXT_SPEED = 0.2; //TODO find these EXT/RET speeds
+    public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
     //CARTRIDGE TILT PID:
     public static final double KP_TILT = 0.015;
     public static final double KI_TILT = 0;
