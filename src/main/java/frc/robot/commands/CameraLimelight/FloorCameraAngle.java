@@ -12,14 +12,14 @@ import frc.robot.subsystems.AmpTrap;
 public class FloorCameraAngle extends Command {
 //Moves the camera servo to view the Amp or Trap
 //The servo goes from 0 to 1, for 0 to 180 degrees.
-private AmpTrap ampTrapShooter;
+private AmpTrap ampTrap;
 
   /** Creates a new FloorCameraAngle. */
-  public FloorCameraAngle(AmpTrap ampTrapShooter) {
-    this.ampTrapShooter = ampTrapShooter;
+  public FloorCameraAngle(AmpTrap ampTrap) {
+    this.ampTrap = ampTrap;
     
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.ampTrapShooter);
+    addRequirements(this.ampTrap);
   }
 
   // Called when the command is initially scheduled.

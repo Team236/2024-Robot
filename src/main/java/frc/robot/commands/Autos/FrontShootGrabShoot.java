@@ -24,18 +24,20 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
     Commands.parallel(
       //WOOFER shot
       new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(6), 
-      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2) //bring elevator up to match height
+      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2)//bring elevator up to match height (Start elevator at bottom limit at match start)
       ),
     new WaitCommand(1),
     Commands.parallel(
       new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(4),
-      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(5)      //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(5) //not needed
+      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(5)
+      //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(5) //not needed
       ),
     new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(4),
     new WaitCommand(1),
     //WOOFER SHOT - TODO: CAN CHANGE TO PODIUM SHOT WITH NO DRIVING REVERSE?
     new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(6) 
-
+    //TODO Determine if line below needed - to hold elev with PID during teleop
+    //,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
     );
   }
 }

@@ -36,6 +36,7 @@ public class AutoPIDDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //uses WPIPID and external encoder, not SPARKMAX encoder or SparkPID
     drive.setBothSpeeds(pidController.calculate(drive.getAvgDistance()));
   }
 

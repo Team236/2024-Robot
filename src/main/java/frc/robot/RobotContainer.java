@@ -207,19 +207,14 @@ public class RobotContainer {
 
     //DRIVE
     //view1.onTrue(lowGear);
-    //menu.onTrue(highGear);
-    // x1.onTrue(frontShootGrabShoot);
-    //a.whileTrue(wooferLeft);
-    //x.onTrue(toggleGear);
-    //b.whileTrue(setIntakeSpeed);
-    //y.whileTrue(manualUp);
-    //rb.onTrue(autoPIDDrive);
-    //lb.onTrue(autoPIDTurn1);
-    //leftPov.whileTrue(llAngle);
-    //downPov.whileTrue(llDistance);
-    //upPov.whileTrue(llTarget);
-    //downPov.onTrue(ampCameraAngle);
-    // upPov.onTrue(floorCameraAngle);
+    //menu1.onTrue(highGear);
+    //y1.onTrue(toggleGear);
+    //x1.onTrue(frontShootGrabShoot);
+    //a1.whileTrue(wooferLeft);
+    //lm1.onTrue(autoPIDDrive);
+    //rm1.onTrue(autoPIDTurn1);
+    //downPov1.whileTrue(llDistance);
+    //upPov1.whileTrue(llTarget);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
