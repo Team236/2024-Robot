@@ -25,8 +25,8 @@ import frc.robot.subsystems.Tilt;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
 public class PIDCartridgeShot extends SequentialCommandGroup {
-  //Moves cartridge to Woofer or Podium position, then runs intake at set speed and Cartridge at PID controlled velocity
-  //intake speed should be between -1 and 1, cartridge speed should be in RPM
+  //Moves cartridge to Woofer or Podium position, then runs Cartridge at PID controlled velocity, then adds intake motors after a delay
+  //intake speed between -1 and 1, cartridge speed in RPM
   public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed, boolean isWoofer) {
 
     //runs wait and tilt in series, while running intake/cartridge in parallel

@@ -26,23 +26,23 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
   public FrontShootGrabShoot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator, double intSpeed, double cartSpeed, double drvDistance) {
     //This command starts in front of the woofer, sets cartridge to woofer, shoots, (drives, runs intake, sets cartridge to podium at the same time), then shoots again
     addCommands(
-   //PIDCartridgeShot brings the cartridge to the Woofer or Podium angle (holds with PID), and then runs intake and cartridge motors
     Commands.parallel(
       new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(4), 
-      //TODO Determine if elevator stays at match height - or need to hold the PID
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2) //bring elevator up to match height
       ),
-      new WaitCommand(1),
+    new WaitCommand(1),
     Commands.parallel(
       new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(4),
       new ManualIntake(intake, intSpeed).withTimeout(5),
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(5)//is this necesary?
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(5)
       ),
-      new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(4),
-      new WaitCommand(2),
-      new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(4))
-      //TODO Determine if line below needed - to hold elev with PID during teleop
-      // ,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
-      ;
+    new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(4),
+    new WaitCommand(2),
+    new PIDCartridgeShot(intake, cartridge, tilt, intSpeed, cartSpeed, true).withTimeout(4)
+    //TODO Determine if line below needed - to hold elev with PID during teleop
+    // ,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
+
+    );
+
   }
 }
