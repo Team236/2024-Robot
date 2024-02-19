@@ -170,9 +170,9 @@ public class RobotContainer {
     
     //***** driver controller ******
     //INTAKE
+    rb.whileTrue(manualIntake);   
     rm.whileTrue(manualEject);
-    rb.whileTrue(manualIntake); 
-    a.whileTrue(intakeWithCounter); //USE THIS FOR MATCH!!
+    a.whileTrue(intakeWithCounter); //USE THIS FOR MATCH
     //TILT- zero at the retracted limit before using PID!!!
     x.whileTrue(manualRetCartridge);
     b.whileTrue(manualExtCartridge);
@@ -185,15 +185,14 @@ public class RobotContainer {
     leftPov.onTrue(pidPodiumShot);
     rightPov.onTrue(pidWooferShot);
     lb.onTrue(ampShot);
-    //rb.whileTrue(llAngle);
-
+    lm.whileTrue(llAngle);
 
     //***** Aux Controller ******
     //CARTRIDGE MOTORS
     a1.whileTrue(pidPodiumSpeed);
     b1.whileTrue(pidWooferSpeed);
-    x1.whileTrue(manualPodiumSpeed);
-    y1.whileTrue(manualWooferSpeed);
+    x1.whileTrue(ampCameraAngle);
+    y1.whileTrue(floorCameraAngle);
     //AMP
     view1.whileTrue(ampMotorReverse);
     menu1.whileTrue(ampMotorForward);
