@@ -12,23 +12,13 @@ import frc.robot.subsystems.Elevator;
 public class PIDUptoHeight extends Command {
   private Elevator elevator;
   private double desiredHeight; //desired height in inches
-  //!!!!private final PIDController pidController;
-  //!!!! private double eKP, eKI, eKD;
 
   /** Creates a new SetElevatorHeight. */
-  //!!!! removed since using SparkMax PID:  
-  //!!!!public SetElevatorHeight(Elevator elevator, double desiredHeight, double eKP, double eKI, double eKD) {
-  //!!!!  this.eKP = eKP;
-  //!!!! this.eKI = eKI;
-  //!!!! this.eKD = eKD;
-  //!!!!  pidController = new PIDController(eKP, eKI, eKD)
   public PIDUptoHeight(Elevator elevator, double desiredHeight) {
     this.elevator = elevator;
     this.desiredHeight = desiredHeight;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevator);
-
-    //!!!!pidController.setSetpoint(desiredHeight);
   }
 
   // Called when the command is initially scheduled.

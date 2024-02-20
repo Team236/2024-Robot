@@ -96,9 +96,9 @@ public final class Constants {
   public static class Elevator {
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 20;// TODO get real number-somewhere above chain
     public static final double MATCH_HEIGHT= 6; // TODO determine, ideally same as just-above-chain
-    public static final double MIN_HEIGHT = 1.0; 
+    public static final double MIN_HEIGHT = 1; 
     public static final double MAX_HEIGHT = 27; 
-    public static final double CLIMB_HEIGHT = 1.0;
+    public static final double CLIMB_HEIGHT = 1;
 
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
@@ -118,7 +118,7 @@ public final class Constants {
     public static final double KD_ELEV_UP = 0;
     public static final double KFF_ELEV_UP = 0;//only use KFF with velocity control
 
-    public static final double KP_ELEV_DOWN = 0.02;
+    public static final double KP_ELEV_DOWN = 0.026;
     public static final double KI_ELEV_DOWN = 0;
     public static final double KD_ELEV_DOWN = 0;
       public static final double KFF_ELEV_DOWN = 0;

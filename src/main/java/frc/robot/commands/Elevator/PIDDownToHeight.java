@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Elevator;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Elevator;
@@ -22,7 +23,6 @@ public PIDDownToHeight(Elevator elevator, double desiredHeight) {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //!!!! pidController.reset();
     elevator.setP(Constants.Elevator.KP_ELEV_DOWN);
     elevator.setI(Constants.Elevator.KI_ELEV_DOWN);
     elevator.setD(Constants.Elevator.KD_ELEV_DOWN);
