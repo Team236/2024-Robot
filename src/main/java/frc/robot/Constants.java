@@ -8,8 +8,8 @@ public final class Constants {
   //camera servo motor, created in Robot.java:
   public static final int PWM_FRONT_CAM = 0;
   //for aiming camera at Amp/Trap or at Floor (from 0 to 1, for 0 to 180 degrees)
-  public static final double FRONT_CAM_AMP = 0.5;  //TODO adjust these as needed
-  public static final double FRONT_CAM_FLOOR = 0.8; //TODO adjust as needed
+  public static final double FRONT_CAM_AMP = 0.1;  //TODO adjust these as needed
+  public static final double FRONT_CAM_FLOOR = 0.9; //TODO adjust as needed
 
   public static class Controller {
     // usb port on the laptop when driver using XBox controller
@@ -158,7 +158,7 @@ public final class Constants {
     //TILT MOTOR STUFF:
     public static final int DIO_TILT_EXT_LIMIT = 8;
     public static final int DIO_TILT_RET_LIMIT = 9;
-    public static final double MAX_TILT_ENC_REVS = 78;  //really 79.8, 64deg from top
+    public static final double MAX_TILT_ENC_REVS = 78;//really 79.8, 64deg from top
     public static final double TILT_ENC_REVS_WOOFER = 26.85; //34.4 deg//TODO FIND REAL ENCODER VALUES
     public static final double TILT_ENC_REVS_PODIUM = 46.71; //47 deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero

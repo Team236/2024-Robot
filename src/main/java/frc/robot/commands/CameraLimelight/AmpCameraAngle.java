@@ -13,10 +13,12 @@ public class AmpCameraAngle extends Command {
 //Moves the camera servo to view the Amp or Trap
 //The servo goes from 0 to 1, for 0 to 180 degrees.
 private AmpTrap ampTrap;
+private double camAngle;
 
   /** Creates a new AmpCameraAngle. */
-  public AmpCameraAngle(AmpTrap ampTrap) {
+  public AmpCameraAngle(AmpTrap ampTrap, double camAngle) {
     this.ampTrap = ampTrap;
+    this.camAngle = camAngle;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.ampTrap);
@@ -29,7 +31,7 @@ private AmpTrap ampTrap;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.cameraServo.set(Constants.FRONT_CAM_AMP);
+    Robot.cameraServo.set(camAngle);
   }
 
   // Called once the command ends or is interrupted.

@@ -118,8 +118,8 @@ public class RobotContainer {
   private final LLAngle llAngle= new LLAngle(drive, 0);
   private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
   private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
-  private final AmpCameraAngle ampCameraAngle = new AmpCameraAngle(ampTrap);
-  private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
+  private final AmpCameraAngle ampCameraAngle = new AmpCameraAngle(ampTrap, Constants.FRONT_CAM_AMP);
+  private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap, Constants.FRONT_CAM_FLOOR);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -190,9 +190,9 @@ public class RobotContainer {
     //***** Aux Controller ******
     //CARTRIDGE MOTORS
     a1.whileTrue(pidPodiumSpeed);
-    //b1.whileTrue(pidWooferSpeed);
-    //x1.whileTrue(ampCameraAngle);
-    y1.whileTrue(floorCameraAngle);
+    b1.whileTrue(pidWooferSpeed);
+    x1.onTrue(ampCameraAngle);
+    y1.onTrue(floorCameraAngle);
     //AMP
     view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);
@@ -207,9 +207,9 @@ public class RobotContainer {
     rb1.whileTrue(manualDown);
 
     //DRIVE
-    b1.onTrue(lowGear);
-    x1.onTrue(highGear);
-    menu1.onTrue(toggleGear);
+    //b1.onTrue(lowGear);
+    //x1.onTrue(highGear);
+    //menu1.onTrue(toggleGear);
     //a1.onTrue(frontShootGrabShoot);
     //view1.whileTrue(wooferLeft);
     //lm1.onTrue(autoPIDDrive);
