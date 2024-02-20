@@ -112,8 +112,8 @@ public double getTiltSpeed() {
 
 //!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
 //**** NOTE Using SPARKMAX PID, BUT Drive PID is done using WPILIB PID **********
- public void setSetpoint(double speed) {
-  tiltPIDController.setReference(speed, ControlType.kPosition);
+ public void setSetpoint(double encoderRevs) {
+  tiltPIDController.setReference(encoderRevs, ControlType.kPosition);
 }
 
 public void setP(double kP) {

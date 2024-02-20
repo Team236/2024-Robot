@@ -196,6 +196,7 @@ public class RobotContainer {
     //AMP
     view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);
+    
     //ELEVATOR - zero at the lower limit before using PID!!!
     upPov1.onTrue(pidToTop);
     downPov1.onTrue(pidToBot);
