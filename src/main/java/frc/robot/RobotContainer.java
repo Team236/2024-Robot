@@ -190,12 +190,12 @@ public class RobotContainer {
     //***** Aux Controller ******
     //CARTRIDGE MOTORS
     a1.whileTrue(pidPodiumSpeed);
-    b1.whileTrue(pidWooferSpeed);
-    x1.whileTrue(ampCameraAngle);
+    //b1.whileTrue(pidWooferSpeed);
+    //x1.whileTrue(ampCameraAngle);
     y1.whileTrue(floorCameraAngle);
     //AMP
     view1.whileTrue(ampMotorReverse);
-    menu1.whileTrue(ampMotorForward);
+    //menu1.whileTrue(ampMotorForward);
     //ELEVATOR - zero at the lower limit before using PID!!!
     upPov1.onTrue(pidToTop);
     downPov1.onTrue(pidToBot);
@@ -206,11 +206,11 @@ public class RobotContainer {
     rb1.whileTrue(manualDown);
 
     //DRIVE
-    //view1.onTrue(lowGear);
-    //menu1.onTrue(highGear);
-    //y1.onTrue(toggleGear);
-    //x1.onTrue(frontShootGrabShoot);
-    //a1.whileTrue(wooferLeft);
+    b1.onTrue(lowGear);
+    x1.onTrue(highGear);
+    menu1.onTrue(toggleGear);
+    //a1.onTrue(frontShootGrabShoot);
+    //view1.whileTrue(wooferLeft);
     //lm1.onTrue(autoPIDDrive);
     //rm1.onTrue(autoPIDTurn1);
     //downPov1.whileTrue(llDistance);
