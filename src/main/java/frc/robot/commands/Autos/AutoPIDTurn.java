@@ -17,10 +17,10 @@ public class AutoPIDTurn extends Command {
   /** Creates a new TurnPID. */
   public AutoPIDTurn(Drive drive, double setpointDegrees) {
     this.drive = drive;
-    this.leftPidController = new PIDController(Constants.DriveConstants.KP_TURNL, 0, 0);
-    this.rightPidController = new PIDController(Constants.DriveConstants.KP_TURNR, 0, 0);
-    leftPidController.setSetpoint(setpointDegrees * Constants.DriveConstants.PID_L_SETPOINT); // this converts the setpoint in degrees to inches, need new conversion for this year
-    rightPidController.setSetpoint(-setpointDegrees * Constants.DriveConstants.PID_R_SETPOINT);
+    this.leftPidController = new PIDController(Constants.DriveConstants.KP_TURN_CCW, 0, 0);
+    this.rightPidController = new PIDController(Constants.DriveConstants.KP_TURN_CW, 0, 0);
+    leftPidController.setSetpoint(setpointDegrees * Constants.DriveConstants.TURNCCW_DEG_TO_REV); // this converts the setpoint in degrees to inches, need new conversion for this year
+    rightPidController.setSetpoint(-setpointDegrees * Constants.DriveConstants.TURNCW_DEG_TO_REVS);
     addRequirements(drive);
   }
 

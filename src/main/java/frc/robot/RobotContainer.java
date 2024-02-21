@@ -96,8 +96,8 @@ public class RobotContainer {
   private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
 //AUTO COMMANDS
   private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
-  private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1); //90
-  private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2); //-90
+  private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1); //180
+  private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2); //-180
   private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator);
   private final WooferLeft wooferLeft = new WooferLeft(intake, cartridge, tilt, drive, elevator);
   private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, elevator);
@@ -178,8 +178,10 @@ public class RobotContainer {
     x.whileTrue(manualRetCartridge);
     b.whileTrue(manualExtCartridge);
     y.onTrue(stowTilt); //PID
-    menu.onTrue(podiumTilt); //PID
-    view.onTrue(wooferTilt); //PID
+    //menu.onTrue(podiumTilt); //PID
+    //view.onTrue(wooferTilt); //PID
+    menu.onTrue(autoPIDTurn); //PID
+    view.onTrue(autoPIDTurn1); //PID
    //SHOT COMMAND GROUPS
     upPov.whileTrue(runIntCartAmpMotors); //runs all shot motors, cart motors set to AMP_PID_RPM
     downPov.whileTrue(wooferIntkCartMotors); //runs intake and cart motors, cart motors set to WOOFER_PID_RPM

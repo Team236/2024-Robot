@@ -8,8 +8,8 @@ public final class Constants {
   //camera servo motor, created in Robot.java:
   public static final int PWM_FRONT_CAM = 0;
   //for aiming camera at Amp/Trap or at Floor (from 0 to 1, for 0 to 180 degrees)
-  public static final double FRONT_CAM_AMP = 0.4;  //TODO adjust these as needed
-  public static final double FRONT_CAM_FLOOR = 0.7; //TODO adjust as needed
+  public static final double FRONT_CAM_AMP = 0.1;  //TODO adjust these as needed
+  public static final double FRONT_CAM_FLOOR = 0.9; //TODO adjust as needed
 
   public static class Controller {
     // usb port on the laptop when driver using XBox controller
@@ -72,18 +72,18 @@ public final class Constants {
     public static final double KP_DRIVE = 0.022; // 0.022 (from 2023)
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-    public static final double KP_TURNL = 0.025;
-    public static final double PID_L_SETPOINT = 0.28;
-    public static final double KP_TURNR = 0.025;
-    public static final double PID_R_SETPOINT = 0.28;
+    public static final double KP_TURN_CCW = 0.02;
+    public static final double TURNCCW_DEG_TO_REV = 0.42;
+    public static final double KP_TURN_CW = 0.02;
+    public static final double TURNCW_DEG_TO_REVS = 0.42;
     // AUTO DISTANCES
     public static final double AUTO_DISTANCE_1 = 36;
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 10;
     public static final double PULL_AWAY_TO_NOTE = 60;
     // TURNING ANGLES
-    public static final double TURN_ANGLE_1 = 180;
-    public static final double TURN_ANGLE_2 = -180;
+    public static final double TURN_ANGLE_1 = 30; //CW
+    public static final double TURN_ANGLE_2 = -180; //CCW
     public static final double TURN_SIDE_OF_WOOFER = 57;
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
