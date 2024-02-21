@@ -8,8 +8,8 @@ public final class Constants {
   //camera servo motor, created in Robot.java:
   public static final int PWM_FRONT_CAM = 0;
   //for aiming camera at Amp/Trap or at Floor (from 0 to 1, for 0 to 180 degrees)
-  public static final double FRONT_CAM_AMP = 0.1;  //TODO adjust these as needed
-  public static final double FRONT_CAM_FLOOR = 0.9; //TODO adjust as needed
+  public static final double FRONT_CAM_AMP = 0.4;  //TODO adjust these as needed
+  public static final double FRONT_CAM_FLOOR = 0.7; //TODO adjust as needed
 
   public static class Controller {
     // usb port on the laptop when driver using XBox controller
@@ -95,7 +95,7 @@ public final class Constants {
   }
   public static class Elevator {
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 20;// TODO get real number-somewhere above chain
-    public static final double MATCH_HEIGHT= 6; // TODO determine, ideally same as just-above-chain
+    public static final double MATCH_HEIGHT= 6; // TODO determine
     public static final double MIN_HEIGHT = 0.5; 
     public static final double MAX_HEIGHT = 27; 
     public static final double CLIMB_HEIGHT = 0.5;
@@ -130,7 +130,7 @@ public final class Constants {
   }
   public static class Intake {
     public static final int DIO_COUNTER = 12;
-    public static final double INTAKE_SPEED = 0.7; // TODO experiment with this speed
+    public static final double INTAKE_SPEED = 0.7;//TODO experiment with this speed
     public static final double EJECT_SPEED = -0.5;
   }
   public static class CartridgeShooter { 
@@ -147,7 +147,7 @@ public final class Constants {
     public static final double kPLeft = 0.00005; // 0002
     public static final double kILeft = 0.0; // 0.00000001
     public static final double kDLeft = 0.0565; // 0.0565
-    public static final double kFFLeft = 0.00018; // 0.00021
+    public static final double kFFLeft = 0.00018; //0.00018 //2022: 0.00021
 
     public static final double kPRight = 0.00005; // 0002
     public static final double kIRight = 0.0; // 0.00000001
@@ -159,10 +159,11 @@ public final class Constants {
     public static final int DIO_TILT_EXT_LIMIT = 8;
     public static final int DIO_TILT_RET_LIMIT = 9;
     public static final double MAX_TILT_ENC_REVS = 78;//really 79.8, 64deg from top
-    public static final double TILT_ENC_REVS_WOOFER = 16
-    ; //34.4 deg//TODO FIND REAL ENCODER VALUES
-    public static final double TILT_ENC_REVS_PODIUM = 46.71; //47 deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
+    public static final double TILT_ENC_REVS_WOOFER = 16; //34.4 deg//TODO FIND REAL ENCODER VALUES
+    public static final double TILT_ENC_REVS_PODIUM = 46.71; //47 deg from top
+    public static final double TILT_ENC_REVS_AUTOSHOT2 = 35;  //TODO test out
+
     public static final double MAN_EXT_SPEED = 0.2; //TODO find these EXT/RET speeds
     public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
     //CARTRIDGE TILT PID:

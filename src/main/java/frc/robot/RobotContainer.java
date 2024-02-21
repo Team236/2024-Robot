@@ -73,6 +73,7 @@ public class RobotContainer {
  private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt);
  private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM);
  private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
+ private final PIDCartridgeShot pidFrontAutoShot2 = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_AUTOSHOT2);
  private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
  private final RunIntkCartAmpMotors runIntCartAmpMotors = new RunIntkCartAmpMotors(intake, cartridge, ampTrap,  Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
 //INTAKE COMMANDS:
@@ -183,18 +184,20 @@ public class RobotContainer {
     downPov.whileTrue(wooferIntkCartMotors); //runs intake and cart motors, cart motors set to WOOFER_PID_RPM
     leftPov.onTrue(pidPodiumShot);
     rightPov.onTrue(pidWooferShot);
-    lb.onTrue(ampShot);
-    lm.whileTrue(llAngle);
+    lb.onTrue(pidFrontAutoShot2);
+    lm.onTrue(ampShot);
+    //lm.whileTrue(llAngle);
 
     //***** Aux Controller ******
     //CARTRIDGE MOTORS
     //a1.whileTrue(pidPodiumSpeed);
     a1.onTrue(frontShootGrabShoot);
-    view1.whileTrue(wooferLeft);
-    //b1.whileTrue(pidWooferSpeed);
-    //x1.onTrue(ampCameraAngle);
+    b1.onTrue(wooferLeft);
+    x1.onTrue(ampCameraAngle);
     y1.onTrue(floorCameraAngle);
-//AMP
+    view1.whileTrue(pidWooferSpeed);
+    menu1.whileTrue(pidPodiumSpeed);
+    //AMP
     //view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);
     
@@ -208,9 +211,9 @@ public class RobotContainer {
     rb1.whileTrue(manualDown);
 
     //DRIVE
-    b1.onTrue(lowGear);
-    x1.onTrue(highGear);
-    menu1.onTrue(toggleGear);
+    //b1.onTrue(lowGear);
+    //x1.onTrue(highGear);
+   // menu1.onTrue(toggleGear);
     //a1.onTrue(frontShootGrabShoot);
     //view1.whileTrue(wooferLeft);
     //lm1.onTrue(autoPIDDrive);
