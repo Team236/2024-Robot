@@ -198,8 +198,9 @@ public class RobotContainer {
     //CARTRIDGE MOTORS
     //a1.whileTrue(pidPodiumSpeed);
     a1.onTrue(frontShootGrabShoot);
+    b1.onTrue(autoPIDDrive);
     //b1.onTrue(wooderLeft);
-    b1.onTrue(toggleCameraAngle);
+   // b1.onTrue(toggleCameraAngle);
     x1.onTrue(ampCameraAngle);
     y1.onTrue(floorCameraAngle);
     view1.whileTrue(pidWooferSpeed);
