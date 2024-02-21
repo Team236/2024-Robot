@@ -109,21 +109,21 @@ public final class Constants {
     public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
     public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
-    public static final double ELEV_UP_SPEED = 0.2;
+    public static final double ELEV_UP_SPEED = 0.25;
     public static final double ELEV_DOWN_SPEED = 0.1; // keep this pos
     public static final double ELEV_MAN_DOWN_SPEED = 0.8; //just for testing climbing without PID
     // PID may need seperate pid for up, down, and climb
-    public static final double KP_ELEV_UP = 0.02; //
+    public static final double KP_ELEV_UP = 0.2; //
     public static final double KI_ELEV_UP = 0;
     public static final double KD_ELEV_UP = 0;
     public static final double KFF_ELEV_UP = 0;//only use KFF with velocity control
 
-    public static final double KP_ELEV_DOWN = 0.03;
+    public static final double KP_ELEV_DOWN = 0.2;
     public static final double KI_ELEV_DOWN = 0;
     public static final double KD_ELEV_DOWN = 0;
       public static final double KFF_ELEV_DOWN = 0;
 
-    public static final double KP_ELEV_CLIMB = 0.03;
+    public static final double KP_ELEV_CLIMB = 0.2;
     public static final double KI_ELEV_CLIMB = 0;
     public static final double KD_ELEV_CLIMB = 0;
       public static final double KFF_ELEV_CLIMB = 0;

@@ -69,7 +69,7 @@ public class Elevator extends SubsystemBase {
     }
 */
     public void stopElevator() {
-      //leftElevatorMotor.set(0);
+      leftElevatorMotor.set(0);
       rightElevatorMotor.set(0);
     }
   
