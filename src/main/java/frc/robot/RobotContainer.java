@@ -28,7 +28,7 @@ import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Elevator.PIDActualClimb;
 import frc.robot.commands.Elevator.PIDDownToHeight;
-import frc.robot.commands.Elevator.PIDUptoHeight;
+import frc.robot.commands.Elevator.PIDtoHeight;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Shots.AmpShot;
@@ -109,10 +109,9 @@ public class RobotContainer {
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
    private final ManualDown climbManualDown = new ManualDown(elevator, Constants.Elevator.ELEV_MAN_DOWN_SPEED);
-  private final PIDUptoHeight pidToTop = new PIDUptoHeight(elevator, Constants.Elevator.MAX_HEIGHT);
+  private final PIDtoHeight pidToTop = new PIDtoHeight(elevator, Constants.Elevator.MAX_HEIGHT);
   private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT);
-  private final PIDUptoHeight pidUpToMatchHeight = new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
-  
+  private final PIDtoHeight pidUpToMatchHeight = new PIDtoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
   private final PIDActualClimb climbPID = new PIDActualClimb(elevator, ampTrap, intake, tilt, cartridge);
 //CAMERA AND LIMELIGHT COMMANDS
   private final LLAngle llAngle= new LLAngle(drive, 0);
@@ -189,12 +188,14 @@ public class RobotContainer {
 
     //***** Aux Controller ******
     //CARTRIDGE MOTORS
-    a1.whileTrue(pidPodiumSpeed);
-    b1.whileTrue(pidWooferSpeed);
-    x1.onTrue(ampCameraAngle);
+    //a1.whileTrue(pidPodiumSpeed);
+    a1.onTrue(frontShootGrabShoot);
+    view1.whileTrue(wooferLeft);
+    //b1.whileTrue(pidWooferSpeed);
+    //x1.onTrue(ampCameraAngle);
     y1.onTrue(floorCameraAngle);
-    //AMP
-    view1.whileTrue(ampMotorReverse);
+//AMP
+    //view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);
     
     //ELEVATOR - zero at the lower limit before using PID!!!
@@ -207,9 +208,9 @@ public class RobotContainer {
     rb1.whileTrue(manualDown);
 
     //DRIVE
-    //b1.onTrue(lowGear);
-    //x1.onTrue(highGear);
-    //menu1.onTrue(toggleGear);
+    b1.onTrue(lowGear);
+    x1.onTrue(highGear);
+    menu1.onTrue(toggleGear);
     //a1.onTrue(frontShootGrabShoot);
     //view1.whileTrue(wooferLeft);
     //lm1.onTrue(autoPIDDrive);

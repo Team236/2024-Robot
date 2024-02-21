@@ -27,9 +27,9 @@ public class AmpShot extends SequentialCommandGroup {
     addCommands(
       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2),
     Commands.parallel(
-      new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED), //use manualIntake here since count = 1
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM),
-      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED)
+      new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(5), //use manualIntake here since count = 1
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(5),
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(5)
       )
     );
     Intake.resetCounter();  //reset counter after shooting a Note

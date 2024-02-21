@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
+//import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -16,8 +16,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
+  //USING WPILib PID, not SparkMax PID.  SparkMax PID is not consistent - intermittent issues
   private CANSparkMax leftElevatorMotor, rightElevatorMotor;
-  private SparkPIDController leftPIDController, rightPIDController; 
+  //private SparkPIDController leftPIDController, rightPIDController;
   private RelativeEncoder elevatorEncoder;
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
@@ -36,22 +37,25 @@ public class Elevator extends SubsystemBase {
     leftElevatorMotor.setInverted(true);
     rightElevatorMotor.setInverted(false);
 
-    leftPIDController = leftElevatorMotor.getPIDController();
-    rightPIDController = rightElevatorMotor.getPIDController();
+    leftElevatorMotor.follow(rightElevatorMotor);
+
+    //leftPIDController = leftElevatorMotor.getPIDController();
+   // rightPIDController = rightElevatorMotor.getPIDController();
   
+   //Use encoder that is increasing when going up:
     elevatorEncoder = leftElevatorMotor.getEncoder(); //will use SparkMax encoder for elevator
     
     try {
       elevatorTopLimit = new DigitalInput(Constants.Elevator.DIO_ELEV_TOP);
     } catch (Exception e) {
       isTException = true;
-      SmartDashboard.putBoolean("exception thrown for top limit: ", isTException);
+      SmartDashboard.putBoolean("exception thrown for Elev top limit: ", isTException);
     }
     try {
       elevatorBottomLimit = new DigitalInput(Constants.Elevator.DIO_ELEV_BOTTOM);
     } catch (Exception e) {
       isBException = true;
-      SmartDashboard.putBoolean("exception thrown for bottom limit: ", isBException);
+      SmartDashboard.putBoolean("exception thrown for elev bottom limit: ", isBException);
     }
   }
 /* 
@@ -66,7 +70,7 @@ public class Elevator extends SubsystemBase {
     }
 */
     public void stopElevator() {
-      leftElevatorMotor.set(0);
+      //leftElevatorMotor.set(0);
       rightElevatorMotor.set(0);
     }
   
@@ -116,7 +120,7 @@ public class Elevator extends SubsystemBase {
       return  rightElevatorMotor.get();
     }  
   
-  
+ 
     public void setElevSpeed(double speed) {
     if (speed > 0) {  
       if (isETopLimit() || isTop()) {
@@ -125,10 +129,10 @@ public class Elevator extends SubsystemBase {
        }  else {
           // elevator going up but top limit is not tripped, go at commanded speed
           leftElevatorMotor.set(speed);
-         rightElevatorMotor.set(speed);
+          rightElevatorMotor.set(speed);
         }
       } 
-      else if (speed <= 0) {
+      else {
         if (isEBotLimit()) {
           //elevator going down and is at the bottom,stop and zero encoder
           stopElevator();
@@ -139,13 +143,12 @@ public class Elevator extends SubsystemBase {
           rightElevatorMotor.set(speed);
         }
        }
-         }
+         } 
 
-//!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
-//**** NOTE - This PID is done using SPARKMAX PID, BUT DRIVE PID is with WPILIB PID *******
- public void setSetpoint(double speed) {
-  leftPIDController.setReference(speed, ControlType.kPosition);
-  rightPIDController.setReference(speed, ControlType.kPosition);
+//!!!! SPARKMAX PID STUFF - DECIDED NOT TO USE SPARKMAX PID (using WPILib PID)
+/* public void setSetpoint(double encoderRevs) {
+  leftPIDController.setReference(encoderRevs, ControlType.kPosition);
+  rightPIDController.setReference(encoderRevs, ControlType.kPosition);
 }
 
 public void setP(double kP) {
@@ -167,7 +170,7 @@ public void setFF(double kFF) {
   leftPIDController.setFF(kFF);
   rightPIDController.setFF(kFF);
 }
-
+*/
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -175,5 +178,7 @@ public void setFF(double kFF) {
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
     SmartDashboard.putNumber("Left elevator encoder", getElevatorEncoder()); 
+    SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
+    SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
   }
 }

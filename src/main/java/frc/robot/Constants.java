@@ -96,9 +96,9 @@ public final class Constants {
   public static class Elevator {
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 20;// TODO get real number-somewhere above chain
     public static final double MATCH_HEIGHT= 6; // TODO determine, ideally same as just-above-chain
-    public static final double MIN_HEIGHT = 1; 
+    public static final double MIN_HEIGHT = 0.5; 
     public static final double MAX_HEIGHT = 27; 
-    public static final double CLIMB_HEIGHT = 1;
+    public static final double CLIMB_HEIGHT = 0.5;
 
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
@@ -113,12 +113,12 @@ public final class Constants {
     public static final double ELEV_DOWN_SPEED = 0.1; // keep this pos
     public static final double ELEV_MAN_DOWN_SPEED = 0.8; //just for testing climbing without PID
     // PID may need seperate pid for up, down, and climb
-    public static final double KP_ELEV_UP = 0.025; //
+    public static final double KP_ELEV_UP = 0.02; //
     public static final double KI_ELEV_UP = 0;
     public static final double KD_ELEV_UP = 0;
     public static final double KFF_ELEV_UP = 0;//only use KFF with velocity control
 
-    public static final double KP_ELEV_DOWN = 0.026;
+    public static final double KP_ELEV_DOWN = 0.03;
     public static final double KI_ELEV_DOWN = 0;
     public static final double KD_ELEV_DOWN = 0;
       public static final double KFF_ELEV_DOWN = 0;
@@ -135,8 +135,8 @@ public final class Constants {
   }
   public static class CartridgeShooter { 
     // SHOOTER MOTORS
-    public static final double PODIUM_PID_RPM = 1500; //TODO determine speed
-    public static final double WOOFER_PID_RPM = 2100; //TODO determine speed
+    public static final double PODIUM_PID_RPM = 3200; //TODO determine speed
+    public static final double WOOFER_PID_RPM = 3200; //TODO determine speed
     public static final double AMP_PID_RPM = 2100; //TODO determine speed
     public static final double MAX_PID_SPEED = 6000;
 
@@ -147,19 +147,20 @@ public final class Constants {
     public static final double kPLeft = 0.00005; // 0002
     public static final double kILeft = 0.0; // 0.00000001
     public static final double kDLeft = 0.0565; // 0.0565
-    public static final double kFFLeft = 0.00018; // 0.00021
+    public static final double kFFLeft = 0.0005; // 0.00021
 
     public static final double kPRight = 0.00005; // 0002
     public static final double kIRight = 0.0; // 0.00000001
     public static final double kDRight = 0.0565; // 0.0565
-    public static final double kFFRight = 0.00018; // 0.00021
+    public static final double kFFRight = 0.0005; // 0.00021
   }
   public static class Tilt { 
     //TILT MOTOR STUFF:
     public static final int DIO_TILT_EXT_LIMIT = 8;
     public static final int DIO_TILT_RET_LIMIT = 9;
     public static final double MAX_TILT_ENC_REVS = 78;//really 79.8, 64deg from top
-    public static final double TILT_ENC_REVS_WOOFER = 26.85; //34.4 deg//TODO FIND REAL ENCODER VALUES
+    public static final double TILT_ENC_REVS_WOOFER = 16
+    ; //34.4 deg//TODO FIND REAL ENCODER VALUES
     public static final double TILT_ENC_REVS_PODIUM = 46.71; //47 deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
     public static final double MAN_EXT_SPEED = 0.2; //TODO find these EXT/RET speeds

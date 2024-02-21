@@ -45,6 +45,6 @@ public PIDDownToHeight(Elevator elevator, double desiredHeight) {
   @Override
   public boolean isFinished() {
     //added last contiditon to test if elevator holds using just the brake (PID ends 2% early)
-    return (elevator.isEBotLimit());
+   return (elevator.isEBotLimit());
   }
 }

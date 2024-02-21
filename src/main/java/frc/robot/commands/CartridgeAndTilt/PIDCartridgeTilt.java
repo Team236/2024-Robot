@@ -53,7 +53,7 @@ public class PIDCartridgeTilt extends Command {
     if ( (tilt.getTiltSpeed() > 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {
       isAtLimit = true;
     } 
-    else if ( (tilt.getTiltSpeed() <= 0) && (tilt.isTRetLimit()) ) {
+    else if ( (tilt.getTiltSpeed() < 0) && (tilt.isTRetLimit()) ) {
       isAtLimit = true; 
     }
     else isAtLimit = false;

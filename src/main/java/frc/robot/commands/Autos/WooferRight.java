@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.Elevator.PIDUptoHeight;
+import frc.robot.commands.Elevator.PIDtoHeight;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.PIDCartridgeShot;
@@ -28,7 +28,7 @@ public class WooferRight extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     Commands.parallel( 
-      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
+      new PIDtoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
       new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
       ), 
     new WaitCommand(1), //just for testing

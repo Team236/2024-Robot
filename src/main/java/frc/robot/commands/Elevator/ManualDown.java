@@ -27,6 +27,9 @@ public class ManualDown extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //if (elevator.isEBotLimit()) {
+      //elevator.resetElevatorEncoder();
+    //}
     elevator.setElevSpeed(-speed);
   }
 
@@ -39,6 +42,7 @@ public class ManualDown extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return elevator.isEBotLimit();
+    //return elevator.isEBotLimit();
+    return false;
   }
 }

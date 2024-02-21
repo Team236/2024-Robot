@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Elevator;
 
-public class PIDUptoHeight extends Command {
+public class PIDtoHeight extends Command {
   private Elevator elevator;
   private double desiredHeight; //desired height in inches
 
   /** Creates a new SetElevatorHeight. */
-  public PIDUptoHeight(Elevator elevator, double desiredHeight) {
+  public PIDtoHeight(Elevator elevator, double desiredHeight) {
     this.elevator = elevator;
     this.desiredHeight = desiredHeight;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -35,7 +35,6 @@ public class PIDUptoHeight extends Command {
 
   public void execute() {
     elevator.setSetpoint(desiredHeight*Constants.Elevator.ELEV_IN_TO_REV);
-    //****elevator.setElevSpeed(pidController.calculate(elevator.getElevatorHeight()));
   }
 
   // Called once the command ends or is interrupted.
@@ -48,8 +47,17 @@ public class PIDUptoHeight extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return false;
-    //added last contiditon to test if elevator holds using just the brake (PID ends 2% early)
-    return (elevator.isTop() || elevator.isETopLimit());
+    
+  boolean isAtLimit;
+  if ( (elevator.getElevatorLeftSpeed() > 0) && (elevator.isETopLimit() || elevator.isTop()) ) {
+   isAtLimit = true;
+  }
+  else if ( (elevator.getElevatorLeftSpeed() < 0) && (elevator.isEBotLimit()) ) {
+    isAtLimit = true;
+  }
+  else isAtLimit = false;
+
+  return isAtLimit;
+    
   }
 }
