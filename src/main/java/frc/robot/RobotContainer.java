@@ -33,6 +33,7 @@ import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Shots.AmpShot;
 import frc.robot.commands.Shots.PIDCartridgeShot;
+import frc.robot.commands.Shots.PIDPodShotWithBlueTurn;
 import frc.robot.commands.Shots.RunIntkCartAmpMotors;
 import frc.robot.commands.Shots.RunIntkCartMotors;
 import frc.robot.subsystems.Cartridge;
@@ -74,6 +75,7 @@ public class RobotContainer {
  private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM);
  private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
  private final PIDCartridgeShot pidFrontAutoShot2 = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_AUTOSHOT2);
+ private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
  private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
  private final RunIntkCartAmpMotors runIntCartAmpMotors = new RunIntkCartAmpMotors(intake, cartridge, ampTrap,  Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
 //INTAKE COMMANDS:
@@ -184,7 +186,8 @@ public class RobotContainer {
     view.onTrue(autoPIDTurn1); //PID
    //SHOT COMMAND GROUPS
     upPov.whileTrue(runIntCartAmpMotors); //runs all shot motors, cart motors set to AMP_PID_RPM
-    downPov.whileTrue(wooferIntkCartMotors); //runs intake and cart motors, cart motors set to WOOFER_PID_RPM
+    //downPov.whileTrue(wooferIntkCartMotors); //runs intake and cart motors, cart motors set to WOOFER_PID_RPM
+    downPov.onTrue(pidPodShotWithBlueTurn);
     leftPov.onTrue(pidPodiumShot);
     rightPov.onTrue(pidWooferShot);
     lb.onTrue(pidFrontAutoShot2);

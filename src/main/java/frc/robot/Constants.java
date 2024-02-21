@@ -82,8 +82,10 @@ public final class Constants {
     public static final double WOOFER_PULL_AWAY = 10;
     public static final double PULL_AWAY_TO_NOTE = 60;
     // TURNING ANGLES
-    public static final double TURN_ANGLE_1 = 30; //CW
+    public static final double TURN_ANGLE_1 = 180; //CW
     public static final double TURN_ANGLE_2 = -180; //CCW
+    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 28;
+     public static final double TURN_ANGLE_RED_POD_TO_SPKR = -28;
     public static final double TURN_SIDE_OF_WOOFER = 57;
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
@@ -161,7 +163,7 @@ public final class Constants {
     public static final double MAX_TILT_ENC_REVS = 78;//really 79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
     public static final double TILT_ENC_REVS_WOOFER = 16; //34.4 deg//TODO FIND REAL ENCODER VALUES
-    public static final double TILT_ENC_REVS_PODIUM = 46.71; //47 deg from top
+    public static final double TILT_ENC_REVS_PODIUM = 49; //47 deg from top
     public static final double TILT_ENC_REVS_AUTOSHOT2 = 35;  //TODO test out
 
     public static final double MAN_EXT_SPEED = 0.2; //TODO find these EXT/RET speeds
