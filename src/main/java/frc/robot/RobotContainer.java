@@ -9,11 +9,11 @@ import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
 import frc.robot.commands.Autos.WooferLeft;
 import frc.robot.commands.Autos.WooferRight;
-import frc.robot.commands.CameraLimelight.AmpCameraAngle;
-import frc.robot.commands.CameraLimelight.FloorCameraAngle;
+import frc.robot.commands.CameraLimelight.CameraAngle;
 import frc.robot.commands.CameraLimelight.LLAngle;
 import frc.robot.commands.CameraLimelight.LLDistance;
 import frc.robot.commands.CameraLimelight.LLTarget;
+import frc.robot.commands.CameraLimelight.ToggleCameraAngle;
 import frc.robot.commands.CartridgeAndTilt.ManualExtCartridge;
 import frc.robot.commands.CartridgeAndTilt.ManualPodiumSpeed;
 import frc.robot.commands.CartridgeAndTilt.ManualRetractCartridge;
@@ -118,8 +118,9 @@ public class RobotContainer {
   private final LLAngle llAngle= new LLAngle(drive, 0);
   private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
   private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
-  private final AmpCameraAngle ampCameraAngle = new AmpCameraAngle(ampTrap, Constants.FRONT_CAM_AMP);
-  private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap, Constants.FRONT_CAM_FLOOR);
+  private final CameraAngle ampCameraAngle = new CameraAngle(Constants.FRONT_CAM_AMP);
+  private final CameraAngle floorCameraAngle = new CameraAngle(Constants.FRONT_CAM_FLOOR);
+  private final ToggleCameraAngle toggleCameraAngle = new ToggleCameraAngle();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -192,7 +193,8 @@ public class RobotContainer {
     //CARTRIDGE MOTORS
     //a1.whileTrue(pidPodiumSpeed);
     a1.onTrue(frontShootGrabShoot);
-    b1.onTrue(wooferLeft);
+    //b1.onTrue(wooderLeft);
+    b1.onTrue(toggleCameraAngle);
     x1.onTrue(ampCameraAngle);
     y1.onTrue(floorCameraAngle);
     view1.whileTrue(pidWooferSpeed);
@@ -213,7 +215,7 @@ public class RobotContainer {
     //DRIVE
     //b1.onTrue(lowGear);
     //x1.onTrue(highGear);
-   // menu1.onTrue(toggleGear);
+   lm1.onTrue(toggleGear);
     //a1.onTrue(frontShootGrabShoot);
     //view1.whileTrue(wooferLeft);
     //lm1.onTrue(autoPIDDrive);

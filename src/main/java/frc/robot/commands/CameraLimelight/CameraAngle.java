@@ -9,19 +9,16 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.AmpTrap;
 
-public class AmpCameraAngle extends Command {
+public class CameraAngle extends Command {
 //Moves the camera servo to view the Amp or Trap
 //The servo goes from 0 to 1, for 0 to 180 degrees.
-private AmpTrap ampTrap;
 private double camAngle;
 
   /** Creates a new AmpCameraAngle. */
-  public AmpCameraAngle(AmpTrap ampTrap, double camAngle) {
-    this.ampTrap = ampTrap;
+  public CameraAngle(double camAngle) {
     this.camAngle = camAngle;
     
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.ampTrap);
   }
 
   // Called when the command is initially scheduled.
