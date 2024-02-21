@@ -6,9 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.Distance;
-import edu.wpi.first.units.Measure;
-import edu.wpi.first.units.Velocity;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -29,11 +26,12 @@ public final class Constants {
   public static final double FRONT_CAM_AMP = 0.5;  //TODO adjust these as needed
   public static final double FRONT_CAM_FLOOR = 0.8;
 
-  public static class Controller {
-    // usb port on the laptop for the Xbox controller used by the Controller
-    // Operator (not driver)
-    // public static final int USB_AUXCONTROLLER = 1;
+  public static final int DIO_AUTO_1 = 1;  //TODO identify the correct DIO values
+  public static final int DIO_AUTO_2 = 2;
+  public static final int DIO_AUTO_3 = 3;
+  public static final int DIO_AUTO_4 = 4;
 
+  public static class Controller {
     // usb port on the laptop when driver using XBox controller
     public static final int USB_DRIVECONTROLLER = 0;
     public static final int USB_AUXCONTROLLER = 1;
@@ -52,7 +50,6 @@ public final class Constants {
     public static final int ID_RIGHT_REAR = 32; // 46
 
     public static final int ID_INTAKE = 13; // TODO find IDs for controller
-
     public static final int ID_AMP_TRAP_SHOOTER = 53; // TODO get real number
 
     // Elevator
@@ -73,8 +70,8 @@ public final class Constants {
   }
   
   public static class Amp{
-    public static final double AMP_TRAP_MOTOR_SPEED = 1.0; // TODO define real spead
-    public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.2; // TODO define real spead
+    public static final double AMP_TRAP_MOTOR_SPEED = 1.0;          // TODO define real spead
+    public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.2;  // TODO define real spead
     public static final double AMP_TAG_DISTANCE = Units.inchesToMeters(16);
     public static final double AMP_TAG_MAX_DISTANCE = Units.inchesToMeters(80);
   }
@@ -110,10 +107,10 @@ public final class Constants {
     public static final int SOL_HIGH_GEAR = 5;// ***2 previously
 
     // external drive encoders
-    public static final int DIO_LDRIVE_ENC_A = 18;
-    public static final int DIO_LDRIVE_ENC_B = 19;
-    public static final int DIO_RDRIVE_ENC_A = 9; // 13 TODO switch back after testing the Roborio DIO vs Gyro DIO
-    public static final int DIO_RDRIVE_ENC_B = 8; // 12
+    public static final int DIO_LDRIVE_ENC_A = 18;  // 0-9 on the Roborio 
+    public static final int DIO_LDRIVE_ENC_B = 19;  // 10-19 on the NavX
+    public static final int DIO_RDRIVE_ENC_A = 9;   // 13 TODO switch back after testing the Roborio DIO vs Gyro DIO
+    public static final int DIO_RDRIVE_ENC_B = 8;   // 12
     // Calculates distance in INCHES from encoder pulses (ticks get it?)
 
     public static final double DIAMETER = 6;
@@ -164,7 +161,6 @@ public final class Constants {
   
     // Example value only - as above, this must be tuned for your drive!
     public static final double kPDriveVel = 8.5;
-
   }
 
   public static class Elevator {

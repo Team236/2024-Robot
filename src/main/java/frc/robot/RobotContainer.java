@@ -77,19 +77,18 @@ public class RobotContainer {
 
   //create instance of each subsystem
   private final Drive drive = new Drive();
-  private final OdometryDrive odometryDrive;
   private final Intake intake = new Intake();
   private final Cartridge cartridge = new Cartridge();
   private final AmpTrap ampTrap = new AmpTrap();
   private final Elevator elevator = new Elevator();
   private final Tilt tilt = new Tilt();
- 
+  private final OdometryDrive odometryDrive;
 
   //AUTO SWITCHES
-  private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
-  private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
-  private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
-  private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_4);
+  private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
+  private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
+  private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DIO_AUTO_3);
+  private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DIO_AUTO_4);
 
   //create instance of each command
   //DRIVE COMMANDS
