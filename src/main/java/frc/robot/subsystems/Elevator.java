@@ -19,7 +19,7 @@ public class Elevator extends SubsystemBase {
   //USING WPILib PID, not SparkMax PID.  SparkMax PID is not consistent - intermittent issues
   private CANSparkMax leftElevatorMotor, rightElevatorMotor;
   //private SparkPIDController leftPIDController, rightPIDController;
-  private RelativeEncoder elevatorEncoder;
+  private RelativeEncoder leftElevEncoder, rightElevEncoder;
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
   /** Creates a new Elevator. */
@@ -37,14 +37,13 @@ public class Elevator extends SubsystemBase {
     leftElevatorMotor.setInverted(true);
     rightElevatorMotor.setInverted(false);
 
-    leftElevatorMotor.follow(rightElevatorMotor);
-
+    //leftElevatorMotor.follow(rightElevatorMotor);
     //leftPIDController = leftElevatorMotor.getPIDController();
-   // rightPIDController = rightElevatorMotor.getPIDController();
+    // rightPIDController = rightElevatorMotor.getPIDController();
   
-   //Use encoder that is increasing when going up:
-    elevatorEncoder = leftElevatorMotor.getEncoder(); //will use SparkMax encoder for elevator
-    
+    leftElevEncoder = leftElevatorMotor.getEncoder(); //will use SparkMax encoder for elevator
+    rightElevEncoder = rightElevatorMotor.getEncoder();
+
     try {
       elevatorTopLimit = new DigitalInput(Constants.Elevator.DIO_ELEV_TOP);
     } catch (Exception e) {
@@ -90,17 +89,21 @@ public class Elevator extends SubsystemBase {
     }
    
     public void resetElevatorEncoder() {
-      elevatorEncoder.setPosition(0); //SparkMax encoder (left only)
+      leftElevEncoder.setPosition(0); //SparkMax encoder (left only)
+      rightElevEncoder.setPosition(0);
     }
    
     //returns encoder position in REVOLUTIONS (number of rotations)
-      public double getElevatorEncoder() {
-      return elevatorEncoder.getPosition(); //for a SparkMax encoder
+      public double getElevLeftEncoder() {
+      return leftElevEncoder.getPosition(); //for a SparkMax encoder
     }
-
+      public double getElevRightEncoder() {
+      return rightElevEncoder.getPosition(); //for a SparkMax encoder
+    }
     //reads elevator distance travelled in inches 
+    //!!!!!!Use encoder that is increasing when going up to evaluate distance travelled:
     public double getElevatorHeight() {
-      return  getElevatorEncoder() * Constants.Elevator.ELEV_REV_TO_IN;
+      return  getElevLeftEncoder() * Constants.Elevator.ELEV_REV_TO_IN;
     } 
 
     public boolean isTop() {
@@ -146,6 +149,7 @@ public class Elevator extends SubsystemBase {
          } 
 
 //!!!! SPARKMAX PID STUFF - DECIDED NOT TO USE SPARKMAX PID (using WPILib PID)
+//ISSUE WITH SPARKMAX LIKELY DUE TO NOT RESETTING BOTH LEFT AND RIGHT ENCODERS WHEN BOTTOM LIMIT HIT
 /* public void setSetpoint(double encoderRevs) {
   leftPIDController.setReference(encoderRevs, ControlType.kPosition);
   rightPIDController.setReference(encoderRevs, ControlType.kPosition);
@@ -177,7 +181,8 @@ public void setFF(double kFF) {
     SmartDashboard.putNumber("Elevator height", getElevatorHeight());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
-    SmartDashboard.putNumber("Left elevator encoder", getElevatorEncoder()); 
+    SmartDashboard.putNumber("Left elevator encoder", getElevLeftEncoder()); 
+    SmartDashboard.putNumber("Right elevator encoder", getElevRightEncoder());
     SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
     SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
   }

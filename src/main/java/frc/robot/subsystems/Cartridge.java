@@ -10,7 +10,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,10 +18,10 @@ import frc.robot.Constants;
 public class Cartridge extends SubsystemBase { 
   private CANSparkMax leftShooterMotor, rightShooterMotor;
   private SparkPIDController leftPIDController, rightPIDController;
-  private RelativeEncoder leftEncoder, rightEncoder;
+  private RelativeEncoder leftCartEncoder, rightCartEncoder;
 
   /** Creates a new CartridgeShooter. */
-  //TODO:  CHECK IF CARTRIDGE POSITION HOLDS WHEN PIDCartridgeTilt ends
+  //USING WPILib PID, not SparkMax PID.  SparkMax PID is not consistent - intermittent issues
   public Cartridge() {
     leftShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_CARTRIDGE_LEFT, MotorType.kBrushless);
     rightShooterMotor = new CANSparkMax(Constants.MotorControllers.ID_CARTRIDGE_RIGHT, MotorType.kBrushless);
@@ -30,17 +29,19 @@ public class Cartridge extends SubsystemBase {
     leftShooterMotor.restoreFactoryDefaults();
     rightShooterMotor.restoreFactoryDefaults();
 
-    leftShooterMotor.setInverted(true);  //*** 
-    rightShooterMotor.setInverted(false); //*** 
-
     leftShooterMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     rightShooterMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+
+    leftShooterMotor.setInverted(true);  
+    rightShooterMotor.setInverted(false); 
 
     leftPIDController = leftShooterMotor.getPIDController();
     rightPIDController = rightShooterMotor.getPIDController();
 
-    leftEncoder = leftShooterMotor.getEncoder();
-    rightEncoder = rightShooterMotor.getEncoder();
+    //TODO: determine which encoder is increasing when going up - 
+    //CartEncoder = leftShooterMotor.getEncoder();
+    rightCartEncoder = rightShooterMotor.getEncoder();
+    leftCartEncoder = leftShooterMotor.getEncoder();
   }
 
   //methods start here
@@ -59,7 +60,7 @@ public class Cartridge extends SubsystemBase {
     rightShooterMotor.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
   }
 */
-  //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is done using WPILIB PID **********
+  //**** NOTE - PID is done using SPARKMAX PID**********
   public void setSetpoint(double speed) {
     leftPIDController.setReference(speed, ControlType.kVelocity);
     rightPIDController.setReference(speed, ControlType.kVelocity); 
@@ -83,7 +84,7 @@ public class Cartridge extends SubsystemBase {
   public void setFF(double kFFLeft, double kFFRight) {
     leftPIDController.setFF(kFFLeft);
     rightPIDController.setFF(kFFRight);
-  }
+  } 
 
   public void setOutputRange() {
     leftPIDController.setOutputRange(0, Constants.CartridgeShooter.MAX_PID_SPEED);
@@ -91,28 +92,31 @@ public class Cartridge extends SubsystemBase {
   }
 
   public void resetEncoders() {
-    leftEncoder.setPosition(0);
-    rightEncoder.setPosition(0);
+    leftCartEncoder.setPosition(0);
+    rightCartEncoder.setPosition(0);
   }
 
-  public double getLeftEncoder() {
-    return leftEncoder.getPosition();
+  public double getLeftCartEncoder() {
+    return leftCartEncoder.getPosition();
+  }
+  public double getRightCartEncoder() {
+    return rightCartEncoder.getPosition();
   }
 
-  public double getRightEncoder() {
-    return rightEncoder.getPosition();
-  }
 
   public double getLeftVelocity() {
-    return leftEncoder.getVelocity();
+    return leftCartEncoder.getVelocity();
   }
 
-  public double getRightVelocity() {
-    return rightEncoder.getVelocity();
+   public double getRightVelocity() {
+    return rightCartEncoder.getVelocity();
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Shooter Motor RPM ", getLeftVelocity());
+    SmartDashboard.putNumber("Left Cart Motor RPM ", getLeftVelocity());
+    SmartDashboard.putNumber("Right Cart Motor RPM ", getRightVelocity());
+    SmartDashboard.putNumber("Left Cart encoder: ", getLeftCartEncoder());
+    SmartDashboard.putNumber("Right Cart encoder: ", getRightCartEncoder());
   }
 }
