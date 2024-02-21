@@ -25,11 +25,14 @@ public class AmpShot extends SequentialCommandGroup {
   //Shoots Amp - spins intake, cartridge (PID velocity), and Amp motors
   public AmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt) {
     addCommands(
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2),
     Commands.parallel(
-      new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(5), //use manualIntake here since count = 1
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(5),
-      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(5)
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(1),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1)
+      ),
+    Commands.parallel(
+      new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4), //use manualIntake here since count = 1
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(4),
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4)
       )
     );
     Intake.resetCounter();  //reset counter after shooting a Note
