@@ -36,13 +36,13 @@ public class Tilt extends SubsystemBase {
       tiltExtLimit = new DigitalInput(Constants.Tilt.DIO_TILT_EXT_LIMIT);
     } catch (Exception e) {
        isTExtException = true;
-      SmartDashboard.putBoolean("exception thrown for top limit: ", isTExtException);
+      SmartDashboard.putBoolean("exception thrown for Tilt top limit: ", isTExtException);
     }
     try {
       tiltRetLimit = new DigitalInput(Constants.Tilt.DIO_TILT_RET_LIMIT);
     } catch (Exception e) {
       isTRetException = true;
-      SmartDashboard.putBoolean("exception thrown for bottom limit: ", isTRetException);
+      SmartDashboard.putBoolean("exception thrown for Tilt bottom limit: ", isTRetException);
     }
   }
 //MEHTODS START HERE
@@ -94,7 +94,8 @@ public void setTiltSpeed(double speed) {
         // cartridge extending out but fully extended limit is not tripped, go at commanded speed
        tiltMotor.set(speed);
       }
-    } else if (speed <= 0) {
+ } 
+ else {
       if (isTRetLimit()) {
         // cartridge retracting and retract limit is tripped, stop and zero encoder
         stopTilt();

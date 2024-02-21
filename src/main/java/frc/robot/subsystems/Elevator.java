@@ -88,7 +88,7 @@ public class Elevator extends SubsystemBase {
       }
     }
    
-    public void resetElevatorEncoder() {
+    public void resetElevatorEncoders() {
       leftElevEncoder.setPosition(0); //SparkMax encoder (left only)
       rightElevEncoder.setPosition(0);
     }
@@ -139,7 +139,7 @@ public class Elevator extends SubsystemBase {
         if (isEBotLimit()) {
           //elevator going down and is at the bottom,stop and zero encoder
           stopElevator();
-          resetElevatorEncoder();
+          resetElevatorEncoders();
         } else {
         // elevator going down but not at the bottom, go at commanded speed
           leftElevatorMotor.set(speed);

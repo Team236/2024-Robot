@@ -8,17 +8,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.AmpTrap;
+import frc.robot.subsystems.Drive;
 
-public class FloorCameraAngle extends Command {
-//Moves the camera servo to view the Floor
-//The servo goes from 0 to 1, for 0 to 180 degrees.
+public class ToggleCameraAngle extends Command {
+private boolean toggle;
 
-  /** Creates a new FloorCameraAngle. */
-  public FloorCameraAngle() {
+  /** Creates a new ToggleCameraAngle. */
+  public ToggleCameraAngle() {
     // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(this.xxx);
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -26,8 +24,20 @@ public class FloorCameraAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  //if angle more than 90 degrees (0.5), it is set to see Floor, so reset it to see Amp
+  //otherwise it is set to see the Amp, so reset it to see the Floor
+  //comand is finised when toggle is true 
+  toggle = false;
+
+  if (Robot.cameraServo.get() > 0.5) {  //TODO - FIND TRUE VALUE HERE FOR AMP vs FLOOR ANGLES
+    Robot.cameraServo.set(Constants.FRONT_CAM_AMP);
+  } else {
     Robot.cameraServo.set(Constants.FRONT_CAM_FLOOR);
   }
+
+  toggle = true;
+  }
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -36,6 +46,6 @@ public class FloorCameraAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return toggle;
   }
 }

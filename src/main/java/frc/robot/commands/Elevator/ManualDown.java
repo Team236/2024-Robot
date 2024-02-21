@@ -43,6 +43,5 @@ public class ManualDown extends Command {
   @Override
   public boolean isFinished() {
     return elevator.isEBotLimit();
-    //return false;
   }
 }

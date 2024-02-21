@@ -50,17 +50,6 @@ public class PIDDownForClimb extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-  /* 
-  boolean isAtLimit;
-  if ( (elevator.getElevatorLeftSpeed() > 0) && (elevator.isETopLimit() || elevator.isTop()) ) {
-   isAtLimit = true;
-  }
-  else if ( (elevator.getElevatorLeftSpeed() < 0) && (elevator.isEBotLimit()) ) {
-    isAtLimit = true;
-  }
-  else isAtLimit = false; 
-  return isAtLimit;
-  */
+    return elevator.isEBotLimit();
   }
 }

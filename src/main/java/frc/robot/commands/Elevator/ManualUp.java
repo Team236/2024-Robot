@@ -40,6 +40,5 @@ public class ManualUp extends Command {
   @Override
   public boolean isFinished() {
    return (elevator.isETopLimit() || elevator.isTop());
-   //return false;
   }
 }
