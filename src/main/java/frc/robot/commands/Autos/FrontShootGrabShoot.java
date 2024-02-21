@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator.PIDUptoHeight;
+import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.subsystems.Tilt;
@@ -29,7 +30,7 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
     new WaitCommand(1),
     Commands.parallel(
       new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
-      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
+      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
       //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(5) //not needed
       ),
     new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
