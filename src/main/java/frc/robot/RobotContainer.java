@@ -28,7 +28,7 @@ import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Elevator.PIDActualClimb;
 import frc.robot.commands.Elevator.PIDDownToHeight;
-import frc.robot.commands.Elevator.PIDtoHeight;
+import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Shots.AmpShot;
@@ -109,9 +109,9 @@ public class RobotContainer {
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
    private final ManualDown climbManualDown = new ManualDown(elevator, Constants.Elevator.ELEV_MAN_DOWN_SPEED);
-  private final PIDtoHeight pidToTop = new PIDtoHeight(elevator, Constants.Elevator.MAX_HEIGHT);
+  private final PIDUptoHeight pidToTop = new PIDUptoHeight(elevator, Constants.Elevator.MAX_HEIGHT);
   private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT);
-  private final PIDtoHeight pidUpToMatchHeight = new PIDtoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
+  private final PIDUptoHeight pidUpToMatchHeight = new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
   private final PIDActualClimb climbPID = new PIDActualClimb(elevator, ampTrap, intake, tilt, cartridge);
 //CAMERA AND LIMELIGHT COMMANDS
   private final LLAngle llAngle= new LLAngle(drive, 0);

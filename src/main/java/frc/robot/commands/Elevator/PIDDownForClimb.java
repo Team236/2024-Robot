@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Elevator;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Elevator;
@@ -11,27 +12,32 @@ import frc.robot.subsystems.Elevator;
 public class PIDDownForClimb extends Command { 
   private Elevator elevator;
   private double desiredHeight; //desired height in inches
-
-public PIDDownForClimb(Elevator elevator, double desiredHeight) {
+  private final PIDController pidController;
+  private double kP = Constants.Elevator.KP_ELEV_CLIMB;
+  private double kI = Constants.Elevator.KI_ELEV_CLIMB;
+  private double kD = Constants.Elevator.KD_ELEV_CLIMB;
+  
+  /** Creates a new SetElevatorHeight. */
+  public PIDDownForClimb(Elevator elevator, double desiredHeight) {
+    pidController = new PIDController(kP, kI, kD);
     this.elevator = elevator;
-    this.desiredHeight = desiredHeight*Constants.Elevator.ELEV_IN_TO_REV;
+    this.desiredHeight = desiredHeight;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevator);
+
+    pidController.setSetpoint(desiredHeight);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //!!!! pidController.reset();
-    elevator.setP(Constants.Elevator.KP_ELEV_CLIMB);
-    elevator.setI(Constants.Elevator.KI_ELEV_CLIMB);
-    elevator.setD(Constants.Elevator.KD_ELEV_CLIMB);
-    elevator.setFF(Constants.Elevator.KFF_ELEV_CLIMB);
+    pidController.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+
   public void execute() {
-    elevator.setSetpoint(desiredHeight);
+    elevator.setElevSpeed(pidController.calculate(elevator.getElevatorHeight()));
   }
 
   // Called once the command ends or is interrupted.
@@ -40,9 +46,21 @@ public PIDDownForClimb(Elevator elevator, double desiredHeight) {
     elevator.stopElevator();
   }
 
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return elevator.isEBotLimit();
+    return false;
+  /* 
+  boolean isAtLimit;
+  if ( (elevator.getElevatorLeftSpeed() > 0) && (elevator.isETopLimit() || elevator.isTop()) ) {
+   isAtLimit = true;
+  }
+  else if ( (elevator.getElevatorLeftSpeed() < 0) && (elevator.isEBotLimit()) ) {
+    isAtLimit = true;
+  }
+  else isAtLimit = false; 
+  return isAtLimit;
+  */
   }
 }

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
-import frc.robot.commands.Elevator.PIDtoHeight;
+import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.subsystems.Tilt;
@@ -24,7 +24,7 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
     Commands.parallel(
       //WOOFER shot
       new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(4), 
-      new PIDtoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2)//bring elevator up to match height (Start elevator at bottom limit at match start)
+      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2)//bring elevator up to match height (Start elevator at bottom limit at match start)
       ),
     new WaitCommand(1),
     Commands.parallel(
