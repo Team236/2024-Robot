@@ -62,7 +62,7 @@ public final class Constants {
     public static final int DIO_RDRIVE_ENC_A = 11; //changed!
     public static final int DIO_RDRIVE_ENC_B = 10; //changed!
     // Calculates distance in INCHES from encoder pulses (ticks get it?)
-    public static final double DIAMETER = 3.T;
+    public static final double DIAMETER = 3.7;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
     public static final double GEAR_RATIO = 1; //for external encoder - no gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
