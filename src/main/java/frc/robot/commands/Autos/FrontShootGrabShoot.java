@@ -35,7 +35,7 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
     new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
     new WaitCommand(1),
     //WOOFER SHOT - TODO: CAN CHANGE TO FAR SHOT WITH NO DRIVING REVERSE?
-    new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(4) 
+    new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(6) 
     //TODO Determine if line below needed - to hold elev with PID during teleop
     //,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
     );
