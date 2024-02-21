@@ -135,10 +135,10 @@ public final class Constants {
   }
   public static class CartridgeShooter { 
     // SHOOTER MOTORS
-    public static final double PODIUM_PID_RPM = 3200; //TODO determine speed
-    public static final double WOOFER_PID_RPM = 3200; //TODO determine speed
-    public static final double AMP_PID_RPM = 2100; //TODO determine speed
-    public static final double MAX_PID_SPEED = 6000;
+    public static final double PODIUM_PID_RPM = 3000; //TODO determine speed
+    public static final double WOOFER_PID_RPM = 3000; //TODO determine speed
+    public static final double AMP_PID_RPM = 3000; //Speed to run cart motors when doing AMP shot
+    public static final double MAX_PID_SPEED = 5500;
 
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6; //just for bench test - use PID in match
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
@@ -147,12 +147,12 @@ public final class Constants {
     public static final double kPLeft = 0.00005; // 0002
     public static final double kILeft = 0.0; // 0.00000001
     public static final double kDLeft = 0.0565; // 0.0565
-    public static final double kFFLeft = 0.0005; // 0.00021
+    public static final double kFFLeft = 0.00018; // 0.00021
 
     public static final double kPRight = 0.00005; // 0002
     public static final double kIRight = 0.0; // 0.00000001
     public static final double kDRight = 0.0565; // 0.0565
-    public static final double kFFRight = 0.0005; // 0.00021
+    public static final double kFFRight = 0.00018; // 0.00021
   }
   public static class Tilt { 
     //TILT MOTOR STUFF:
