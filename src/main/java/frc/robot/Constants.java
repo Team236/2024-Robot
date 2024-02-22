@@ -81,12 +81,15 @@ public final class Constants {
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 10;
     public static final double PULL_AWAY_TO_NOTE = 60;
+    public static final double WOOFER_ANGLED_TO_NOTE = 65;
+    public static final double NOTE_TO_NOTE = 57;
     // TURNING ANGLES
     public static final double TURN_ANGLE_1 = 180; //CW
     public static final double TURN_ANGLE_2 = -180; //CCW
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 28;
      public static final double TURN_ANGLE_RED_POD_TO_SPKR = -28;
     public static final double TURN_SIDE_OF_WOOFER = 57;
+    public static final double TURN_TO_THIRD_NOTE = 118;
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
     //AUTO SWITCHES
