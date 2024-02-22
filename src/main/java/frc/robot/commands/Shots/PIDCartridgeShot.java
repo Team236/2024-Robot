@@ -34,8 +34,8 @@ public class PIDCartridgeShot extends SequentialCommandGroup {
           new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(1)
           ),
           Commands.parallel(
-            new ManualIntakeWithWait(intake, intSpeed).withTimeout(4), //use manualIntake since counter =1 here
-            new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(4)
+            new ManualIntakeWithWait(intake, intSpeed).withTimeout(2), //use manualIntake since counter =1 here
+            new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
             )
       );
     Intake.resetCounter();  //reset counter after shooting a Note

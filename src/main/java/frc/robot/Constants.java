@@ -73,22 +73,23 @@ public final class Constants {
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
     public static final double KP_TURN_CCW = 0.02;
-    public static final double TURNCCW_DEG_TO_REV = 0.42;
+    public static final double TURNCCW_DEG_TO_REV = 0.238; //0.42
     public static final double KP_TURN_CW = 0.02;
-    public static final double TURNCW_DEG_TO_REVS = 0.42;
+    public static final double TURNCW_DEG_TO_REVS = 0.238; ///0.42;
     // AUTO DISTANCES
     public static final double AUTO_DISTANCE_1 = 48;
     public static final double WOOFERFRONT_TO_NOTE = 60;
-    public static final double WOOFER_PULL_AWAY = 10;
+    public static final double WOOFER_PULL_AWAY = 14;
     public static final double PULL_AWAY_TO_NOTE = 60;
-    public static final double WOOFER_ANGLED_TO_NOTE = 65;
+    public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
     // TURNING ANGLES
-    public static final double TURN_ANGLE_1 = 180; //CW
+    public static final double TURN_ANGLE_1 = 24;
+    ; //CW
     public static final double TURN_ANGLE_2 = -180; //CCW
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 28;
      public static final double TURN_ANGLE_RED_POD_TO_SPKR = -28;
-    public static final double TURN_SIDE_OF_WOOFER = 57;
+    public static final double TURN_SIDE_OF_WOOFER = 36;
     public static final double TURN_TO_THIRD_NOTE = 118;
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
@@ -135,12 +136,12 @@ public final class Constants {
   }
   public static class Intake {
     public static final int DIO_COUNTER = 12;
-    public static final double INTAKE_SPEED = 0.7;//TODO experiment with this speed
+    public static final double INTAKE_SPEED = 0.5;//TODO experiment with this speed
     public static final double EJECT_SPEED = -0.5;
   }
   public static class CartridgeShooter { 
     // SHOOTER MOTORS
-    public static final double PODIUM_PID_RPM = 3500; //TODO determine speed
+    public static final double PODIUM_PID_RPM = 3500; //3500//TODO determine speed
     public static final double WOOFER_PID_RPM = 3500; //TODO determine speed
     public static final double AMP_PID_RPM = 3500; //Speed to run cart motors when doing AMP shot
     public static final double MAX_PID_SPEED = 5500;
@@ -166,7 +167,7 @@ public final class Constants {
     public static final double MAX_TILT_ENC_REVS = 78;//really 79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
     public static final double TILT_ENC_REVS_WOOFER = 16; //34.4 deg//TODO FIND REAL ENCODER VALUES
-    public static final double TILT_ENC_REVS_PODIUM = 49; //47 deg from top
+    public static final double TILT_ENC_REVS_PODIUM = 44; //46, 47 deg from top
     public static final double TILT_ENC_REVS_AUTOSHOT2 = 35;  //TODO test out
 
     public static final double MAN_EXT_SPEED = 0.2; //TODO find these EXT/RET speeds

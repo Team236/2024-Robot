@@ -27,7 +27,7 @@ public class ThreeShotLeftAngle extends SequentialCommandGroup {
     addCommands(
       Commands.parallel( 
         new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(3), //bring elevator up to match height
-        new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
+        new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(3)
         ),
     //new WaitCommand(1), //just for testing
       Commands.parallel(
