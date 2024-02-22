@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class ToggleCameraAngle extends Command {
+public class CameraToggle extends Command {
 private boolean toggle;
 
-  /** Creates a new ToggleCameraAngle. */
-  public ToggleCameraAngle() {
+  /** Creates a new CameraToggle. */
+  public CameraToggle() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
   // Called when the command is initially scheduled.

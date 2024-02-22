@@ -13,7 +13,7 @@ import frc.robot.commands.CameraLimelight.CameraAngle;
 import frc.robot.commands.CameraLimelight.LLAngle;
 import frc.robot.commands.CameraLimelight.LLDistance;
 import frc.robot.commands.CameraLimelight.LLTarget;
-import frc.robot.commands.CameraLimelight.ToggleCameraAngle;
+import frc.robot.commands.CameraLimelight.CameraToggle;
 import frc.robot.commands.CartridgeAndTilt.ManualExtCartridge;
 import frc.robot.commands.CartridgeAndTilt.ManualPodiumSpeed;
 import frc.robot.commands.CartridgeAndTilt.ManualRetractCartridge;
@@ -122,7 +122,7 @@ public class RobotContainer {
   private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
   private final CameraAngle ampCameraAngle = new CameraAngle(Constants.FRONT_CAM_AMP);
   private final CameraAngle floorCameraAngle = new CameraAngle(Constants.FRONT_CAM_FLOOR);
-  private final ToggleCameraAngle toggleCameraAngle = new ToggleCameraAngle();
+  private final CameraToggle toggleCameraAngle = new CameraToggle();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

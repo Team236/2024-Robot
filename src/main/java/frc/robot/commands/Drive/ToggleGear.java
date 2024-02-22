@@ -4,12 +4,14 @@
 
 package frc.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Drive;
 
 public class ToggleGear extends Command {
   private Drive drive;
   private boolean toggle;
+  private boolean isLow;
   /** Creates a new ToggleGear. */
   public ToggleGear(Drive drive) {
   this.drive = drive;
@@ -32,8 +34,10 @@ public class ToggleGear extends Command {
 
   if (drive.isInLowGear()) {
     drive.setGearHigh();
+    isLow = false;
   } else {
     drive.setGearLow();
+    isLow = true;
   }
   
   toggle = true;
@@ -41,7 +45,9 @@ public class ToggleGear extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    SmartDashboard.putBoolean("In Low Gear?:  ", isLow);
+  }
 
   // Returns true when the command should end.
   @Override
