@@ -7,6 +7,7 @@ import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
+import frc.robot.commands.Autos.ThreeShotLeftAngle;
 import frc.robot.commands.Autos.WooferLeft;
 import frc.robot.commands.Autos.WooferRight;
 import frc.robot.commands.CameraLimelight.CameraAngle;
@@ -78,7 +79,15 @@ public class RobotContainer {
  private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
  private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
  private final RunIntkCartAmpMotors runIntCartAmpMotors = new RunIntkCartAmpMotors(intake, cartridge, ampTrap,  Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
-//INTAKE COMMANDS:
+//AUTO COMMANDS
+  private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
+  private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1); //180
+  private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2); //-180
+  private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator);
+  private final WooferLeft wooferLeft = new WooferLeft(intake, cartridge, tilt, drive, elevator);
+  private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, elevator);
+  private final ThreeShotLeftAngle threeShotLeftAngle = new ThreeShotLeftAngle(intake, cartridge, tilt, drive, elevator);
+ //INTAKE COMMANDS:
   private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
@@ -96,13 +105,6 @@ public class RobotContainer {
 //AMPTRAP COMMANDS:
   private final AmpMotor ampMotorForward = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
-//AUTO COMMANDS
-  private final AutoPIDDrive autoPIDDrive = new AutoPIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
-  private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1); //180
-  private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2); //-180
-  private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator);
-  private final WooferLeft wooferLeft = new WooferLeft(intake, cartridge, tilt, drive, elevator);
-  private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, elevator);
 //AUTO SWITCHES
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
   private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
@@ -173,7 +175,8 @@ public class RobotContainer {
     
     //***** driver controller ******
     //INTAKE
-    rb.whileTrue(manualIntake);   
+    //rb.whileTrue(manualIntake);   
+    rb.whileTrue(threeShotLeftAngle);
     rm.whileTrue(manualEject);
     a.whileTrue(intakeWithCounter); //USE THIS FOR MATCH
     //TILT- zero at the retracted limit before using PID!!!
