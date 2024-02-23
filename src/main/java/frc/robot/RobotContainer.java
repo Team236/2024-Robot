@@ -218,9 +218,9 @@ public class RobotContainer {
     //ELEVATOR - zero at the lower limit before using PID!!!
     upPov1.onTrue(pidToTop);
     downPov1.onTrue(pidToBot);
-    //leftPov1.onTrue(pidUpToMatchHeight); //do this going up
+    leftPov1.onTrue(pidUpToMatchHeight); //do this going up
     //leftPov1.whileTrue(climbManualDown);//for climb with constant speed 0.8
-    leftPov1.onTrue(toggleGear);
+    //leftPov1.onTrue(toggleGear);
     rightPov1.onTrue(climbPID);
     lb1.whileTrue(manualUp);
     rb1.whileTrue(manualDown);

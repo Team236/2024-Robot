@@ -100,11 +100,11 @@ public final class Constants {
     public static final int DIO_AUTO_4 = 3;
   }
   public static class Elevator {
-    public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8-6;// TODO get real number-somewhere above chain
-    public static final double MATCH_HEIGHT= 6-6; // TODO determine
-    public static final double MIN_HEIGHT = 0.5-6; 
-    public static final double MAX_HEIGHT = 27-6; 
-    public static final double CLIMB_HEIGHT = 0.5-6;
+    public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8;//-6;// TODO get real number-somewhere above chain
+    public static final double MATCH_HEIGHT= 6;//-6; // TODO determine
+    public static final double MIN_HEIGHT = 0.5;//-6; 
+    public static final double MAX_HEIGHT = 27;//-6; 
+    public static final double CLIMB_HEIGHT = 0.5;//-6;
 
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
