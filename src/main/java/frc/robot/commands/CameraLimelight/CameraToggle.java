@@ -9,34 +9,26 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class CameraToggle extends Command {
-private boolean toggle;
-
   /** Creates a new CameraToggle. */
   public CameraToggle() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
-  // Called when the command is initially scheduled.
+
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  //if angle more than 90 degrees (0.5), it is set to see Floor, so reset it to see Amp
-  //otherwise it is set to see the Amp, so reset it to see the Floor
-  //comand is finised when toggle is true 
-  toggle = false;
-
-  if (Robot.cameraServo.get() > 0.5) {  //TODO - FIND TRUE VALUE HERE FOR AMP vs FLOOR ANGLES
+//***assumes camera aimed at floor at start of match (see Robot.java, teleopInit)
+  if (Robot.isFloor) { 
     Robot.cameraServo.set(Constants.FRONT_CAM_AMP);
+    Robot.isFloor = false;
   } else {
     Robot.cameraServo.set(Constants.FRONT_CAM_FLOOR);
+    Robot.isFloor = true;
   }
-
-  toggle = true;
   }
   
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
@@ -44,6 +36,6 @@ private boolean toggle;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return toggle;
+    return false;
   }
 }

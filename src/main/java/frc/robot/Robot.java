@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
   public AHRS navx = new AHRS();
   public UsbCamera usbCamera0;
   public static Servo cameraServo;
+  public static boolean isFloor;
 
   private RobotContainer m_robotContainer;
 
@@ -117,6 +118,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    isFloor = true; //start match with camera aimed at floor
   }
 
   /** This function is called periodically during operator control. */
