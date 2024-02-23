@@ -242,20 +242,22 @@ public class RobotContainer {
         SmartDashboard.putBoolean("Autoswitch2: ", !autoSwitch2.get());
         SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
         SmartDashboard.putBoolean("Autoswitch4: ", !autoSwitch4.get());
+    
+    Command command = null;
+    //Swith 1 OFF, 2 ON, 3 ON, 4 ON
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      return wooferLeft;
-     //return (new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
+      command = wooferLeft;
+    //Swith 1 ON, 2 OFF, 3 ON, 4 ON
     } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      return wooferRight;
-    //return (new WooferRight(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
+      command = wooferRight;
+    //Swith 1 ON, 2 ON, 3 OFF, 4 ON
     } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
-     return frontShootGrabShoot;
-     //return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));} 
+      command = frontShootGrabShoot;
+      //Swith 1 ON, 2 ON, 3 OFF, 4 OFF
     } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
-      return frontShootGrabShoot;
-      //  return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));
-    } else {
-      return null;
-      }
-    }
+      command =  frontShootGrabShoot;
+   }
+   return command;
+  }
+ 
   }
