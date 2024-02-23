@@ -4,9 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
@@ -16,84 +20,125 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.MotorControllers;
+import frc.robot.LimelightHelpers;
 
 public class Drive extends SubsystemBase {
-  public CANSparkMax leftFront, leftRear, rightFront, rightRear;
-  public DifferentialDrive diffDrive;
-  private DoubleSolenoid transmission;
+	private CANSparkMax leftFront, leftRear, rightFront, rightRear;
+	private DifferentialDrive diffDrive;
+	private DifferentialDriveOdometry diffDriveOdometry; 
 
-  //these are external encoders not SparkMAX
-  private Encoder leftEncoder, rightEncoder;
+	private DoubleSolenoid transmission;
 
-  /** Creates a new Drive. */
-  public Drive() {
+	//these are external encoders not SparkMAX
+	private Encoder leftEncoder, rightEncoder;
+	private AHRS gyro;
+	
+		/** Creates a new Drive. */
+	public Drive() {
     
-    leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
-    leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
-    rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
-    rightRear = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
+		leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
+    	leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
+    	rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
+    	rightRear = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
 
-    leftFront.restoreFactoryDefaults();
-    rightFront.restoreFactoryDefaults();
+    		leftFront.restoreFactoryDefaults();
+    		rightFront.restoreFactoryDefaults();
 
-    leftFront.setInverted(false);
-    rightFront.setInverted(true); //determine via bench testing
+    	leftFront.setInverted(false);
+    	rightFront.setInverted(true); //determine via bench testing
+		
+    	leftRear.follow(leftFront);
+    	rightRear.follow(rightFront);
+
+    	leftFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    	rightFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    		leftRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    		rightRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     
-    leftRear.follow(leftFront);
-    rightRear.follow(rightFront);
-
-    leftFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    rightFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    leftRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    rightRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    
+		gyro = new AHRS();
 
     //creates a new diffdrive
     diffDrive = new DifferentialDrive(leftFront, rightFront); 
     diffDrive.setSafetyEnabled(false);
     diffDrive.setDeadband(Constants.DriveConstants.DEADBAND);
 
-    //external encoders
-    leftEncoder = new Encoder(Constants.DriveConstants.DIO_LDRIVE_ENC_A, Constants.DriveConstants.DIO_LDRIVE_ENC_B); 
-    rightEncoder = new Encoder(Constants.DriveConstants.DIO_RDRIVE_ENC_A, Constants.DriveConstants.DIO_RDRIVE_ENC_B); 
+    diffDriveOdometry = new DifferentialDriveOdometry(
+      gyro.getRotation2d(), 			//  gyro angle as Rotation2D 
+      leftEncoder.getDistance(), 		//  encoder left distance
+      rightEncoder.getDistance());  	//  encoder right distance
 
-    rightEncoder.setDistancePerPulse(Constants.DriveConstants.DISTANCE_PER_PULSE_K);
-    leftEncoder.setDistancePerPulse(Constants.DriveConstants.DISTANCE_PER_PULSE_K);
+    //external encoders
+    leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B); 
+    rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDRIVE_ENC_B); 
+
+    rightEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
+    leftEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
 
     //pneumatic double solenoid
-    transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.SOL_LOW_GEAR, Constants.DriveConstants.SOL_HIGH_GEAR);
+    transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.SOL_LOW_GEAR, Constants.DriveConstants.SOL_HIGH_GEAR);
   }
 
   //methods start here
-public void setGearHigh(){
-  transmission.set(Value.kReverse);
-}
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+	SmartDashboard.getBoolean("In low gear?", isInLowGear());
 
-public void setGearLow(){
-  transmission.set(Value.kForward);
-}
+	// Update the odometry in the periodic block
+	diffDriveOdometry.update(gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());								 
+  }
 
-public boolean isInLowGear(){
-  return transmission.get() == Value.kForward;
-}
 
-public void closedRampRate() {
-  leftFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE); //time in seconds to go from 0 to full throttle
-  rightFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
-}
-public void openRampRate() {
-  leftFront.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
-  rightFront.setClosedLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
-}
+//other methods start here
+public Pose2d getPose() {
+	return diffDriveOdometry.getPoseMeters();
+	}
 
-public void setLeftSpeed(double speed) {
-  leftFront.set(speed);
-}
+	// TODO determine what method to use for sparkmax to controll max output?
+	/**  
+	* Sets the max output of the drive. Useful for scaling the drive to drive more slowly.
+	* @param maxOutput the maximum output to which the drive will be constrained
+	*/
 
-public void setRightSpeed(double speed) {
-  rightFront.set(speed);
-}
 
+	/**
+   * Returns the current wheel speeds of the robot.
+   * @return The current wheel speeds.
+   */
+	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    	return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
+	}
+
+
+  public void setGearHigh(){ transmission.set(Value.kReverse);}
+
+  public void setGearLow(){ transmission.set(Value.kForward);}
+
+  public boolean isInLowGear(){ return transmission.get() == Value.kForward;}
+
+  public void closedRampRate() {    //time in seconds to go from 0 to full throttle
+    leftFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE); 
+    rightFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE);
+  }
+  public void openRampRate() {
+    leftFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
+    rightFront.setClosedLoopRampRate(MotorControllers.OPEN_RAMP_RATE);
+  }
+
+/**
+	 * @return
+	 */
+public void setLeftSpeed(double speed) { leftFront.set(speed); }
+
+/**
+	 * @return
+	 */
+public void setRightSpeed(double speed) { rightFront.set(speed); }
+
+/**
+	 * @return
+	 */
 public void setBothSpeeds(double speed) {
   leftFront.set(speed);
   rightFront.set(speed);
@@ -109,79 +154,94 @@ public void setTurnCCWSpeeds(double speed) {
   rightFront.set(speed);
 }
 
-public double getLeftSpeed(){
-  //return leftEncoder.getVelocity(); //use for internal SparkMax encoder?
-  
-  //getRate units are distance per second, as scaled by the value of DistancePerPulse
-  return leftEncoder.getRate(); //use for external drive encoders
-}
+/**
+* @return double
+*/
+//return leftEncoder.getVelocity(); //use for internal SparkMax encoder?
+//getRate units are distance per second, as scaled by the value of DistancePerPulse
+  public double getLeftSpeed(){ return leftEncoder.getRate(); }
 
-public double getRightSpeed(){
-  //return leftEncoder.getVelocity(); //use for internal SparkMax encoder?
-  return rightEncoder.getRate(); //use for external drive encoders
-}
+  /**
+	 * @return double
+	 */
+  // use for external drive encoders
+public double getRightSpeed(){  return rightEncoder.getRate(); }
 
-public double getLeftEncoder() {
-  return leftEncoder.getRaw();
-}
+public double getLeftEncoder() { return leftEncoder.getRaw();}
+public double getRightEncoder() { return rightEncoder.getRaw();  }
 
-public double getRightEncoder() {
-    return rightEncoder.getRaw();
+// distance per pulse * encoder reading = inches
+  public double getLeftDistance() { return getLeftEncoder() * DriveConstants.DISTANCE_PER_PULSE_K; }
+  public double getRightDistance() { return getRightEncoder() * DriveConstants.DISTANCE_PER_PULSE_K; }
+
+  public double getAvgDistance() { return (getLeftDistance() + getRightDistance())/2 ;  }
+  public void resetLeftEncoder() { leftEncoder.reset(); }
+  public void resetRightEncoder() { rightEncoder.reset(); }
+
+
+  public void zeroHeading() {	gyro.reset();}
+
+  public void stop() {
+    leftFront.set(0);
+    rightFront.set(0);
   }
-  public double getLeftDistance() {
-    return getLeftEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
-    // distance per pulse * encoder reading = inches
-  }
-  public double getRightDistance() {
-    //return rightEncoder.getDistance();
-    return getRightEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
-  }
-  public double getAvgDistance() {
-    return (getLeftDistance() + getRightDistance())/2 ;
-  }
-  public void resetLeftEncoder() {
-    leftEncoder.reset();
-  }
-  public void resetRightEncoder() {
-    rightEncoder.reset();
+
+  public void setMaxOutput(double maxOutput) {
+  	diffDrive.setMaxOutput(maxOutput);
     }
 
-
-public void stop() {
-  leftFront.set(0);
-  rightFront.set(0);
-}
-
-  @Override
-  public void periodic() {
-    // SmartDashboard.getBoolean("In low gear?", isInLowGear());
-   
-  }
 
   /**
    * Drives the robot using arcade controls.
    * @param fwd the commanded forward movement
    * @param rot the commanded rotation
-   */
-  public void arcadeDrive(double fwd, double rot) {
-    diffDrive.arcadeDrive(fwd, rot);
-  }
+ */
+public void ArcadeDrive(double fwd, double rot) {
+	diffDrive.arcadeDrive(fwd, rot);
+}
 
   /**
    * Controls the left and right sides of the drive directly with voltages.
    * @param leftVolts the commanded left output
    * @param rightVolts the commanded right output
    */
-  public void tankDriveVolts(double leftVolts, double rightVolts) {
+  public void tankDiveVolts(double leftVolts, double rightVolts) {
     leftFront.setVoltage(leftVolts);
     rightFront.setVoltage(rightVolts);
     diffDrive.feed();
   }
 
-  /** Resets the drive encoders to currently read a position of 0. */
-  public void resetEncoders() {
-    leftEncoder.reset();
-    rightEncoder.reset();
-  }
+/** Resets the drive encoders to currently read a position of 0. */
+	public void resetEncoders() { 
+		leftEncoder.reset(); 
+		rightEncoder.reset();
+	}
 
+/**
+ * @return the turn rate of the robot in drees per second 
+ *  in Clockwise direction?
+ */
+public double getTurnRate() {
+	return -gyro.getRate();
+}
+
+  public void resetOdometry(Pose2d pose){
+    // this seems to be valid
+    diffDriveOdometry.resetPosition(gyro.getRotation2d(),0,0,pose);
+ }
+ 
+/**
+   * Resets the odometry to limelight if tag is not zero
+   * @param pose The pose to which to set the odometry.
+   */
+  public void resetOdometry() {
+    resetEncoders();
+	if (LimelightHelpers.getFiducialID("limelight") != 0 ) {
+    	diffDriveOdometry.resetPosition( 
+			gyro.getRotation2d(),
+			0,
+			0,
+			LimelightHelpers.getBotPose2d("limelight") );
+		}
+	}
 }

@@ -111,18 +111,11 @@ public Pose2d getPose() {
 	}
 
 
-	public void setGearHigh(){
-		transmission.set(Value.kReverse);
-	}
-	
-	public void setGearLow(){
-	transmission.set(Value.kForward);
-	}
-	
-	public boolean isInLowGear(){
-	return transmission.get() == Value.kForward;
-	}
-	
+	public void setGearHigh(){ transmission.set(Value.kReverse);	}
+
+	public void setGearLow(){ transmission.set(Value.kForward);	}
+
+	public boolean isInLowGear(){ return transmission.get() == Value.kForward;	}
 
 	public void closedRampRate() {	  //time in seconds to go from 0 to full throttle
 	leftFront.setClosedLoopRampRate(MotorControllers.CLOSED_RAMP_RATE); 
@@ -136,16 +129,12 @@ public Pose2d getPose() {
 	/**
 	 * @return
 	 */
-	public void setLeftSpeed(double speed) {
-	leftFront.set(speed);
-	}
+	public void setLeftSpeed(double speed) { leftFront.set(speed); }
 	
 	 /**
 	 * @return
 	 */
-	public void setRightSpeed(double speed) {
-	rightFront.set(speed);
-	}
+	public void setRightSpeed(double speed) { rightFront.set(speed); }
 	
 	/**
 	 * @return
@@ -167,70 +156,66 @@ public Pose2d getPose() {
 	rightFront.set(speed);
 	}
 	
-	/**
-	 * @return double 
-	 */
-	public double getLeftSpeed(){
-		//getRate units are distance per second, as scaled by the value of DistancePerPulse
-		return leftEncoder.getRate(); //use for external drive encoders
-	}
-	
+/**
+* @return double 
+*/
+//getRate units are distance per second, as scaled by the value of DistancePerPulse
+	public double getLeftSpeed(){ return leftEncoder.getRate();	}
+
 	/**
 	 * @return double
 	 */
-	public double getRightSpeed(){
-		return rightEncoder.getRate(); //use for external drive encoders
-	}
-	
-	/**
-	 * @return double
-	 */
+	//use for external drive encoders
+	public double getRightSpeed(){ return rightEncoder.getRate(); 
+	public Encoder getLeftEncoder(){ return leftEncoder;}
+	public Encoder getRightEncoder(){ return rightEncoder;}
+
+	// distance per pulse * encoder reading = inches
+	public double getLeftDistance() { return leftEncoder.getDistance(); }
+	public double getRightDistance() { return rightEncoder.getDistance(); }
+
+	public double getAvgDistance() { return (getLeftDistance() + getRightDistance())/2 ; }
 	public void resetLeftEncoder() { leftEncoder.reset(); }
-  
   	public void resetRightEncoder() { rightEncoder.reset(); }
 
-	public void resetEncoders() { 
-		leftEncoder.reset(); 
-		rightEncoder.reset();
-	}
-  
-/**
- * @return distance 
- */
-public double getLeftDistance() { return leftEncoder.getDistance(); }
-private double getRightDistance() { return rightEncoder.getDistance(); }
-public Encoder getLeftEncoder(){ return leftEncoder;}
-public Encoder getRightEncoder(){ return rightEncoder;}
 
-public void zeroHeading() {	gyro.reset();}
-public double getAvgDistance() { return (getLeftDistance() + getRightDistance())/2 ; }
-  
+	public void zeroHeading() {	gyro.reset();}
 
-public void stop() {
+	public void stop() {
 	leftFront.set(0);
 	rightFront.set(0);
-}
+	}
 
-public void setMaxOutput(double maxOutput) {
+	public void setMaxOutput(double maxOutput) {
 	diffDrive.setMaxOutput(maxOutput);
-  }
+	  }
 
 
-/**
- * @param fwd
- * @param rot
+  /**
+   * Drives the robot using arcade controls.
+   * @param fwd the commanded forward movement
+   * @param rot the commanded rotation
  */
 public void ArcadeDrive(double fwd, double rot) {
 	diffDrive.arcadeDrive(fwd, rot);
 }
 
-/**
- */
-public void tankDiveVolts(double leftVolts, double rightVolts) {
-	leftFront.setVoltage(leftVolts);
-	rightFront.setVoltage(rightVolts);
-	diffDrive.feed();
-}
+  /**
+   * Controls the left and right sides of the drive directly with voltages.
+   * @param leftVolts the commanded left output
+   * @param rightVolts the commanded right output
+   */
+  public void tankDiveVolts(double leftVolts, double rightVolts) {
+    leftFront.setVoltage(leftVolts);
+    rightFront.setVoltage(rightVolts);
+    diffDrive.feed();
+  }
+
+/** Resets the drive encoders to currently read a position of 0. */
+	public void resetEncoders() { 
+		leftEncoder.reset(); 
+		rightEncoder.reset();
+	}
 
 /**
  * @return the turn rate of the robot in drees per second 

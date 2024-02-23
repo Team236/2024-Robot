@@ -82,7 +82,7 @@ public class RobotContainer {
   private final AmpTrap ampTrap = new AmpTrap();
   private final Elevator elevator = new Elevator();
   private final Tilt tilt = new Tilt();
-  private final OdometryDrive odometryDrive;
+  private final OdometryDrive odometryDrive = new OdometryDrive();
 
   //AUTO SWITCHES
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
