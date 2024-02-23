@@ -85,17 +85,17 @@ public class RobotContainer {
   private final OdometryDrive odometryDrive;
 
   //AUTO SWITCHES
-  private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DIO_AUTO_1);
-  private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DIO_AUTO_2);
-  private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DIO_AUTO_3);
-  private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DIO_AUTO_4);
+  private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
+  private static DigitalInput autoSwitch2 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_2);
+  private static DigitalInput autoSwitch3 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_3);
+  private static DigitalInput autoSwitch4 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_4);
 
   //create instance of each command
   //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
   private final LowGear lowGear = new LowGear(drive); 
   private final HighGear highGear = new HighGear(drive); 
-  private final ToggleGear toggleGear = new ToggleGear(drive); 
+  private final ToggleGear toggleGear = new ToggleGear(drive);
 
  //INTAKE COMMANDS:
   private final SetIntakeSpeed setIntakeSpeed = new SetIntakeSpeed(intake, Constants.Intake.INTAKE_SPEED);
@@ -263,24 +263,25 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
 * 
    */
   public Command getAutonomousCommand() {
+    Command command;
         SmartDashboard.putBoolean("Autoswitch1: ", !autoSwitch1.get());
         SmartDashboard.putBoolean("Autoswitch2: ", !autoSwitch2.get());
         SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
         SmartDashboard.putBoolean("Autoswitch4: ", !autoSwitch4.get());
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      return wooferLeft;
+      command = wooferLeft;
      //return (new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
     } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      return wooferRight;
+      command = wooferRight;
     //return (new WooferRight(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
     } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
-     return frontShootGrabShoot;
+     command = frontShootGrabShoot;
      //return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));} 
     } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
-      return frontShootGrabShoot;
+      command = frontShootGrabShoot;
       //  return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));
     } else {
-      return null;
+      return command;
       }
     }
 

@@ -26,11 +26,6 @@ public final class Constants {
   public static final double FRONT_CAM_AMP = 0.5;  //TODO adjust these as needed
   public static final double FRONT_CAM_FLOOR = 0.8;
 
-  public static final int DIO_AUTO_1 = 1;  //TODO identify the correct DIO values
-  public static final int DIO_AUTO_2 = 2;
-  public static final int DIO_AUTO_3 = 3;
-  public static final int DIO_AUTO_4 = 4;
-
   public static class Controller {
     // usb port on the laptop when driver using XBox controller
     public static final int USB_DRIVECONTROLLER = 0;
@@ -115,11 +110,10 @@ public final class Constants {
 
     public static final double DIAMETER = 6;
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-    public static final double GEAR_RATIO = 1; // for external encoder so no gear ratio
+    public static final double GEAR_RATIO = 1; // for external encoder set 1 as gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
-    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K / 512; // for external encoder
-
+    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K / 128; // for external encoder 
     // PID
     public static final double KP_DRIVE = 0.022; // 0.022 (from 2023)
     public static final double KI_DRIVE = 0;
@@ -129,17 +123,20 @@ public final class Constants {
     public static final double PID_L_SETPOINT = 0.28;
     public static final double KP_TURNR = 0.025;
     public static final double PID_R_SETPOINT = 0.28;
-
     // AUTO DISTANCES
     public static final double AUTO_DISTANCE_1 = 36;
     public static final double WOOFERFRONT_TO_NOTE = 121;
     public static final double WOOFER_PULL_AWAY = 3;
     public static final double PULL_AWAY_TO_NOTE = 54;
-
     // TURNING ANGLES
     public static final double TURN_ANGLE_1 = 90;
     public static final double TURN_ANGLE_2 = -90;
     public static final double TURN_SIDE_OF_WOOFER = 40;
+    //AUTO SWITCHES
+    public static final int DIO_AUTO_1 = 0;
+    public static final int DIO_AUTO_2 = 1;
+    public static final int DIO_AUTO_3 = 2;
+    public static final int DIO_AUTO_4 = 3;
 
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
