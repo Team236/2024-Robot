@@ -34,6 +34,7 @@ import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Shots.AmpShot;
 import frc.robot.commands.Shots.PIDCartridgeShot;
+import frc.robot.commands.Shots.PIDLLShot;
 import frc.robot.commands.Shots.PIDPodShotWithBlueTurn;
 import frc.robot.commands.Shots.RunIntkCartAmpMotors;
 import frc.robot.commands.Shots.RunIntkCartMotors;
@@ -75,6 +76,7 @@ public class RobotContainer {
  private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt);
  private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM);
  private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
+ private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt);
  private final PIDCartridgeShot pidFrontAutoShot2 = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_AUTOSHOT2);
  private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
  private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
@@ -238,7 +240,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    
+
         SmartDashboard.putBoolean("Autoswitch1: ", !autoSwitch1.get());
         SmartDashboard.putBoolean("Autoswitch2: ", !autoSwitch2.get());
         SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
