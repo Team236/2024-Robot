@@ -73,9 +73,9 @@ public final class Constants {
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
     public static final double KP_TURN_CCW = 0.02;
-    public static final double TURNCCW_DEG_TO_REV = 0.238; //0.42
+    public static final double TURNCCW_DEG_TO_REV = 0.212; //0.212 TUNED!
     public static final double KP_TURN_CW = 0.02;
-    public static final double TURNCW_DEG_TO_REVS = 0.238; ///0.42;
+    public static final double TURNCW_DEG_TO_REVS = 0.23; //Make higher, not tuned.
     // AUTO DISTANCES
     public static final double AUTO_DISTANCE_1 = 48;
     public static final double WOOFERFRONT_TO_NOTE = 60;
@@ -84,12 +84,12 @@ public final class Constants {
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
     // TURNING ANGLES
-    public static final double TURN_ANGLE_1 = 24;
+    public static final double TURN_ANGLE_1 = 180;
     ; //CW
     public static final double TURN_ANGLE_2 = -180; //CCW
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 28;
      public static final double TURN_ANGLE_RED_POD_TO_SPKR = -28;
-    public static final double TURN_SIDE_OF_WOOFER = 36;
+    public static final double TURN_SIDE_OF_WOOFER = 74;//33;//36
     public static final double TURN_TO_THIRD_NOTE = 118;
     // TIMEOUTS (in sec)
     public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
@@ -100,7 +100,7 @@ public final class Constants {
     public static final int DIO_AUTO_4 = 3;
   }
   public static class Elevator {
-    public static final double JUST_ABOVE_CHAIN_HEIGHT = 20;// TODO get real number-somewhere above chain
+    public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8;// TODO get real number-somewhere above chain
     public static final double MATCH_HEIGHT= 6; // TODO determine
     public static final double MIN_HEIGHT = 0.5; 
     public static final double MAX_HEIGHT = 27; 

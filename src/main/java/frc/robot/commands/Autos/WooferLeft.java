@@ -29,18 +29,18 @@ public class WooferLeft extends SequentialCommandGroup {
     addCommands(
     Commands.parallel( 
         new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(3), //bring elevator up to match height
-        new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
+        new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.2)
         ),
     //new WaitCommand(1), //just for testing
-    new AutoPIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),
-    new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
+    new AutoPIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
+    new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER - 7).withTimeout(1),
     Commands.parallel(
-        new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(3),
-        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)     
+        new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2.5),
+        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.5)     
         ),
   //TODO: CAN CHANGE TO SHOT FROM FAR (with one Turn first) WITH NO DRIVING REVERSE?
-    new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
-    new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
+    new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(1.5),
+    new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER - 4).withTimeout(1),
     new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),
    // new WaitCommand(1), //just for testing
     new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)

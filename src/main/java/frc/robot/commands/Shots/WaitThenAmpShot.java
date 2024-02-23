@@ -18,7 +18,7 @@ public class WaitThenAmpShot extends SequentialCommandGroup {
   /** Creates a new WaitThenAmpShot. */
   public WaitThenAmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt) {
     addCommands(
-      new WaitCommand(2),
+      new WaitCommand(0.0),
       new AmpShot(intake, cartridge, ampTrap, tilt)
     );
   }
