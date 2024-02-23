@@ -11,6 +11,7 @@ import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
@@ -32,6 +33,7 @@ import frc.robot.commands.AmpTrap.AmpShot;
 import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
+import frc.robot.commands.Autos.PIDPoseCommand;
 import frc.robot.commands.CameraLimelight.AmpCameraAngle;
 import frc.robot.commands.CameraLimelight.LLAngle;
 import frc.robot.commands.CameraLimelight.LLDistance;
@@ -126,6 +128,8 @@ public class RobotContainer {
   private final AutoPIDTurn autoPIDTurn = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_1);
   private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
   private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
+  private final Transform2d transform  = new Transform2d();
+  private final PIDPoseCommand pidPoseCommand = new PIDPoseCommand(drive);
 
   //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
@@ -205,63 +209,60 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
     POVButton leftPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
 
-//      assign button to comnands
-//***** driver primary controller ******
+//      assign button to comnands  
+  //***** driver primary controller ******
+  //A
+    a.whileTrue(manualDown);
+    //a.onTrue(podiumTilt);
+    //a.onTrue(new AmpCameraAngle(ampTrapShooter));
+  //B
+      b.onTrue(pidToBot);
+      //b.whileTrue(setIntakeSpeed);
+      //b.onTrue(new FloorCameraAngle(ampTrapShooter));
+  //X
+      x.onTrue(pidToTop);
+      //x.onTrue(toggleGear);
+      //x.onTrue(stowTilt);
+  //Y
+      y.whileTrue(manualUp);
+      //y.onTrue(wooferTilt);
+  //other	
+      //rb.onTrue(autoPIDDrive);
+      //lb.onTrue(autoPIDTurn1);	
+      view.onTrue(lowGear);
+      menu.onTrue(highGear);	
+  //POV
+      upPov.whileTrue(llTarget);
+    // upPov.onTrue(floorCameraAngle);
+      leftPov.whileTrue(llAngle);
+      downPov.whileTrue(llDistance);
+      //downPov.onTrue(ampCameraAngle);
 
-//A
-   a.whileTrue(manualDown);
-	 //a.onTrue(podiumTilt);
-	 //a.onTrue(new AmpCameraAngle(ampTrapShooter));
-//B
-    b.onTrue(pidToBot);
-     //b.whileTrue(setIntakeSpeed);
-     //b.onTrue(new FloorCameraAngle(ampTrapShooter));
-//X
-    x.onTrue(pidToTop);
-    //x.onTrue(toggleGear);
-    //x.onTrue(stowTilt);
-//Y
-    y.whileTrue(manualUp);
-     //y.onTrue(wooferTilt);
-//other	
-     //rb.onTrue(autoPIDDrive);
-     //lb.onTrue(autoPIDTurn1);	
-    view.onTrue(lowGear);
-    menu.onTrue(highGear);	
-//POV
-    upPov.whileTrue(llTarget);
-	 // upPov.onTrue(floorCameraAngle);
-    leftPov.whileTrue(llAngle);
-    downPov.whileTrue(llDistance);
-     //downPov.onTrue(ampCameraAngle);
+  //***** Aux Secondary Controller ******
 
-//***** Aux Secondary Controller ******
+  //A
+    a1.whileTrue(manualPodiumSpeed);
+  //B 
+    b1.whileTrue(pidPodiumSpeed);//cartridge motors only
+  //X
+    x1.whileTrue(pidWooferSpeed);//cartridge motors only
+    //x1.onTrue(pidWooferShot); //intake and cart motors, also tilt
+    // x1.onTrue(frontShootGrabShoot);
+  //Y
+    y1.whileTrue(manualWooferSpeed);
+    //y1.onTrue(pidPodiumShot); //intake and cart motors, also tilt
+  //other	
 
-//A
-	a1.whileTrue(manualPodiumSpeed);
-//B 
-	b1.whileTrue(pidPodiumSpeed);//cartridge motors only
-//X
-	x1.whileTrue(pidWooferSpeed);//cartridge motors only
-	 //x1.onTrue(pidWooferShot); //intake and cart motors, also tilt
-	 // x1.onTrue(frontShootGrabShoot);
-//Y
-	y1.whileTrue(manualWooferSpeed);
-	 //y1.onTrue(pidPodiumShot); //intake and cart motors, also tilt
-//other	
-
-//POV
-	upPov1.whileTrue(ampMotorForward);
-	 //upPov1.whileTrue(manualIntake);
-	downPov1.whileTrue(ampMotorReverse);
-	 //downPov1.whileTrue(manualEject);
-  }
+  //POV
+    upPov1.whileTrue(ampMotorForward);
+    //upPov1.whileTrue(manualIntake);
+    downPov1.whileTrue(ampMotorReverse);
+    //downPov1.whileTrue(manualEject);
+    }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
    * @return the command to run in autonomous
-* 
-   */
+  */
   public Command getAutonomousCommand() {
     Command command;
         SmartDashboard.putBoolean("Autoswitch1: ", !autoSwitch1.get());
@@ -269,7 +270,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
         SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
         SmartDashboard.putBoolean("Autoswitch4: ", !autoSwitch4.get());
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      command = wooferLeft;
+      command = PIDPoseCommand;
      //return (new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
     } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       command = wooferRight;
@@ -284,60 +285,6 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
       return command;
       }
     }
-
-    /* // An example command will be run in autonomous
-    //return Autos.exampleAuto(m_exampleSubsystem);
-        // Create a voltage constraint to ensure we don't accelerate too fast
-    var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-      new SimpleMotorFeedforward(
-        DriveConstants.ksVolts, 
-        DriveConstants.kvVoltSecondsPerMeter,
-        DriveConstants.kaVoltSecondsSquaredPerMeter),  
-        DriveConstants.kDriveKinematics, 
-        10);   // 10 volts declared as maxumum 
-
-    
-      // Create config for trajectory
-      TrajectoryConfig config =
-        new TrajectoryConfig(
-                DriveConstants.kMaxSpeedMetersPerSecond,
-                DriveConstants.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(Constants.DriveConstants.kDriveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint);
-
-
-  Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(0)),
-            // Pass config
-            config);
-    
-    final RamseteCommand ramseteCommand = new RamseteCommand( exampleTrajectory, 
-        odometryDrive.getPose(), new RamseteController(), 
-        new SimpleMotorFeedforward(
-          DriveConstants.ksVolts,
-          DriveConstants.kvVoltSecondsPerMeter, 
-          DriveConstants.kaVoltSecondsSquaredPerMeter ),
-          Constants.DriveConstants.kDriveKinematics,
-          new PIDController(DriveConstants.kPDriveVel, 0, 0),
-          new PIDController(DriveConstants.kPDriveVel, 0, 0),
-            odometryDrive::tankDiveVolts,
-          odometryDrive );
-
-    // Reset odometry to the initial pose of the trajectory, run path following
-    // command, then stop at the end.
-
-   return Commands.runOnce(() -> odometryDrive.resetOdometry(exampleTrajectory.getInitialPose()))
-        .andThen(ramseteCommand)
-        .andThen(Commands.runOnce(() -> odometryDrive.stop()));
-      }
- */
  
 }
 
