@@ -202,9 +202,10 @@ public class RobotContainer {
     //***** Aux Controller ******
     //CARTRIDGE MOTORS
     //a1.whileTrue(pidPodiumSpeed);
-    a1.onTrue(frontShootGrabShoot);
-   // b1.onTrue(autoPIDDrive);
-    b1.onTrue(wooferLeft);
+    //a1.onTrue(frontShootGrabShoot);
+    a1.onTrue(autoPIDDrive);
+   // b1.onTrue(wooferLeft);
+    b1.onTrue(wooferRight);
    // b1.onTrue(toggleCameraAngle);
     x1.onTrue(ampCameraAngle);
     y1.onTrue(floorCameraAngle);
@@ -218,7 +219,8 @@ public class RobotContainer {
     upPov1.onTrue(pidToTop);
     downPov1.onTrue(pidToBot);
     //leftPov1.onTrue(pidUpToMatchHeight); //do this going up
-    leftPov1.whileTrue(climbManualDown);//for climb with constant speed 0.8
+    //leftPov1.whileTrue(climbManualDown);//for climb with constant speed 0.8
+    leftPov1.onTrue(toggleGear);
     rightPov1.onTrue(climbPID);
     lb1.whileTrue(manualUp);
     rb1.whileTrue(manualDown);
@@ -226,11 +228,11 @@ public class RobotContainer {
     //DRIVE
     //b1.onTrue(lowGear);
     //x1.onTrue(highGear);
-   lm1.onTrue(toggleGear);
+   //lm1.onTrue(toggleGear);
     //a1.onTrue(frontShootGrabShoot);
     //view1.whileTrue(wooferLeft);
     //lm1.onTrue(autoPIDDrive);
-   // lm1.onTrue(autoPIDTurn);
+    lm1.onTrue(autoPIDTurn);
     rm1.onTrue(autoPIDTurn1);
     //downPov1.whileTrue(llDistance);
     //upPov1.whileTrue(llTarget);

@@ -32,20 +32,19 @@ public class WooferRight extends SequentialCommandGroup {
       new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
       ), 
     new WaitCommand(1), //just for testing
-    new AutoPIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),
-    new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
+    new AutoPIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
+    new AutoPIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER - 5).withTimeout(1.5),
     Commands.parallel(
       new AutoPIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(3),
-      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(5) 
+      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.5) 
       ),
     //TODO: CAN CHANGE TO SHOT FROM FAR (with one Turn first) WITH NO DRIVING REVERSE?
-    new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
-    new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
+    new AutoPIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(1.5),
+    new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 5).withTimeout(1.5),
     new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),
     new WaitCommand(1), //just for testing
-    new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2)
-    //TODO Determine if line below needed - to hold elev with PID during teleop
-    //,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
+    new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
       );
   }
 }
+

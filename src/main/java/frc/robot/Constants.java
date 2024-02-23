@@ -72,15 +72,15 @@ public final class Constants {
     public static final double KP_DRIVE = 0.022; // 0.022 (from 2023)
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-    public static final double KP_TURN_CCW = 0.02;
-    public static final double TURNCCW_DEG_TO_REV = 0.212; //0.212 TUNED!
-    public static final double KP_TURN_CW = 0.02;
-    public static final double TURNCW_DEG_TO_REVS = 0.23; //Make higher, not tuned.
+    public static final double KP_TURN_CCW = 0.022;  //.02
+    public static final double TURNCCW_DEG_TO_REV = 0.211; //
+    public static final double KP_TURN_CW = 0.022;
+    public static final double TURNCW_DEG_TO_REVS = 0.2332; //
     // AUTO DISTANCES
-    public static final double AUTO_DISTANCE_1 = 48;
+    public static final double AUTO_DISTANCE_1 = 60;// 48;
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 14;
-    public static final double PULL_AWAY_TO_NOTE = 60;
+    public static final double PULL_AWAY_TO_NOTE = 6w; //
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
     // TURNING ANGLES
