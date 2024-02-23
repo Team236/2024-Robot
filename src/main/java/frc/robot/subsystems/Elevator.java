@@ -19,7 +19,7 @@ public class Elevator extends SubsystemBase {
   //USING WPILib PID, not SparkMax PID.  SparkMax PID is not consistent - intermittent issues
   private CANSparkMax leftElevatorMotor, rightElevatorMotor;
   //private SparkPIDController leftPIDController, rightPIDController;
-  private RelativeEncoder leftElevEncoder, rightElevEncoder;
+  public RelativeEncoder leftElevEncoder, rightElevEncoder;
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
   /** Creates a new Elevator. */
@@ -105,6 +105,7 @@ public class Elevator extends SubsystemBase {
     public double getElevatorHeight() {
       return  getElevLeftEncoder() * Constants.Elevator.ELEV_REV_TO_IN;
     } 
+
 
     public boolean isTop() {
       boolean eTop;

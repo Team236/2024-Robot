@@ -80,7 +80,7 @@ public final class Constants {
     public static final double AUTO_DISTANCE_1 = 60;// 48;
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 14;
-    public static final double PULL_AWAY_TO_NOTE = 6w; //
+    public static final double PULL_AWAY_TO_NOTE = 66; //
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
     // TURNING ANGLES
@@ -100,11 +100,11 @@ public final class Constants {
     public static final int DIO_AUTO_4 = 3;
   }
   public static class Elevator {
-    public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8;// TODO get real number-somewhere above chain
-    public static final double MATCH_HEIGHT= 6; // TODO determine
-    public static final double MIN_HEIGHT = 0.5; 
-    public static final double MAX_HEIGHT = 27; 
-    public static final double CLIMB_HEIGHT = 0.5;
+    public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8-6;// TODO get real number-somewhere above chain
+    public static final double MATCH_HEIGHT= 6-6; // TODO determine
+    public static final double MIN_HEIGHT = 0.5-6; 
+    public static final double MAX_HEIGHT = 27-6; 
+    public static final double CLIMB_HEIGHT = 0.5-6;
 
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;

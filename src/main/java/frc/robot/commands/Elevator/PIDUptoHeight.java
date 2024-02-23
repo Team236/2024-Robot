@@ -31,6 +31,8 @@ public class PIDUptoHeight extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    elevator.resetElevatorEncoders(); //sets them to zero - only use this for going up to match height
+    //the match height will be zero, climb height will be -6
     pidController.reset();
   }
 
