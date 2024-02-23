@@ -34,6 +34,7 @@ import frc.robot.commands.Autos.AutoPIDDrive;
 import frc.robot.commands.Autos.AutoPIDTurn;
 import frc.robot.commands.Autos.FrontShootGrabShoot;
 import frc.robot.commands.Autos.PIDPoseCommand;
+import frc.robot.commands.Autos.WooferLeft;
 import frc.robot.commands.CameraLimelight.AmpCameraAngle;
 import frc.robot.commands.CameraLimelight.LLAngle;
 import frc.robot.commands.CameraLimelight.LLDistance;
@@ -265,26 +266,33 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
   */
   public Command getAutonomousCommand() {
     Command command;
+
         SmartDashboard.putBoolean("Autoswitch1: ", !autoSwitch1.get());
         SmartDashboard.putBoolean("Autoswitch2: ", !autoSwitch2.get());
         SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
         SmartDashboard.putBoolean("Autoswitch4: ", !autoSwitch4.get());
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      command = PIDPoseCommand;
-     //return (new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
-    } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      command = wooferRight;
-    //return (new WooferRight(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM));
+      command = pidPoseCommand;
+    
+    // } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
+    // command = new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM);
+    
     } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
      command = frontShootGrabShoot;
-     //return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));} 
+     
     } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
       command = frontShootGrabShoot;
-      //  return (new FrontShootGrabShoot(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE));
-    } else {
+    }   
       return command;
-      }
     }
+
+    	// Reset odometry to the initial pose of the trajectory, run path following
+    	// command, then stop at the end.
+	
+		// return Commands.runOnce(() -> odometryDrive.resetOdometry(exampleTrajectory.getInitialPose()))
+		// .andThen(ramseteCommand)
+		// .andThen(Commands.runOnce(() -> odometryDrive.stop()));
+
  
 }
 

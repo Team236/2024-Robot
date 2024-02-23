@@ -166,7 +166,7 @@ public Pose2d getPose() {
 	 * @return double
 	 */
 	//use for external drive encoders
-	public double getRightSpeed(){ return rightEncoder.getRate(); 
+	public double getRightSpeed(){ return rightEncoder.getRate(); }
 	public Encoder getLeftEncoder(){ return leftEncoder;}
 	public Encoder getRightEncoder(){ return rightEncoder;}
 
@@ -244,4 +244,6 @@ public void resetOdometry(Pose2d pose){
 			LimelightHelpers.getBotPose2d("limelight") );
 		}
 	}
+
+
 }

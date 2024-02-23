@@ -25,7 +25,7 @@ import frc.robot.LimelightHelpers;
 
 public class Drive extends SubsystemBase {
 	private CANSparkMax leftFront, leftRear, rightFront, rightRear;
-	private DifferentialDrive diffDrive;
+	public DifferentialDrive diffDrive;
 	private DifferentialDriveOdometry diffDriveOdometry; 
 
 	private DoubleSolenoid transmission;
