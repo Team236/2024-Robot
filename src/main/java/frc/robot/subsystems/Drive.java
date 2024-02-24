@@ -77,7 +77,7 @@ public void setGearLow(){
 public boolean isInLowGear(){
   return transmission.get() == Value.kReverse;
 }
-/* 
+/*  //not able to use this because ramp rate negated the follower
 public void closedRampRate() {
   leftFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE); //time in seconds to go from 0 to full throttle
   rightFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
