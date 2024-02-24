@@ -215,15 +215,18 @@ public class RobotContainer {
     //view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);
     
-    //ELEVATOR - zero at the lower limit before using PID!!!
-    upPov1.onTrue(pidToTop);
+    //ELEVATOR - 
+    // manualDown to zero at limit, then piDupToMatchHeight, then cycle power 
+    // then pidToTop, then climbPID (no manDown or toMatchHeight after cycle power!)
+    /
+    upPov1.onTrue(pidToTop); //only after 
     downPov1.onTrue(pidToBot);
-    leftPov1.onTrue(pidUpToMatchHeight); //do this going up
+    leftPov1.onTrue(pidUpToMatchHeight); //only for going to match height prior to power off
     //leftPov1.whileTrue(climbManualDown);//for climb with constant speed 0.8
     //leftPov1.onTrue(toggleGear);
     rightPov1.onTrue(climbPID);
     lb1.whileTrue(manualUp);
-    rb1.whileTrue(manualDown);
+    rb1.whileTrue(manualDown);//only for setting enc to zero prior to power off
 
     //DRIVE
     //b1.onTrue(lowGear);
