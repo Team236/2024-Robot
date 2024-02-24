@@ -86,6 +86,7 @@ public class RobotContainer {
   private final Elevator elevator = new Elevator();
   private final Tilt tilt = new Tilt();
   private final OdometryDrive odometryDrive = new OdometryDrive();
+  private Command command;
 
   //AUTO SWITCHES
   private static DigitalInput autoSwitch1 = new DigitalInput(Constants.DriveConstants.DIO_AUTO_1);
@@ -265,8 +266,7 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
    * @return the command to run in autonomous
   */
   public Command getAutonomousCommand() {
-    Command command;
-
+    
         SmartDashboard.putBoolean("Autoswitch1: ", !autoSwitch1.get());
         SmartDashboard.putBoolean("Autoswitch2: ", !autoSwitch2.get());
         SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
