@@ -67,15 +67,15 @@ public class Elevator extends SubsystemBase {
 
 //methods start here:
   public void engageBrake(){
-   brake.set(Value.kForward);
-}
-
-public void removeBrake(){
    brake.set(Value.kReverse);
 }
 
+public void removeBrake(){
+   brake.set(Value.kForward);
+}
+
 public boolean isBrake(){
-  return brake.get() == Value.kForward;
+  return brake.get() == Value.kReverse;
 }
 /* 
     public void closedRampRate() {
