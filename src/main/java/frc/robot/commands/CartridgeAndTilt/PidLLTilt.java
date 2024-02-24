@@ -74,23 +74,23 @@ public class PidLLTilt extends Command {
       if (Dx < 6) {
       desiredRevs = 16;  //TODO get actual numbers
     } else if  ((Dx >= 6) || (Dx < 12))  {
-      desiredRevs = 19.5;
+      desiredRevs = 18.4;
     } else if  ((Dx >= 12) || (Dx < 18))  {
-      desiredRevs = 23;
+      desiredRevs = 20.8;
     } else if  ((Dx >= 18) || (Dx < 24))  {
-      desiredRevs = 26.5;
+      desiredRevs = 23.1;
     } else if  ((Dx >= 24) || (Dx < 30))  {
-      desiredRevs = 30;
+      desiredRevs = 25.5;
     } else if  ((Dx >= 30) || (Dx < 36))  {
-      desiredRevs = 33.5;
+      desiredRevs = 27.8;
     } else if  ((Dx >= 36) || (Dx < 42))  {
-      desiredRevs = 37;
+      desiredRevs = 30.2;
     } else if  ((Dx >= 42) || (Dx < 48))  {
-      desiredRevs = 40.5;
+      desiredRevs = 32.6;
     } else if  ((Dx >= 48) || (Dx < 54))  {
-      desiredRevs = 44;
+      desiredRevs = 35;
     } else  {
-      desiredRevs = 47.5;
+      desiredRevs = 37.4;
     }
 
     tilt.setSetpoint(desiredRevs);
