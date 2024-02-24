@@ -18,9 +18,9 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 
-public class FrontShootGrabShoot extends SequentialCommandGroup {
-  /** Creates a new FrontShootGrabShoot. */
-  public FrontShootGrabShoot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
+public class FrontTwoShots extends SequentialCommandGroup {
+  /** Creates a new FrontTwoShots. */
+  public FrontTwoShots(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
     Commands.parallel(
       //WOOFER shot
@@ -29,11 +29,11 @@ public class FrontShootGrabShoot extends SequentialCommandGroup {
       ),
     new WaitCommand(1),
     Commands.parallel(
-      new AutoPIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
+      new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
       new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
       //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(5) //not needed
       ),
-    new AutoPIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
+    new PIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
     new WaitCommand(1),
     //WOOFER SHOT - TODO: CAN CHANGE TO FAR SHOT WITH NO DRIVING REVERSE?
     new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(6) 

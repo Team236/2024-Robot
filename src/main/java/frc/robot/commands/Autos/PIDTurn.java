@@ -10,12 +10,12 @@ import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drive;
 
-public class AutoPIDTurn extends Command {
+public class PIDTurn extends Command {
   private final Drive drive;
   private final PIDController leftPidController, rightPidController;
 
   /** Creates a new TurnPID. */
-  public AutoPIDTurn(Drive drive, double setpointDegrees) {
+  public PIDTurn(Drive drive, double setpointDegrees) {
     this.drive = drive;
     this.leftPidController = new PIDController(Constants.DriveConstants.KP_TURN_CCW, 0, 0);
     this.rightPidController = new PIDController(Constants.DriveConstants.KP_TURN_CW, 0, 0);

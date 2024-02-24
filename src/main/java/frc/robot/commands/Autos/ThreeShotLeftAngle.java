@@ -31,16 +31,16 @@ public class ThreeShotLeftAngle extends SequentialCommandGroup {
         ),
     //new WaitCommand(1), //just for testing
       Commands.parallel(
-        new AutoPIDDrive(drive, Constants.DriveConstants.WOOFER_ANGLED_TO_NOTE).withTimeout(3),
+        new PIDDrive(drive, Constants.DriveConstants.WOOFER_ANGLED_TO_NOTE).withTimeout(3),
         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)     
         ),
       new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(3),
-      new AutoPIDTurn(drive, -Constants.DriveConstants.TURN_TO_THIRD_NOTE).withTimeout(2),
+      new PIDTurn(drive, -Constants.DriveConstants.TURN_TO_THIRD_NOTE).withTimeout(2),
       Commands.parallel(      
-          new AutoPIDDrive(drive, -Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(2),
+          new PIDDrive(drive, -Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(2),
           new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)     
       ),
-        new AutoPIDTurn(drive, 90).withTimeout(2),
+        new PIDTurn(drive, 90).withTimeout(2),
         new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_AUTOSHOT2).withTimeout(3)
     //TODO Determine if line below needed - to hold elev with PID during teleop
     // ,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)

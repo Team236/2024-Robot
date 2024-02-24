@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 
-public class AutoPIDDrive extends Command {
+public class PIDDrive extends Command {
   private Drive drive;
   private double driveDistance;
   private final PIDController pidController;
 
   /** Creates a new AutoPIDDrive. */
   //this comand uses PID to drive a distance equal to drive distance in inches
-  public AutoPIDDrive(Drive drive, double driveDistance) {
+  public PIDDrive(Drive drive, double driveDistance) {
     this.drive = drive;
     this.driveDistance = driveDistance;
     this.pidController = new PIDController(Constants.DriveConstants.KP_DRIVE, Constants.DriveConstants.KI_DRIVE, Constants.DriveConstants.KD_DRIVE);
