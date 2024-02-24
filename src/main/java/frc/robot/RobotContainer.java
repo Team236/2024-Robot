@@ -44,6 +44,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
 import frc.robot.subsystems.AmpTrap;
+import frc.robot.subsystems.CameraServo;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -70,6 +71,7 @@ public class RobotContainer {
   private final AmpTrap ampTrap = new AmpTrap();
   private final Elevator elevator = new Elevator();
   private final Tilt tilt = new Tilt();
+  private final CameraServo cameraServo = new CameraServo();
 
   //create instance of each command
 //DRIVE COMMANDS
@@ -123,9 +125,9 @@ public class RobotContainer {
   private final LLAngle llAngle= new LLAngle(drive, 0);
   private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
   private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
-  private final CameraAngle ampCameraAngle = new CameraAngle(Constants.FRONT_CAM_AMP);
-  private final CameraAngle floorCameraAngle = new CameraAngle(Constants.FRONT_CAM_FLOOR);
-  private final CameraToggle toggleCameraAngle = new CameraToggle();
+  private final CameraAngle ampCameraAngle = new CameraAngle(cameraServo, Constants.FRONT_CAM_AMP);
+  private final CameraAngle floorCameraAngle = new CameraAngle(cameraServo, Constants.FRONT_CAM_FLOOR);
+  private final CameraToggle toggleCameraAngle = new CameraToggle(cameraServo);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

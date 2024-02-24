@@ -8,14 +8,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.AmpTrap;
+import frc.robot.subsystems.CameraServo;
 
 public class CameraAngle extends Command {
 //Moves the camera servo to view the Amp or Trap
 //The servo goes from 0 to 1, for 0 to 180 degrees.
 private double camAngle;
+private CameraServo cameraServo;
 
   /** Creates a new AmpCameraAngle. */
-  public CameraAngle(double camAngle) {
+  public CameraAngle(CameraServo cameraServo, double camAngle) {
+    this.cameraServo = cameraServo;
     this.camAngle = camAngle;
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -28,7 +31,8 @@ private double camAngle;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.cameraServo.set(camAngle);
+
+    cameraServo.setAngle(camAngle);
   }
 
   // Called once the command ends or is interrupted.

@@ -6,26 +6,34 @@ package frc.robot.commands.CameraLimelight;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.Robot;
+import frc.robot.subsystems.CameraServo;
 
 public class CameraToggle extends Command {
+
+  private CameraServo cameraServo;
+
   /** Creates a new CameraToggle. */
-  public CameraToggle() {
+  public CameraToggle(CameraServo cameraServo) {
+    this.cameraServo = cameraServo;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.cameraServo);
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    cameraServo.setIsFloor(true);
+  }
 
   @Override
   public void execute() {
 //***assumes camera aimed at floor at start of match (see Robot.java, teleopInit)
-  if (Robot.isFloor) { 
-    Robot.cameraServo.set(Constants.FRONT_CAM_AMP);
-    Robot.isFloor = false;
+  if (cameraServo.isFloor()) { 
+    cameraServo.setAngle(Constants.FRONT_CAM_AMP);
+    cameraServo.setIsFloor(false);
   } else {
-    Robot.cameraServo.set(Constants.FRONT_CAM_FLOOR);
-    Robot.isFloor = true;
+    cameraServo.setAngle(Constants.FRONT_CAM_FLOOR);
+    cameraServo.setIsFloor(true);
+
   }
   }
   
