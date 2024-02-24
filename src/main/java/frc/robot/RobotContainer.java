@@ -130,7 +130,7 @@ public class RobotContainer {
   private final AutoPIDTurn autoPIDTurn1 = new AutoPIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_2);
   private final FrontShootGrabShoot frontShootGrabShoot = new FrontShootGrabShoot(intake, cartridge, tilt, drive, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
   private final Transform2d transform  = new Transform2d();
-  private final PIDPoseCommand pidPoseCommand = new PIDPoseCommand(drive);
+  private final PIDPoseCommand pidPoseCommand = new PIDPoseCommand();
 
   //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
@@ -271,12 +271,13 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
         SmartDashboard.putBoolean("Autoswitch2: ", !autoSwitch2.get());
         SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
         SmartDashboard.putBoolean("Autoswitch4: ", !autoSwitch4.get());
+
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       command = pidPoseCommand;
     
-    // } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-    // command = new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM);
-    
+    } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
+    //command = new WooferLeft(intake, cartridge, tilt, drive, elevator, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM);
+     command = frontShootGrabShoot;   //TODO replace this with working wooferleft
     } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
      command = frontShootGrabShoot;
      
@@ -288,10 +289,10 @@ private final AmpCameraAngle floorCameraAngle = new AmpCameraAngle(ampTrap);
 
     	// Reset odometry to the initial pose of the trajectory, run path following
     	// command, then stop at the end.
-	
-		// return Commands.runOnce(() -> odometryDrive.resetOdometry(exampleTrajectory.getInitialPose()))
-		// .andThen(ramseteCommand)
-		// .andThen(Commands.runOnce(() -> odometryDrive.stop()));
+    // return Commands.runOnce(() -> odometryDrive.resetOdometry(exampleTrajectory.getInitialPose()))
+		//   .andThen(ramseteCommand)
+		//   .andThen(Commands.runOnce(() -> odometryDrive.stop()));
+		
 
  
 }

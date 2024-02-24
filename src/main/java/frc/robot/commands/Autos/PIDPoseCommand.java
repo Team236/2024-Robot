@@ -22,9 +22,7 @@ public class PIDPoseCommand extends Command {
 
   private Drive drive;
   private TrajectoryConfig config;
-  /** Creates a new AutoPIDDrive. */
-  //this comand uses PID to drive a distance equal to drive distance in inches
-
+  
   public void PIDPoseCommand(Drive drive) { 
     this.drive = drive;
 
