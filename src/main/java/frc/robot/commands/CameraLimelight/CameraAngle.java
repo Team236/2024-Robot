@@ -23,12 +23,13 @@ private double camAngle;
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    Robot.cameraServo.set(camAngle);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.cameraServo.set(camAngle);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +39,6 @@ private double camAngle;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
