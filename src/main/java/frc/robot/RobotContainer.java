@@ -25,11 +25,13 @@ import frc.robot.commands.Drive.ArcadeXbox;
 import frc.robot.commands.Drive.HighGear;
 import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.ToggleGear;
+import frc.robot.commands.Elevator.EngageBrake;
 import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Elevator.PIDActualClimb;
 import frc.robot.commands.Elevator.PIDDownToHeight;
 import frc.robot.commands.Elevator.PIDUptoHeight;
+import frc.robot.commands.Elevator.ToggleBrake;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Shots.AmpShot;
@@ -119,6 +121,8 @@ public class RobotContainer {
   //private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT);
   private final PIDUptoHeight pidUpToMatchHeight = new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
   private final PIDActualClimb climbPID = new PIDActualClimb(elevator, ampTrap, intake, tilt, cartridge);
+  private final ToggleBrake toggleBrake = new ToggleBrake(elevator);
+  private final EngageBrake engageBrake = new EngageBrake(elevator);
 //CAMERA AND LIMELIGHT COMMANDS
   private final LLAngle llAngle= new LLAngle(drive, 0);
   private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
@@ -200,21 +204,23 @@ public class RobotContainer {
     y1.onTrue(threeShotLeftAngle);
   //CAMERA AND LIMELIGHT 
     view1.onTrue(floorCameraAngle);
-    menu1.onTrue(toggleCameraAngle);
+    menu1.onTrue(ampCameraAngle);
     //view1.whileTrue(llAngle);
   //ELEVATOR 
     // manualDown to zero at limit, then pidToMatchHeight, then cycle power 
     // then pidToTop, then climbPID (no manDown or toMatchHeight after cycle power!)
     upPov1.onTrue(pidToTop); 
     downPov1.onTrue(climbPID);
-    leftPov1.onTrue(pidUpToMatchHeight); 
+    //leftPov1.onTrue(pidUpToMatchHeight); 
     //rightPov1.whileTrue(climbManualDown);
-    lb1.whileTrue(manualUp);
+    //lb1.whileTrue(manualUp);
     rb1.whileTrue(manualDown);//only for setting enc to zero prior to power off
   //DRIVE
     lm1.onTrue(lowGear);
     rm1.onTrue(highGear);
-    rightPov1.onTrue(toggleGear);
+    lb1.onTrue(engageBrake);
+    rightPov1.onTrue(toggleBrake);
+    leftPov1.onTrue(toggleGear);
   //AMP
     //view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);

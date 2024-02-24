@@ -67,15 +67,15 @@ public class Drive extends SubsystemBase {
 
   //methods start here
 public void setGearHigh(){
-  transmission.set(Value.kReverse);
-}
-
-public void setGearLow(){
   transmission.set(Value.kForward);
 }
 
+public void setGearLow(){
+  transmission.set(Value.kReverse);
+}
+
 public boolean isInLowGear(){
-  return transmission.get() == Value.kForward;
+  return transmission.get() == Value.kReverse;
 }
 /* 
 public void closedRampRate() {

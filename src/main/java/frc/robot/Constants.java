@@ -133,6 +133,10 @@ public final class Constants {
     public static final double KI_ELEV_CLIMB = 0;
     public static final double KD_ELEV_CLIMB = 0;
       public static final double KFF_ELEV_CLIMB = 0;
+
+          // Transmission solenoid
+    public static final int SOL_BRAKE_ON = 2; 
+    public static final int SOL_BRAKE_OFF = 3;
   }
   public static class Intake {
     public static final int DIO_COUNTER = 12;

@@ -11,6 +11,9 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -22,6 +25,7 @@ public class Elevator extends SubsystemBase {
   public RelativeEncoder leftElevEncoder, rightElevEncoder;
   private DigitalInput elevatorTopLimit, elevatorBottomLimit;
   private boolean isTException, isBException;
+  private DoubleSolenoid brake;
   /** Creates a new Elevator. */
     //TODO:  CHECK IF ELEVATOR POSITION HOLDS WHEN PID up ends
   public Elevator() {
@@ -56,7 +60,23 @@ public class Elevator extends SubsystemBase {
       isBException = true;
       SmartDashboard.putBoolean("exception thrown for elev bottom limit: ", isBException);
     }
+
+    //pneumatic double solenoid
+    brake = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.Elevator.SOL_BRAKE_ON, Constants.Elevator.SOL_BRAKE_OFF);
   }
+
+//methods start here:
+  public void engageBrake(){
+   brake.set(Value.kForward);
+}
+
+public void removeBrake(){
+   brake.set(Value.kReverse);
+}
+
+public boolean isBrake(){
+  return brake.get() == Value.kForward;
+}
 /* 
     public void closedRampRate() {
       leftElevatorMotor.setClosedLoopRampRate(Constants.Elevator.ELEV_CLOSED_RAMP_RATE);
