@@ -25,12 +25,12 @@ public class PidLLTilt extends Command {
     //Dx = dx - offset = horizontal distance from robot bumper to target
     //offset = distance from LL lens to outer edge of bumper
     //tan(a1 +a2)  = (h2-h1)/dx;
-  private double h1 = 48;// inches from ground to center of camera lens - MEASURE
-  private double h2 = 57.5; // inches, same unit as d, to center of target - GET THIS VALUE
-  private double a1 = Math.toRadians(6); //6 degrees, camera tilt
-  private double offset = 15; //TODO get actual number
+  private double h1 = 44;// inches from ground to center of camera lens
+  private double h2 = 57.5; // inches,floor to center of target
+  private double a1 = Math.toRadians(10); //degrees, camera tilt, up from horizontal
+  private double offset = 6; //inhces, LL lens to outer edge of bumper
   private double pipeline;
-  private double tv, disY, a2, dx, Dx;
+  private double tv, angleY, a2, dx, Dx;
 
   /** Creates a new PidLLTilt. */
   public PidLLTilt(Tilt tilt) {
@@ -58,13 +58,13 @@ public class PidLLTilt extends Command {
     tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
   
      // TO make sure dx is positive, use abs value for disY and (h1-h2)
-    disY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
+    angleY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
  
      if(tv==1){
-         a2 = disY*Math.PI/180; // in radians, if disY in degrees
+         a2 = angleY*Math.PI/180; // in radians, if disY in degrees
          dx = Math.abs(h2 - h1) / Math.tan(a1+a2);  
          SmartDashboard.putNumber("dx, Y dist from target:", dx); //test this - use later for cartridge angle equation
-         SmartDashboard.putNumber("Ty, degrees:", disY);
+         SmartDashboard.putNumber("Ty, degrees:", angleY);
       } else{
          SmartDashboard.putNumber("No Target", tv);
       }
@@ -74,19 +74,23 @@ public class PidLLTilt extends Command {
       if (Dx < 6) {
       desiredRevs = 16;  //TODO get actual numbers
     } else if  ((Dx >= 6) || (Dx < 12))  {
-      desiredRevs = 20;
+      desiredRevs = 19.5;
     } else if  ((Dx >= 12) || (Dx < 18))  {
-      desiredRevs = 25;
+      desiredRevs = 23;
     } else if  ((Dx >= 18) || (Dx < 24))  {
-      desiredRevs = 30;
+      desiredRevs = 26.5;
     } else if  ((Dx >= 24) || (Dx < 30))  {
-      desiredRevs = 35;
+      desiredRevs = 30;
+    } else if  ((Dx >= 30) || (Dx < 36))  {
+      desiredRevs = 33.5;
     } else if  ((Dx >= 36) || (Dx < 42))  {
-      desiredRevs = 40;
+      desiredRevs = 37;
+    } else if  ((Dx >= 42) || (Dx < 48))  {
+      desiredRevs = 40.5;
     } else if  ((Dx >= 48) || (Dx < 54))  {
-      desiredRevs = 45;
+      desiredRevs = 44;
     } else  {
-      desiredRevs = 50;
+      desiredRevs = 47.5;
     }
 
     tilt.setSetpoint(desiredRevs);

@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
 
-public class ToggleBrake extends Command {
+public class BrakeToggle extends Command {
   private Elevator elevator;
   private boolean toggle;
   private boolean isBrakeEngaged;
   /** Creates a new ToggleGear. */
-  public ToggleBrake(Elevator elevator) {
+  public BrakeToggle(Elevator elevator) {
   this.elevator = elevator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.elevator);

@@ -24,15 +24,14 @@ public class LLTarget extends Command {
   private double kX = 0.017;//ADJUST!!!  0.005??
   private double kY = 0.03; //0.00725;
   private Drive drive;
-  private double h1 = 34; //approx ht now, was 32.5 in 2023 //inches, distance from floor to center of camera lens
-  //private double h2 = 18; // inches, same unit as d, to center of target
+  private double h1 = 44;//inches, distance from floor to center of camera lens
   private double a1 = Math.toRadians(6); //was 20 degrees in 2023 - camera angle
   private double dist; //desired distance from camera to target - pass into command
   private double steeringAdjust;
-  private double cameraXoffset; 
+  private double cameraXoffset = 0; 
   //private Limelight limelight;
   private double pipeline;
-  private double targetHeight;//18" for Atag, from floor to center of target
+  private double targetHeight = 57.5;//Soeaker Atag, from floor to center of target
   private double a2, dx, errorY, distanceAdjust;
   /** Creates a new LLTarget. */
   public LLTarget(Drive drive, double pipeline, double standoff, double targetHeight) {
@@ -49,8 +48,6 @@ public class LLTarget extends Command {
     SmartDashboard.putNumber("LLTarget init", pipeline);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
-    cameraXoffset = 4; 
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -59,7 +56,7 @@ public class LLTarget extends Command {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
    // TO make sure dx is positive, use abs value for disY and (h1-h2)
-    double disY= Math.abs(NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
+    double angleY= Math.abs(NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
     double disX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     double errorX = disX - cameraXoffset; 
     
@@ -70,8 +67,8 @@ public class LLTarget extends Command {
       else {
         steeringAdjust = 0;  
       }
-         a2 = disY*Math.PI/180;  //make sure disY is positive
-         dx = Math.abs((h1-targetHeight)) / Math.tan(a1+a2);
+         a2 = angleY*Math.PI/180;  //make sure disY is positive
+         dx = Math.abs((targetHeight-h1)) / Math.tan(a1+a2);
          errorY = dist - dx;
          distanceAdjust = kY * errorY; 
          
@@ -81,7 +78,7 @@ public class LLTarget extends Command {
       SmartDashboard.putNumber("ErrorX - Angle Error tX", errorX);
       SmartDashboard.putNumber("dx, Y dist from target:", dx);
       SmartDashboard.putNumber("ErrorY:", errorY);
-      SmartDashboard.putNumber("Ty, degrees:", disY);
+      SmartDashboard.putNumber("Ty, degrees:", angleY);
    } else{
          SmartDashboard.putNumber("No Target", tv);
    }
