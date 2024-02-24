@@ -227,12 +227,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-
-        SmartDashboard.putBoolean("Autoswitch1: ", !autoSwitch1.get());
-        SmartDashboard.putBoolean("Autoswitch2: ", !autoSwitch2.get());
-        SmartDashboard.putBoolean("Autoswitch3: ", !autoSwitch3.get());
-        SmartDashboard.putBoolean("Autoswitch4: ", !autoSwitch4.get());
-
+    SmartDashboard.putString("autokey", "Entering getAutoCommand now");
      Command command = null;
     //Swith 1 OFF, 2 ON, 3 ON, 4 ON
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {

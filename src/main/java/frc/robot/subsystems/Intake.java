@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
-  private CANSparkMax intake;
-  public static Counter counter;
-  private static boolean isCounterUnplugged = false;
+private CANSparkMax intake;
+public static Counter counter;
+private static boolean isCounterUnplugged = false;
 
   /** Creates a new Intake. */
   public Intake() {
@@ -99,5 +99,6 @@ public int getCount() {
     // This method will be called once per scheduler run
    SmartDashboard.putNumber("Intake periodic count is:", getIntakeCount());
    SmartDashboard.putBoolean("is intake spinning ", isIntakeSpinning());
+   SmartDashboard.putBoolean("HasNote: ", counter.get()>0);
   }
 }
