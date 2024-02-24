@@ -26,7 +26,7 @@ public class LLAngle extends Command {
     SmartDashboard.putNumber("LLangle init", pipeline);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
-    cameraXoffset = 0; //TODO - change if camera not centered
+    cameraXoffset = 0; //TODO - change if camera not centered on robot (left to right)
   }
 
   // Called every time the scheduler runs while the command is scheduled.

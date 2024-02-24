@@ -77,17 +77,7 @@ public void removeBrake(){
 public boolean isBrake(){
   return brake.get() == Value.kReverse;
 }
-/* 
-    public void closedRampRate() {
-      leftElevatorMotor.setClosedLoopRampRate(Constants.Elevator.ELEV_CLOSED_RAMP_RATE);
-      rightElevatorMotor.setClosedLoopRampRate(Constants.Elevator.ELEV_CLOSED_RAMP_RATE);
-    }
-  
-    public void openRampRate() {
-      leftElevatorMotor.setOpenLoopRampRate(Constants.Elevator.ELEV_OPEN_RAMP_RATE);
-      rightElevatorMotor.setOpenLoopRampRate(Constants.Elevator.ELEV_OPEN_RAMP_RATE);
-    }
-*/
+
     public void stopElevator() {
       leftElevatorMotor.set(0);
       rightElevatorMotor.set(0);
@@ -199,11 +189,13 @@ public void setFF(double kFF) {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Elevator height", getElevatorHeight());
+    SmartDashboard.putBoolean("BrakeEngaged?: ", isBrake());
+    SmartDashboard.putNumber("Elevator height: ", getElevatorHeight());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
-    SmartDashboard.putNumber("Left elevator encoder", getElevLeftEncoder()); 
-    SmartDashboard.putNumber("Right elevator encoder", getElevRightEncoder());
+    //SmartDashboard.putNumber("Left elevator encoder", getElevLeftEncoder()); 
+    //SmartDashboard.putNumber("Right elevator encoder", getElevRightEncoder());
+
    // SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
    // SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
   }

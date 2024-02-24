@@ -21,14 +21,13 @@ public class LLDistance extends Command {
 
   private double kY = 0.02; //0.00725;
   
-  private double h1 = 34;// approx ht now = was 32.5; //inches, from ground to center of camera lens
-  //private double h2 = 18; // inches, same unit as d, to center of target
-  private double a1 = Math.toRadians(6); //6 degrees, camera tilt
+  private double h1 = 44;//inches, from ground to center of camera lens
+  private double a1 = Math.toRadians(10); //camera tilt, up from horizontal
   private double dist; // desired distance from camera to target in inches; pass into command
   private Drive drive;
   private double pipeline;
-  private double targetHeight;//18" for Atag, from floor to center of target
-  private double tv, disY, a2, dx, errorY;
+  private double targetHeight = 57.5;//Speaker Atag, from floor to center of target
+  private double tv, angleY, a2, dx, errorY;
   
   /** Creates a new LLAngle. */
   public LLDistance(Drive drive, double pipeline, double standoff, double targetHeight) {
@@ -54,10 +53,10 @@ public class LLDistance extends Command {
    tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
  
     // TO make sure dx is positive, use abs value for disY and (h1-h2)
-   disY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
+   angleY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
 
     if(tv==1){
-        a2 = disY*Math.PI/180; // in radians, if disY in degrees
+        a2 = angleY*Math.PI/180; // in radians, if angleY in degrees
         dx = Math.abs(targetHeight - h1) / Math.tan(a1+a2);  
         errorY = dist - dx;  
     //NOTE:  CAN TRY TO USE THE Z VALUE OF THE POSE FOR errorY (use [2] or [0] for other directions)
@@ -66,7 +65,7 @@ public class LLDistance extends Command {
        drive.setRightSpeed(-distanceAdjust);  //change to negative since LL is in back of robot this year
       SmartDashboard.putNumber("dx, Y dist from target:", dx); //test this - use later for cartridge angle equation
       SmartDashboard.putNumber("ErrorY:", errorY);
-      SmartDashboard.putNumber("Ty, degrees:", disY);
+      SmartDashboard.putNumber("Ty, degrees:", angleY);
    } else{
       SmartDashboard.putNumber("No Target", tv);
    }

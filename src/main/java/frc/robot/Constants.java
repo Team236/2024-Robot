@@ -84,11 +84,8 @@ public final class Constants {
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
     // TURNING ANGLES
-    public static final double TURN_ANGLE_1 = 180;
-    ; //CW
-    public static final double TURN_ANGLE_2 = -180; //CCW
-    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 28;
-     public static final double TURN_ANGLE_RED_POD_TO_SPKR = -28;
+    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = -32;//CCW
+     public static final double TURN_ANGLE_RED_POD_TO_SPKR = 32;
     public static final double TURN_SIDE_OF_WOOFER = 74;//33;//36
     public static final double TURN_TO_THIRD_NOTE = 118;
     // TIMEOUTS (in sec)
@@ -127,14 +124,14 @@ public final class Constants {
     public static final double KP_ELEV_DOWN = 0.2;
     public static final double KI_ELEV_DOWN = 0;
     public static final double KD_ELEV_DOWN = 0;
-      public static final double KFF_ELEV_DOWN = 0;
+    public static final double KFF_ELEV_DOWN = 0;
 
     public static final double KP_ELEV_CLIMB = 0.2;
     public static final double KI_ELEV_CLIMB = 0;
     public static final double KD_ELEV_CLIMB = 0;
       public static final double KFF_ELEV_CLIMB = 0;
 
-          // Transmission solenoid
+    //Transmission solenoid
     public static final int SOL_BRAKE_ON = 2; 
     public static final int SOL_BRAKE_OFF = 3;
   }

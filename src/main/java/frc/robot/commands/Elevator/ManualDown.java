@@ -22,7 +22,9 @@ public class ManualDown extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    elevator.removeBrake();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
