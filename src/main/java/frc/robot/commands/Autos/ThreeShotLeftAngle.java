@@ -26,10 +26,9 @@ public class ThreeShotLeftAngle extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       Commands.parallel( 
-        new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(3), //bring elevator up to match height
+        new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
         new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(3)
         ),
-    //new WaitCommand(1), //just for testing
       Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.WOOFER_ANGLED_TO_NOTE).withTimeout(3),
         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)     
@@ -42,8 +41,6 @@ public class ThreeShotLeftAngle extends SequentialCommandGroup {
       ),
         new PIDTurn(drive, 90).withTimeout(2),
         new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_AUTOSHOT2).withTimeout(3)
-    //TODO Determine if line below needed - to hold elev with PID during teleop
-    // ,new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT)
     );
   }
 }
