@@ -80,7 +80,7 @@ public final class Constants {
   }
 
   public static class Limelight{
-    // orientaion as defined in LimelightHelpers.setCameraPose_RobotSpace method
+    // 2023 orientaion as defined in LimelightHelpers.setCameraPose_RobotSpace method
     //  double forward, double side, double up, 
     //  double roll, double pitch, double yaw
     public static final double CAMERA_FWD_POSITION = Units.inchesToMeters(-0.5);    // FWD position 
@@ -113,7 +113,7 @@ public final class Constants {
     public static final double GEAR_RATIO = 1; // for external encoder set 1 as gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
-    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K / 128; // for external encoder 
+    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K / 128; // for external ENS1J-B28-L00128L encoder 
     // PID
     public static final double KP_DRIVE = 0.022; // 0.022 (from 2023)
     public static final double KI_DRIVE = 0;
