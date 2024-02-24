@@ -218,7 +218,7 @@ public class RobotContainer {
     //ELEVATOR - 
     // manualDown to zero at limit, then piDupToMatchHeight, then cycle power 
     // then pidToTop, then climbPID (no manDown or toMatchHeight after cycle power!)
-    /
+    
     upPov1.onTrue(pidToTop); //only after 
     downPov1.onTrue(pidToBot);
     leftPov1.onTrue(pidUpToMatchHeight); //only for going to match height prior to power off
@@ -255,15 +255,19 @@ public class RobotContainer {
     //Swith 1 OFF, 2 ON, 3 ON, 4 ON
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       command = wooferLeft;
+      SmartDashboard.putNumber("AutoSwitch is: ", 1); SmartDashboard.putNumber("AutoSwitch is: ", 1);
     //Swith 1 ON, 2 OFF, 3 ON, 4 ON
     } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       command = wooferRight;
+       SmartDashboard.putNumber("AutoSwitch is: ", 2);
     //Swith 1 ON, 2 ON, 3 OFF, 4 ON
     } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
       command = frontShootGrabShoot;
+       SmartDashboard.putNumber("AutoSwitch is: ", 3);
       //Swith 1 ON, 2 ON, 3 OFF, 4 OFF
     } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
       command =  frontShootGrabShoot;
+       SmartDashboard.putNumber("AutoSwitch is: ", 4);
    }
    return command;
   }
