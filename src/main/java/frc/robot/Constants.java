@@ -47,35 +47,8 @@ public final class Constants {
     public static final double AMP_TRAP_MOTOR_SPEED = 1.0; // TODO define real spead
     public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.4; // TODO define real spead
     }
-
   public static class DriveConstants {
-    // lets us ignore small joystick inputs
-    public static final double LEFT_DEADZONE = 0.05; // 0.15???
-    public static final double RIGHT_DEADZONE = 0.05;
-    public static final double DEADBAND = 0.05;
-    // Transmission solenoid
-    public static final int SOL_LOW_GEAR = 0; 
-    public static final int SOL_HIGH_GEAR = 1;
-    // external drive encoders
-    public static final int DIO_LDRIVE_ENC_A = 6;
-    public static final int DIO_LDRIVE_ENC_B = 7;
-    public static final int DIO_RDRIVE_ENC_A = 11; //changed!
-    public static final int DIO_RDRIVE_ENC_B = 10; //changed!
-    // Calculates distance in INCHES from encoder pulses (ticks get it?)
-    public static final double DIAMETER = 3.7;
-    public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-    public static final double GEAR_RATIO = 1; //for external encoder - no gear ratio
-    public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
-    public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
-    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; // for external encoder
-    // PID
-    public static final double KP_DRIVE = 0.022; // 0.022 (from 2023)
-    public static final double KI_DRIVE = 0;
-    public static final double KD_DRIVE = 0;
-    public static final double KP_TURN_CCW = 0.022;  //.02
-    public static final double TURNCCW_DEG_TO_REV = 0.211; //
-    public static final double KP_TURN_CW = 0.022;
-    public static final double TURNCW_DEG_TO_REVS = 0.2332; //
+
     // AUTO DISTANCES
     public static final double AUTO_DISTANCE_1 = 60;// 48;
     public static final double WOOFERFRONT_TO_NOTE = 60;
@@ -83,38 +56,60 @@ public final class Constants {
     public static final double PULL_AWAY_TO_NOTE = 66; //
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
-    // TURNING ANGLES
+    //TURNING ANGLES
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = -32;//CCW
      public static final double TURN_ANGLE_RED_POD_TO_SPKR = 32;
     public static final double TURN_SIDE_OF_WOOFER = 74;//33;//36
     public static final double TURN_TO_THIRD_NOTE = 118;
-    // TIMEOUTS (in sec)
-    public static final double CARTRIDGE_SHOOT_TIMEOUT = 2;
+    //lets us ignore small joystick inputs
+    public static final double LEFT_DEADZONE = 0.05; // 0.15???
+    public static final double RIGHT_DEADZONE = 0.05;
+    public static final double DEADBAND = 0.05;
+    //Transmission solenoid
+    public static final int SOL_LOW_GEAR = 0; 
+    public static final int SOL_HIGH_GEAR = 1;
+    //External drive encoders
+    public static final int DIO_LDRIVE_ENC_A = 6;
+    public static final int DIO_LDRIVE_ENC_B = 7;
+    public static final int DIO_RDRIVE_ENC_A = 11; //changed!
+    public static final int DIO_RDRIVE_ENC_B = 10; //changed!
     //AUTO SWITCHES
     public static final int DIO_AUTO_1 = 0;
     public static final int DIO_AUTO_2 = 1;
     public static final int DIO_AUTO_3 = 2;
     public static final int DIO_AUTO_4 = 3;
+    //Calculates distance in INCHES from encoder pulses (ticks get it?)
+    public static final double DIAMETER = 3.7;  //diameter of the wheels
+    public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
+    public static final double GEAR_RATIO = 1; //for external encoder - no gear ratio
+    public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
+    public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
+    public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; // for external encoder
+    //PID
+    public static final double KP_DRIVE = 0.022;
+    public static final double KI_DRIVE = 0;
+    public static final double KD_DRIVE = 0;
+    public static final double KP_TURN_CCW = 0.022;  
+    public static final double TURNCCW_DEG_TO_REV = 0.211; 
+    public static final double KP_TURN_CW = 0.022;
+    public static final double TURNCW_DEG_TO_REVS = 0.2332; 
   }
   public static class Elevator {
-    public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8;//-6;// TODO get real number-somewhere above chain
-    public static final double MATCH_HEIGHT= 6;//-6; // TODO determine
-    public static final double MIN_HEIGHT = 0.5;//-6; 
-    public static final double MAX_HEIGHT = 27;//-6; 
-    public static final double CLIMB_HEIGHT = 0.5;//-6;
-
     public static final int DIO_ELEV_TOP = 4;
     public static final int DIO_ELEV_BOTTOM = 5;
 
+    public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8;
+    public static final double MATCH_HEIGHT= 6;
+    public static final double MIN_HEIGHT = 0.5;
+    public static final double MAX_HEIGHT = 27;
+    public static final double CLIMB_HEIGHT = 0.5;
+
     public static final double ELEV_REV_TO_IN = 0.32327;//gear ratio changed, old 2.2629;
     public static final double ELEV_IN_TO_REV = 1/(0.32327);
-
-    public static final double ELEV_CLOSED_RAMP_RATE = 0.08;
-    public static final double ELEV_OPEN_RAMP_RATE = 0.08;
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.25;
-    public static final double ELEV_DOWN_SPEED = 0.1; // keep this pos
-    public static final double ELEV_MAN_DOWN_SPEED = 0.8; //just for testing climbing without PID
+    public static final double ELEV_DOWN_SPEED = 0.1; //keep this pos
+    public static final double ELEV_MAN_DOWN_SPEED = 0.8;//for testing climbing without PID
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.2; //
     public static final double KI_ELEV_UP = 0;
@@ -129,9 +124,8 @@ public final class Constants {
     public static final double KP_ELEV_CLIMB = 0.2;
     public static final double KI_ELEV_CLIMB = 0;
     public static final double KD_ELEV_CLIMB = 0;
-      public static final double KFF_ELEV_CLIMB = 0;
-
-    //Transmission solenoid
+    public static final double KFF_ELEV_CLIMB = 0;
+    //transmission solenoid
     public static final int SOL_BRAKE_ON = 2; 
     public static final int SOL_BRAKE_OFF = 3;
   }
@@ -141,13 +135,13 @@ public final class Constants {
     public static final double EJECT_SPEED = -0.5;
   }
   public static class CartridgeShooter { 
-    // SHOOTER MOTORS
-    public static final double PODIUM_PID_RPM = 3500; //3500//TODO determine speed
-    public static final double WOOFER_PID_RPM = 3500; //TODO determine speed
+    //CARTRIDGE SHOOTER MOTORS
+    public static final double PODIUM_PID_RPM = 3500; 
+    public static final double WOOFER_PID_RPM = 3500;
     public static final double AMP_PID_RPM = 3500; //Speed to run cart motors when doing AMP shot
     public static final double MAX_PID_SPEED = 5500;
 
-    public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6; //just for bench test - use PID in match
+    public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6;//for bench test - use PID in match
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
     public static final double MANUAL_SET_SPEED = 0.3; 
    //CartridgeShooterMotor PID // 2022 pid constants commented in
@@ -162,7 +156,7 @@ public final class Constants {
     public static final double kFFRight = 0.0002; //0.00018; // 0.00021
   }
   public static class Tilt { 
-    //TILT MOTOR STUFF:
+    //TILT MOTOR
     public static final int DIO_TILT_EXT_LIMIT = 8;
     public static final int DIO_TILT_RET_LIMIT = 9;
     public static final double MAX_TILT_ENC_REVS = 78;//really 79.8, 64deg from top

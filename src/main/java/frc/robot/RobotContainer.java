@@ -39,6 +39,7 @@ import frc.robot.commands.Shots.AmpShot;
 import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.commands.Shots.PIDLLShot;
 import frc.robot.commands.Shots.PIDPodShotWithBlueTurn;
+import frc.robot.commands.Shots.PIDPodShotWithRedTurn;
 import frc.robot.commands.Shots.RunIntkCartAmpMotors;
 import frc.robot.commands.Shots.RunIntkCartMotors;
 import frc.robot.subsystems.Cartridge;
@@ -86,6 +87,7 @@ public class RobotContainer {
  private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
  private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt);
  private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
+  private final PIDPodShotWithRedTurn pidPodShotWithRedTurn = new PIDPodShotWithRedTurn(intake, cartridge, tilt, drive);
  private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
  private final RunIntkCartAmpMotors runIntCartAmpMotors = new RunIntkCartAmpMotors(intake, cartridge, ampTrap,  Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
 //AUTO COMMANDS
@@ -179,48 +181,44 @@ public class RobotContainer {
   //assign button to commands
     
   //***** driver controller ******
-  //INTAKE
-    rb.whileTrue(intakeWithCounter);   
-    lb.whileTrue(manualEject);
-    //a.whileTrue(manualIntake)); 
-  //TILT- zero at retract limit before using Autos or PID!!!
-    x.whileTrue(manualRetCartridge);
-    b.whileTrue(manualExtCartridge);
-    y.onTrue(stowTilt); //PID
-  //SHOT COMMAND GROUPS
-    a.onTrue(ampShot);
-    leftPov.onTrue(pidPodiumShot);
-    rightPov.onTrue(pidWooferShot);
-    upPov.onTrue(pidLLShot);
-    downPov.onTrue(pidPodShotWithBlueTurn);
+  //INTAKE AND SHIFT
+    rb.onTrue(toggleGear);   
+    lb.whileTrue(intakeWithCounter);
+    rm.whileTrue(manualIntake); 
+    lm.whileTrue(manualEject);
   //TURNS
-    rm.onTrue(llAngle);
-    lm.onTrue(pidTurn180);
-    menu.onTrue(pidTurnPodtoWoofRed); 
-    view.onTrue(pidTurnPodtoWoofRed); 
+    a.onTrue(pidTurn180);
+    b.onTrue(pidTurnPodtoWoofRed);
+    x.onTrue(pidTurnPodtoWoofBlue); 
+    y.onTrue(llAngle);
+  //AUTONOMOUS ROUTINES
+    upPov.onTrue(frontTwoShots);
+    downPov.onTrue(wooferLeft);
+    leftPov.onTrue(wooferRight);
+    rightPov.onTrue(threeShotLeftAngle);
 
   //***** Aux Controller ******
-  //AUTONOMOUS ROUTINES
-    a1.onTrue(frontTwoShots);
-    b1.onTrue(wooferLeft);
-    x1.onTrue(wooferRight);
-    y1.onTrue(threeShotLeftAngle);
-  //CAMERA AND LIMELIGHT 
-    view1.onTrue(floorCameraAngle);
-    menu1.onTrue(ampCameraAngle);
-  //ELEVATOR - zero elevator manually before using PID
-    upPov1.onTrue(pidToTop); 
-    downPov1.onTrue(climbPID);
-    leftPov1.whileTrue(manualDown);//only for setting enc to zero prior to power off
-  //DRIVE
+  //SHOTS
+    a1.onTrue(pidWooferShot);
+    b1.onTrue(pidLLShot);
+    y1.onTrue(ampShot);
+    x1.onTrue(pidPodiumShot);
+    leftPov1.onTrue(pidPodShotWithBlueTurn); 
+    rightPov1.onTrue(pidPodShotWithRedTurn); 
+  //ELEVATOR - zero manually before using PID
+    upPov1.onTrue(pidToTop);
+    downPov1.whileTrue(manualDown);
     lb1.onTrue(toggleBrake);
-    rb1.onTrue(toggleGear);
+    rb1 .onTrue(climbPID);
+  //CARTRIDGE TILT - zero before using PID
+   lm1.whileTrue(manualRetCartridge);
+   rm1.whileTrue(manualExtCartridge);
+  //CAMERA ANGLES
+   view1.onTrue(ampCameraAngle);
+   menu1.onTrue(floorCameraAngle);
 
-
-  //AMP
     //view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);
-//CARTRIDGE MOTOR SPEEDS
     //view1.whileTrue(pidWooferSpeed);
     //menu1.whileTrue(pidPodiumSpeed);
     //lm.whileTrue(runIntCartAmpMotors); 

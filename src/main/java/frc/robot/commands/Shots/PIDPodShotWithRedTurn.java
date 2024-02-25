@@ -15,15 +15,13 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PIDPodShotWithBlueTurn extends SequentialCommandGroup {
+
+public class PIDPodShotWithRedTurn extends SequentialCommandGroup {
 //Moves cartridge to Woofer or Podium position, then runs Cartridge at PID controlled velocity, then adds intake motors after a delay
   //intake speed between -1 and 1, cartridge speed in RPM
-  public PIDPodShotWithBlueTurn(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive) {
+  public PIDPodShotWithRedTurn(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive) {
       addCommands(
-          new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1.5),
+          new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR).withTimeout(1.5),
           new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(3)
       );
     Intake.resetCounter();  //reset counter after shooting a Note
