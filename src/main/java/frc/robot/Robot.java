@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -56,11 +57,21 @@ public class Robot extends TimedRobot {
   for (int port = 5800; port <= 5805; port++){
     PortForwarder.add(port, "limelight.local", port);
   }
+
+  LimelightHelpers.setCameraPose_RobotSpace("limelight"
+    , Units.inchesToMeters(14)    // x = 14
+    , Units.inchesToMeters(0)   // y = 0
+    , Units.inchesToMeters(44)  // z = 44
+    , Units.inchesToMeters(10)  // roll = 10 degres
+    , Units.inchesToMeters(0)   // pitch = 0
+    , Units.inchesToMeters(0)    // yaw = 0
+    );
+    LimelightHelpers.setLEDMode_ForceOff("limelight");
 }
- //usbCamera0.setResolution(320, 240);
-// usbCamera0.setBrightness(50);// percentage 0 to 100
- //usbCamera0.setExposureManual(50); //percentage 0 to 100
- //Set the counter to zero at the start
+  //usbCamera0.setResolution(320, 240);
+  // usbCamera0.setBrightness(50);// percentage 0 to 100
+  //usbCamera0.setExposureManual(50); //percentage 0 to 100
+  //Set the counter to zero at the start
  Intake.resetCounter();
   }
 

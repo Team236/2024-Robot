@@ -6,6 +6,7 @@ package frc.robot.commands.CameraLimelight;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.Drive;
 
 public class LLAngle extends Command {
@@ -32,14 +33,13 @@ public class LLAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    distX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+   double[] cameraTargetPose = LimelightHelpers.getCameraPose3d_TargetSpace("limelight");
+    distX = cameraTargetPose[0];  // camera position from tag
     errorX = distX - cameraXoffset;//TODO - determine this offset
 
-    if(tv==1) {
+    if(LimelightHelpers.getFiducialID("limelight")!=0 AND ( Math.abs() < 0.5 ) ) {
     //Establishes error in the x axis 
-      if (Math.abs(errorX)>0.5){
+      // if {
       SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
         double steeringAdjust = kX * errorX;
     //****IF TESTING WITH 2023 ROBOT, CHANGE LEFT TO POSITIVE, RIGHT TO NEGATIVE SINCE CAM IN FRONT *********//
