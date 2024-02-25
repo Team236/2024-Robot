@@ -10,7 +10,7 @@ import frc.robot.subsystems.Drive;
 
 public class LLAngle extends Command {
     private double kX = 0.017;//TODO - try different kX
-  private double tv, distX, errorX;
+  private double tid, distX, errorX;
   private Drive drive;
   private double pipeline, cameraXoffset;
 
@@ -24,6 +24,7 @@ public class LLAngle extends Command {
   @Override
   public void initialize() {
     SmartDashboard.putNumber("LLangle init", pipeline);
+    // turn on the if set for pipeline:  0 is "controlled by pipeline"
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
     cameraXoffset = 0; //TODO - change if camera not centered on robot (left to right)
@@ -32,12 +33,13 @@ public class LLAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    // turn off the LED  1 = "force off" 0 = "controlled by pipeline"
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    tid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0);
     distX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     errorX = distX - cameraXoffset;//TODO - determine this offset
 
-    if(tv==1) {
+    if(tid != 0) {   
     //Establishes error in the x axis 
       if (Math.abs(errorX)>0.5){
       SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
@@ -47,7 +49,8 @@ public class LLAngle extends Command {
         drive.setRightSpeed(+steeringAdjust); //since cam in back, use + here (was - in 2023)
         }   
       else{
-      SmartDashboard.putNumber("No Shoot Target", tv);
+      // SmartDashboard.putNumber("LL tag Id", tid);
+      SmartDashboard.putNumber("No Shoot Target", 1);  // 1 is false
       }
      }
     }
@@ -56,7 +59,8 @@ public class LLAngle extends Command {
   @Override
   public void end(boolean interrupted) {
     drive.stop();
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    // turn off the LED  1 = "force off" 0 = "controlled by pipeline"
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);  
   }
 
   // Returns true when the command should end.
@@ -64,17 +68,24 @@ public class LLAngle extends Command {
   public boolean isFinished() {
     // return false;
 
-    if(tv==1 && Math.abs(errorX)<=2){
+    if(tid != 0 && Math.abs(errorX)<=2){
       SmartDashboard.putBoolean("LLAngle isFinished:", true);
+      // turn off the LED  1 = "force off" 
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); 
       return true;
       }   
-      else if(tv==1 && Math.abs(errorX)>2){
+      else if(tid != 0 && Math.abs(errorX)>2){
         return false;
       }
       else
       {
-      SmartDashboard.putNumber("No Shoot Target", tv);
+      
+      SmartDashboard.putNumber("No Shoot Target", 1);
+      SmartDashboard.putNumber("LL tag Id", tagId);
+      // turn off the LED  1 = "force off" 
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); 
       return true;
       }
   }
+    
 }
