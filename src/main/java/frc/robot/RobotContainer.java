@@ -244,7 +244,7 @@ public class RobotContainer {
       SmartDashboard.putNumber("Auto Switch is: ", 1);
     //Swith 1 ON, 2 OFF, 3 ON, 4 ON
     } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      command = wooferRight;
+      command = frontTwoShots;
          SmartDashboard.putNumber("Auto Switch is: ", 2);
     //Swith 1 ON, 2 ON, 3 OFF, 4 ON
     } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
@@ -252,7 +252,7 @@ public class RobotContainer {
          SmartDashboard.putNumber("Auto Switch is: ", 3);
       //Swith 1 ON, 2 ON, 3 OFF, 4 OFF
     } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
-      command =  frontTwoShots;
+      command =  wooferRight;
          SmartDashboard.putNumber("Auto Switch is: ", 4);
    }
    return command;
