@@ -15,18 +15,20 @@ public class CameraToggle extends Command {
   }
 
   @Override
-  public void initialize() {}
-
-  @Override
-  public void execute() {
-//***assumes camera aimed at floor at start of match (see Robot.java, teleopInit)
-  if (Robot.isFloor) { 
+  public void initialize() {
+    //for solenoids, just do action once, not in execute, then command ends
+    //must start match with camera aimed at floor (isFloor set to True in Robot.java)
+    if (Robot.isFloor) { 
     Robot.cameraServo.set(Constants.FRONT_CAM_AMP);
     Robot.isFloor = false;
   } else {
     Robot.cameraServo.set(Constants.FRONT_CAM_FLOOR);
     Robot.isFloor = true;
   }
+  }
+
+  @Override
+  public void execute() {
   }
   
   // Called once the command ends or is interrupted.
@@ -36,6 +38,6 @@ public class CameraToggle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
