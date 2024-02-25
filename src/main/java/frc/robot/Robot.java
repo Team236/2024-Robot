@@ -49,9 +49,11 @@ public class Robot extends TimedRobot {
     
   //USB camera and servo:
    cameraServo = new Servo(Constants.PWM_FRONT_CAM);
+   // default the camera to point at front floor as starting position
+   Robot.cameraServo.set(Constants.FRONT_CAM_FLOOR);
 		try {
       usbCamera0 = CameraServer.startAutomaticCapture(0);
-}  catch (Exception e)  {
+    } catch (Exception e)  {
     SmartDashboard.putString("camera capture failed", "failed");
 
   //Need to do this once only in order to have Limelight communication while tethered
