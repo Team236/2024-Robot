@@ -34,9 +34,9 @@ public class ArcadeXbox extends Command {
   @Override
   public void initialize() {
    //TODO try without ramp rate, also try adding slew rate in driveArcade method
-   // drive.openRampRate();
-    //drive.resetLeftEncoder();
-    //drive.resetRightEncoder();
+    drive.openRampRate();
+    drive.resetLeftEncoder();
+    drive.resetRightEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
