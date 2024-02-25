@@ -46,22 +46,24 @@ public class LLTarget extends Command {
   @Override
   public void initialize() {
     SmartDashboard.putNumber("LLTarget init", pipeline);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    // turn off the LED  1 = "force off" 0 = "controlled by pipeline"
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    // turn on the LED controlled by pipeline: 0 = "controlled by pipeline"
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    double tid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDouble(0);
    // TO make sure dx is positive, use abs value for disY and (h1-h2)
     double angleY= Math.abs(NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
     double disX = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     double errorX = disX - cameraXoffset; 
     
-    if(tv==1){
-      if(Math.abs(errorX)>0.5){
+    if(tid != 0) {
+      if (Math.abs(errorX) > 0.5) {
         steeringAdjust = (kX * errorX); 
         }
       else {
@@ -79,8 +81,8 @@ public class LLTarget extends Command {
       SmartDashboard.putNumber("dx, Y dist from target:", dx);
       SmartDashboard.putNumber("ErrorY:", errorY);
       SmartDashboard.putNumber("Ty, degrees:", angleY);
-   } else{
-         SmartDashboard.putNumber("No Target", tv);
+   } else {
+         SmartDashboard.putNumber("No Target", 1);
    }
   }
 
@@ -88,26 +90,34 @@ public class LLTarget extends Command {
   @Override
   public void end(boolean interrupted) {
     drive.stop();
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    // turn off the LED  1 = "force off" 
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // turn off the LED  1 = "force off" 
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
     return false;
-/*if(tv==1 && Math.abs(errorY)<=2 && Math.abs(errorX <= 5)){
+
+    /*
+    if(tagId !> 0 && Math.abs(errorY)<=2 && Math.abs(errorX <= 5)){
       SmartDashboard.putBoolean("LLDistance isFinished:", true);
       return true;
       }   
-      else if(tv==1 && (Math.abs(errorY) > 2 || Math.abs(errorX > 5) {
+      else if(tagId !> 0 && (Math.abs(errorY) > 2 || Math.abs(errorX > 5) {
          SmartDashboard.putBoolean("LLDistance still working angle or distance", true);
         return false;
       }
       else
       {
-      SmartDashboard.putNumber("No Shoot Target", tv);
+      
+      //SmartDashboard.putNumber("No Shoot Target",1);
+      SmartDashboard.putNumber("LL tag Id",tid);
+      
       return true;
       }
-      */
+    */
   }
 }

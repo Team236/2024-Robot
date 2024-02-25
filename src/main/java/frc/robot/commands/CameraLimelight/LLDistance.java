@@ -27,7 +27,7 @@ public class LLDistance extends Command {
   private Drive drive;
   private double pipeline;
   private double targetHeight = 57.5;//Speaker Atag, from floor to center of target
-  private double tv, angleY, a2, dx, errorY;
+  private double tid, angleY, a2, dx, errorY;
   
   /** Creates a new LLAngle. */
   public LLDistance(Drive drive, double pipeline, double standoff, double targetHeight) {
@@ -42,20 +42,22 @@ public class LLDistance extends Command {
   @Override
   public void initialize() {
     SmartDashboard.putNumber("LLDistance init", pipeline);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    // turn off the LED  1 = "force off" 0 = "controlled by pipeline"
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-   tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    // turn on the if set for pipeline:  0 is "controlled by pipeline"
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    tid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tagId").getDouble(0);
  
     // TO make sure dx is positive, use abs value for disY and (h1-h2)
    angleY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
 
-    if(tv==1){
+    if(tid != 0 ){
         a2 = angleY*Math.PI/180; // in radians, if angleY in degrees
         dx = Math.abs(targetHeight - h1) / Math.tan(a1+a2);  
         errorY = dist - dx;  
@@ -67,7 +69,9 @@ public class LLDistance extends Command {
       SmartDashboard.putNumber("ErrorY:", errorY);
       SmartDashboard.putNumber("Ty, degrees:", angleY);
    } else{
-      SmartDashboard.putNumber("No Target", tv);
+      //SmartDashboard.putNumber("LL tag Id", tid);
+      SmartDashboard.putNumber("No Target", 1);
+    
    }
   }
 
@@ -75,24 +79,33 @@ public class LLDistance extends Command {
   @Override
   public void end(boolean interrupted) {
     drive.stop();
+    // turn off the LED  1 = "force off" 
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    
     //return false;
-    if(tv==1 && Math.abs(errorY)<=1){
+    if(tid != 0  && Math.abs(errorY)<=1){
       SmartDashboard.putBoolean("LLDistance isFinished:", true);
+      // turn off the LED  1 = "force off" 
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); 
       return true;
       }   
-      else if(tv==1 && Math.abs(errorY)>1){
+      else if(tid != 0 && Math.abs(errorY)>1){
         return false;
       }
       else
       {
-      SmartDashboard.putNumber("No Shoot Target", tv);
+        // turn off the LED  1 = "force off" 
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); 
+      SmartDashboard.putNumber("No Shoot Target", 1);
+      //SmartDashboard.putNumber("LL tag Id",tid);
       return true;
       }
       
-}
+    }
+    
   }
