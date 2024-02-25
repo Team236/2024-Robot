@@ -196,6 +196,7 @@ public class RobotContainer {
     downPov.onTrue(wooferLeft);
     leftPov.onTrue(wooferRight);
     rightPov.onTrue(threeShotLeftAngle);
+    view.onTrue(toggleCameraAngle);
 
   //***** Aux Controller ******
   //SHOTS
