@@ -25,7 +25,7 @@ public class PidLLTilt extends Command {
     //Dx = dx - offset = horizontal distance from robot bumper to target
     //offset = distance from LL lens to outer edge of bumper
     //tan(a1 +a2)  = (h2-h1)/dx;
-  private double h1 = 44;// inches from ground to center of camera lens
+  private double h1 = 45;// inches from ground to center of camera lens
   private double h2 = 57.5; // inches,floor to center of target
   private double a1 = Math.toRadians(10); //degrees, camera tilt, up from horizontal
   private double offset = 7; //inhces, LL lens to outer edge of bumper
