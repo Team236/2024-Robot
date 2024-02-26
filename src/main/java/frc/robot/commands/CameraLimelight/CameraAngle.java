@@ -5,9 +5,6 @@
 package frc.robot.commands.CameraLimelight;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.Robot;
-import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.CameraServo;
 
 public class CameraAngle extends Command {

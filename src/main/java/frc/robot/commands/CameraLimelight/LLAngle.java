@@ -12,7 +12,7 @@ import frc.robot.subsystems.Drive;
 
 public class LLAngle extends Command {
     private double kX = 0.017;//TODO - try different kX
-  private double tv, distX, errorX;
+  private double tid, distX, errorX;
   private Drive drive;
   private double pipeline, cameraXoffset;
 
@@ -37,8 +37,9 @@ public class LLAngle extends Command {
    Pose3d cameraTargetPose = LimelightHelpers.getCameraPose3d_TargetSpace("limelight");
     distX = cameraTargetPose.getX();  // camera position from tag
     errorX = distX - cameraXoffset;//TODO - determine this offset
-
-    if(LimelightHelpers.getFiducialID("limelight")!= 0 && Math.abs(errorX) < 0.5 ) {
+    tid = LimelightHelpers.getFiducialID("limelight");
+    
+    if(tid != 0 && Math.abs(errorX) < 0.5 ) {
     //Establishes error in the x axis 
       // if {
       SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
@@ -48,7 +49,7 @@ public class LLAngle extends Command {
         drive.setRightSpeed(+steeringAdjust); //since cam in back, use + here (was - in 2023)
         }   
       else{
-      SmartDashboard.putNumber("No Shoot Target", tv);
+      SmartDashboard.putNumber("No Shoot Target", 1);
       }
      }
 
@@ -65,16 +66,16 @@ public class LLAngle extends Command {
   public boolean isFinished() {
     // return false;
 
-    if(tv==1 && Math.abs(errorX)<=2){
+    if(tid !=0 && Math.abs(errorX)<=2){
       SmartDashboard.putBoolean("LLAngle isFinished:", true);
       return true;
       }   
-      else if(tv==1 && Math.abs(errorX)>2){
+      else if(tid !=0 && Math.abs(errorX)>2){
         return false;
       }
       else
       {
-      SmartDashboard.putNumber("No Shoot Target", tv);
+      SmartDashboard.putNumber("No Shoot Target", 1);
       return true;
       }
   }

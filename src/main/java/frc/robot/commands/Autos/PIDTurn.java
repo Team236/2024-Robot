@@ -6,7 +6,6 @@ package frc.robot.commands.Autos;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drive;
 
@@ -17,10 +16,12 @@ public class PIDTurn extends Command {
   /** Creates a new TurnPID. */
   public PIDTurn(Drive drive, double setpointDegrees) {
     this.drive = drive;
-    this.leftPidController = new PIDController(Constants.DriveConstants.KP_TURN_CCW, 0, 0);
-    this.rightPidController = new PIDController(Constants.DriveConstants.KP_TURN_CW, 0, 0);
-    leftPidController.setSetpoint(setpointDegrees * Constants.DriveConstants.TURNCCW_DEG_TO_REV); // this converts the setpoint in degrees to inches, need new conversion for this year
-    rightPidController.setSetpoint(-setpointDegrees * Constants.DriveConstants.TURNCW_DEG_TO_REVS);
+    this.leftPidController = new PIDController(DriveConstants.KP_TURN_CCW, 0, 0);
+    this.rightPidController = new PIDController(DriveConstants.KP_TURN_CW, 0, 0);
+    
+    // this converts the setpoint in degrees to inches, need new conversion for this year
+    leftPidController.setSetpoint(setpointDegrees * DriveConstants.TURNCCW_DEG_TO_REV); 
+    rightPidController.setSetpoint(-setpointDegrees * DriveConstants.TURNCW_DEG_TO_REVS);
     addRequirements(drive);
   }
 
