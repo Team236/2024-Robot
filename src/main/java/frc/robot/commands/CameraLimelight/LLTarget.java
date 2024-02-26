@@ -70,9 +70,15 @@ public class LLTarget extends Command {
       }
         //  a2 = disY*Math.PI/180;  //make sure disY is positive
         //  dx = Math.abs((h1-targetHeight)) / Math.tan(a1+a2);
-         Pose3d pose = LimelightHelpers.getCameraPose3d_TargetSpace("limelight");
-         dx = pose.getX();
+
+        // LLpose is a double[6] x,y,z,roll pitch yaw 
+        // TODO verify +Z is out of camera toard tag in meters
+         double[] LLpose = LimelightHelpers.getCameraPose_TargetSpace("limelight");
+        //  Pose3d pose3D = LimelightHelpers.getCameraPose3d_TargetSpace("limelight");
+         dx = LLpose[0];
+         SmartDashboard.putNumber("Camera Target dx inches",Units.metersToInches(dx));
          errorY = dist - dx;
+         
          distanceAdjust = kY * errorY; 
          
        drive.setLeftSpeed(-distanceAdjust - steeringAdjust); //signs are due to camera in back of robot

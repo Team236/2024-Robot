@@ -59,12 +59,12 @@ public class Robot extends TimedRobot {
   }
 
   LimelightHelpers.setCameraPose_RobotSpace("limelight"
-    , Units.inchesToMeters(14)    // x = 14
+    , Units.inchesToMeters(14)  // x = 14
     , Units.inchesToMeters(0)   // y = 0
     , Units.inchesToMeters(44)  // z = 44
     , Units.inchesToMeters(10)  // roll = 10 degres
     , Units.inchesToMeters(0)   // pitch = 0
-    , Units.inchesToMeters(0)    // yaw = 0
+    , Units.inchesToMeters(0)   // yaw = 0
     );
     LimelightHelpers.setLEDMode_ForceOff("limelight");
 }
