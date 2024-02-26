@@ -5,8 +5,10 @@
 package frc.robot.commands.CameraLimelight;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.Drive;
 
 public class LLDistance extends Command {
@@ -28,7 +30,7 @@ public class LLDistance extends Command {
   private Drive drive;
   private double pipeline;
   private double targetHeight;//18" for Atag, from floor to center of target
-  private double tv, disY, a2, dx, errorY;
+  private double tid, disY, a2, dx, errorY;
   
   /** Creates a new LLAngle. */
   public LLDistance(Drive drive, double pipeline, double standoff, double targetHeight) {
@@ -51,14 +53,16 @@ public class LLDistance extends Command {
   @Override
   public void execute() {
    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-   tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+   tid = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
  
     // TO make sure dx is positive, use abs value for disY and (h1-h2)
    disY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
 
-    if(tv==1){
+    if(tid != 0){
         a2 = disY*Math.PI/180; // in radians, if disY in degrees
-        dx = Math.abs(targetHeight - h1) / Math.tan(a1+a2);  
+        Pose3d pose = LimelightHelpers.getCameraPose3d_TargetSpace("limelight");
+        dx = pose.getX();
+        //dx = Math.abs(targetHeight - h1) / Math.tan(a1+a2);  
         errorY = dist - dx;  
     //NOTE:  CAN TRY TO USE THE Z VALUE OF THE POSE FOR errorY (use [2] or [0] for other directions)
       double distanceAdjust = kY * errorY;
@@ -68,7 +72,8 @@ public class LLDistance extends Command {
       SmartDashboard.putNumber("ErrorY:", errorY);
       SmartDashboard.putNumber("Ty, degrees:", disY);
    } else{
-      SmartDashboard.putNumber("No Target", tv);
+      SmartDashboard.putNumber("No Target", 1);
+      // SmartDashboard.putNumber("Tag Id", LimelightHelpers.getFiducialID("limelight");
    }
   }
 
@@ -82,18 +87,18 @@ public class LLDistance extends Command {
   @Override
   public boolean isFinished() {
     //return false;
-    if(tv==1 && Math.abs(errorY)<=1){
+    if(tid != 0 && Math.abs(errorY) <= 1 ){
       SmartDashboard.putBoolean("LLDistance isFinished:", true);
       return true;
       }   
-      else if(tv==1 && Math.abs(errorY)>1){
+      else if(tid != 0 && Math.abs(errorY)>1){
         return false;
       }
       else
       {
-      SmartDashboard.putNumber("No Shoot Target", tv);
+      SmartDashboard.putNumber("No Shoot Target", 1);
       return true;
       }
-      
-}
   }
+
+}

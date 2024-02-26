@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.CameraLimelight;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,15 +34,15 @@ public class LLAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   double[] cameraTargetPose = LimelightHelpers.getCameraPose3d_TargetSpace("limelight");
-    distX = cameraTargetPose[0];  // camera position from tag
+   Pose3d cameraTargetPose = LimelightHelpers.getCameraPose3d_TargetSpace("limelight");
+    distX = cameraTargetPose.getX();  // camera position from tag
     errorX = distX - cameraXoffset;//TODO - determine this offset
 
-    if(LimelightHelpers.getFiducialID("limelight")!=0 AND ( Math.abs() < 0.5 ) ) {
+    if(LimelightHelpers.getFiducialID("limelight")!= 0 && Math.abs(errorX) < 0.5 ) {
     //Establishes error in the x axis 
       // if {
       SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
-        double steeringAdjust = kX * errorX;
+      double steeringAdjust = kX * errorX;
     //****IF TESTING WITH 2023 ROBOT, CHANGE LEFT TO POSITIVE, RIGHT TO NEGATIVE SINCE CAM IN FRONT *********//
         drive.setLeftSpeed(-steeringAdjust);//since cam in back, use - here (was + in 2023)
         drive.setRightSpeed(+steeringAdjust); //since cam in back, use + here (was - in 2023)
@@ -50,7 +51,7 @@ public class LLAngle extends Command {
       SmartDashboard.putNumber("No Shoot Target", tv);
       }
      }
-    }
+
 
   // Called once the command ends or is interrupted.
   @Override
