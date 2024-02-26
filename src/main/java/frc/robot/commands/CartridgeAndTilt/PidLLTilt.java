@@ -4,6 +4,8 @@
 
 package frc.robot.commands.CartridgeAndTilt;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,12 +27,12 @@ public class PidLLTilt extends Command {
     //Dx = dx - offset = horizontal distance from robot bumper to target
     //offset = distance from LL lens to outer edge of bumper
     //tan(a1 +a2)  = (h2-h1)/dx;
-  private double h1 = 45;// inches from ground to center of camera lens
+  private double h1 = 44;// inches from ground to center of camera lens
   private double h2 = 57.5; // inches,floor to center of target
-  private double a1 = Math.toRadians(10); //degrees, camera tilt, up from horizontal
-  private double offset = 7; //inhces, LL lens to outer edge of bumper
+  private double a1 = 10*(Math.PI/180); //degrees to rads, camera tilt, up from horizontal
+  private double offset = 6.5; //inhces, LL lens to outer edge of bumper
   private double pipeline;
-  private double tv, angleY, a2, dx, Dx;
+  private double tv, a2, dx, Dx, angleY;
 
   /** Creates a new PidLLTilt. */
   public PidLLTilt(Tilt tilt, double pipeline) {
@@ -57,14 +59,14 @@ public class PidLLTilt extends Command {
   public void execute() {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    angleY = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
- 
+    a2 = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+    angleY = a2 * Math.PI/180;  // a2 in radians
+
      if(tv==1){
-         a2 = Math.toDegrees(angleY); //same as multiplying times PI/180; 
-         dx = (h2 - h1) / Math.tan(a1+a2);  
+         dx = (h2 - h1) / Math.tan(a1+angleY);  
          SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
          SmartDashboard.putNumber("LLDx, dist woofer to bumper: ", dx-36-offset);
-         SmartDashboard.putNumber("LLty, degrees:", angleY);
+         SmartDashboard.putNumber("LLty, degrees:", a2);
       } else{
          SmartDashboard.putNumber("No Target", tv);
       }
@@ -72,25 +74,26 @@ public class PidLLTilt extends Command {
       
       if (Dx < 6) {
       desiredRevs = 16;  //TODO get actual desiredRevs numbers
-    } else if  ((Dx >= 6) || (Dx < 12))  {
+    } else if  ((Dx >= 6) && (Dx < 12))  {
       desiredRevs = 18.4;
-    } else if  ((Dx >= 12) || (Dx < 18))  {
+    } else if  ((Dx >= 12) && (Dx < 18))  {
       desiredRevs = 20.8;
-    } else if  ((Dx >= 18) || (Dx < 24))  {
+    } else if  ((Dx >= 18) && (Dx < 24))  {
       desiredRevs = 23.1;
-    } else if  ((Dx >= 24) || (Dx < 30))  {
+    } else if  ((Dx >= 24) && (Dx < 30))  {
       desiredRevs = 25.5;
-    } else if  ((Dx >= 30) || (Dx < 36))  {
+    } else if  ((Dx >= 30) && (Dx < 36))  {
       desiredRevs = 27.8;
-    } else if  ((Dx >= 36) || (Dx < 42))  {
+    } else if  ((Dx >= 36) && (Dx < 42))  {
       desiredRevs = 30.2;
-    } else if  ((Dx >= 42) || (Dx < 48))  {
+    } else if  ((Dx >= 42) && (Dx < 48))  {
       desiredRevs = 32.6;
-    } else if  ((Dx >= 48) || (Dx < 54))  {
+    } else if  ((Dx >= 48) && (Dx < 54))  {
       desiredRevs = 35;
     } else  {
       desiredRevs = 37.4;
     }
+    SmartDashboard.putNumber("Desired Revs", desiredRevs);
     tilt.setSetpoint(desiredRevs);
   }
   // Called once the command ends or is interrupted.

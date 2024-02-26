@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Drive;
 
 public class LLAngle extends Command {
-    private double kX = 0.022;//From pidTurn
+    private double kX = 0.07;
+    //0.022;//From pidTurn
   private double distX, tv, errorX;
   private Drive drive;
   private double pipeline, cameraXoffset;
@@ -45,8 +46,8 @@ public class LLAngle extends Command {
       if (Math.abs(errorX)>0.5){
       SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
         double steeringAdjust = kX * errorX;
-        drive.setLeftSpeed(-steeringAdjust);//since cam in back, use - here (was + in 2023)
-        drive.setRightSpeed(+steeringAdjust); //since cam in back, use + here (was - in 2023)
+        drive.setLeftSpeed(steeringAdjust);
+        drive.setRightSpeed(-steeringAdjust); 
         }   
       else{
       // SmartDashboard.putNumber("LL tag Id", tid);

@@ -30,6 +30,7 @@ import frc.robot.commands.Elevator.BrakeEngage;
 import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Elevator.PIDActualClimb;
+import frc.robot.commands.Elevator.PIDClimbNoBrake;
 import frc.robot.commands.Elevator.PIDDownToHeight;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Elevator.PIDtoTopandStow;
@@ -127,6 +128,7 @@ public class RobotContainer {
   private final PIDtoTopandStow pidtoTopandStow = new PIDtoTopandStow(elevator, tilt);
   private final PIDUptoHeight pidUpToMatchHeight = new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
   private final PIDActualClimb climbPID = new PIDActualClimb(elevator, ampTrap, intake, tilt, cartridge);
+  private final PIDClimbNoBrake pidClimbNoBrake = new PIDClimbNoBrake(elevator, ampTrap, intake, tilt, cartridge);
   private final BrakeToggle toggleBrake = new BrakeToggle(elevator);
   private final BrakeEngage engageBrake = new BrakeEngage(elevator);
 //CAMERA AND LIMELIGHT COMMANDS
@@ -216,7 +218,7 @@ public class RobotContainer {
    lm1.whileTrue(manualRetCartridge);
    rm1.whileTrue(manualExtCartridge);
   //CAMERA ANGLES
-   view1.onTrue(ampCameraAngle);
+   view1.onTrue(pidClimbNoBrake);
    menu1.onTrue(floorCameraAngle);
 
     //view1.whileTrue(ampMotorReverse);
