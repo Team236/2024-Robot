@@ -22,7 +22,8 @@ import frc.robot.subsystems.Tilt;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AmpShot extends SequentialCommandGroup {
-  //Shoots Amp - spins intake, cartridge (PID velocity), and Amp motors
+  //Shoots Amp - 
+  //First tilts cartridge to stow; then spins intake, cartridge (PID velocity), and Amp motors
   public AmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt) {
     addCommands(
     Commands.parallel(
