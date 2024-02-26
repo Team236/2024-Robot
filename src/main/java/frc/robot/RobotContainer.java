@@ -32,6 +32,7 @@ import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Elevator.PIDActualClimb;
 import frc.robot.commands.Elevator.PIDUptoHeight;
+import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.AmpShot;
 import frc.robot.commands.Shots.PIDCartridgeShot;
@@ -89,7 +90,7 @@ public class RobotContainer {
   private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, elevator);
   private final ThreeShotLeftAngle threeShotLeftAngle = new ThreeShotLeftAngle(intake, cartridge, tilt, drive, elevator);
 //INTAKE COMMANDS
-  // private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
+  private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 //CARTRIDGE AND TILT COMMANDS
@@ -170,7 +171,7 @@ public class RobotContainer {
   //INTAKE
     rb.whileTrue(manualIntake);   
     lb.whileTrue(manualEject);
-    // a.whileTrue(intakeWithCounter); 
+    a.whileTrue(intakeWithCounter); 
   //TILT- zero at retract limit before using Autos or PID!!!
     x.whileTrue(manualRetCartridge);
     b.whileTrue(manualExtCartridge);
@@ -213,10 +214,11 @@ public class RobotContainer {
   //AMP
     //view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);
-//CARTRIDGE MOTOR SPEEDS
+  //CARTRIDGE MOTOR SPEEDS
     //view1.whileTrue(pidWooferSpeed);
     //menu1.whileTrue(pidPodiumSpeed);
   }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    * @return the command to run in autonomous
