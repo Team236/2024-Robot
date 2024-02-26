@@ -32,6 +32,7 @@ import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Elevator.PIDActualClimb;
 import frc.robot.commands.Elevator.PIDDownToHeight;
 import frc.robot.commands.Elevator.PIDUptoHeight;
+import frc.robot.commands.Elevator.PIDtoTopandStow;
 import frc.robot.commands.Elevator.BrakeToggle;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.IntakeWithCounter;
@@ -114,7 +115,6 @@ public class RobotContainer {
   //private final ManualWooferSpeed manualWooferSpeed = new ManualWooferSpeed(cartridge);
   //private final PIDCartridgeMotors pidPodiumSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_RPM);
   //private final PIDCartridgeMotors pidWooferSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM);
-
 //AMPTRAP COMMANDS:
   private final AmpMotor ampMotorForward = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
@@ -124,6 +124,7 @@ public class RobotContainer {
   private final ManualDown climbManualDown = new ManualDown(elevator, Constants.Elevator.ELEV_MAN_DOWN_SPEED);
   private final PIDUptoHeight pidToTop = new PIDUptoHeight(elevator, Constants.Elevator.MAX_HEIGHT);
   //private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT);
+  private final PIDtoTopandStow pidtoTopandStow = new PIDtoTopandStow(elevator, tilt);
   private final PIDUptoHeight pidUpToMatchHeight = new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
   private final PIDActualClimb climbPID = new PIDActualClimb(elevator, ampTrap, intake, tilt, cartridge);
   private final BrakeToggle toggleBrake = new BrakeToggle(elevator);
@@ -207,7 +208,7 @@ public class RobotContainer {
     leftPov1.onTrue(pidPodShotWithBlueTurn); 
     rightPov1.onTrue(pidPodShotWithRedTurn); 
   //ELEVATOR - zero manually before using PID
-    upPov1.onTrue(pidToTop);
+    upPov1.onTrue(pidtoTopandStow);
     downPov1.whileTrue(manualDown);
     lb1.onTrue(toggleBrake);
     rb1 .onTrue(climbPID);
