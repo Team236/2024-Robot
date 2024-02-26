@@ -28,13 +28,14 @@ public class PidLLTilt extends Command {
   private double h1 = 44;// inches from ground to center of camera lens
   private double h2 = 57.5; // inches,floor to center of target
   private double a1 = Math.toRadians(10); //degrees, camera tilt, up from horizontal
-  private double offset = 8; //inhces, LL lens to outer edge of bumper
+  private double offset = 7; //inhces, LL lens to outer edge of bumper
   private double pipeline;
   private double tv, angleY, a2, dx, Dx;
 
   /** Creates a new PidLLTilt. */
-  public PidLLTilt(Tilt tilt) {
+  public PidLLTilt(Tilt tilt, double pipeline) {
       this.tilt = tilt;
+      this.pipeline = pipeline;
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(tilt);
   }
@@ -56,24 +57,22 @@ public class PidLLTilt extends Command {
   public void execute() {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-  
-     // TO make sure dx is positive, use abs value for disY and (h1-h2)
-    angleY = Math.abs (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0));
+    //angle between trage and LL camera lens is ty:
+    angleY = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
  
      if(tv==1){
-         a2 = angleY*Math.PI/180; // in radians, if disY in degrees
-         dx = Math.abs(h2 - h1) / Math.tan(a1+a2);  
-         SmartDashboard.putNumber("dx, Y dist from target:", dx); //test this - use later for cartridge angle equation
-
-         SmartDashboard.putNumber("Ty, degrees:", angleY);
+         a2 = Math.toDegrees(angleY); //same as multiplying times PI/180; 
+         dx = (h2 - h1) / Math.tan(a1+a2);  
+         SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
+         SmartDashboard.putNumber("LLDx, dist woofer to bumper: ", dx-36-offset);
+         SmartDashboard.putNumber("LLty, degrees:", angleY);
       } else{
          SmartDashboard.putNumber("No Target", tv);
       }
-
-      Dx = dx - offset -36;
-      SmartDashboard.putNumber("Dx: ", Dx);
+      Dx = dx - 36 - offset;
+      
       if (Dx < 6) {
-      desiredRevs = 16;  //TODO get actual numbers
+      desiredRevs = 16;  //TODO get actual desiredRevs numbers
     } else if  ((Dx >= 6) || (Dx < 12))  {
       desiredRevs = 18.4;
     } else if  ((Dx >= 12) || (Dx < 18))  {
@@ -93,16 +92,14 @@ public class PidLLTilt extends Command {
     } else  {
       desiredRevs = 37.4;
     }
-
     tilt.setSetpoint(desiredRevs);
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     tilt.stopTilt();
   }
-
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
@@ -115,7 +112,6 @@ public class PidLLTilt extends Command {
     }
     else isAtLimit = false;
    // SmartDashboard.putBoolean("Tilt isFinished condition is: ", isAtLimit);
-
     return isAtLimit;
   }
 }

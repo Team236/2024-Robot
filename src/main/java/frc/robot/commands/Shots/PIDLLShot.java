@@ -20,10 +20,10 @@ import frc.robot.subsystems.Tilt;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PIDLLShot extends SequentialCommandGroup {
   /** Creates a new PIDCartShotLimeLight. */
-  public PIDLLShot(Intake intake, Cartridge cartridge, Tilt tilt) {
+  public PIDLLShot(Intake intake, Cartridge cartridge, Tilt tilt, int pipeline) {
       addCommands(
          Commands.parallel(
-          new PidLLTilt(tilt).withTimeout(1),
+          new PidLLTilt(tilt, pipeline).withTimeout(1),
           new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(1)
           ),
           Commands.parallel(

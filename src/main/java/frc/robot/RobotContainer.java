@@ -85,7 +85,7 @@ public class RobotContainer {
  private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt);
  private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM);
  private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
- private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt);
+ private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt, 0);
  private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
   private final PIDPodShotWithRedTurn pidPodShotWithRedTurn = new PIDPodShotWithRedTurn(intake, cartridge, tilt, drive);
  private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
@@ -109,7 +109,7 @@ public class RobotContainer {
   private final PIDCartridgeTilt podiumTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM);
   private final PIDCartridgeTilt wooferTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER);
   private final PIDCartridgeTilt stowTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW);
-  private final PidLLTilt pidLLTilt = new PidLLTilt(tilt);
+  private final PidLLTilt pidLLTilt = new PidLLTilt(tilt, 0);
   //private final ManualPodiumSpeed manualPodiumSpeed = new ManualPodiumSpeed(cartridge);
   //private final ManualWooferSpeed manualWooferSpeed = new ManualWooferSpeed(cartridge);
   //private final PIDCartridgeMotors pidPodiumSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_RPM);
