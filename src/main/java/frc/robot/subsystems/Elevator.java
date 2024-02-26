@@ -14,9 +14,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 public class Elevator extends SubsystemBase {
   //USING WPILib PID, not SparkMax PID.  SparkMax PID is not consistent - intermittent issues
@@ -189,6 +191,11 @@ public void setFF(double kFF) {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    if (Timer.getMatchTime() < 0.25) {
+      engageBrake();
+    };
+
     SmartDashboard.putBoolean("BrakeEngaged?: ", isBrake());
     SmartDashboard.putNumber("Elevator height: ", getElevatorHeight());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
