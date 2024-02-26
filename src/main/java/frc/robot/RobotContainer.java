@@ -183,7 +183,7 @@ public class RobotContainer {
   //***** driver controller ******
   //INTAKE AND SHIFT
     rb.onTrue(toggleGear);   
-    lb.whileTrue(intakeWithCounter);
+    lb.onTrue(intakeWithCounter);
     rm.whileTrue(manualIntake); 
     lm.whileTrue(manualEject);
   //TURNS

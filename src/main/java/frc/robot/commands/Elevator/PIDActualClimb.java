@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Shots.AmpShot;
+import frc.robot.commands.Shots.ClimbTrapShot;
 import frc.robot.commands.Shots.WaitThenAmpShot;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
@@ -25,14 +26,18 @@ public class PIDActualClimb extends SequentialCommandGroup {
   public PIDActualClimb(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
     addCommands( //assumes elevator starts at top
       Commands.parallel(
-        new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(0.5),
-        new AmpShot(intake, cartridge, ampTrap, tilt).withTimeout(0.5)
+        Commands.sequence(
+          new WaitCommand(0.5),
+          new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(0.25)
+        ),
+        new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(0.01)
       ),
    Commands.parallel(
       new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT).withTimeout(3),
-      new AmpShot(intake, cartridge, ampTrap, tilt).withTimeout(3)
+      new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(3)
       ),
-    new PIDUptoHeight(elevator, Constants.Elevator.MIN_HEIGHT + 12).withTimeout(1),
+      new WaitCommand(3),
+    //new PIDUptoHeight(elevator, Constants.Elevator.MIN_HEIGHT + 12).withTimeout(1),
     new BrakeEngage(elevator)
     );
     

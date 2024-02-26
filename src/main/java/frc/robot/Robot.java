@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
   //USB camera and servo:
    cameraServo = new Servo(Constants.PWM_FRONT_CAM);
    // default the camera to point at front floor as starting position
-   Robot.cameraServo.set(Constants.FRONT_CAM_FLOOR);
+
 		try {
       usbCamera0 = CameraServer.startAutomaticCapture(0);
     } catch (Exception e)  {
@@ -60,7 +60,9 @@ public class Robot extends TimedRobot {
   for (int port = 5800; port <= 5805; port++){
     PortForwarder.add(port, "limelight.local", port);
   }
-}
+
+  }
+
  //usbCamera0.setResolution(320, 240);
 // usbCamera0.setBrightness(50);// percentage 0 to 100
  //usbCamera0.setExposureManual(50); //percentage 0 to 100
@@ -96,17 +98,15 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-  try {
-    usbCamera0 = CameraServer.startAutomaticCapture(0);
-} catch (Exception e)  {
-    SmartDashboard.putString("camera capture failed", "failed");
+
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
   }
-  }
+
+
 
   /** This function is called periodically during autonomous. */
   @Override
@@ -122,6 +122,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
+  Robot.cameraServo.set(Constants.FRONT_CAM_FLOOR);
    isFloor = true; //start match with camera aimed at floor
 
   }

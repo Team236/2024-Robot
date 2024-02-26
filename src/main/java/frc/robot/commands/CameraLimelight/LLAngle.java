@@ -43,8 +43,8 @@ public class LLAngle extends Command {
       SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
         double steeringAdjust = kX * errorX;
     //****IF TESTING WITH 2023 ROBOT, CHANGE LEFT TO POSITIVE, RIGHT TO NEGATIVE SINCE CAM IN FRONT *********//
-        drive.setLeftSpeed(-steeringAdjust);//since cam in back, use - here (was + in 2023)
-        drive.setRightSpeed(+steeringAdjust); //since cam in back, use + here (was - in 2023)
+        drive.setLeftSpeed(steeringAdjust);//since cam in back, use - here (was + in 2023)
+        drive.setRightSpeed(-steeringAdjust); //since cam in back, use + here (was - in 2023)
         }   
       else{
       SmartDashboard.putNumber("No Shoot Target", tv);

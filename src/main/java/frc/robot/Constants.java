@@ -9,7 +9,7 @@ public final class Constants {
   public static final int PWM_FRONT_CAM = 0;
   //for aiming camera at Amp/Trap or at Floor (from 0 to 1, for 0 to 180 degrees)
   public static final double FRONT_CAM_AMP = 0.1;  //TODO adjust these as needed
-  public static final double FRONT_CAM_FLOOR = 0.9; //TODO adjust as needed
+  public static final double FRONT_CAM_FLOOR = 0.2; //TODO adjust as needed
 
   public static class Controller {
     // usb port on the laptop when driver using XBox controller
@@ -58,8 +58,8 @@ public final class Constants {
 
     public static final double NOTE_TO_NOTE = 57;
     //TURNING ANGLES
-    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = -32;//CCW
-     public static final double TURN_ANGLE_RED_POD_TO_SPKR = 32;
+    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 32;
+    public static final double TURN_ANGLE_RED_POD_TO_SPKR = -32;
     public static final double TURN_SIDE_OF_WOOFER = 74;//33;//36
     public static final double TURN_TO_THIRD_NOTE = 118;
     //lets us ignore small joystick inputs
@@ -163,7 +163,7 @@ public final class Constants {
     public static final double MAX_TILT_ENC_REVS = 78;//really 79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
     public static final double TILT_ENC_REVS_WOOFER = 16; //34.4 deg//TODO FIND REAL ENCODER VALUES
-    public static final double TILT_ENC_REVS_PODIUM = 44; //46, 47 deg from top
+    public static final double TILT_ENC_REVS_PODIUM = 46; //46, 47 deg from top
     public static final double TILT_ENC_REVS_AUTOSHOT2 = 35;  //TODO test out
 
     public static final double MAN_EXT_SPEED = 0.2; //TODO find these EXT/RET speeds

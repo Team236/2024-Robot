@@ -28,7 +28,7 @@ public class PidLLTilt extends Command {
   private double h1 = 44;// inches from ground to center of camera lens
   private double h2 = 57.5; // inches,floor to center of target
   private double a1 = Math.toRadians(10); //degrees, camera tilt, up from horizontal
-  private double offset = 6; //inhces, LL lens to outer edge of bumper
+  private double offset = 8; //inhces, LL lens to outer edge of bumper
   private double pipeline;
   private double tv, angleY, a2, dx, Dx;
 
@@ -64,13 +64,14 @@ public class PidLLTilt extends Command {
          a2 = angleY*Math.PI/180; // in radians, if disY in degrees
          dx = Math.abs(h2 - h1) / Math.tan(a1+a2);  
          SmartDashboard.putNumber("dx, Y dist from target:", dx); //test this - use later for cartridge angle equation
+
          SmartDashboard.putNumber("Ty, degrees:", angleY);
       } else{
          SmartDashboard.putNumber("No Target", tv);
       }
 
-      Dx = dx - offset;
-      
+      Dx = dx - offset -36;
+      SmartDashboard.putNumber("Dx: ", Dx);
       if (Dx < 6) {
       desiredRevs = 16;  //TODO get actual numbers
     } else if  ((Dx >= 6) || (Dx < 12))  {
