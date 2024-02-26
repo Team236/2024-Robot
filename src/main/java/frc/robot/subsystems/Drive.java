@@ -160,7 +160,7 @@ public void stop() {
     SmartDashboard.getBoolean("In low gear?", isInLowGear());
     //SmartDashboard.putNumber("left Encoder Ticks", getLeftEncoder());
     //SmartDashboard.putNumber("Right Encoder Ticks", getRightEncoder());
-    SmartDashboard.putNumber("left Dist", getLeftDistance());
-    SmartDashboard.putNumber("Right Dist", getRightDistance());
+    SmartDashboard.putNumber("Left Dist: ", getLeftDistance());
+    SmartDashboard.putNumber("Right Dist: ", getRightDistance());
   }
 }

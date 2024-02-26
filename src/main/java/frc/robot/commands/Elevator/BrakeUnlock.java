@@ -6,6 +6,7 @@
 package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Elevator;
 public class BrakeUnlock extends Command {
   
@@ -22,6 +23,7 @@ private Elevator elevator;
   @Override
   public void initialize() {
     elevator.removeBrake();
+   // new WaitCommand(1);  //To ensure no elevator command starts before brake disengaged
   }
 
   // Called every time the scheduler runs while the command is scheduled.

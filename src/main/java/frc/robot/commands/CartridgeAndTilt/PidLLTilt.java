@@ -16,7 +16,7 @@ public class PidLLTilt extends Command {
   private double desiredRevs; //desired height in inches
 //Limelight stuff:
     //tV = 1 if there are any targets found, =0 if not
-    //ty = vertical offset from crosshair of LL to target -20.5 to +20.5 degrees
+    //ty = vertical offset angle (in radians) from crosshair of LL to target -20.5 to +20.5 degrees
     //h1 = distance from floor to center of Limelight lens
     //h2 = distance from floor to center of target  57.5"?
     //a1 = angle between floor (horizontal) and camera's centerline (camera mount angle, how far rotated from vertical)
@@ -57,7 +57,6 @@ public class PidLLTilt extends Command {
   public void execute() {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    //angle between trage and LL camera lens is ty:
     angleY = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
  
      if(tv==1){

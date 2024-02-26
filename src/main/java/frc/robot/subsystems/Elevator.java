@@ -202,7 +202,6 @@ public void setFF(double kFF) {
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
     //SmartDashboard.putNumber("Left elevator encoder", getElevLeftEncoder()); 
     //SmartDashboard.putNumber("Right elevator encoder", getElevRightEncoder());
-
    // SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
    // SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
   }
