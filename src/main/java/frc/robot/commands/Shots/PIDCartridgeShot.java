@@ -4,18 +4,12 @@
 
 package frc.robot.commands.Shots;
 
-import javax.sound.midi.Sequence;
-
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
-import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
-import frc.robot.commands.Intake.ManualIntakeWithWait;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
@@ -34,7 +28,7 @@ public class PIDCartridgeShot extends SequentialCommandGroup {
           new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(1)
           ),
           Commands.parallel(
-            new ManualIntakeWithWait(intake, intSpeed).withTimeout(2), //use manualIntake since counter =1 here
+            new ManualIntake(intake, intSpeed).withTimeout(2), //use manualIntake since counter =1 here
             new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
             )
       );

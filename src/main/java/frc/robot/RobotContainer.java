@@ -3,23 +3,26 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.AmpTrap.AmpMotor;
+import frc.robot.commands.Autos.FrontTwoShots;
 import frc.robot.commands.Autos.PIDDrive;
 import frc.robot.commands.Autos.PIDTurn;
-import frc.robot.commands.Autos.FrontTwoShots;
 import frc.robot.commands.Autos.ThreeShotLeftAngle;
 import frc.robot.commands.Autos.WooferLeft;
 import frc.robot.commands.Autos.WooferRight;
 import frc.robot.commands.CameraLimelight.CameraAngle;
+import frc.robot.commands.CameraLimelight.CameraToggle;
 import frc.robot.commands.CameraLimelight.LLAngle;
 import frc.robot.commands.CameraLimelight.LLDistance;
 import frc.robot.commands.CameraLimelight.LLTarget;
-import frc.robot.commands.CameraLimelight.CameraToggle;
 import frc.robot.commands.CartridgeAndTilt.ManualExtCartridge;
-import frc.robot.commands.CartridgeAndTilt.ManualPodiumSpeed;
 import frc.robot.commands.CartridgeAndTilt.ManualRetractCartridge;
-import frc.robot.commands.CartridgeAndTilt.ManualWooferSpeed;
-import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Drive.ArcadeXbox;
 import frc.robot.commands.Drive.HighGear;
@@ -28,31 +31,21 @@ import frc.robot.commands.Drive.ToggleGear;
 import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Elevator.PIDActualClimb;
-import frc.robot.commands.Elevator.PIDDownToHeight;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.ManualIntake;
-import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Shots.AmpShot;
 import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.commands.Shots.PIDLLShot;
 import frc.robot.commands.Shots.PIDPodShotWithBlueTurn;
 import frc.robot.commands.Shots.RunIntkCartAmpMotors;
 import frc.robot.commands.Shots.RunIntkCartMotors;
+import frc.robot.subsystems.AmpTrap;
+import frc.robot.subsystems.CameraServo;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
-import frc.robot.subsystems.AmpTrap;
-import frc.robot.subsystems.CameraServo;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
   //CONTROLLERS
@@ -96,7 +89,7 @@ public class RobotContainer {
   private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, elevator);
   private final ThreeShotLeftAngle threeShotLeftAngle = new ThreeShotLeftAngle(intake, cartridge, tilt, drive, elevator);
 //INTAKE COMMANDS
-  private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
+  // private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 //CARTRIDGE AND TILT COMMANDS
@@ -124,7 +117,7 @@ public class RobotContainer {
 //CAMERA AND LIMELIGHT COMMANDS
   private final LLAngle llAngle= new LLAngle(drive, 0);
   private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
-  private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
+  private final LLTarget llTarget = new LLTarget(drive, 0, 40);
   private final CameraAngle ampCameraAngle = new CameraAngle(cameraServo, Constants.FRONT_CAM_AMP);
   private final CameraAngle floorCameraAngle = new CameraAngle(cameraServo, Constants.FRONT_CAM_FLOOR);
   private final CameraToggle toggleCameraAngle = new CameraToggle(cameraServo);
@@ -177,7 +170,7 @@ public class RobotContainer {
   //INTAKE
     rb.whileTrue(manualIntake);   
     lb.whileTrue(manualEject);
-    a.whileTrue(intakeWithCounter); 
+    // a.whileTrue(intakeWithCounter); 
   //TILT- zero at retract limit before using Autos or PID!!!
     x.whileTrue(manualRetCartridge);
     b.whileTrue(manualExtCartridge);

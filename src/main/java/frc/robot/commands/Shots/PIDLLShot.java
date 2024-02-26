@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
-import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.CartridgeAndTilt.PidLLTilt;
-import frc.robot.commands.Intake.ManualIntakeWithWait;
+import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
@@ -27,7 +26,7 @@ public class PIDLLShot extends SequentialCommandGroup {
           new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(1)
           ),
           Commands.parallel(
-            new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4), //use manualIntake since counter =1 here
+            new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4), //use manualIntake since counter =1 here
             new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(4)
             )
       );

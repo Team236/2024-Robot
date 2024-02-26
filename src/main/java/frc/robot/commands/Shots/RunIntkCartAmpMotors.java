@@ -4,18 +4,13 @@
 
 package frc.robot.commands.Shots;
 
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
-import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
-import frc.robot.commands.Intake.ManualIntakeWithWait;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Tilt;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -26,7 +21,7 @@ public class RunIntkCartAmpMotors extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ManualIntakeWithWait(intake, intSpeed),
+      new ManualIntake(intake, intSpeed),
       new AmpMotor(ampTrap, ampSpeed),
       new PIDCartridgeMotors(cartridge, cartSpeed)
       );
