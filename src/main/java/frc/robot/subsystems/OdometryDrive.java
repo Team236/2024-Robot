@@ -69,8 +69,8 @@ public class OdometryDrive extends SubsystemBase {
 		rightEncoder.getDistance());  	//  encoder right distance
     
 	//external encoders
-    leftEncoder = new Encoder(DriveConstants.DIO_LDRIVE_ENC_A, DriveConstants.DIO_LDRIVE_ENC_B); 
-    rightEncoder = new Encoder(DriveConstants.DIO_RDRIVE_ENC_A, DriveConstants.DIO_RDRIVE_ENC_B); 
+    leftEncoder = new Encoder(MotorControllers.DIO_LDRIVE_ENC_A, MotorControllers.DIO_LDRIVE_ENC_B); 
+    rightEncoder = new Encoder(MotorControllers.DIO_RDRIVE_ENC_A, MotorControllers.DIO_RDRIVE_ENC_B); 
 
 	// TODO check that the distance per pulse is valid for 4 inch wheels
     rightEncoder.setDistancePerPulse(DriveConstants.DISTANCE_PER_PULSE_K);
