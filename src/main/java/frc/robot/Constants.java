@@ -58,9 +58,9 @@ public final class Constants {
 
     public static final double NOTE_TO_NOTE = 57;
     //TURNING ANGLES
-    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 32;
-    public static final double TURN_ANGLE_RED_POD_TO_SPKR = -32;
-    public static final double TURN_SIDE_OF_WOOFER = 74;//33;//36
+    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 30;
+    public static final double TURN_ANGLE_RED_POD_TO_SPKR = -30;
+    public static final double TURN_SIDE_OF_WOOFER = 63;//33;//36
     public static final double TURN_TO_THIRD_NOTE = 118;
     //lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; // 0.15???

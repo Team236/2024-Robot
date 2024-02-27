@@ -24,7 +24,7 @@ public class LLAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("LLangle init", pipeline);
+   // SmartDashboard.putNumber("LLangle init", pipeline);
     // turn on the if set for pipeline: 0 is "controlled by pipeline"
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
@@ -44,7 +44,7 @@ public class LLAngle extends Command {
     if(tv==1) {   
     //Establishes error in the x axis 
       if (Math.abs(errorX)>0.5){
-      SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
+      //SmartDashboard.putNumber("Adjust Angle, ErrorX is:", errorX);
         double steeringAdjust = kX * errorX;
         drive.setLeftSpeed(steeringAdjust);
         drive.setRightSpeed(-steeringAdjust); 

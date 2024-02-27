@@ -40,7 +40,7 @@ public class WooferLeft extends SequentialCommandGroup {
         ),
   //TODO: CAN CHANGE TO SHOT FROM FAR (with one Turn first) WITH NO DRIVING REVERSE?
     new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
-    new PIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER-3).withTimeout(2),
+    new PIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(2),
 
     Commands.parallel( 
       new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2),

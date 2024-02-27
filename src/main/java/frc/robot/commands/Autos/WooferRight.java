@@ -32,14 +32,14 @@ public class WooferRight extends SequentialCommandGroup {
       new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
       ), 
     new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
-    new PIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER - 11).withTimeout(1.5),
+    new PIDTurn(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
     Commands.parallel(
       new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
       new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2) 
       ),
     //TODO: CAN CHANGE TO SHOT FROM FAR (with one Turn first) WITH NO DRIVING REVERSE?
     new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(1.5),
-    new PIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 11).withTimeout(1.5),
+    new PIDTurn(drive, -Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
     Commands.parallel( 
       new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(3),
       new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)

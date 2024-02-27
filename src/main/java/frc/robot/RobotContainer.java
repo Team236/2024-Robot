@@ -190,9 +190,9 @@ public class RobotContainer {
     rm.whileTrue(manualIntake); 
     lm.whileTrue(manualEject);
   //TURNS
-    a.onTrue(pidTurn180);
-    b.onTrue(pidTurnPodtoWoofRed);
-    x.onTrue(pidTurnPodtoWoofBlue); 
+    //a.onTrue(pidTurn180);
+    //b.onTrue(pidTurnPodtoWoofRed);
+    //x.onTrue(pidTurnPodtoWoofBlue); 
     y.onTrue(llAngle);
   //AUTONOMOUS ROUTINES
     upPov.onTrue(frontTwoShots);
@@ -200,6 +200,7 @@ public class RobotContainer {
     leftPov.onTrue(wooferRight);
     rightPov.onTrue(threeShotLeftAngle);
     view.onTrue(toggleCameraAngle);
+    menu.whileTrue(runIntCartAmpMotors);
 
   //***** Aux Controller ******
   //SHOTS
@@ -210,7 +211,7 @@ public class RobotContainer {
     leftPov1.onTrue(pidPodShotWithBlueTurn); 
     rightPov1.onTrue(pidPodShotWithRedTurn); 
   //ELEVATOR - zero manually before using PID
-    upPov1.onTrue(pidtoTopandStow);
+    upPov1.whileTrue(manualUp);
     downPov1.whileTrue(manualDown);
     lb1.onTrue(toggleBrake);
     rb1 .onTrue(climbPID);
@@ -219,7 +220,7 @@ public class RobotContainer {
    rm1.whileTrue(manualExtCartridge);
   //CAMERA ANGLES
    view1.onTrue(pidClimbNoBrake);
-   menu1.onTrue(floorCameraAngle);
+   menu1.onTrue(pidtoTopandStow);
 
     //view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);
@@ -240,24 +241,24 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    SmartDashboard.putString("autokey", "Entering getAutoCommand now");
+   // SmartDashboard.putString("autokey", "Entering getAutoCommand now");
      Command command = null;
     //Swith 1 OFF, 2 ON, 3 ON, 4 ON
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       command = wooferLeft;
-      SmartDashboard.putNumber("Auto Switch is: ", 1);
+      //SmartDashboard.putNumber("Auto Switch is: ", 1);
     //Swith 1 ON, 2 OFF, 3 ON, 4 ON
     } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       command = frontTwoShots;
-         SmartDashboard.putNumber("Auto Switch is: ", 2);
+        // SmartDashboard.putNumber("Auto Switch is: ", 2);
     //Swith 1 ON, 2 ON, 3 OFF, 4 ON
     } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
       command = frontTwoShots;
-         SmartDashboard.putNumber("Auto Switch is: ", 3);
+        // SmartDashboard.putNumber("Auto Switch is: ", 3);
       //Swith 1 ON, 2 ON, 3 OFF, 4 OFF
     } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
       command =  wooferRight;
-         SmartDashboard.putNumber("Auto Switch is: ", 4);
+        // SmartDashboard.putNumber("Auto Switch is: ", 4);
    }
    return command;
   }

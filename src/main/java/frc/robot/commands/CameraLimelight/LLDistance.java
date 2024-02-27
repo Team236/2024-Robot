@@ -41,7 +41,7 @@ public class LLDistance extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("LLDistance init", pipeline);
+    //SmartDashboard.putNumber("LLDistance init", pipeline);
     // turn off the LED  1 = "force off" 0 = "controlled by pipeline"
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);

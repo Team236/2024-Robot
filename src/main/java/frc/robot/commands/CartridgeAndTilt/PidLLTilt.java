@@ -75,23 +75,23 @@ public class PidLLTilt extends Command {
       if (Dx < 6) {
       desiredRevs = 16;  //TODO get actual desiredRevs numbers
     } else if  ((Dx >= 6) && (Dx < 12))  {
-      desiredRevs = 18.4;
+      desiredRevs = 23.6;
     } else if  ((Dx >= 12) && (Dx < 18))  {
-      desiredRevs = 20.8;
-    } else if  ((Dx >= 18) && (Dx < 24))  {
-      desiredRevs = 23.1;
-    } else if  ((Dx >= 24) && (Dx < 30))  {
-      desiredRevs = 25.5;
-    } else if  ((Dx >= 30) && (Dx < 36))  {
       desiredRevs = 27.8;
-    } else if  ((Dx >= 36) && (Dx < 42))  {
-      desiredRevs = 30.2;
-    } else if  ((Dx >= 42) && (Dx < 48))  {
-      desiredRevs = 32.6;
-    } else if  ((Dx >= 48) && (Dx < 54))  {
-      desiredRevs = 35;
+    } else if  ((Dx >= 18) && (Dx < 24))  {
+      desiredRevs = 30;
+    } else if  ((Dx >= 24) && (Dx < 30))  {
+      desiredRevs = 32.5;
+    } else if  ((Dx >= 30) && (Dx < 36))  {
+      desiredRevs = 36.85;
+    } else if  ((Dx >= 36) && (Dx < 39))  {
+      desiredRevs = 38.2;
+    } else if  ((Dx >= 39) && (Dx < 43))  {
+      desiredRevs = 39.42;
+    } else if  ((Dx >= 43) && (Dx < 48))  {
+      desiredRevs = 41.26;
     } else  {
-      desiredRevs = 37.4;
+      desiredRevs = 42;
     }
     SmartDashboard.putNumber("Desired Revs", desiredRevs);
     tilt.setSetpoint(desiredRevs);

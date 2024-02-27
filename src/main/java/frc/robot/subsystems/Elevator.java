@@ -69,19 +69,20 @@ public class Elevator extends SubsystemBase {
 
 //methods start here:
   public void engageBrake(){
-   brake.set(Value.kReverse);
-}
-
-public void removeBrake(){
    brake.set(Value.kForward);
 }
 
+public void removeBrake(){
+   brake.set(Value.kReverse);
+}
+
 public boolean isBrake(){
-  return brake.get() == Value.kReverse;
+  return brake.get() == Value.kForward;
 }
 
     public void stopElevator() {
       leftElevatorMotor.set(0);
+
       rightElevatorMotor.set(0);
     }
   
@@ -200,9 +201,9 @@ public void setFF(double kFF) {
     SmartDashboard.putNumber("Elevator height: ", getElevatorHeight());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
-    //SmartDashboard.putNumber("Left elevator encoder", getElevLeftEncoder()); 
-    //SmartDashboard.putNumber("Right elevator encoder", getElevRightEncoder());
-   // SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
-   // SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
+    SmartDashboard.putNumber("Left elevator encoder", getElevLeftEncoder()); 
+    SmartDashboard.putNumber("Right elevator encoder", getElevRightEncoder());
+   SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
+   SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
   }
 }

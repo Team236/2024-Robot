@@ -27,8 +27,8 @@ public class PIDLLShot extends SequentialCommandGroup {
           new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(1)
           ),
           Commands.parallel(
-            new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4), //use manualIntake since counter =1 here
-            new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(4)
+            new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //use manualIntake since counter =1 here
+            new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(2)
             )
       );
     Intake.resetCounter();//reset counter after shooting a Note
