@@ -69,15 +69,15 @@ public class Elevator extends SubsystemBase {
 
 //methods start here:
   public void engageBrake(){
-   brake.set(Value.kForward);
-}
-
-public void removeBrake(){
    brake.set(Value.kReverse);
 }
 
+public void removeBrake(){
+   brake.set(Value.kForward);
+}
+
 public boolean isBrake(){
-  return brake.get() == Value.kForward;
+  return brake.get() == Value.kReverse;
 }
 
     public void stopElevator() {
@@ -192,11 +192,11 @@ public void setFF(double kFF) {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
+/*CAREFUL - STATEMENT BELOW WILL ENGAGE BRAKE ALL THE TIME IF IN TELEOP - RETRY IT IN PRACTICE MODE?
     if (Timer.getMatchTime() < 0.25) {
       engageBrake();
     };
-
+*/
     SmartDashboard.putBoolean("BrakeEngaged?: ", isBrake());
     SmartDashboard.putNumber("Elevator height: ", getElevatorHeight());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());

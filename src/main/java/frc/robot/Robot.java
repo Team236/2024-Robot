@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
   public AHRS navx = new AHRS();
   public UsbCamera usbCamera0;
   public static Servo cameraServo;
- public static boolean isFloor;
+  public static boolean isFloor;
 
   private RobotContainer m_robotContainer;
 
@@ -61,9 +61,7 @@ public class Robot extends TimedRobot {
   for (int port = 5800; port <= 5805; port++){
     PortForwarder.add(port, "limelight.local", port);
   }
-
   }
-
  //usbCamera0.setResolution(320, 240);
 // usbCamera0.setBrightness(50);// percentage 0 to 100
  //usbCamera0.setExposureManual(50); //percentage 0 to 100
