@@ -22,6 +22,8 @@ import frc.robot.commands.CartridgeAndTilt.ManualWooferSpeed;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.CartridgeAndTilt.PidLLTilt;
+import frc.robot.commands.CartridgeAndTilt.ShootButtonPressandHold;
+import frc.robot.commands.CartridgeAndTilt.ShootButtonRelease;
 import frc.robot.commands.Drive.ArcadeXbox;
 import frc.robot.commands.Drive.HighGear;
 import frc.robot.commands.Drive.LowGear;
@@ -108,11 +110,15 @@ public class RobotContainer {
 //CARTRIDGE AND TILT COMMANDS
   private final ManualExtCartridge manualExtCartridge = new ManualExtCartridge(tilt, Constants.Tilt.MAN_EXT_SPEED);
   private final ManualRetractCartridge manualRetCartridge = new ManualRetractCartridge(tilt, Constants.Tilt.MAN_RET_SPEED);
-  //private final PIDCartridgeTilt podiumTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM);
- // private final PIDCartridgeTilt wooferTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER);
- // private final PIDCartridgeTilt stowTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW);
+
+  private final PIDCartridgeTilt podiumTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM);
+  private final PIDCartridgeTilt wooferTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER);
+  private final PIDCartridgeTilt stowTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW);
   private final PidLLTilt pidLLTilt = new PidLLTilt(tilt, 0);
-  //private final ManualPodiumSpeed manualPodiumSpeed = new ManualPodiumSpeed(cartridge);
+  private final ShootButtonPressandHold shootPressAndHold = new ShootButtonPressandHold(intake, cartridge, tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER);
+  private final ShootButtonRelease shootButtonRelease = new ShootButtonRelease(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
+  //private final ManualPodiumSpeed manualPodiumSpeed = new ManualPodiumSpeed(cartridge);   Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER
+
   //private final ManualWooferSpeed manualWooferSpeed = new ManualWooferSpeed(cartridge);
   //private final PIDCartridgeMotors pidPodiumSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_RPM);
   //private final PIDCartridgeMotors pidWooferSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM);
@@ -204,7 +210,8 @@ public class RobotContainer {
 
   //***** Aux Controller ******
   //SHOTS
-    a1.onTrue(pidWooferShot);
+    //a1.onTrue(pidWooferShot);
+    a1.whileTrue(shootPressAndHold).onFalse(shootButtonRelease);
     b1.onTrue(pidLLShot);
     y1.onTrue(ampShot);
     x1.onTrue(pidPodiumShot);
