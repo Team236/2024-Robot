@@ -8,8 +8,8 @@ public final class Constants {
   //camera servo motor, created in Robot.java:
   public static final int PWM_FRONT_CAM = 0;
   //for aiming camera at Amp/Trap or at Floor (from 0 to 1, for 0 to 180 degrees)
-  public static final double FRONT_CAM_AMP = 0.1;  //TODO adjust these as needed
-  public static final double FRONT_CAM_FLOOR = 0.2; //TODO adjust as needed
+  public static final double FRONT_CAM_TRAP = 0.1;  //TODO adjust these as needed
+  public static final double FRONT_CAM_TELEOP = 0.2; //TODO adjust as needed
 
   public static class Controller {
     // usb port on the laptop when driver using XBox controller

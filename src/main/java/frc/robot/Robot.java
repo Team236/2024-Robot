@@ -122,7 +122,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-  Robot.cameraServo.set(Constants.FRONT_CAM_FLOOR);
+  Robot.cameraServo.set(Constants.FRONT_CAM_TELEOP);
    isFloor = true; //start match with camera aimed at floor
 
   }

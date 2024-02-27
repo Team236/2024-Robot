@@ -21,7 +21,7 @@ public class PIDtoTopandStow extends ParallelCommandGroup {
     addCommands(
       new PIDUptoHeight(elevator, Constants.Elevator.MAX_HEIGHT),
       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW),
-      new CameraAngle(Constants.FRONT_CAM_AMP)
+      new CameraAngle(Constants.FRONT_CAM_TRAP)
     );
   }
 }

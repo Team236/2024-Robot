@@ -19,10 +19,10 @@ public class CameraToggle extends Command {
     //for solenoids, just do action once, not in execute, then command ends
     //must start match with camera aimed at floor (isFloor set to True in Robot.java)
     if (Robot.isFloor) { 
-    Robot.cameraServo.set(Constants.FRONT_CAM_AMP);
+    Robot.cameraServo.set(Constants.FRONT_CAM_TRAP);
     Robot.isFloor = false;
   } else {
-    Robot.cameraServo.set(Constants.FRONT_CAM_FLOOR);
+    Robot.cameraServo.set(Constants.FRONT_CAM_TELEOP);
     Robot.isFloor = true;
   }
   }

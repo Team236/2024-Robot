@@ -135,8 +135,8 @@ public class RobotContainer {
   private final LLAngle llAngle= new LLAngle(drive, 0);
   private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
   private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
-  private final CameraAngle ampCameraAngle = new CameraAngle(Constants.FRONT_CAM_AMP);
-  private final CameraAngle floorCameraAngle = new CameraAngle(Constants.FRONT_CAM_FLOOR);
+  private final CameraAngle ampCameraAngle = new CameraAngle(Constants.FRONT_CAM_TRAP);
+  private final CameraAngle floorCameraAngle = new CameraAngle(Constants.FRONT_CAM_TELEOP);
   private final CameraToggle toggleCameraAngle = new CameraToggle();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
