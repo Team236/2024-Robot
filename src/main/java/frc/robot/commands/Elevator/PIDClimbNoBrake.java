@@ -34,7 +34,7 @@ public class PIDClimbNoBrake extends SequentialCommandGroup {
       new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(3)
       ),
     new WaitCommand(0.25),
-    new PIDUptoHeight(elevator,  Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT -2).withTimeout(0.5),
+    new PIDUptoHeight(elevator,  Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT -3).withTimeout(0.75),
     new PIDDownForClimb(elevator,  Constants.Elevator.MAX_HEIGHT).withTimeout(1)
     );
     

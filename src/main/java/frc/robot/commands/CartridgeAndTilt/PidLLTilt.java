@@ -60,7 +60,7 @@ public class PidLLTilt extends Command {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     a2 = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    angleY = a2 * Math.PI/180;  // a2 in radians
+    angleY = a2 * Math.PI/180;  // a2 in degrees, converted to radians
 
      if(tv==1){
          dx = (h2 - h1) / Math.tan(a1+angleY);  
