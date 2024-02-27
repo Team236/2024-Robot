@@ -20,7 +20,7 @@ public class ShootButtonPressandHold extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PIDCartridgeTilt(tilt, desiredRevs).withTimeout(1),
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM)
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM)
     );
   }
 }

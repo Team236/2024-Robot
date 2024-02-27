@@ -196,17 +196,10 @@ public class RobotContainer {
     rm.whileTrue(manualIntake); 
     lm.whileTrue(manualEject);
   //TURNS
-    //a.onTrue(pidTurn180);
-    //b.onTrue(pidTurnPodtoWoofRed);
-    //x.onTrue(pidTurnPodtoWoofBlue); 
     y.onTrue(llAngle);
-  //AUTONOMOUS ROUTINES
-    upPov.onTrue(frontTwoShots);
-    downPov.onTrue(wooferLeft);
-    leftPov.onTrue(wooferRight);
-   // rightPov.onTrue();
+  //CAMERA
     view.onTrue(toggleCameraAngle);
-   // menu.whileTrue();
+   
 
   //***** Aux Controller ******
   //SHOTS
@@ -221,14 +214,20 @@ public class RobotContainer {
     upPov1.whileTrue(manualUp);
     downPov1.whileTrue(manualDown);
     lb1.onTrue(toggleBrake);
-    rb1 .onTrue(climbPID);
+    rb1 .onTrue(pidtoTopandStow);
+    view1.onTrue(climbNoBrakePID);
+    menu1.onTrue(climbPID);
   //CARTRIDGE TILT - zero before using PID
-   lm1.whileTrue(manualRetCartridge);
-   rm1.whileTrue(manualExtCartridge);
-  //CAMERA ANGLES
-   view1.onTrue(climbNoBrakePID);
-   menu1.onTrue(pidtoTopandStow);
+    lm1.whileTrue(manualRetCartridge);
+    rm1.whileTrue(manualExtCartridge);
 
+
+   // upPov.onTrue(frontTwoShots);
+    //downPov.onTrue(wooferLeft);
+    //leftPov.onTrue(wooferRight);
+    //a.onTrue(pidTurn180);
+    //b.onTrue(pidTurnPodtoWoofRed);
+    //x.onTrue(pidTurnPodtoWoofBlue); 
     //view1.whileTrue(ampMotorReverse);
     //menu1.whileTrue(ampMotorForward);
     //view1.whileTrue(pidWooferSpeed);
