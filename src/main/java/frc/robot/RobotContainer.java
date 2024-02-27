@@ -30,7 +30,7 @@ import frc.robot.commands.Elevator.BrakeEngage;
 import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
 import frc.robot.commands.Elevator.PIDActualClimb;
-import frc.robot.commands.Elevator.PIDClimbNoBrake;
+import frc.robot.commands.Elevator.ClimbNoBrakePID;
 import frc.robot.commands.Elevator.PIDDownToHeight;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Elevator.PIDtoTopandStow;
@@ -80,8 +80,8 @@ public class RobotContainer {
   //create instance of each command
 //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
-  private final LowGear lowGear = new LowGear(drive); 
-  private final HighGear highGear = new HighGear(drive); 
+  //private final LowGear lowGear = new LowGear(drive); 
+ // private final HighGear highGear = new HighGear(drive); 
   private final ToggleGear toggleGear = new ToggleGear(drive); 
 //SHOTS
  private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt);
@@ -90,17 +90,17 @@ public class RobotContainer {
  private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt, 0);
  private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
   private final PIDPodShotWithRedTurn pidPodShotWithRedTurn = new PIDPodShotWithRedTurn(intake, cartridge, tilt, drive);
- private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
- private final RunIntkCartAmpMotors runIntCartAmpMotors = new RunIntkCartAmpMotors(intake, cartridge, ampTrap,  Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+ //private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
+ //private final RunIntkCartAmpMotors runIntCartAmpMotors = new RunIntkCartAmpMotors(intake, cartridge, ampTrap,  Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
 //AUTO COMMANDS
   private final PIDDrive pidDrive = new PIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);//60
-  private final PIDTurn pidTurnPodtoWoofRed = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR); //32
-  private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR); //-32
+  //private final PIDTurn pidTurnPodtoWoofRed = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR); 
+  //private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR);
   private final PIDTurn pidTurn180 =  new PIDTurn(drive, 180); 
   private final FrontTwoShots frontTwoShots = new FrontTwoShots(intake, cartridge, tilt, drive, elevator);
   private final WooferLeft wooferLeft = new WooferLeft(intake, cartridge, tilt, drive, elevator);
   private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, elevator);
-  private final ThreeShotLeftAngle threeShotLeftAngle = new ThreeShotLeftAngle(intake, cartridge, tilt, drive, elevator);
+  //private final ThreeShotLeftAngle threeShotLeftAngle = new ThreeShotLeftAngle(intake, cartridge, tilt, drive, elevator);
 //INTAKE COMMANDS
   private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
@@ -108,35 +108,35 @@ public class RobotContainer {
 //CARTRIDGE AND TILT COMMANDS
   private final ManualExtCartridge manualExtCartridge = new ManualExtCartridge(tilt, Constants.Tilt.MAN_EXT_SPEED);
   private final ManualRetractCartridge manualRetCartridge = new ManualRetractCartridge(tilt, Constants.Tilt.MAN_RET_SPEED);
-  private final PIDCartridgeTilt podiumTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM);
-  private final PIDCartridgeTilt wooferTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER);
-  private final PIDCartridgeTilt stowTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW);
+  //private final PIDCartridgeTilt podiumTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM);
+ // private final PIDCartridgeTilt wooferTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER);
+ // private final PIDCartridgeTilt stowTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW);
   private final PidLLTilt pidLLTilt = new PidLLTilt(tilt, 0);
   //private final ManualPodiumSpeed manualPodiumSpeed = new ManualPodiumSpeed(cartridge);
   //private final ManualWooferSpeed manualWooferSpeed = new ManualWooferSpeed(cartridge);
   //private final PIDCartridgeMotors pidPodiumSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_RPM);
   //private final PIDCartridgeMotors pidWooferSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM);
 //AMPTRAP COMMANDS:
-  private final AmpMotor ampMotorForward = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
-  private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
+ // private final AmpMotor ampMotorForward = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
+ // private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
 //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
-  private final ManualDown climbManualDown = new ManualDown(elevator, Constants.Elevator.ELEV_MAN_DOWN_SPEED);
-  private final PIDUptoHeight pidToTop = new PIDUptoHeight(elevator, Constants.Elevator.MAX_HEIGHT);
+ // private final ManualDown climbManualDown = new ManualDown(elevator, Constants.Elevator.ELEV_MAN_DOWN_SPEED);
+ // private final PIDUptoHeight pidToTop = new PIDUptoHeight(elevator, Constants.Elevator.MAX_HEIGHT);
   //private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT);
   private final PIDtoTopandStow pidtoTopandStow = new PIDtoTopandStow(elevator, tilt);
-  private final PIDUptoHeight pidUpToMatchHeight = new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
+ // private final PIDUptoHeight pidUpToMatchHeight = new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
   private final PIDActualClimb climbPID = new PIDActualClimb(elevator, ampTrap, intake, tilt, cartridge);
-  private final PIDClimbNoBrake pidClimbNoBrake = new PIDClimbNoBrake(elevator, ampTrap, intake, tilt, cartridge);
+  private final ClimbNoBrakePID climbNoBrakePID = new ClimbNoBrakePID(elevator, ampTrap, intake, tilt, cartridge);
   private final BrakeToggle toggleBrake = new BrakeToggle(elevator);
-  private final BrakeEngage engageBrake = new BrakeEngage(elevator);
+ // private final BrakeEngage engageBrake = new BrakeEngage(elevator);
 //CAMERA AND LIMELIGHT COMMANDS
   private final LLAngle llAngle= new LLAngle(drive, 0);
-  private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
-  private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
-  private final CameraAngle ampCameraAngle = new CameraAngle(Constants.FRONT_CAM_TRAP);
-  private final CameraAngle floorCameraAngle = new CameraAngle(Constants.FRONT_CAM_TELEOP);
+  //private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
+ // private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
+//  private final CameraAngle ampCameraAngle = new CameraAngle(Constants.FRONT_CAM_TRAP);
+ // private final CameraAngle floorCameraAngle = new CameraAngle(Constants.FRONT_CAM_TELEOP);
   private final CameraToggle toggleCameraAngle = new CameraToggle();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -198,9 +198,9 @@ public class RobotContainer {
     upPov.onTrue(frontTwoShots);
     downPov.onTrue(wooferLeft);
     leftPov.onTrue(wooferRight);
-    rightPov.onTrue(threeShotLeftAngle);
+   // rightPov.onTrue();
     view.onTrue(toggleCameraAngle);
-    menu.whileTrue(runIntCartAmpMotors);
+   // menu.whileTrue();
 
   //***** Aux Controller ******
   //SHOTS
@@ -219,7 +219,7 @@ public class RobotContainer {
    lm1.whileTrue(manualRetCartridge);
    rm1.whileTrue(manualExtCartridge);
   //CAMERA ANGLES
-   view1.onTrue(pidClimbNoBrake);
+   view1.onTrue(climbNoBrakePID);
    menu1.onTrue(pidtoTopandStow);
 
     //view1.whileTrue(ampMotorReverse);

@@ -18,9 +18,9 @@ import frc.robot.subsystems.Tilt;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PIDClimbNoBrake extends SequentialCommandGroup {
+public class ClimbNoBrakePID extends SequentialCommandGroup {
   /** Creates a new PIDClimbNoBrake. */
-  public PIDClimbNoBrake(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
+  public ClimbNoBrakePID(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
     addCommands( //assumes elevator starts at top
       Commands.parallel(
         Commands.sequence(
