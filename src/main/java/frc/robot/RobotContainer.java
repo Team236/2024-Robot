@@ -15,6 +15,7 @@ import frc.robot.commands.CameraLimelight.LLAngle;
 import frc.robot.commands.CameraLimelight.LLDistance;
 import frc.robot.commands.CameraLimelight.LLTarget;
 import frc.robot.commands.CameraLimelight.CameraToggle;
+import frc.robot.commands.CartridgeAndTilt.LLPressandHold;
 import frc.robot.commands.CartridgeAndTilt.ManualExtCartridge;
 import frc.robot.commands.CartridgeAndTilt.ManualPodiumSpeed;
 import frc.robot.commands.CartridgeAndTilt.ManualRetractCartridge;
@@ -138,7 +139,8 @@ public class RobotContainer {
   private final BrakeToggle toggleBrake = new BrakeToggle(elevator);
  // private final BrakeEngage engageBrake = new BrakeEngage(elevator);
 //CAMERA AND LIMELIGHT COMMANDS
-  private final LLAngle llAngle= new LLAngle(drive, 0);
+  private final LLAngle llAngle = new LLAngle(drive, 0);
+  private final LLPressandHold llPressandHold = new LLPressandHold(intake, cartridge, tilt, 0);
   //private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
  // private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
 //  private final CameraAngle ampCameraAngle = new CameraAngle(Constants.FRONT_CAM_TRAP);
@@ -204,8 +206,8 @@ public class RobotContainer {
   //***** Aux Controller ******
   //SHOTS
     //a1.onTrue(pidWooferShot);
-    a1.whileTrue(shootPressAndHold).onFalse(shootButtonRelease);
-    b1.onTrue(pidLLShot);
+    a1.whileTrue(llPressandHold).onFalse(shootButtonRelease);
+    b1.whileTrue(shootPressAndHold).onFalse(shootButtonRelease);
     y1.onTrue(ampShot);
     x1.onTrue(pidPodiumShot);
     leftPov1.onTrue(pidPodShotWithBlueTurn); 
