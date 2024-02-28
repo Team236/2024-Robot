@@ -20,10 +20,10 @@ import frc.robot.subsystems.Tilt;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PIDActualClimb extends SequentialCommandGroup {
+public class ClimbPID extends SequentialCommandGroup {
   /** Creates a new PIDElevClim. */
 
-  public PIDActualClimb(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
+  public ClimbPID(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
     addCommands( //assumes elevator starts at top
       Commands.parallel(
         Commands.sequence(

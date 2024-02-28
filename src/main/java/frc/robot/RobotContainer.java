@@ -33,7 +33,7 @@ import frc.robot.commands.Drive.ToggleGear;
 import frc.robot.commands.Elevator.BrakeEngage;
 import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
-import frc.robot.commands.Elevator.PIDActualClimb;
+import frc.robot.commands.Elevator.ClimbPID;
 import frc.robot.commands.Elevator.ClimbNoBrakePID;
 import frc.robot.commands.Elevator.PIDDownToHeight;
 import frc.robot.commands.Elevator.PIDUptoHeight;
@@ -134,7 +134,7 @@ public class RobotContainer {
   //private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT);
   private final PIDtoTopandStow pidtoTopandStow = new PIDtoTopandStow(elevator, tilt);
  // private final PIDUptoHeight pidUpToMatchHeight = new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
-  private final PIDActualClimb climbPID = new PIDActualClimb(elevator, ampTrap, intake, tilt, cartridge);
+  private final ClimbPID climbPID = new ClimbPID(elevator, ampTrap, intake, tilt, cartridge);
   private final ClimbNoBrakePID climbNoBrakePID = new ClimbNoBrakePID(elevator, ampTrap, intake, tilt, cartridge);
   private final BrakeToggle toggleBrake = new BrakeToggle(elevator);
  // private final BrakeEngage engageBrake = new BrakeEngage(elevator);
