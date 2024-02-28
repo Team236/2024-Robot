@@ -11,10 +11,11 @@ import frc.robot.commands.Autos.ThreeShotLeftAngle;
 import frc.robot.commands.Autos.WooferLeft;
 import frc.robot.commands.Autos.WooferRight;
 import frc.robot.commands.CameraLimelight.CameraAngle;
-import frc.robot.commands.CameraLimelight.LLAngle;
+import frc.robot.commands.CameraLimelight.LLTurn;
 import frc.robot.commands.CameraLimelight.LLDistance;
 import frc.robot.commands.CameraLimelight.LLTarget;
 import frc.robot.commands.CameraLimelight.CameraToggle;
+import frc.robot.commands.CameraLimelight.LLAngle;
 import frc.robot.commands.CartridgeAndTilt.LLPressandHold;
 import frc.robot.commands.CartridgeAndTilt.ManualExtCartridge;
 import frc.robot.commands.CartridgeAndTilt.ManualPodiumSpeed;
@@ -90,7 +91,7 @@ public class RobotContainer {
  private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt);
  private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM);
  private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
- private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt, 0);
+ private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt, drive, 0);
  private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
   private final PIDPodShotWithRedTurn pidPodShotWithRedTurn = new PIDPodShotWithRedTurn(intake, cartridge, tilt, drive);
  //private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
@@ -111,7 +112,6 @@ public class RobotContainer {
 //CARTRIDGE AND TILT COMMANDS
   private final ManualExtCartridge manualExtCartridge = new ManualExtCartridge(tilt, Constants.Tilt.MAN_EXT_SPEED);
   private final ManualRetractCartridge manualRetCartridge = new ManualRetractCartridge(tilt, Constants.Tilt.MAN_RET_SPEED);
-
   private final PIDCartridgeTilt podiumTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM);
   private final PIDCartridgeTilt wooferTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER);
   private final PIDCartridgeTilt stowTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW);
@@ -139,7 +139,7 @@ public class RobotContainer {
   private final BrakeToggle toggleBrake = new BrakeToggle(elevator);
  // private final BrakeEngage engageBrake = new BrakeEngage(elevator);
 //CAMERA AND LIMELIGHT COMMANDS
-  private final LLAngle llAngle = new LLAngle(drive, 0);
+  private final LLAngle llAngle = new LLAngle(drive);
   private final LLPressandHold llPressandHold = new LLPressandHold(intake, cartridge, tilt, 0);
   //private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
  // private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
@@ -201,7 +201,7 @@ public class RobotContainer {
     y.onTrue(llAngle);
   //CAMERA
     view.onTrue(toggleCameraAngle);
-   
+
 
   //***** Aux Controller ******
   //SHOTS

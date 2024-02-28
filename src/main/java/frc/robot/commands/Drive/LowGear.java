@@ -11,18 +11,18 @@ import frc.robot.subsystems.Drive;
 public class LowGear extends Command {
 
   //use "driveLG" not just "drive", so you can drive while changing gears
-private Drive driveLG;
+private Drive drive;
   /** Creates a new LowGear. */
-  public LowGear(Drive _driveLG) {
-    this.driveLG = _driveLG;
+  public LowGear(Drive drive) {
+    this.drive = drive;
     // Use addRequirements() here to declare subsystem dependencies.
- addRequirements(driveLG);
+ addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    driveLG.setGearLow();
+    drive.setGearLow();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
