@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Drive.LowGear;
+import frc.robot.commands.Drive.ToggleGear;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
@@ -45,9 +46,9 @@ public class WooferRight extends SequentialCommandGroup {
     Commands.parallel( 
       new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(3),
       new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
-      )
+      ),
+      new ToggleGear(drive)
     );
-   
   }
 }
 
