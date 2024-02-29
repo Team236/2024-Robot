@@ -116,7 +116,7 @@ public boolean isBrake(){
     //reads elevator distance travelled in inches 
     //!!!!!!Use encoder that is increasing when going up to evaluate distance travelled:
     public double getElevatorHeight() {
-      return  getElevLeftEncoder() * Constants.Elevator.ELEV_REV_TO_IN;
+      return ((getElevLeftEncoder() + getElevRightEncoder()) / 2 ) * Constants.Elevator.ELEV_REV_TO_IN;
     } 
 
 
@@ -201,9 +201,9 @@ public void setFF(double kFF) {
     SmartDashboard.putNumber("Elevator height: ", getElevatorHeight());
     SmartDashboard.putBoolean("Elevator at top? ", isETopLimit());
     SmartDashboard.putBoolean("Elevator at bottom? ", isEBotLimit());
-    SmartDashboard.putNumber("Left elevator encoder", getElevLeftEncoder()); 
-    SmartDashboard.putNumber("Right elevator encoder", getElevRightEncoder());
-   SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
-   SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
+    //SmartDashboard.putNumber("Left elevator encoder", getElevLeftEncoder()); 
+    //SmartDashboard.putNumber("Right elevator encoder", getElevRightEncoder());
+    //SmartDashboard.putNumber("Elevator left speed: ", getElevatorLeftSpeed());
+    //SmartDashboard.putNumber("Elevator right speed: ", getElevatorRightSpeed());
   }
 }

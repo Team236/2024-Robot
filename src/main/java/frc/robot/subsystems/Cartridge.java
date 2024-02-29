@@ -116,7 +116,7 @@ public class Cartridge extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Left Cart Motor RPM ", getLeftVelocity());
     SmartDashboard.putNumber("Right Cart Motor RPM ", getRightVelocity());
-    SmartDashboard.putNumber("Left Cart encoder: ", getLeftCartEncoder());
-    SmartDashboard.putNumber("Right Cart encoder: ", getRightCartEncoder());
+   // SmartDashboard.putNumber("Left Cart encoder: ", getLeftCartEncoder());
+   // SmartDashboard.putNumber("Right Cart encoder: ", getRightCartEncoder());
   }
 }

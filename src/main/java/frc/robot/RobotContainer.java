@@ -214,6 +214,7 @@ public class RobotContainer {
     lb1.onTrue(toggleBrake);
     rb1 .onTrue(pidtoTopandStow);
     view1.onTrue(climbNoBrakePID);
+    //view1.onTrue(climbPIDWithManual);
     menu1.onTrue(climbPID);
   //CARTRIDGE TILT - zero before using PID
     lm1.whileTrue(manualRetCartridge);
