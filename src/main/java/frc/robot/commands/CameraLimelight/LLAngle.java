@@ -18,7 +18,7 @@ public class LLAngle extends SequentialCommandGroup {
   public LLAngle(Drive drive) {
     addCommands(
       //new LowGear(drive),
-      new LLTurn(drive, 0).withTimeout(0.5)//TODO - adjust timeout 
+      new LLTurn(drive, 0).withTimeout(1)//TODO - adjust timeout 
      // ,new HighGear(drive)
     );
   }

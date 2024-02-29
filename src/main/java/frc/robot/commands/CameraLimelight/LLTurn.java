@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Drive;
 
 public class LLTurn extends Command {
-  private double KpLeft = 0.0069; //TODO tune each side individually
-  private double KpRight = 0.0069; //TODO tune each side individually
+  private double KpLeft; //TODO tune each side individually
+  private double KpRight ;//0.0069; //TODO tune each side individually
   private double angleXError, tv, errorX;
   private Drive drive;
   private double pipeline = 0, cameraXoffset;
@@ -29,7 +29,15 @@ public class LLTurn extends Command {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
     cameraXoffset = 0; //check if LL camera not centered on robot (left to right)
-  }
+
+    if (drive.isInHighGear()) {
+        KpLeft = 0.0027;// 0.0069; //TODO tune each side individually
+        KpRight = 0.0027;
+     } else {
+        KpLeft = 0.0069;// 0.0069; //TODO tune each side individually
+        KpRight = 0.0069;
+     }
+    }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -71,7 +79,7 @@ public class LLTurn extends Command {
         return false;
         }
     else {
-         SmartDashboard.putNumber("No Shoot Target", tv);
+         //SmartDashboard.putNumber("No Shoot Target", tv);
          return true;
         }
   }
