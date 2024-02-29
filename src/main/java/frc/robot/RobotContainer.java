@@ -6,6 +6,8 @@ package frc.robot;
 import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.Autos.PIDDrive;
 import frc.robot.commands.Autos.PIDTurn;
+import frc.robot.commands.Autos.PIDTurnCCW;
+import frc.robot.commands.Autos.PIDTurnCW;
 import frc.robot.commands.Autos.FrontTwoShots;
 import frc.robot.commands.Autos.WooferLeft;
 import frc.robot.commands.Autos.WooferRight;
@@ -85,7 +87,8 @@ public class RobotContainer {
 //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
   private final ToggleGear toggleGear = new ToggleGear(drive); 
-  //private final PIDTurn pidTurn180 =  new PIDTurn(drive, 180); 
+  private final PIDTurnCW pidTurn180 =  new PIDTurnCW(drive, 30); 
+   private final PIDTurnCCW pidTurnNeg180 =  new PIDTurnCCW(drive, 30); 
   //private final PIDDrive pidDrive = new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
   //private final PIDTurn pidTurnPodtoWoofRed = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR); 
   //private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR);
@@ -133,7 +136,7 @@ public class RobotContainer {
   //private final PIDUptoHeight pidUpToMatchHeight = new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT);
 //CAMERA AND LIMELIGHT COMMANDS
   private final LLAngle llAngle = new LLAngle(drive);
-  private final LLPressandHold llPressandHold = new LLPressandHold(intake, cartridge, tilt, 0);
+  private final LLPressandHold llPressandHold = new LLPressandHold(intake, cartridge, tilt, drive, 0);
   private final CameraToggle toggleCameraAngle = new CameraToggle();
   //private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
   //private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
@@ -197,6 +200,9 @@ public class RobotContainer {
     y.onTrue(llAngle);
   //CAMERA
     view.onTrue(toggleCameraAngle);
+
+    x.onTrue(pidTurnNeg180);
+    b.onTrue(pidTurn180);
 
 
   //***** Aux Controller ******

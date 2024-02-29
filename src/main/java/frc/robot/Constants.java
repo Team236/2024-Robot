@@ -59,7 +59,6 @@ public final class Constants {
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 30;
     public static final double TURN_ANGLE_RED_POD_TO_SPKR = -30;
     public static final double TURN_SIDE_OF_WOOFER = 63;//33;//36
-    public static final double TURN_TO_THIRD_NOTE = 118;
     //lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; // 0.15?
     public static final double RIGHT_DEADZONE = 0.05;
@@ -88,10 +87,10 @@ public final class Constants {
     public static final double KP_DRIVE = 0.022;
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-    public static final double KP_TURN_CCW = 0.022;  
-    public static final double TURNCCW_DEG_TO_REV = 0.211; 
-    public static final double KP_TURN_CW = 0.022;
-    public static final double TURNCW_DEG_TO_REVS = 0.2332; 
+    public static final double KP_TURN_CCW = 0.022;//0.022;  
+    public static final double TURNCCW_DEG_TO_REV = 0.245;//0.211; 
+    public static final double KP_TURN_CW = 0.023; //0.022;
+    public static final double TURNCW_DEG_TO_REVS = 0.253; //0.2332; 
   }
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;

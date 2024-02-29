@@ -24,7 +24,7 @@ public class PIDLLShot extends SequentialCommandGroup {
   /** Creates a new PIDCartShotLimeLight. */
   public PIDLLShot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, int pipeline) {
       addCommands(
-        new LLAngle(drive),
+       // new LLAngle(drive),
         Commands.parallel(
           new PidLLTilt(tilt, pipeline).withTimeout(1),
           new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(1)
