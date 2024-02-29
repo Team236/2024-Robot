@@ -157,7 +157,7 @@ public void stop() {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.getBoolean("In High Gear?", isInHighGear());
+    //SmartDashboard.getBoolean("In High Gear?", isInHighGear());
     //SmartDashboard.putNumber("left Encoder Ticks", getLeftEncoder());
     //SmartDashboard.putNumber("Right Encoder Ticks", getRightEncoder());
     SmartDashboard.putNumber("Left Dist: ", getLeftDistance());

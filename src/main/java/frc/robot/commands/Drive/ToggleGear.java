@@ -46,7 +46,7 @@ public class ToggleGear extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    SmartDashboard.putBoolean("In Low Gear?:  ", isLow);
+    SmartDashboard.putBoolean("In High Gear?:  ",!isLow);
   }
 
   // Returns true when the command should end.
