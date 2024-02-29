@@ -77,12 +77,12 @@ public void setGearLow(){
 public boolean isInLowGear(){
   return transmission.get() == Value.kForward;
 }
-/*  //not able to use this because ramp rate negated the follower
-public void closedRampRate() {
-  leftFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE); //time in seconds to go from 0 to full throttle
-  rightFront.setClosedLoopRampRate(Constants.MotorControllers.CLOSED_RAMP_RATE);
+
+public boolean isInHighGear(){
+  return transmission.get() == Value.kReverse;
 }
-*/
+//CAREFUL!! MUST USE RAMPRATE EXACTLY IN ORDER AS SHOWN IN ARCADE DRIVE COMMAND
+//OR FOLLOWER STOPS WORKING!!!!!
 public void openRampRate() {
   leftFront.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
   rightFront.setOpenLoopRampRate(Constants.MotorControllers.OPEN_RAMP_RATE);
@@ -157,7 +157,7 @@ public void stop() {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.getBoolean("In low gear?", isInLowGear());
+    SmartDashboard.getBoolean("In High Gear?", isInHighGear());
     //SmartDashboard.putNumber("left Encoder Ticks", getLeftEncoder());
     //SmartDashboard.putNumber("Right Encoder Ticks", getRightEncoder());
     SmartDashboard.putNumber("Left Dist: ", getLeftDistance());
