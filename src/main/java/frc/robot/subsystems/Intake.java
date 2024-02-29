@@ -98,7 +98,8 @@ public int getCount() {
   public void periodic() {
     // This method will be called once per scheduler run
    SmartDashboard.putNumber("Intake periodic count is:", getIntakeCount());
-   //SmartDashboard.putBoolean("is intake spinning ", isIntakeSpinning());
    SmartDashboard.putBoolean("HasNote: ", counter.get()>0);
-  }
+   //SmartDashboard.putBoolean("is intake spinning ", isIntakeSpinning());
+}
+
 }

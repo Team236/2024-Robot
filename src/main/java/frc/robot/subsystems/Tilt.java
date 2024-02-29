@@ -137,7 +137,7 @@ public void setFF(double kFF) {
     SmartDashboard.putBoolean("Tilt Extend Limit: ", isTExtLimit());
     SmartDashboard.putBoolean("Tilt Retract Limit: ", isTRetLimit());
     SmartDashboard.putNumber("Tilt Encoder Revolutions: ", getTiltEncoder());
-    SmartDashboard.putBoolean("Tilte is fully extended: ", isFullyExtended());
+    SmartDashboard.putBoolean("Tilt is fully extended: ", isFullyExtended());
   }
 
   }

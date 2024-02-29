@@ -114,11 +114,12 @@ public boolean isBrake(){
       return rightElevEncoder.getPosition(); //for a SparkMax encoder
     }
     //reads elevator distance travelled in inches 
-    //!!!!!!Use encoder that is increasing when going up to evaluate distance travelled:
+    //Need to use encoder that is increasing when going up to evaluate distance travelled?
+    //Or are both doing the same since one is inverted?  
+    //TODO - ensure this method is working
     public double getElevatorHeight() {
       return ((getElevLeftEncoder() + getElevRightEncoder()) / 2 ) * Constants.Elevator.ELEV_REV_TO_IN;
     } 
-
 
     public boolean isTop() {
       boolean eTop;
