@@ -31,11 +31,11 @@ public class LLTurn extends Command {
     cameraXoffset = 0; //check if LL camera not centered on robot (left to right)
 
     if (drive.isInHighGear()) {
-        KpLeft = 0.0027;// 0.0069; //TODO tune each side individually
+        KpLeft = 0.0027; //TODO tune each side individually
         KpRight = 0.0027;
      } else {
-        KpLeft = 0.0069;// 0.0069; //TODO tune each side individually
-        KpRight = 0.0069;
+        KpLeft = 0.005; //.0069//TODO tune each side individually
+        KpRight = 0.005;
      }
     }
 
