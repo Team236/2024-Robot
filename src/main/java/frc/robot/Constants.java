@@ -44,18 +44,16 @@ public final class Constants {
       }
   
   public static class Amp{
-    public static final double AMP_TRAP_MOTOR_SPEED = 1.0; // TODO define real spead
-    public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.4; // TODO define real spead
+    public static final double AMP_TRAP_MOTOR_SPEED = 1.0; 
+    public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.5; 
     }
   public static class DriveConstants {
 
-    // AUTO DISTANCES
-    public static final double AUTO_DISTANCE_1 = 60;
+    //AUTO DISTANCES
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 14;
     public static final double PULL_AWAY_TO_NOTE = 66; 
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
-
     public static final double NOTE_TO_NOTE = 57;
     //TURNING ANGLES
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 30;
@@ -63,7 +61,7 @@ public final class Constants {
     public static final double TURN_SIDE_OF_WOOFER = 63;//33;//36
     public static final double TURN_TO_THIRD_NOTE = 118;
     //lets us ignore small joystick inputs
-    public static final double LEFT_DEADZONE = 0.05; // 0.15???
+    public static final double LEFT_DEADZONE = 0.05; // 0.15?
     public static final double RIGHT_DEADZONE = 0.05;
     public static final double DEADBAND = 0.05;
     //Transmission solenoid
@@ -109,8 +107,8 @@ public final class Constants {
     public static final double ELEV_IN_TO_REV = 1/(0.32327);
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.25;
-    public static final double ELEV_DOWN_SPEED = 0.1; //keep this pos
-    public static final double ELEV_MAN_DOWN_SPEED = 0.8;//for testing climbing without PID
+    public static final double ELEV_DOWN_SPEED = 0.1; //keep this positive
+    public static final double ELEV_MAN_DOWN_SPEED = 0.8;//without PID
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.2; //
     public static final double KI_ELEV_UP = 0;
@@ -139,13 +137,13 @@ public final class Constants {
     //CARTRIDGE SHOOTER MOTORS
     public static final double PODIUM_PID_RPM = 3500; 
     public static final double WOOFER_PID_RPM = 3500;
-    public static final double AMP_PID_RPM = 3500; //Speed to run cart motors when doing AMP shot
+    public static final double AMP_PID_RPM = 3500; //Speed to run cart motors at when doing AMP shot
     public static final double MAX_PID_SPEED = 5500;
-
+     //manual speeds
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6;//for bench test - use PID in match
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
     public static final double MANUAL_SET_SPEED = 0.3; 
-   //CartridgeShooterMotor PID // 2022 pid constants commented in
+     //pid (2022 pid constants commented in)
     public static final double kPLeft = 0.00005;  //0.00005; // 0002
     public static final double kILeft = 0.0; // 0.00000001
     public static final double kDLeft = 0.0565; // 0.0565
@@ -160,13 +158,11 @@ public final class Constants {
     //TILT MOTOR
     public static final int DIO_TILT_EXT_LIMIT = 8;
     public static final int DIO_TILT_RET_LIMIT = 9;
-    public static final double MAX_TILT_ENC_REVS = 78;//really 79.8, 64deg from top
+    public static final double TILT_ENC_REVS_MAX = 78;//really 79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
-    public static final double TILT_ENC_REVS_WOOFER = 16; //34.4 deg//TODO FIND REAL ENCODER VALUES
-    public static final double TILT_ENC_REVS_PODIUM = 46; //46, 47 deg from top
-    public static final double TILT_ENC_REVS_AUTOSHOT2 = 35;  //TODO test out
-
-    public static final double MAN_EXT_SPEED = 0.2; //TODO find these EXT/RET speeds
+    public static final double TILT_ENC_REVS_WOOFER = 16; 
+    public static final double TILT_ENC_REVS_PODIUM = 46; 
+    public static final double MAN_EXT_SPEED = 0.2; //TODO adjust as needed
     public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
     //CARTRIDGE TILT PID:
     public static final double KP_TILT = 0.029;

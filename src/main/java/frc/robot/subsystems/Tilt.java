@@ -77,7 +77,7 @@ public boolean isTRetLimit() {
 
 public boolean isFullyExtended() {
   boolean aFullExtend;
-  if (getTiltEncoder() >= Constants.Tilt.MAX_TILT_ENC_REVS) {
+  if (getTiltEncoder() >= Constants.Tilt.TILT_ENC_REVS_MAX) {
     aFullExtend = true;
   } else {
     aFullExtend = false;      }

@@ -86,7 +86,7 @@ public class RobotContainer {
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
   private final ToggleGear toggleGear = new ToggleGear(drive); 
   //private final PIDTurn pidTurn180 =  new PIDTurn(drive, 180); 
-  //private final PIDDrive pidDrive = new PIDDrive(drive, Constants.DriveConstants.AUTO_DISTANCE_1);
+  //private final PIDDrive pidDrive = new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
   //private final PIDTurn pidTurnPodtoWoofRed = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR); 
   //private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR);
 //SHOTS
