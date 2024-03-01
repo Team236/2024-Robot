@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Autos.PIDDrive;
 import frc.robot.commands.Autos.PIDTurn;
+import frc.robot.commands.Autos.PIDTurnCW;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.Intake.ManualIntakeWithWait;
 import frc.robot.subsystems.Cartridge;
@@ -25,7 +26,7 @@ public class PIDPodShotWithBlueTurn extends SequentialCommandGroup {
   public PIDPodShotWithBlueTurn(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive) {
       addCommands(
           new PIDDrive(drive, -6).withTimeout(.7),
-          new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1),
+          new PIDTurnCW(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1),
           new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(3)
       );
     Intake.resetCounter();  //reset counter after shooting a Note
