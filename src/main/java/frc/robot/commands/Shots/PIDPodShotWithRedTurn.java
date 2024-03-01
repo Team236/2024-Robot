@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Autos.PIDDrive;
-import frc.robot.commands.Autos.PIDTurn;
 import frc.robot.commands.Autos.PIDTurnCCW;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.Intake.ManualIntakeWithWait;
