@@ -30,14 +30,15 @@ public class ClimbPIDWithManual extends SequentialCommandGroup {
         new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(0.01)
       ),
    Commands.parallel(
-      new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT).withTimeout(3),
-      new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(3)
+      new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT).withTimeout(2),
+      new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(2)
       ),
-      new WaitCommand(1.5),//TODO - can reduce?
-      new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED).withTimeout(1),
+      //new WaitCommand(0.25),//TODO - can reduce?
+      new ManualUp(elevator, 0.3).withTimeout(0.75),
       new BrakeEngage(elevator)
     );
   }
 }
+
 
 

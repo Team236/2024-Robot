@@ -52,13 +52,13 @@ public final class Constants {
     //AUTO DISTANCES
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 14;
-    public static final double PULL_AWAY_TO_NOTE = 66; 
+    public static final double PULL_AWAY_TO_NOTE = 69; 
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
     //TURNING ANGLES
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 30;
     public static final double TURN_ANGLE_RED_POD_TO_SPKR = -30;
-    public static final double TURN_SIDE_OF_WOOFER = 63;//33;//36
+    public static final double TURN_SIDE_OF_WOOFER = 58;//33;//36
     //lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; // 0.15?
     public static final double RIGHT_DEADZONE = 0.05;
@@ -105,7 +105,7 @@ public final class Constants {
     public static final double ELEV_REV_TO_IN = 0.32327;//gear ratio changed, old 2.2629;
     public static final double ELEV_IN_TO_REV = 1/(0.32327);
     // manual speeds
-    public static final double ELEV_UP_SPEED = 0.25;
+    public static final double ELEV_UP_SPEED = 0.5;
     public static final double ELEV_DOWN_SPEED = 0.1; //keep this positive
     public static final double ELEV_MAN_DOWN_SPEED = 0.8;//without PID
     // PID may need seperate pid for up, down, and climb

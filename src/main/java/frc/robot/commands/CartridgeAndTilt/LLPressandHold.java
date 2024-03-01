@@ -21,7 +21,7 @@ public class LLPressandHold extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PidLLTilt(tilt, pipeline).withTimeout(1),
+      new PidLLTilt(tilt, pipeline), //.withTimeout(1),
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM)
     );
   }

@@ -197,12 +197,15 @@ public class RobotContainer {
     rm.whileTrue(manualIntake); 
     lm.whileTrue(manualEject);
   //TURNS
-    y.onTrue(llAngle);
+    a.onTrue(llAngle);
   //CAMERA
     view.onTrue(toggleCameraAngle);
+  //ELEVATOR
+    upPov.whileTrue(manualUp);
+    downPov.whileTrue(manualDown);
 
-    x.onTrue(pidTurnNeg180);
-    b.onTrue(pidTurn180);
+    //x.onTrue(pidTurnNeg180);
+   // b.onTrue(pidTurn180);
 
 
   //***** Aux Controller ******
@@ -220,8 +223,8 @@ public class RobotContainer {
     lb1.onTrue(toggleBrake);
     rb1 .onTrue(pidtoTopandStow);
     view1.onTrue(climbNoBrakePID);
-    //view1.onTrue(climbPIDWithManual);
-    menu1.onTrue(climbPID);
+    menu1.onTrue(climbPIDWithManual);
+   // menu1.onTrue(climbPID);
   //CARTRIDGE TILT - zero before using PID
     lm1.whileTrue(manualRetCartridge);
     rm1.whileTrue(manualExtCartridge);
