@@ -13,8 +13,6 @@ import frc.robot.commands.Autos.WooferLeft;
 import frc.robot.commands.Autos.WooferRight;
 import frc.robot.commands.CameraLimelight.CameraAngle;
 import frc.robot.commands.CameraLimelight.LLTurn;
-import frc.robot.commands.CameraLimelight.LLDistance;
-import frc.robot.commands.CameraLimelight.LLTarget;
 import frc.robot.commands.CameraLimelight.CameraToggle;
 import frc.robot.commands.CameraLimelight.LLAngle;
 import frc.robot.commands.CartridgeAndTilt.LLPressandHold;
@@ -34,8 +32,7 @@ import frc.robot.commands.Drive.ToggleGear;
 import frc.robot.commands.Elevator.BrakeEngage;
 import frc.robot.commands.Elevator.ManualDown;
 import frc.robot.commands.Elevator.ManualUp;
-import frc.robot.commands.Elevator.ClimbPID;
-import frc.robot.commands.Elevator.ClimbPIDWithManual;
+import frc.robot.commands.Elevator.ClimbAtEnd;
 import frc.robot.commands.Elevator.ClimbNoBrakePID;
 import frc.robot.commands.Elevator.PIDDownToHeight;
 import frc.robot.commands.Elevator.PIDUptoHeight;
@@ -87,8 +84,8 @@ public class RobotContainer {
 //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
   private final ToggleGear toggleGear = new ToggleGear(drive); 
-  private final PIDTurnCW pidTurn180 =  new PIDTurnCW(drive, 30); 
-   private final PIDTurnCCW pidTurnNeg180 =  new PIDTurnCCW(drive, 30); 
+  private final PIDTurnCW pidTurnCCW =  new PIDTurnCW(drive, 90); 
+   private final PIDTurnCCW pidTurnCW =  new PIDTurnCCW(drive, 90); 
   //private final PIDDrive pidDrive = new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
   //private final PIDTurn pidTurnPodtoWoofRed = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR); 
   //private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR);
@@ -126,10 +123,10 @@ public class RobotContainer {
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
   private final ManualDown manualDown = new ManualDown(elevator, Constants.Elevator.ELEV_DOWN_SPEED);
   private final PIDtoTopandStow pidtoTopandStow = new PIDtoTopandStow(elevator, tilt);
-  private final ClimbPID climbPID = new ClimbPID(elevator, ampTrap, intake, tilt, cartridge);
+  private final ClimbAtEnd climbAtEnd = new ClimbAtEnd(elevator, ampTrap, intake, tilt, cartridge);
   private final ClimbNoBrakePID climbNoBrakePID = new ClimbNoBrakePID(elevator, ampTrap, intake, tilt, cartridge);
   private final BrakeToggle toggleBrake = new BrakeToggle(elevator);
-  private final ClimbPIDWithManual climbPIDWithManual = new ClimbPIDWithManual(elevator, ampTrap, intake, tilt, cartridge);
+  private final ClimbAtEnd climbPIDWithManual = new ClimbAtEnd(elevator, ampTrap, intake, tilt, cartridge);
   //private final PIDUptoHeight pidToTop = new PIDUptoHeight(elevator, Constants.Elevator.MAX_HEIGHT);
   //private final PIDDownToHeight pidToBot = new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT);
   //private final BrakeEngage engageBrake = new BrakeEngage(elevator);
@@ -138,10 +135,6 @@ public class RobotContainer {
   private final LLAngle llAngle = new LLAngle(drive);
   private final LLPressandHold llPressandHold = new LLPressandHold(intake, cartridge, tilt, drive, 0);
   private final CameraToggle toggleCameraAngle = new CameraToggle();
-  //private final LLDistance llDistance = new LLDistance(drive, 0, 60, 18);
-  //private final LLTarget llTarget = new LLTarget(drive, 0, 40, 18);
-  //private final CameraAngle ampCameraAngle = new CameraAngle(Constants.FRONT_CAM_TRAP);
-  //private final CameraAngle floorCameraAngle = new CameraAngle(Constants.FRONT_CAM_TELEOP);
 //AMPTRAP COMMANDS:
  // private final AmpMotor ampMotorForward = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
  // private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
@@ -204,9 +197,6 @@ public class RobotContainer {
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
 
-    //x.onTrue(pidTurnNeg180);
-   // b.onTrue(pidTurn180);
-
 
   //***** Aux Controller ******
   //SHOTS
@@ -223,17 +213,16 @@ public class RobotContainer {
     lb1.onTrue(toggleBrake);
     rb1 .onTrue(pidtoTopandStow);
     view1.onTrue(climbNoBrakePID);
-    menu1.onTrue(climbPIDWithManual);
-   // menu1.onTrue(climbPID);
+    menu1.onTrue(climbAtEnd);
   //CARTRIDGE TILT - zero before using PID
     lm1.whileTrue(manualRetCartridge);
     rm1.whileTrue(manualExtCartridge);
 
-
-   // upPov.onTrue(frontTwoShots);
+    //x.onTrue(pidTurnCCW);
+    // b.onTrue(pidTurnCW);
+    // upPov.onTrue(frontTwoShots);
     //downPov.onTrue(wooferLeft);
     //leftPov.onTrue(wooferRight);
-    //a.onTrue(pidTurn180);
     //b.onTrue(pidTurnPodtoWoofRed);
     //x.onTrue(pidTurnPodtoWoofBlue); 
     //view1.whileTrue(ampMotorReverse);
@@ -242,13 +231,9 @@ public class RobotContainer {
     //menu1.whileTrue(pidPodiumSpeed);
     //lm.whileTrue(runIntCartAmpMotors); 
     //rm.whileTrue(wooferIntkCartMotors);
-    //lm1.onTrue(lowGear);
-    //rm1.onTrue(highGear);
     //lb1.onTrue(engageBrake);
     //lm.onTrue(pidDrive);
     //leftPov1.onTrue(pidUpToMatchHeight);
-    //leftPov1.whileTrue(manualUp);
-    //rightPov1.whileTrue(climbManualDown); 
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

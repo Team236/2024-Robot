@@ -24,7 +24,7 @@ public class LLTurn extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   SmartDashboard.putNumber("LLangle init", pipeline);
+   //SmartDashboard.putNumber("LLangle init", pipeline);
     // 0 is "controlled by pipeline"
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
@@ -49,15 +49,15 @@ public class LLTurn extends Command {
     errorX = angleXError - cameraXoffset;  //degrees
 
     if(tv==1) {   
-        SmartDashboard.putNumber("Adjust Angle:", errorX);
+        //SmartDashboard.putNumber("Adjust Angle:", errorX);
         double steeringAdjustLeft = KpLeft * errorX;
-         double steeringAdjustRight = KpRight * errorX;
+        double steeringAdjustRight = KpRight * errorX;
         drive.setLeftSpeed(steeringAdjustLeft);
         drive.setRightSpeed(-steeringAdjustRight); 
         }   
-      else{
-      SmartDashboard.putNumber("No Shoot Target:", tv);
-      }
+     // else{
+     //SmartDashboard.putNumber("No Shoot Target:", tv);
+     // }
      }
   // Called once the command ends or is interrupted.
   @Override

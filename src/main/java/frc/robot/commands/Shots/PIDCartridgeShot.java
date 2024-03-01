@@ -30,8 +30,8 @@ public class PIDCartridgeShot extends SequentialCommandGroup {
   public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed, double desiredRevs) {
       addCommands(
          Commands.parallel(
-          new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(.7),
-          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(.7)
+          new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(1),
+          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(1)
           ),
           Commands.parallel(
             new ManualIntakeWithWait(intake, intSpeed).withTimeout(2), //use manualIntake since counter =1 here
