@@ -52,7 +52,7 @@ public final class Constants {
     //AUTO DISTANCES
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 14;
-    public static final double PULL_AWAY_TO_NOTE = 69; 
+    public static final double PULL_AWAY_TO_NOTE = 67; 
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
     //TURNING ANGLES
