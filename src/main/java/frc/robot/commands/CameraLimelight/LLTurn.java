@@ -32,7 +32,7 @@ public class LLTurn extends Command {
 
     if (drive.isInHighGear()) {
         KpLeft = 0.006;//0.0027; //TODO tune each side individually
-        KpRight = 0.006;//0.0027;
+        KpRight = 0.06;//0.0027;
      } else {
         KpLeft = 0.007;//0.005; //.0069//TODO tune each side individually
         KpRight = 0.007;//0.005;

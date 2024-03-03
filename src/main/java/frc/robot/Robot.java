@@ -129,7 +129,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    SmartDashboard.putNumber("Match Time: ", Timer.getMatchTime());
+  }
 
   @Override
   public void testInit() {

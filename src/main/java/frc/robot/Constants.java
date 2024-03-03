@@ -98,9 +98,9 @@ public final class Constants {
 
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8;
     public static final double MATCH_HEIGHT= 4;
-    public static final double MIN_HEIGHT = 0.5;
+    public static final double MIN_HEIGHT = 0; //0.5
     public static final double MAX_HEIGHT = 27;
-    public static final double CLIMB_HEIGHT = 0.5;
+    public static final double CLIMB_HEIGHT = 0; //0.5
 
     public static final double ELEV_REV_TO_IN = 0.32327;//gear ratio changed, old 2.2629;
     public static final double ELEV_IN_TO_REV = 1/(0.32327);
@@ -160,7 +160,7 @@ public final class Constants {
     public static final double TILT_ENC_REVS_MAX = 78;//really 79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
     public static final double TILT_ENC_REVS_WOOFER = 16; 
-    public static final double TILT_ENC_REVS_PODIUM = 46; 
+    public static final double TILT_ENC_REVS_PODIUM = 47; 
     public static final double MAN_EXT_SPEED = 0.2; //TODO adjust as needed
     public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
     //CARTRIDGE TILT PID:

@@ -9,6 +9,7 @@ import frc.robot.commands.Autos.PIDTurn;
 import frc.robot.commands.Autos.PIDTurnCCW;
 import frc.robot.commands.Autos.PIDTurnCW;
 import frc.robot.commands.Autos.FrontTwoShots;
+import frc.robot.commands.Autos.OneWooferShot;
 import frc.robot.commands.Autos.WooferLeft;
 import frc.robot.commands.Autos.WooferRight;
 import frc.robot.commands.CameraLimelight.CameraAngle;
@@ -100,6 +101,7 @@ public class RobotContainer {
   private final FrontTwoShots frontTwoShots = new FrontTwoShots(intake, cartridge, tilt, drive, elevator);
   private final WooferLeft wooferLeft = new WooferLeft(intake, cartridge, tilt, drive, elevator);
   private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, elevator);
+  private final OneWooferShot oneWooferShot = new OneWooferShot(intake, cartridge, tilt, drive, elevator);
 //INTAKE COMMANDS
   private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
@@ -137,7 +139,7 @@ public class RobotContainer {
   private final CameraToggle toggleCameraAngle = new CameraToggle();
 //AMPTRAP COMMANDS:
  // private final AmpMotor ampMotorForward = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
- // private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
+  private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -204,7 +206,7 @@ public class RobotContainer {
     a1.whileTrue(llPressandHold).onFalse(shootButtonRelease);
     b1.whileTrue(shootPressAndHold).onFalse(shootButtonRelease);
     y1.onTrue(ampShot);
-    x1.onTrue(pidPodiumShot);
+    x1.whileTrue(ampMotorReverse);
     leftPov1.onTrue(pidPodShotWithBlueTurn); 
     rightPov1.onTrue(pidPodShotWithRedTurn); 
   //ELEVATOR - zero manually before using PID
@@ -257,6 +259,10 @@ public class RobotContainer {
       //Swith 1 ON, 2 ON, 3 OFF, 4 OFF
     } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
       command =  wooferRight;
+        // SmartDashboard.putNumber("Auto Switch is: ", 4);
+   }
+    else if (!autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
+      command =  oneWooferShot;
         // SmartDashboard.putNumber("Auto Switch is: ", 4);
    }
    return command;

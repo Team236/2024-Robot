@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Shots.ClimbTrapShot;
+import frc.robot.commands.Shots.ClimbTrapShotWithWait;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Elevator;
@@ -22,16 +23,12 @@ public class ClimbNoBrakePID extends SequentialCommandGroup {
   /** Creates a new PIDClimbNoBrake. */
   public ClimbNoBrakePID(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
     addCommands( //assumes elevator starts at top
-      Commands.parallel(
-        Commands.sequence(
           new WaitCommand(0.5),
-          new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(0.25)
-        ),
-        new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(0.01)
-      ),
+          new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(0.25),
+  
    Commands.parallel(
       new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT).withTimeout(3),
-      new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(3)
+      new ClimbTrapShotWithWait(intake, cartridge, ampTrap, tilt).withTimeout(3)
       )
     );
   }

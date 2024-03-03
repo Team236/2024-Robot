@@ -90,8 +90,10 @@ public class PidLLTilt extends Command {
       desiredRevs = 39.42;
     } else if  ((Dx >= 43) && (Dx < 48))  {
       desiredRevs = 41.26;
+    } else if ((Dx >= 48) && (Dx < 52)) {
+      desiredRevs = 44;
     } else  {
-      desiredRevs = 42;
+      desiredRevs = 48;
     }
     SmartDashboard.putNumber("Desired Revs", desiredRevs);
     tilt.setSetpoint(desiredRevs);
