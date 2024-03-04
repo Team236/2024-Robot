@@ -24,13 +24,12 @@ import frc.robot.subsystems.Tilt;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class WooferLeft extends SequentialCommandGroup {
-  /** Creates a new RedLeft. */
+
   public WooferLeft(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+
     addCommands(
     Commands.parallel( 
-        new LowGear(drive),
+        //new LowGear(drive), //this could make the first drive command be unpredicable - keep it removed, go in low gear in pit prematch
         new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
         new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
         ),
