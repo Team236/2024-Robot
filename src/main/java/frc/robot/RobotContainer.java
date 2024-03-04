@@ -8,7 +8,13 @@ import frc.robot.commands.Autos.PIDDrive;
 import frc.robot.commands.Autos.PIDTurn;
 import frc.robot.commands.Autos.PIDTurnCCW;
 import frc.robot.commands.Autos.PIDTurnCW;
+import frc.robot.commands.Autos.R_BlueToMidfield_2;
+import frc.robot.commands.Autos.R_Blue_2Speaker_1Amp;
+import frc.robot.commands.Autos.C_BlueToMidfield_3;
+import frc.robot.commands.Autos.C_RedToMidfield_3;
 import frc.robot.commands.Autos.FrontTwoShots;
+import frc.robot.commands.Autos.L_RedToMidfield_2;
+import frc.robot.commands.Autos.L_Red_2Speaker_1Amp;
 import frc.robot.commands.Autos.ModFrontTwoShot;
 import frc.robot.commands.Autos.ModOneWooferShot;
 import frc.robot.commands.Autos.ModWooferLeft;
@@ -106,6 +112,12 @@ public class RobotContainer {
   private final ModWooferLeft wooferLeft = new ModWooferLeft(intake, cartridge, tilt, drive, elevator);
   private final ModWooferRight wooferRight = new ModWooferRight(intake, cartridge, tilt, drive, elevator);
   private final ModOneWooferShot oneWooferShot = new ModOneWooferShot(intake, cartridge, tilt, drive, elevator);
+  private final L_RedToMidfield_2 leftRedToMidfield2 = new L_RedToMidfield_2(intake, cartridge, tilt, drive, elevator);
+  private final R_BlueToMidfield_2 rightBlueToMidfield2 = new R_BlueToMidfield_2(intake, cartridge, tilt, drive, elevator);
+  private final C_RedToMidfield_3 centerRedToMidfield3 = new C_RedToMidfield_3(intake, cartridge, tilt, drive, elevator);
+  private final C_BlueToMidfield_3 centerBlueToMidfield3 = new C_BlueToMidfield_3(intake, cartridge, tilt, drive, elevator);
+  private final  L_Red_2Speaker_1Amp leftRed2Speaker1Amp = new L_Red_2Speaker_1Amp(intake, cartridge, tilt, drive, elevator, ampTrap);
+  private final  R_Blue_2Speaker_1Amp rightBlue2Speaker1Amp = new R_Blue_2Speaker_1Amp(intake, cartridge, tilt, drive, elevator, ampTrap);
 //INTAKE COMMANDS
   private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
