@@ -36,7 +36,7 @@ public class L_Red_2Speaker_1Amp extends ParallelCommandGroup {
         new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5),
         new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
         new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER),  //2 sec timeout
+        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM),  //2 sec timeout
         new PIDTurnCCW(drive,  Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
         new PIDDrive(drive, -37.9).withTimeout(3.5),
         new PIDTurnCCW (drive, 90),

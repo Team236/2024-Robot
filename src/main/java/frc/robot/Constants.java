@@ -160,6 +160,7 @@ public final class Constants {
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
     public static final double TILT_ENC_REVS_WOOFER = 16; 
     public static final double TILT_ENC_REVS_PODIUM = 47; 
+    public static final double TILT_ENC_REVS_CTR_NOTE = 47;
     public static final double MAN_EXT_SPEED = 0.2; //TODO adjust as needed
     public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
     //CARTRIDGE TILT PID:
