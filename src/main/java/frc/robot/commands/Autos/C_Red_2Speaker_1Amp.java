@@ -8,8 +8,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
+import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
+import frc.robot.commands.Drive.PIDDrive;
+import frc.robot.commands.Drive.PIDTurnCCW;
+import frc.robot.commands.Drive.PIDTurnCW;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.IntakeWithCounter;
+import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.AmpShotNoCartMotors;
 import frc.robot.commands.Shots.PIDSpkrShotNoCart;
 import frc.robot.subsystems.AmpTrap;
@@ -35,9 +40,11 @@ public class C_Red_2Speaker_1Amp extends ParallelCommandGroup {
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER), //times out in 2 sec. Enough for tilt/then intake? Can reduce?
         Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
-        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)     
+        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2)     
         ),
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE),  //2 sec timeout
+        //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE),  //2 sec timeout
+        new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
         new PIDTurnCW(drive, 90).withTimeout(1.5),
         Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(2),
@@ -51,6 +58,7 @@ public class C_Red_2Speaker_1Amp extends ParallelCommandGroup {
        )
     );
     drive.setGearHigh();
+    intake.resetCounter();
   }
 }
   

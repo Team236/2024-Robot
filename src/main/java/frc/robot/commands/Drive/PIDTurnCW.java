@@ -2,24 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Autos;
+package frc.robot.commands.Drive;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Drive;
 
-public class PIDTurn extends Command {
+public class PIDTurnCW extends Command {
   private final Drive drive;
   private final PIDController leftPidController, rightPidController;
 
   /** Creates a new TurnPID. */
-  public PIDTurn(Drive drive, double setpointDegrees) {
+  public PIDTurnCW(Drive drive, double setpointDegrees) {
     this.drive = drive;
-    this.leftPidController = new PIDController(Constants.DriveConstants.KP_TURN_CCW, 0, 0);
+    this.leftPidController = new PIDController(Constants.DriveConstants.KP_TURN_CW, 0, 0);
     this.rightPidController = new PIDController(Constants.DriveConstants.KP_TURN_CW, 0, 0);
-    leftPidController.setSetpoint(setpointDegrees * Constants.DriveConstants.TURNCCW_DEG_TO_REV); // this converts the setpoint in degrees to inches, need new conversion for this year
+    leftPidController.setSetpoint(setpointDegrees * Constants.DriveConstants.TURNCW_DEG_TO_REVS); // this converts the setpoint in degrees to inches, need new conversion for this year
     rightPidController.setSetpoint(-setpointDegrees * Constants.DriveConstants.TURNCW_DEG_TO_REVS);
     addRequirements(drive);
   }

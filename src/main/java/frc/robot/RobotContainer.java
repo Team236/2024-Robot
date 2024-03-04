@@ -4,10 +4,6 @@
 
 package frc.robot;
 import frc.robot.commands.AmpTrap.AmpMotor;
-import frc.robot.commands.Autos.PIDDrive;
-import frc.robot.commands.Autos.PIDTurn;
-import frc.robot.commands.Autos.PIDTurnCCW;
-import frc.robot.commands.Autos.PIDTurnCW;
 import frc.robot.commands.Autos.R_BlueToMidfield_2;
 import frc.robot.commands.Autos.C_Blue_2Speaker_1Amp;
 import frc.robot.commands.Autos.C_BlueToMidfield_3;
@@ -39,6 +35,10 @@ import frc.robot.commands.CartridgeAndTilt.ShootButtonRelease;
 import frc.robot.commands.Drive.ArcadeXbox;
 import frc.robot.commands.Drive.HighGear;
 import frc.robot.commands.Drive.LowGear;
+import frc.robot.commands.Drive.PIDDrive;
+import frc.robot.commands.Drive.PIDTurn;
+import frc.robot.commands.Drive.PIDTurnCCW;
+import frc.robot.commands.Drive.PIDTurnCW;
 import frc.robot.commands.Drive.ToggleGear;
 import frc.robot.commands.Elevator.BrakeEngage;
 import frc.robot.commands.Elevator.ManualDown;

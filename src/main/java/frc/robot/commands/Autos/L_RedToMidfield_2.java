@@ -8,8 +8,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
+import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
+import frc.robot.commands.Drive.PIDDrive;
+import frc.robot.commands.Drive.PIDTurnCCW;
+import frc.robot.commands.Drive.PIDTurnCW;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.IntakeWithCounter;
+import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.PIDSpkrShotNoCart;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
@@ -31,15 +36,18 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
         new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5),
         Commands.parallel(
          new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
-         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)     
+         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
         ),
-        new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM),  //2 sec timeout
+        new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5),//OR SLIGHTLY LESS ANGLE?
+        //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM) //2 sec timeout
+        new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
         new PIDTurnCCW(drive,  Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3.5)
        )
     );
     drive.setGearHigh();
+    intake.resetCounter();
   }
 }
   
