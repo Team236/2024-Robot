@@ -215,10 +215,8 @@ public class RobotContainer {
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
 
-
   //***** Aux Controller ******
   //SHOTS
-    //a1.onTrue(pidWooferShot);
     a1.whileTrue(llPressandHold).onFalse(shootButtonRelease);
     b1.whileTrue(shootPressAndHold).onFalse(shootButtonRelease);
     y1.onTrue(ampShot);
