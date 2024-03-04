@@ -113,8 +113,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {
-
+  public void autonomousPeriodic() {    
+      //Cartridge.setRPM_PID(3500);
   }
 
   @Override

@@ -42,19 +42,18 @@ public final class Constants {
     public static final double CLOSED_RAMP_RATE = 0.08;
     public static final double OPEN_RAMP_RATE = 0.08;
       }
-  
   public static class Amp{
     public static final double AMP_TRAP_MOTOR_SPEED = 1.0; 
     public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.5; 
     }
   public static class DriveConstants {
-
     //AUTO DISTANCES
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 14;
     public static final double PULL_AWAY_TO_NOTE = 67; 
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
+    public static final double NOTE_TO_MIDFLD = 160;
     //TURNING ANGLES
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 30;
     public static final double TURN_ANGLE_RED_POD_TO_SPKR = 30;

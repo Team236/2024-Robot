@@ -111,6 +111,19 @@ public class Cartridge extends SubsystemBase {
    public double getRightVelocity() {
     return rightCartEncoder.getVelocity();
   }
+   
+  //NOT SURE IF THIS METHOD WORKS. WAS GOING TO USE IT IN ROBOT.JAVA, AUTO PERIODIC, 
+  //TO KEEP CART MOTORS RUNNING IN AUTO
+    public void setRPM_PID(double desiredRPM) {
+      setP(Constants.CartridgeShooter.kPLeft, Constants.CartridgeShooter.kPRight);
+      setI(Constants.CartridgeShooter.kILeft, Constants.CartridgeShooter.kIRight);
+      setD(Constants.CartridgeShooter.kDLeft, Constants.CartridgeShooter.kDRight);
+      setFF(Constants.CartridgeShooter.kFFLeft, Constants.CartridgeShooter.kFFRight);
+      setOutputRange();
+      setSetpoint(desiredRPM);
+    }
+
+
 
   @Override
   public void periodic() {

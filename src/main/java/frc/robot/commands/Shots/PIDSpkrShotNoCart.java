@@ -23,7 +23,7 @@ public class PIDSpkrShotNoCart extends SequentialCommandGroup {
   public PIDSpkrShotNoCart(Intake intake, Tilt tilt, double intSpeed, double desiredRevs) {
       addCommands(
         new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(1.5), //2
-        new ManualIntake(intake, intSpeed).withTimeout(2) //use manualIntake since counter =1 here
+        new ManualIntake(intake, intSpeed).withTimeout(1.5) //use manualIntake since counter =1 here
       );
     Intake.resetCounter();  //reset counter after shooting a Note
   }
