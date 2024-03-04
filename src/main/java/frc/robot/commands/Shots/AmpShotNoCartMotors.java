@@ -3,31 +3,34 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.Shots;
-
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
+import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
+import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.ManualIntakeWithWait;
-import frc.robot.subsystems.Cartridge;
+import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
+
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PIDSpkrShotNoCart extends SequentialCommandGroup {
-  /** Creates a new PIDSpkrShotNoCart. */
-  public PIDSpkrShotNoCart(Intake intake, Tilt tilt, double intSpeed, double desiredRevs) {
-      addCommands(
-        new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(1), //2
-        new ManualIntake(intake, intSpeed).withTimeout(1) //use manualIntake since counter =1 here
-      );
+public class AmpShotNoCartMotors extends SequentialCommandGroup {
+  /** Creates a new AmpShotNoCartMotors. */
+  public AmpShotNoCartMotors(Intake intake, AmpTrap ampTrap, Tilt tilt) {
+    addCommands(
+    new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(0.75),
+    Commands.parallel(
+ //use manualIntake here since count = 1
+      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(2)
+      )
+    );
     Intake.resetCounter();  //reset counter after shooting a Note
   }
-
 }
-
-    
