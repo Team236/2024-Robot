@@ -20,7 +20,7 @@ public class ModOneWooferShot extends ParallelCommandGroup {
   /** Creates a new ModOneWooferShot. */
   public ModOneWooferShot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
-    new OneWooferShot(intake, cartridge, tilt, drive, elevator),
+    new OneWooferShot(intake, cartridge, tilt, drive, elevator).withTimeout(16),
     new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(16)  //run cart motors in parallel with every command in Auto
     );
   }
