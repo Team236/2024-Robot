@@ -98,9 +98,9 @@ public final class Constants {
 
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8;
     public static final double MATCH_HEIGHT= 4;
-    public static final double MIN_HEIGHT = 0; //0.5
+    public static final double MIN_HEIGHT = 1.5; //0.5
     public static final double MAX_HEIGHT = 27;
-    public static final double CLIMB_HEIGHT = 0; //0.5
+    public static final double CLIMB_HEIGHT = 1.5; //0.5
 
     public static final double ELEV_REV_TO_IN = 0.32327;//gear ratio changed, old 2.2629;
     public static final double ELEV_IN_TO_REV = 1/(0.32327);
