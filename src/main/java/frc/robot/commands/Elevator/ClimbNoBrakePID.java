@@ -27,7 +27,7 @@ public class ClimbNoBrakePID extends SequentialCommandGroup {
           new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(0.25),
   
    Commands.parallel(
-      new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT).withTimeout(3),
+      new PIDDownToHeight(elevator, Constants.Elevator.CLIMB_HEIGHT).withTimeout(3),
       new ClimbTrapShotWithWait(intake, cartridge, ampTrap, tilt).withTimeout(3)
       )
     );
