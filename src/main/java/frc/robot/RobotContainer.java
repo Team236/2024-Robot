@@ -9,6 +9,10 @@ import frc.robot.commands.Autos.PIDTurn;
 import frc.robot.commands.Autos.PIDTurnCCW;
 import frc.robot.commands.Autos.PIDTurnCW;
 import frc.robot.commands.Autos.FrontTwoShots;
+import frc.robot.commands.Autos.ModFrontTwoShot;
+import frc.robot.commands.Autos.ModOneWooferShot;
+import frc.robot.commands.Autos.ModWooferLeft;
+import frc.robot.commands.Autos.ModWooferRight;
 import frc.robot.commands.Autos.OneWooferShot;
 import frc.robot.commands.Autos.WooferLeft;
 import frc.robot.commands.Autos.WooferRight;
@@ -98,10 +102,10 @@ public class RobotContainer {
   private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
   private final PIDPodShotWithRedTurn pidPodShotWithRedTurn = new PIDPodShotWithRedTurn(intake, cartridge, tilt, drive);
 //AUTO COMMANDS
-  private final FrontTwoShots frontTwoShots = new FrontTwoShots(intake, cartridge, tilt, drive, elevator);
-  private final WooferLeft wooferLeft = new WooferLeft(intake, cartridge, tilt, drive, elevator);
-  private final WooferRight wooferRight = new WooferRight(intake, cartridge, tilt, drive, elevator);
-  private final OneWooferShot oneWooferShot = new OneWooferShot(intake, cartridge, tilt, drive, elevator);
+  private final ModFrontTwoShot frontTwoShots = new ModFrontTwoShot(intake, cartridge, tilt, drive, elevator);
+  private final ModWooferLeft wooferLeft = new ModWooferLeft(intake, cartridge, tilt, drive, elevator);
+  private final ModWooferRight wooferRight = new ModWooferRight(intake, cartridge, tilt, drive, elevator);
+  private final ModOneWooferShot oneWooferShot = new ModOneWooferShot(intake, cartridge, tilt, drive, elevator);
 //INTAKE COMMANDS
   private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
