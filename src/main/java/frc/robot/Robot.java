@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
+import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 
@@ -33,6 +35,7 @@ public class Robot extends TimedRobot {
   public UsbCamera usbCamera0;
   public static Servo cameraServo;
   public static boolean isFloor;
+
 
   private RobotContainer m_robotContainer;
 
@@ -110,7 +113,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+
+  }
 
   @Override
   public void teleopInit() {
