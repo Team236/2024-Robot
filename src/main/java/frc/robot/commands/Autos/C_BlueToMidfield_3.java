@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.Elevator.PIDUptoHeight;
+import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Shots.PIDSpkrShotNoCart;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
@@ -26,10 +27,16 @@ public class C_BlueToMidfield_3 extends ParallelCommandGroup {
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//bring elevator to match height (Start elev at bot limit at match start)
       Commands.sequence(
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER), //times out in 2 sec. Enough for tilt/then intake? Can reduce?
+        Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
+        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)     
+        ),
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE), //times out 2 secs
         new PIDTurnCCW(drive, 90).withTimeout(1.5),
+        Commands.parallel(
         new PIDDrive(drive,  Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(2),
+        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)     
+        ),
         new PIDTurnCW(drive, 90-Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1.5), 
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM),  //2 sec timeout
         new PIDTurnCCW(drive,  90-Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1.5), 
