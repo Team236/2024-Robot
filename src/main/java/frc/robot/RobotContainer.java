@@ -260,26 +260,27 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
    // SmartDashboard.putString("autokey", "Entering getAutoCommand now");
      Command command = null;
-    //Swith 1 OFF, 2 ON, 3 ON, 4 ON
+    //Swith 1 is in the "ON" spot on the box
     if (!autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       command = wooferLeft;
-      //SmartDashboard.putNumber("Auto Switch is: ", 1);
-    //Swith 1 ON, 2 OFF, 3 ON, 4 ON
     } else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       command = frontTwoShots;
-        // SmartDashboard.putNumber("Auto Switch is: ", 2);
-    //Swith 1 ON, 2 ON, 3 OFF, 4 ON
     } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
-      command = frontTwoShots;
-        // SmartDashboard.putNumber("Auto Switch is: ", 3);
-      //Swith 1 ON, 2 ON, 3 OFF, 4 OFF
+      command = oneWooferShot;
     } else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
       command =  wooferRight;
-        // SmartDashboard.putNumber("Auto Switch is: ", 4);
-   }
-    else if (!autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      command =  oneWooferShot;
-        // SmartDashboard.putNumber("Auto Switch is: ", 4);
+    } else if (!autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
+      command =  leftRedToMidfield2;
+    } else if (autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
+      command = rightBlueToMidfield2;
+    } else if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
+      command = centerRedToMidfield3;
+    } else if (autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
+      command =  centerBlueToMidfield3;
+    } else if (!autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
+      command =  centerRed2Speaker1Amp;
+   }  else if (!autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
+      command =  centerBlue2Speaker1Amp;
    }
    return command;
   }
