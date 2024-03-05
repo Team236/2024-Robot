@@ -25,8 +25,6 @@ public class PIDLLShot extends ParallelCommandGroup {
   /** Creates a new PIDCartShotLimeLight. */
   public PIDLLShot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, int pipeline) {
       addCommands(
-       // new LLAngle(drive),
-       // Commands.parallel(
           new PidLLTilt(tilt, pipeline).withTimeout(4),
           new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(4),
           new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4)//use manualIntake since counter =1 here
