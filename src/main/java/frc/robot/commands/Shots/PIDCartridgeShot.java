@@ -24,20 +24,15 @@ import frc.robot.subsystems.Tilt;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 
-public class PIDCartridgeShot extends SequentialCommandGroup {
+public class PIDCartridgeShot extends ParallelCommandGroup {
   //Moves cartridge to Woofer or Podium position, then runs Cartridge at PID controlled velocity, then adds intake motors after a delay
   //intake speed between -1 and 1, cartridge speed in RPM
   public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed, double desiredRevs) {
       addCommands(
-         Commands.parallel(
-          new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(1),
-          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(1)
-          ),
-          Commands.parallel(
-            new ManualIntakeWithWait(intake, intSpeed).withTimeout(2), //use manualIntake since counter =1 here
-            new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
-            )
-      );
+          new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(4),
+          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(4),
+          new ManualIntakeWithWait(intake, intSpeed).withTimeout(4) //use manualIntake since counter =1 her
+            );
     Intake.resetCounter();  //reset counter after shooting a Note
   }
 

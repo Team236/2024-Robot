@@ -55,8 +55,10 @@ public final class Constants {
     public static final double NOTE_TO_NOTE = 57;
     public static final double NOTE_TO_MIDFLD = 160;
     //TURNING ANGLES
-    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 30;
-    public static final double TURN_ANGLE_RED_POD_TO_SPKR = 30;
+    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 37;//30
+    public static final double TURN_ANGLE_RED_POD_TO_SPKR = 37;//30
+    public static final double TURN_ANGLE_BLUE_POD_TO_SPKR_HIGH_GEAR = 30;
+    public static final double TURN_ANGLE_RED_POD_TO_SPKR_HIGH_GEAR= 30;
     public static final double TURN_SIDE_OF_WOOFER = 58;
     //lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; // 0.15?
@@ -86,10 +88,10 @@ public final class Constants {
     public static final double KP_DRIVE = 0.022;
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-    public static final double KP_TURN_CCW = 0.022;//0.022;  
-    public static final double TURNCCW_DEG_TO_REV = 0.245;//0.211; 
-    public static final double KP_TURN_CW = 0.023; //0.022;
-    public static final double TURNCW_DEG_TO_REVS = 0.253; //0.2332; 
+    public static final double KP_TURN_CCW = 0.0223;//0.022;//0.022;  
+    public static final double TURNCCW_DEG_TO_REV = 0.2151;//0.245;//0.211; 
+    public static final double KP_TURN_CW = 0.0222; //0.023;
+    public static final double TURNCW_DEG_TO_REVS = 0.213;//0.253; //0.2332; 
   }
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
@@ -133,7 +135,7 @@ public final class Constants {
   }
   public static class CartridgeShooter { 
     //CARTRIDGE SHOOTER MOTORS
-    public static final double PODIUM_PID_RPM = 3500; 
+    public static final double PODIUM_PID_RPM = 4000; 
     public static final double WOOFER_PID_RPM = 3500;
     public static final double AMP_PID_RPM = 3500; //Speed to run cart motors at when doing AMP shot
     public static final double MAX_PID_SPEED = 5500;

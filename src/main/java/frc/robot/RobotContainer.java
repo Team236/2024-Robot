@@ -97,14 +97,15 @@ public class RobotContainer {
 //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
   private final ToggleGear toggleGear = new ToggleGear(drive); 
-  private final PIDTurnCW pidTurnCCW =  new PIDTurnCW(drive, 180); 
-   private final PIDTurnCCW pidTurnCW =  new PIDTurnCCW(drive, 180); 
+  private final PIDTurnCW pidTurnCW =  new PIDTurnCW(drive,30); 
+   private final PIDTurnCCW pidTurnCCW =  new PIDTurnCCW(drive, 30); 
   //private final PIDDrive pidDrive = new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
   //private final PIDTurn pidTurnPodtoWoofRed = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR); 
   //private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR);
 //SHOTS
   private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt);
   private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM);
+  private final PIDCartridgeShot pidCenterNoteShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE);
   private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
   private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt, drive, 0);
   private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
@@ -221,6 +222,8 @@ public class RobotContainer {
 
     x.onTrue(pidTurnCCW);
     b.onTrue(pidTurnCW);
+    y.onTrue(pidCenterNoteShot);
+    leftPov.onTrue(pidWooferShot);
 
   //***** Aux Controller ******
   //SHOTS

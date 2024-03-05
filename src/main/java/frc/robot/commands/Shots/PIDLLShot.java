@@ -5,6 +5,7 @@
 package frc.robot.commands.Shots;
 
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.CameraLimelight.LLAngle;
@@ -20,19 +21,15 @@ import frc.robot.subsystems.Tilt;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PIDLLShot extends SequentialCommandGroup {
+public class PIDLLShot extends ParallelCommandGroup {
   /** Creates a new PIDCartShotLimeLight. */
   public PIDLLShot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, int pipeline) {
       addCommands(
        // new LLAngle(drive),
-        Commands.parallel(
-          new PidLLTilt(tilt, pipeline).withTimeout(1),
-          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(1)
-          ),
-        Commands.parallel(
-           new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //use manualIntake since counter =1 here
-           new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(2)
-            )
+       // Commands.parallel(
+          new PidLLTilt(tilt, pipeline).withTimeout(4),
+          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(4),
+          new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4)//use manualIntake since counter =1 here
         );
     Intake.resetCounter();//reset counter after shooting a Note
 }
