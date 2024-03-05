@@ -95,8 +95,8 @@ public class RobotContainer {
 //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
   private final ToggleGear toggleGear = new ToggleGear(drive); 
-  private final PIDTurnCW pidTurnCCW =  new PIDTurnCW(drive, 90); 
-   private final PIDTurnCCW pidTurnCW =  new PIDTurnCCW(drive, 90); 
+  private final PIDTurnCW pidTurnCCW =  new PIDTurnCW(drive, 180); 
+   private final PIDTurnCCW pidTurnCW =  new PIDTurnCCW(drive, 180); 
   //private final PIDDrive pidDrive = new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
   //private final PIDTurn pidTurnPodtoWoofRed = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR); 
   //private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR);
@@ -215,6 +215,9 @@ public class RobotContainer {
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
 
+    x.onTrue(pidTurnCCW);
+    b.onTrue(pidTurnCW);
+
   //***** Aux Controller ******
   //SHOTS
     a1.whileTrue(llPressandHold).onFalse(shootButtonRelease);
@@ -234,8 +237,7 @@ public class RobotContainer {
     lm1.whileTrue(manualRetCartridge);
     rm1.whileTrue(manualExtCartridge);
 
-    //x.onTrue(pidTurnCCW);
-    // b.onTrue(pidTurnCW);
+
     // upPov.onTrue(frontTwoShots);
     //downPov.onTrue(wooferLeft);
     //leftPov.onTrue(wooferRight);
