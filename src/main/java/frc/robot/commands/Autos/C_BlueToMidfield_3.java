@@ -53,6 +53,6 @@ public class C_BlueToMidfield_3 extends ParallelCommandGroup {
        )
     );
     drive.setGearHigh();
-    intake.resetCounter();
+    Intake.resetCounter();
   }
 }

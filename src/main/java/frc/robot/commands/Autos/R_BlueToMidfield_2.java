@@ -51,6 +51,6 @@ public R_BlueToMidfield_2(Intake intake, Cartridge cartridge, Tilt tilt, Drive d
        )
     );
     drive.setGearHigh();
-    intake.resetCounter();
+    Intake.resetCounter();
   }
 }

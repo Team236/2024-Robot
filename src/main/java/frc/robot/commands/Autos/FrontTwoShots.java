@@ -63,5 +63,6 @@ public class FrontTwoShots extends SequentialCommandGroup {
     new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(3)
     );
     drive.setGearHigh();
+    Intake.resetCounter();
   }
 }

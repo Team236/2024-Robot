@@ -27,10 +27,11 @@ public class OneWooferShot extends ParallelCommandGroup {
   public OneWooferShot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(3),//bring elevator to match height (Start elev at bot limit at match start)
-      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
+      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
      // new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
     );
     drive.setGearHigh();
+    Intake.resetCounter();
   }
 }
 

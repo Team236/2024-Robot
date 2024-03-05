@@ -7,6 +7,7 @@ package frc.robot.commands.Autos;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Drive.PIDDrive;
@@ -48,17 +49,21 @@ public class C_Red_2Speaker_1Amp extends ParallelCommandGroup {
         new PIDTurnCW(drive, 90).withTimeout(1.5),
         Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(2),
-        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)     
+        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2)           
         ),
         new PIDTurnCCW(drive, 90).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
-        new PIDDrive(drive, -37.9).withTimeout(3.5),
-        new PIDTurnCW (drive, 90),
-        new PIDDrive(drive, -28.6),
-        new AmpShotNoCartMotors(intake, ampTrap, tilt)
-       )
+        new PIDDrive(drive, -37.9).withTimeout(1.5),
+        new PIDTurnCW (drive, 90).withTimeout(1.5),
+        new PIDDrive(drive, -28.6).withTimeout(1.5),
+        Commands.parallel(
+        new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+        new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(2)
+        )
+      )
     );
     drive.setGearHigh();
-    intake.resetCounter();
+    Intake.resetCounter();
   }
 }
   

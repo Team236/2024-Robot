@@ -47,7 +47,7 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
        )
     );
     drive.setGearHigh();
-    intake.resetCounter();
+    Intake.resetCounter();
   }
 }
   

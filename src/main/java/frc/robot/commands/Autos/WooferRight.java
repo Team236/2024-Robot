@@ -54,6 +54,7 @@ public class WooferRight extends SequentialCommandGroup {
       )
       );
    drive.setGearHigh();
+   Intake.resetCounter();
   }
 }
 
