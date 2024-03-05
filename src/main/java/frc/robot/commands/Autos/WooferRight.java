@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.PIDDrive;
 import frc.robot.commands.Drive.PIDTurnCCW;
@@ -40,13 +41,15 @@ public class WooferRight extends SequentialCommandGroup {
     new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
     Commands.parallel(
       new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
-      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2) 
+      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)  
       ),
     new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(1.5),
     new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
     Commands.parallel( 
       new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(3),
-      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
+      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1) //shoots the Note
+      //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
       //new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
       )
       );
