@@ -33,28 +33,30 @@ public class Drive extends SubsystemBase {
 	//these are external encoders not SparkMAX
 	private Encoder leftEncoder, rightEncoder;
 	private AHRS gyro;
+  private DifferentialDriveOdometry diffDriveodometry;
+
 	
 		/** Creates a new Drive. */
 	public Drive() {
     
 		leftFront = new CANSparkMax(Constants.MotorControllers.ID_LEFT_FRONT, MotorType.kBrushless);
-    	leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
-    	rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
-    	rightRear = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
+    leftRear = new CANSparkMax(Constants.MotorControllers.ID_LEFT_REAR, MotorType.kBrushless);
+    rightFront = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_FRONT, MotorType.kBrushless);
+    rightRear = new CANSparkMax(Constants.MotorControllers.ID_RIGHT_REAR, MotorType.kBrushless);
 
-    		leftFront.restoreFactoryDefaults();
-    		rightFront.restoreFactoryDefaults();
+    leftFront.restoreFactoryDefaults();
+    rightFront.restoreFactoryDefaults();
 
-    	leftFront.setInverted(false);
-    	rightFront.setInverted(true); //determine via bench testing
+    leftFront.setInverted(false);
+    rightFront.setInverted(true); //determine via bench testing
 		
-    	leftRear.follow(leftFront);
-    	rightRear.follow(rightFront);
+    leftRear.follow(leftFront);
+    rightRear.follow(rightFront);
 
-    	leftFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    	rightFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    		leftRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
-    		rightRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    leftFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    rightFront.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    leftRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    rightRear.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     
 		gyro = new AHRS();
 
@@ -77,6 +79,14 @@ public class Drive extends SubsystemBase {
 
     //pneumatic double solenoid
     transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, DriveConstants.SOL_LOW_GEAR, Constants.DriveConstants.SOL_HIGH_GEAR);
+  
+    resetEncoders();
+
+    // PATH FOLLOWING: add odometry to DRIVE 
+        // this tracks the robots position as it moves through  gyro and both encoders
+        diffDriveodometry = new DifferentialDriveOdometry(
+                gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());
+                
   }
 
   //methods start here
