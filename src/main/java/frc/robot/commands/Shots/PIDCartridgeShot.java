@@ -29,9 +29,9 @@ public class PIDCartridgeShot extends ParallelCommandGroup {
   //intake speed between -1 and 1, cartridge speed in RPM
   public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed, double desiredRevs) {
       addCommands(
-          new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(4),
-          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(4),
-          new ManualIntakeWithWait(intake, intSpeed).withTimeout(4) //use manualIntake since counter =1 her
+          new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(6),
+          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(6),
+          new ManualIntakeWithWait(intake, intSpeed).withTimeout(6) //use manualIntake since counter =1 her
             );
     Intake.resetCounter();  //reset counter after shooting a Note
   }

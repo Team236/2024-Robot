@@ -59,7 +59,7 @@ public final class Constants {
     public static final double TURN_ANGLE_RED_POD_TO_SPKR = 37;//30
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR_HIGH_GEAR = 30;
     public static final double TURN_ANGLE_RED_POD_TO_SPKR_HIGH_GEAR= 30;
-    public static final double TURN_SIDE_OF_WOOFER = 58;
+    public static final double TURN_SIDE_OF_WOOFER = 65;//58;
     //lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; // 0.15?
     public static final double RIGHT_DEADZONE = 0.05;
@@ -135,8 +135,8 @@ public final class Constants {
   }
   public static class CartridgeShooter { 
     //CARTRIDGE SHOOTER MOTORS
-    public static final double PODIUM_PID_RPM = 4000; 
-    public static final double WOOFER_PID_RPM = 3500;
+    public static final double PODIUM_PID_RPM = 4500; //4000
+    public static final double WOOFER_PID_RPM = 4500;//3500
     public static final double AMP_PID_RPM = 3500; //Speed to run cart motors at when doing AMP shot
     public static final double MAX_PID_SPEED = 5500;
      //manual speeds
@@ -147,12 +147,12 @@ public final class Constants {
     public static final double kPLeft = 0.00005;  //0.00005; // 0002
     public static final double kILeft = 0.0; // 0.00000001
     public static final double kDLeft = 0.0565; // 0.0565
-    public static final double kFFLeft = 0.0002; //0.00018; //0.00018 //2022: 0.00021
+    public static final double kFFLeft = 0.00025;//0.0002; //0.00018; //0.00018 //2022: 0.00021
 
     public static final double kPRight = 0.00005; //0.00005; // 0002
     public static final double kIRight = 0.0; // 0.00000001
     public static final double kDRight = 0.0565; // 0.0565
-    public static final double kFFRight = 0.0002; //0.00018; // 0.00021
+    public static final double kFFRight = 0.00025;//0.0002; //0.00018; // 0.00021
   }
   public static class Tilt { 
     //TILT MOTOR
@@ -161,8 +161,8 @@ public final class Constants {
     public static final double TILT_ENC_REVS_MAX = 78;//really 79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
     public static final double TILT_ENC_REVS_WOOFER = 16; 
-    public static final double TILT_ENC_REVS_PODIUM = 47; 
-    public static final double TILT_ENC_REVS_CTR_NOTE = 47;
+    public static final double TILT_ENC_REVS_PODIUM = 43;//47; 
+    public static final double TILT_ENC_REVS_CTR_NOTE = 45;  //47;
     public static final double MAN_EXT_SPEED = 0.2; //TODO adjust as needed
     public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
     //CARTRIDGE TILT PID:

@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Shots;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.AmpTrap.AmpMotor;
@@ -20,16 +21,13 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AmpShotNoCartMotors extends SequentialCommandGroup {
+public class AmpShotNoCartMotors extends ParallelCommandGroup {
   /** Creates a new AmpShotNoCartMotors. */
   public AmpShotNoCartMotors(Intake intake, AmpTrap ampTrap, Tilt tilt) {
     addCommands(
-    new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(0.75),
-    Commands.parallel(
- //use manualIntake here since count = 1
-      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2),
+      new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(2)
-      )
     );
     Intake.resetCounter();  //reset counter after shooting a Note
   }

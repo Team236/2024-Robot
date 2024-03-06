@@ -128,6 +128,7 @@ public class RobotContainer {
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 //CARTRIDGE AND TILT COMMANDS
+private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(cartridge, 4500);
   private final ManualExtCartridge manualExtCartridge = new ManualExtCartridge(tilt, Constants.Tilt.MAN_EXT_SPEED);
   private final ManualRetractCartridge manualRetCartridge = new ManualRetractCartridge(tilt, Constants.Tilt.MAN_RET_SPEED);
   private final PIDCartridgeTilt podiumTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM);
@@ -222,7 +223,8 @@ public class RobotContainer {
 
     x.onTrue(pidTurnCCW);
     b.onTrue(pidTurnCW);
-    y.onTrue(pidCenterNoteShot);
+   // y.onTrue(pidCenterNoteShot);
+    y.onTrue(pidCartridgeMotors);
     leftPov.onTrue(pidWooferShot);
 
   //***** Aux Controller ******

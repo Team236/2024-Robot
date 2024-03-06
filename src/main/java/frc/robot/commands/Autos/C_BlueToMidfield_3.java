@@ -34,21 +34,27 @@ public class C_BlueToMidfield_3 extends ParallelCommandGroup {
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER), //times out in 2 sec. Enough for tilt/then intake? Can reduce?
         Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
-        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
-        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2)     
+        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
+       // new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2)     
         ),
-        //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE), //times out 2 secs
-        new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
+
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1) ,
+      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //shoots the Note
+
         new PIDTurnCCW(drive, 90).withTimeout(1.5),
         Commands.parallel(
         new PIDDrive(drive,  Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(2),
-        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
-        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
+        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
+        //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
         ),
-        new PIDTurnCW(drive, 90-Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1.5), 
-        //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM),  //2 sec timeout
-        new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
-        new PIDTurnCCW(drive,  90-Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1.5), 
+        new PIDTurnCW(drive, 98-Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1.5), 
+
+
+       // new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM),  //2 sec timeout
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(1) ,
+      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //shoots the Not
+       
+        new PIDTurnCW(drive,  80-Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1.5),
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3)
        )
     );
