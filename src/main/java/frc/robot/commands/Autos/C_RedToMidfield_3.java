@@ -32,32 +32,32 @@ public class C_RedToMidfield_3 extends ParallelCommandGroup {
   public C_RedToMidfield_3(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
 
     addCommands(
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
-      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//bring elevator to match height (Start elev at bot limit at match start)
-      Commands.sequence(
-      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER), //times out in 2 sec. Enough for tilt/then intake? Can reduce?
+    new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
+    new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//bring elevator to match height (Start elev at bot limit at match start)
+    Commands.sequence(
+       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
        Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
         // new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2)     
         ),  
-        //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE), //times out 2 secs
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1) ,
-      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //shoots the Note
-        
-      new PIDTurnCW(drive, 90).withTimeout(1.5),
+      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2.3),
+      //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1) ,
+      ///new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //shoots the Note
+      new PIDTurnCW(drive, 90).withTimeout(1.3),
       Commands.parallel(
          new PIDDrive(drive,  Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(2),
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)   
         ),
-      new PIDTurnCCW(drive, 90-Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR).withTimeout(1.5), 
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(1) ,
-      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //shoots the Note
-      new PIDTurnCCW(drive,  90-Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR).withTimeout(1.5), 
+      new PIDTurnCCW(drive, 90-Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR).withTimeout(1.3), 
+      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.3),
+      //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(1) ,
+      //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //shoots the Note
+      new PIDTurnCCW(drive,  90-Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR).withTimeout(1.3), 
       new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3)
-       )
+     )
     );
-    drive.setGearHigh();
+    //drive.setGearHigh();
     Intake.resetCounter();
   }
 }
