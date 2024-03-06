@@ -5,6 +5,7 @@
 package frc.robot.commands.Shots;
 
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
@@ -18,16 +19,24 @@ import frc.robot.subsystems.Tilt;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PIDSpkrShotNoCart extends SequentialCommandGroup {
+public class PIDSpkrShotNoCart extends ParallelCommandGroup {
   /** Creates a new PIDSpkrShotNoCart. */
   public PIDSpkrShotNoCart(Intake intake, Tilt tilt, double intSpeed, double desiredRevs) {
-      addCommands(
+    addCommands(
+    new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(1),    new ManualIntakeWithWait(intake, intSpeed).withTimeout(2), //use manualIntake since counter =1 here
+    new ManualIntakeWithWait(intake, intSpeed).withTimeout(2.25) //use manualIntake since counter =1 here
+    );
+
+  Intake.resetCounter();  //reset counter after shooting a Note
+  }
+}
+    /* 
+    PREVIOUSLY PARLLEL:
+    addCommands(
         new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(1), //2
         new ManualIntake(intake, intSpeed).withTimeout(1.25) //use manualIntake since counter =1 here
       );
-    Intake.resetCounter();  //reset counter after shooting a Note
-  }
+      */
 
-}
 
     
