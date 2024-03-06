@@ -26,6 +26,22 @@ public class ClimbTrapShotWithWait extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       Commands.parallel(
+      //run 2 commands below for 0.75sec, to wait for elev to get to bottom (in ClimbAtEnd and ClimbNoBrakePID), 
+      //and for cart motors to come to speed
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(0.75),//4
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(0.75) //4
+      ),
+      Commands.parallel(          
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(3),
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(3),
+      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)
+      )
+    );
+    Intake.resetCounter();
+  }
+}
+/** SEQ PREVIOUSLY:
+ *    Commands.parallel(
       new WaitCommand(0.5),
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(4),
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4)
@@ -34,7 +50,4 @@ public class ClimbTrapShotWithWait extends SequentialCommandGroup {
       new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4),
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(4),
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4))
-    );
-    Intake.resetCounter();
-  }
-}
+*/
