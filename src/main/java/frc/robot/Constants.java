@@ -61,7 +61,7 @@ public final class Constants {
     public static final double TURN_ANGLE_RED_POD_TO_SPKR_HIGH_GEAR= 30;
     public static final double TURN_SIDE_OF_WOOFER = 65;//58;
     //lets us ignore small joystick inputs
-    public static final double LEFT_DEADZONE = 0.05; // 0.15?
+    public static final double LEFT_DEADZONE = 0.05; 
     public static final double RIGHT_DEADZONE = 0.05;
     public static final double DEADBAND = 0.05;
     //Transmission solenoid
@@ -88,10 +88,10 @@ public final class Constants {
     public static final double KP_DRIVE = 0.022;
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-    public static final double KP_TURN_CCW = 0.0223;//0.022;//0.022;  
-    public static final double TURNCCW_DEG_TO_REV = 0.2151;//0.245;//0.211; 
+    public static final double KP_TURN_CCW = 0.0223;//0.022;
+    public static final double TURNCCW_DEG_TO_REV = 0.2151;//0.245;
     public static final double KP_TURN_CW = 0.0222; //0.023;
-    public static final double TURNCW_DEG_TO_REVS = 0.213;//0.253; //0.2332; 
+    public static final double TURNCW_DEG_TO_REVS = 0.213;//0.253;  
   }
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
@@ -99,9 +99,9 @@ public final class Constants {
 
     public static final double JUST_ABOVE_CHAIN_HEIGHT = 22.8;
     public static final double MATCH_HEIGHT= 4;
-    public static final double MIN_HEIGHT = 1.5; //0.5
+    public static final double MIN_HEIGHT = 1.5; 
     public static final double MAX_HEIGHT = 27;
-    public static final double CLIMB_HEIGHT = 1.5; //0.5
+    public static final double CLIMB_HEIGHT = 1.5; 
 
     public static final double ELEV_REV_TO_IN = 0.32327;//gear ratio changed, old 2.2629;
     public static final double ELEV_IN_TO_REV = 1/(0.32327);
@@ -137,22 +137,21 @@ public final class Constants {
     //CARTRIDGE SHOOTER MOTORS
     public static final double PODIUM_PID_RPM = 4500; //4000
     public static final double WOOFER_PID_RPM = 4500;//3500
-    public static final double AMP_PID_RPM = 3500; //Speed to run cart motors at when doing AMP shot
+    public static final double AMP_PID_RPM = 4500; //Speed to run cart motors at when doing AMP shot
     public static final double MAX_PID_SPEED = 5500;
      //manual speeds
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6;//for bench test - use PID in match
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
     public static final double MANUAL_SET_SPEED = 0.3; 
      //pid (2022 pid constants commented in)
-    public static final double kPLeft = 0.00005;  //0.00005; // 0002
+    public static final double kPLeft = 0.00005;  // 0002
     public static final double kILeft = 0.0; // 0.00000001
-    public static final double kDLeft = 0.0565; // 0.0565
-    public static final double kFFLeft = 0.00025;//0.0002; //0.00018; //0.00018 //2022: 0.00021
-
-    public static final double kPRight = 0.00005; //0.00005; // 0002
+    public static final double kDLeft = 0.0565; 
+    public static final double kFFLeft = 0.00025;//0.0002 for 3500 RPM
+    public static final double kPRight = 0.00005; // 0002
     public static final double kIRight = 0.0; // 0.00000001
-    public static final double kDRight = 0.0565; // 0.0565
-    public static final double kFFRight = 0.00025;//0.0002; //0.00018; // 0.00021
+    public static final double kDRight = 0.0565; 
+    public static final double kFFRight = 0.00025;//0.0002 for 3500 RPM
   }
   public static class Tilt { 
     //TILT MOTOR
@@ -163,7 +162,7 @@ public final class Constants {
     public static final double TILT_ENC_REVS_WOOFER = 16; 
     public static final double TILT_ENC_REVS_PODIUM = 43;//47; 
     public static final double TILT_ENC_REVS_CTR_NOTE = 45;  //47;
-    public static final double MAN_EXT_SPEED = 0.2; //TODO adjust as needed
+    public static final double MAN_EXT_SPEED = 0.2; //
     public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
     //CARTRIDGE TILT PID:
     public static final double KP_TILT = 0.029;
