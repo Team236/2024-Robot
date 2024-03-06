@@ -19,8 +19,8 @@ public class ShootButtonRelease extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ManualIntakeWithWait(intake, intSpeed).withTimeout(2), //use manualIntake since counter =1 here
-      new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2)
+      new ManualIntakeWithWait(intake, intSpeed).withTimeout(2.3), //use manualIntake since counter =1 here
+      new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2.3)
     );
   }
 }
