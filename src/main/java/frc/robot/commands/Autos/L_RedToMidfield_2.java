@@ -31,17 +31,19 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//bring elevator to match height (Start elev at bot limit at match start)
       Commands.sequence(
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER), //times out in 2 sec. Enough for tilt/then intake? Can reduce?
+        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
         new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
-        new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5),
+        new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 3).withTimeout(1.5),
         Commands.parallel(
-         new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
-         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
-         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
+         new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE -5).withTimeout(2),
+         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
+         //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
         ),
+        Commands.parallel (//parallel since PIDSpkrShotNoCart has 1 sec delay before the shot, so turn can be completed
         new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5),//OR SLIGHTLY LESS ANGLE?
-        //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM) //2 sec timeout
-        new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
+        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.3)
+        ),
+        //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
         new PIDTurnCCW(drive,  Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3.5)
        )
