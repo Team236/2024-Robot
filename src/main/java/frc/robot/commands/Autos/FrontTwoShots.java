@@ -62,7 +62,7 @@ public class FrontTwoShots extends SequentialCommandGroup {
     //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Not 
     new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2)
     );
-    drive.setGearHigh();
+   // drive.setGearHigh();
     Intake.resetCounter();
   }
 }

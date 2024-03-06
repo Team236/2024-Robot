@@ -26,7 +26,6 @@ public class PIDSpkrShotNoCart extends ParallelCommandGroup {
     new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(1),    new ManualIntakeWithWait(intake, intSpeed).withTimeout(2), //use manualIntake since counter =1 here
     new ManualIntakeWithWait(intake, intSpeed).withTimeout(2.25) //use manualIntake since counter =1 here
     );
-
   Intake.resetCounter();  //reset counter after shooting a Note
   }
 }

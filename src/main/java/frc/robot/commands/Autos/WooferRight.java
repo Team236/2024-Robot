@@ -40,19 +40,21 @@ public class WooferRight extends SequentialCommandGroup {
     new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
     new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
     Commands.parallel(
-      new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2.5),
-      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.5)
+      new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
+      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
       //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5)  
       ),
     new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(1.5),
     new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5), 
-    new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
-     new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1) ,
-     new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2) //shoots the Note
-      //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
+    Commands.parallel( //parallel since PIDSpkrshotNoCart has 1 sec delay for tilt before shot
+      new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(3),
+      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
+      //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1) ,
+      //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2) //shoots the Note
       //new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
-      );
-   drive.setGearHigh();
+      )
+    );
+   //drive.setGearHigh();
    Intake.resetCounter();
   }
 }

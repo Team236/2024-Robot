@@ -33,27 +33,26 @@ public class WooferLeft extends SequentialCommandGroup {
   public WooferLeft(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
     Commands.parallel( 
-        //new LowGear(drive), //this could make the first drive command be unpredicable - keep it removed, go in low gear in pit prematch
-        new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
-        //new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
-        ),
+      //new LowGear(drive), //this could make the first drive command be unpredicable - keep it removed, go in low gear in pit prematch
+      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
+      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
+      //new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
+      ),
     new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
     new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 3).withTimeout(1.5),
-
     Commands.parallel(
-      new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE-5).withTimeout(2.5),
-      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.5),
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5)  
+      new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE-5).withTimeout(2),
+      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
+      //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5)  
       ),
     new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE+7).withTimeout(1.5),
-    new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER+2).withTimeout(1.5), 
-    new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY-3).withTimeout(1),
-
-     new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1) ,
-     new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2) //shoots the Note
+    new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER+2).withTimeout(1.5),
+    Commands.parallel(  //parallel because Tilting in SpkrShot takes 1 second, before shooting)
+      new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY-3).withTimeout(3),
+      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
+    )
       );
-   drive.setGearHigh();
+   //drive.setGearHigh();
    Intake.resetCounter();
   }
 }
