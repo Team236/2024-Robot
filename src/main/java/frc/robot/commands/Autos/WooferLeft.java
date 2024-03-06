@@ -29,7 +29,7 @@ import frc.robot.subsystems.Tilt;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class WooferLeft extends SequentialCommandGroup {
-
+//****** ModWooferLeft CALLS CARTRIDGE MOTORS IN PARALLEL - SO NO CART MOTORS USED HERE *********/
   public WooferLeft(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
     Commands.parallel( 
