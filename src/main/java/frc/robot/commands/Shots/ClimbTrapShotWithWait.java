@@ -25,8 +25,12 @@ public class ClimbTrapShotWithWait extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      Commands.parallel(
       new WaitCommand(0.5),
-      Commands.parallel(      
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(4),
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4)
+      ),
+      Commands.parallel(          
       new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4),
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(4),
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4))

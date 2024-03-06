@@ -23,18 +23,19 @@ public class ClimbAtEnd extends SequentialCommandGroup {
   /** Creates a new ClimbWithManual. */
   public ClimbAtEnd(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
     addCommands( //assumes elevator starts at top
-          new WaitCommand(0.5),
-          new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(0.25),
-   Commands.parallel(
+    //new WaitCommand(0.5),
+    new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(0.25),
+    Commands.parallel(
       new PIDDownToHeight(elevator, Constants.Elevator.CLIMB_HEIGHT).withTimeout(3),
       new ClimbTrapShotWithWait(intake, cartridge, ampTrap, tilt).withTimeout(3)
-      ),      //new WaitCommand(0.25),//TODO - can reduce?
-      new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(.75),
-      new ManualUp(elevator, 0.3).withTimeout(0.75),
-      new BrakeEngage(elevator)
+      ),    
+    new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(.75),
+    new ManualUp(elevator, 0.3).withTimeout(0.75),
+    new BrakeEngage(elevator)
     );
   }
 }
+
 
 
 
