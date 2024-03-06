@@ -40,10 +40,10 @@ public final class Constants {
 
   // these are the id numbers for the motor controllers
   public static class MotorControllers {
-    public static final int ID_LEFT_FRONT = 35; //  40  // 35
-    public static final int ID_LEFT_REAR = 34;  //  41  // 34
-    public static final int ID_RIGHT_FRONT = 1; //  42  // 1
-    public static final int ID_RIGHT_REAR = 32; //  43  // 32
+    // public static final int ID_LEFT_FRONT = 35; //  40  // 35
+    // public static final int ID_LEFT_REAR = 34;  //  41  // 34
+    // public static final int ID_RIGHT_FRONT = 1; //  42  // 1
+    // public static final int ID_RIGHT_REAR = 32; //  43  // 32
 
     // external drive encoders
     public static final int DIO_RDRIVE_ENC_A = 11;  // 0-9 on the Roborio 
@@ -51,10 +51,10 @@ public final class Constants {
     public static final int DIO_LDRIVE_ENC_A = 6;   // 
     public static final int DIO_LDRIVE_ENC_B = 7;   // 
 
-    // public static final int ID_LEFT_FRONT = 40; //40  2024robot
-    // public static final int ID_LEFT_REAR = 41;  //41
-    // public static final int ID_RIGHT_FRONT = 42;  // 42
-    // public static final int ID_RIGHT_REAR = 43;  //43
+    public static final int ID_LEFT_FRONT = 40;   // 40  2024robot
+    public static final int ID_LEFT_REAR = 41;    // 41
+    public static final int ID_RIGHT_FRONT = 42;  // 42
+    public static final int ID_RIGHT_REAR = 43;   // 43
 
     public static final int ID_INTAKE = 13; // TODO find IDs for controller
     public static final int ID_AMP_TRAP_SHOOTER = 53; // TODO get real number
