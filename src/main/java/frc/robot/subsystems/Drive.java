@@ -4,26 +4,26 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import edu.wpi.first.math.filter.SlewRateLimiter;
+import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.Thrustmaster;
+import frc.robot.RobotContainer;
 
 public class Drive extends SubsystemBase {
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   public DifferentialDrive diffDrive;
   private DoubleSolenoid transmission;
+  private DifferentialDriveOdometry diffDriveOdometry;
 
   //these are external encoders not SparkMAX
   private Encoder leftEncoder, rightEncoder;
@@ -63,6 +63,9 @@ public class Drive extends SubsystemBase {
 
     //pneumatic double solenoid
     transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.SOL_LOW_GEAR, Constants.DriveConstants.SOL_HIGH_GEAR);
+  
+    //PATH FOLLOWING 
+    diffDriveOdometry = new DifferentialDriveOdometry( RobotContainer.gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());
   }
 
   //methods start here

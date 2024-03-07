@@ -4,6 +4,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.util.Units;
+
 public final class Constants {
   //camera servo motor, created in Robot.java:
   public static final int PWM_FRONT_CAM = 0;
@@ -46,6 +50,21 @@ public final class Constants {
     public static final double AMP_TRAP_MOTOR_SPEED = 1.0; 
     public static final double AMP_TRAP_MOTOR_REVERSE_SPEED =-0.5; 
     }
+  public static class PATH{
+    //PATH FOLLOWING
+    public static final double kTrackwidthMeters = Units.inchesToMeters(24);
+    // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
+    //TODO find real path kvolts values
+    public static final double ksVolts = 0.22;
+    public static final double kvVoltSecondsPerMeter = 1.98;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.2;
+
+    // Example FEEDFORWARD Veolocity value TODO example value
+    //TODO find real path kvelocity value
+    public static final double kPDriveVel = 8.5;
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+  }
   public static class DriveConstants {
     //AUTO DISTANCES
     public static final double WOOFERFRONT_TO_NOTE = 60;
