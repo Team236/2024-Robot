@@ -35,7 +35,22 @@ public class ClimbAtEnd extends SequentialCommandGroup {
     );
   }
 }
-
+/* 
+ * Previously, after Hartford (Sequential command group):
+public ClimbAtEnd(Elevator elevator, AmpTrap ampTrap, Intake intake, Tilt tilt, Cartridge cartridge) {
+addCommands( //assumes elevator starts at top
+  new WaitCommand(0.5),
+  new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(0.25),
+  Commands.parallel(
+      new PIDDownToHeight(elevator, Constants.Elevator.MIN_HEIGHT).withTimeout(3),
+      new ClimbTrapShotWithWait(intake, cartridge, ampTrap, tilt).withTimeout(3)
+      ),      
+  new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(.75),
+  new ManualUp(elevator, 0.3).withTimeout(0.75),
+  new BrakeEngage(elevator)
+    );
+ * 
+*/
 
 
 
