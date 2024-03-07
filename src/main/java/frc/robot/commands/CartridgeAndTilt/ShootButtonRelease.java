@@ -15,12 +15,12 @@ import frc.robot.subsystems.Tilt;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootButtonRelease extends ParallelCommandGroup {
   /** Creates a new CartridgeButtonRelease. */
-  public ShootButtonRelease(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed) {
+  public ShootButtonRelease(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeedLeft, double cartSpeedRight) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ManualIntakeWithWait(intake, intSpeed).withTimeout(2.3), //use manualIntake since counter =1 here
-      new PIDCartridgeMotors(cartridge, cartSpeed).withTimeout(2.3)
+      new PIDCartridgeMotors(cartridge, cartSpeedLeft, cartSpeedRight).withTimeout(2.3)
     );
   }
 }

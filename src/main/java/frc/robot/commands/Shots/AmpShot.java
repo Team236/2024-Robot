@@ -27,7 +27,7 @@ public class AmpShot extends ParallelCommandGroup {
   //First tilts cartridge to stow; then spins intake, cartridge (PID velocity), and Amp motors
   public AmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt) {
     addCommands(
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(4),
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM, Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(4),
       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(4),
       new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4),
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4)

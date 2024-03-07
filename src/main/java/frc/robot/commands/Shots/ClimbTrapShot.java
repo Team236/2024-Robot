@@ -28,7 +28,7 @@ public class ClimbTrapShot extends ParallelCommandGroup {
     addCommands(
  //use manualIntake here since count = 1
       new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4),
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(4),
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM, Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(4),
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4)
       );
     Intake.resetCounter();  //reset counter after shooting a Note

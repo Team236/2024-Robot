@@ -27,7 +27,7 @@ public class PIDPodShotWithBlueTurn extends ParallelCommandGroup {
   //intake speed between -1 and 1, cartridge speed in RPM
   public PIDPodShotWithBlueTurn(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive) {
     addCommands(
-    new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_RPM).withTimeout(4),
+    new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM).withTimeout(4),
     new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(4),
     Commands.sequence(
           new PIDDrive(drive, -10).withTimeout(.7),

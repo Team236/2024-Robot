@@ -23,7 +23,7 @@ public class ModFrontTwoShot extends ParallelCommandGroup {
   public ModFrontTwoShot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
     new FrontTwoShots(intake, tilt, drive, elevator).withTimeout(16),
-    new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(16)  //run cart motors in parallel with every command in Auto
+    new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16)  //run cart motors in parallel with every command in Auto
     );
   }
 }

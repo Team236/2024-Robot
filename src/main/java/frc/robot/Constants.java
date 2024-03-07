@@ -135,10 +135,12 @@ public final class Constants {
   }
   public static class CartridgeShooter { 
     //CARTRIDGE SHOOTER MOTORS
-    public static final double PODIUM_PID_LEFT_RPM = 3500;//4500 with kFF = 0.00025
-    public static final double PODIUM_PID_RIGHT_RPM = 3500;
-    public static final double WOOFER_PID_RPM = 3500;//4500 with kFF = 0.00025
-    public static final double AMP_PID_RPM = 3500;//cart motors speed for AMP shot
+    public static final double PODIUM_PID_LEFT_RPM = 3300;//3500 wiht kFF = 0.0002, 4500 with kFF = 0.00025
+    public static final double PODIUM_PID_RIGHT_RPM = 3800;
+     public static final double WOOFER_PID_LEFT_RPM = 3300;//4500 with kFF = 0.00025
+    public static final double WOOFER_PID_RIGHT_RPM = 3800;//4500 with kFF = 0.00025
+    public static final double AMP_PID_LEFT_RPM = 3500;//cart speed for AMP shot
+      public static final double AMP_PID_RIGHT_RPM = 3500;//cart speed for AMP shot
     public static final double MAX_PID_SPEED = 5500;
      //manual speeds
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6;//for bench test - use PID in match
@@ -148,11 +150,11 @@ public final class Constants {
     public static final double kPLeft = 0.00005;  // 0002
     public static final double kILeft = 0.0; // 0.00000001
     public static final double kDLeft = 0.0565; 
-    public static final double kFFLeft = 0.00025; //0.00025 for 4500 RPM //0.002 for 3500
+    public static final double kFFLeft = 0.00022; //0.00025 for 4500 RPM //0.002 for 3500
     public static final double kPRight = 0.00005; // 0002
     public static final double kIRight = 0.0; // 0.00000001
     public static final double kDRight = 0.0565; 
-    public static final double kFFRight = 0.00025; //0.00025 for 4500 RPM
+    public static final double kFFRight = 0.00022; //0.00025 for 4500 RPM
   }
   public static class Tilt { 
     //TILT MOTOR

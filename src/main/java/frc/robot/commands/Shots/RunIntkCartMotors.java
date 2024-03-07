@@ -20,11 +20,11 @@ import frc.robot.subsystems.Intake;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RunIntkCartMotors extends ParallelCommandGroup {
   /** Creates a new RunIntkCartMotors. */
-  public RunIntkCartMotors(Intake intake, Cartridge cartridge, double intSpeed, double cartSpeed) {
+  public RunIntkCartMotors(Intake intake, Cartridge cartridge, double intSpeed, double cartSpeedLeft, double cartSpeedRight) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PIDCartridgeMotors(cartridge, cartSpeed),
+      new PIDCartridgeMotors(cartridge, cartSpeedLeft, cartSpeedRight),
       new ManualIntakeWithWait(intake, intSpeed)
     );
     Intake.resetCounter();  //reset counter after shooting a Note

@@ -26,7 +26,7 @@ public class PIDLLShot extends ParallelCommandGroup {
   public PIDLLShot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, int pipeline) {
       addCommands(
           new PidLLTilt(tilt, pipeline).withTimeout(4),
-          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM).withTimeout(4),
+          new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(4),
           new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4)//use manualIntake since counter =1 here
         );
     Intake.resetCounter();//reset counter after shooting a Note

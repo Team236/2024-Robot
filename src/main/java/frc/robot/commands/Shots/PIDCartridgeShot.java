@@ -27,7 +27,7 @@ import frc.robot.subsystems.Tilt;
 public class PIDCartridgeShot extends ParallelCommandGroup {
   //Moves cartridge to Woofer or Podium position, then runs Cartridge at PID controlled velocity, then adds intake motors after a delay
   //intake speed between -1 and 1, cartridge speed in RPM
-  public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeed, double desiredRevs) {
+  public PIDCartridgeShot(Intake intake, Cartridge cartridge, Tilt tilt, double intSpeed, double cartSpeedLeft, double cartSpeedRight, double desiredRevs) {
       addCommands(
           new PIDCartridgeTilt(tilt,desiredRevs).withTimeout(1),
           new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM).withTimeout(2.3),
