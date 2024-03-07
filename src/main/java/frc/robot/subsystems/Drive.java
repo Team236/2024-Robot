@@ -23,6 +23,8 @@ public class Drive extends SubsystemBase {
   public CANSparkMax leftFront, leftRear, rightFront, rightRear;
   public DifferentialDrive diffDrive;
   private DoubleSolenoid transmission;
+
+  //PATH FOLLOWING 'diffDrive' already included
   private DifferentialDriveOdometry diffDriveOdometry;
 
   //these are external encoders not SparkMAX
