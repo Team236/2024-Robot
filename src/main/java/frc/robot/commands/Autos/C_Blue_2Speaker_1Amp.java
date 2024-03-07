@@ -40,24 +40,24 @@ public class C_Blue_2Speaker_1Amp extends ParallelCommandGroup {
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
         Commands.parallel(
          new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(2),
-         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
-         //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2)
+         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2)
         ),
         //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2.3),
-        new PIDTurnCCW(drive, 90).withTimeout(1),
+        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),//2.3
+        new PIDTurnCCW(drive, 100).withTimeout(1),
         Commands.parallel(
-         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(1.75),
-         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75)
-         //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2)           
+         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE +3).withTimeout(1.75),
+         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75),
+         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1.75)           
         ),
-        new PIDTurnCW(drive, 90).withTimeout(1), //OR SLIGHTLY LESS ANGLE?
-        new PIDDrive(drive, -37.9).withTimeout(1),
-        new PIDTurnCCW (drive, 90).withTimeout(1),
+        new PIDTurnCW(drive, 100).withTimeout(1), //OR SLIGHTLY LESS ANGLE?
+        new PIDDrive(drive, -53).withTimeout(1),
+        new PIDTurnCCW (drive, 100).withTimeout(1),
 
         Commands.parallel(
-        new PIDDrive(drive, -28.6).withTimeout(1),//in parallel shince there is a 1 sec delay before shot in next command
-        new AmpShotNoCartMotors(intake, ampTrap, tilt).withTimeout(2.1)
+        new PIDDrive(drive, 40).withTimeout(1),//in parallel shince there is a 1 sec delay before shot in next command
+        new AmpShotNoCartMotors(intake, ampTrap, tilt).withTimeout(4)
         //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
         //new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(2)
         ) 

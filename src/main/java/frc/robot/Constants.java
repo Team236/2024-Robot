@@ -35,7 +35,7 @@ public final class Constants {
     public static final int ID_CARTRIDGE_LEFT = 44; 
     public static final int ID_CARTRIDGE_RIGHT = 45;
 
-    public static final int ID_CARTRIDGE_TILT = 51; 
+    public static final int ID_CARTRIDGE_TILT = 50; 
 
     public static final int SMART_CURRENT_LIMIT = 40;
     //Ramp rates (time in seconds to go from zero to full throttle)
@@ -135,9 +135,10 @@ public final class Constants {
   }
   public static class CartridgeShooter { 
     //CARTRIDGE SHOOTER MOTORS
-    public static final double PODIUM_PID_RPM = 3500;//4500 with kFF = 0.00025
+    public static final double PODIUM_PID_LEFT_RPM = 3500;//4500 with kFF = 0.00025
+    public static final double PODIUM_PID_RIGHT_RPM = 3500;
     public static final double WOOFER_PID_RPM = 3500;//4500 with kFF = 0.00025
-    public static final double AMP_PID_RPM = 3500; //cart motors speed for AMP shot
+    public static final double AMP_PID_RPM = 3500;//cart motors speed for AMP shot
     public static final double MAX_PID_SPEED = 5500;
      //manual speeds
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6;//for bench test - use PID in match
@@ -147,11 +148,11 @@ public final class Constants {
     public static final double kPLeft = 0.00005;  // 0002
     public static final double kILeft = 0.0; // 0.00000001
     public static final double kDLeft = 0.0565; 
-    public static final double kFFLeft = 0.0002; //0.00025 for 4500 RPM
+    public static final double kFFLeft = 0.00025; //0.00025 for 4500 RPM //0.002 for 3500
     public static final double kPRight = 0.00005; // 0002
     public static final double kIRight = 0.0; // 0.00000001
     public static final double kDRight = 0.0565; 
-    public static final double kFFRight = 0.0002; //0.00025 for 4500 RPM
+    public static final double kFFRight = 0.00025; //0.00025 for 4500 RPM
   }
   public static class Tilt { 
     //TILT MOTOR
@@ -159,9 +160,9 @@ public final class Constants {
     public static final int DIO_TILT_RET_LIMIT = 9;
     public static final double TILT_ENC_REVS_MAX = 78;//really 79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
-    public static final double TILT_ENC_REVS_WOOFER = 16; 
-    public static final double TILT_ENC_REVS_PODIUM = 43;//47; 
-    public static final double TILT_ENC_REVS_CTR_NOTE = 45;  //47;
+    public static final double TILT_ENC_REVS_WOOFER = 17; 
+    public static final double TILT_ENC_REVS_PODIUM = 48;//47; 
+    public static final double TILT_ENC_REVS_CTR_NOTE = 47;  //47;
     public static final double MAN_EXT_SPEED = 0.2; //
     public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
     //CARTRIDGE TILT PID:

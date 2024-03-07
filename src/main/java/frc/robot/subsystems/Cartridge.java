@@ -61,9 +61,10 @@ public class Cartridge extends SubsystemBase {
   }
 */
   //**** NOTE - PID is done using SPARKMAX PID**********
-  public void setSetpoint(double speed) {
-    leftPIDController.setReference(speed, ControlType.kVelocity);
-    rightPIDController.setReference(speed, ControlType.kVelocity); 
+  public void setSetpoint (double speedL, double speedR) {
+  //public void setSetpoint(double speed) {
+    leftPIDController.setReference(speedL, ControlType.kVelocity);
+    rightPIDController.setReference(speedR, ControlType.kVelocity); 
   }
 
   public void setP(double kPLeft, double kPRight) {
@@ -114,13 +115,13 @@ public class Cartridge extends SubsystemBase {
    
   //NOT SURE IF THIS METHOD WORKS. WAS GOING TO USE IT IN ROBOT.JAVA, AUTO PERIODIC, 
   //TO KEEP CART MOTORS RUNNING IN AUTO
-    public void setRPM_PID(double desiredRPM) {
+    public void setRPM_PID(double desiredRPMLeft, double desiredRPMRight) {
       setP(Constants.CartridgeShooter.kPLeft, Constants.CartridgeShooter.kPRight);
       setI(Constants.CartridgeShooter.kILeft, Constants.CartridgeShooter.kIRight);
       setD(Constants.CartridgeShooter.kDLeft, Constants.CartridgeShooter.kDRight);
       setFF(Constants.CartridgeShooter.kFFLeft, Constants.CartridgeShooter.kFFRight);
       setOutputRange();
-      setSetpoint(desiredRPM);
+      setSetpoint(desiredRPMLeft, desiredRPMRight);
     }
 
 

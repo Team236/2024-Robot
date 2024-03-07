@@ -104,8 +104,8 @@ public class RobotContainer {
   //private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR);
 //SHOTS
   private final AmpShot ampShot = new AmpShot(intake, cartridge, ampTrap, tilt);
-  private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM);
-  private final PIDCartridgeShot pidCenterNoteShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RPM, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE);
+  private final PIDCartridgeShot pidPodiumShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_PODIUM);
+  private final PIDCartridgeShot pidCenterNoteShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE);
   private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
   private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt, drive, 0);
   private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
@@ -128,7 +128,7 @@ public class RobotContainer {
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualEject = new ManualIntake(intake, Constants.Intake.EJECT_SPEED);
 //CARTRIDGE AND TILT COMMANDS
-private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(cartridge, 4500);
+private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM);
   private final ManualExtCartridge manualExtCartridge = new ManualExtCartridge(tilt, Constants.Tilt.MAN_EXT_SPEED);
   private final ManualRetractCartridge manualRetCartridge = new ManualRetractCartridge(tilt, Constants.Tilt.MAN_RET_SPEED);
   private final PIDCartridgeTilt podiumTilt = new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM);
@@ -223,8 +223,8 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
 
     x.onTrue(pidTurnCCW);
     b.onTrue(pidTurnCW);
-   // y.onTrue(pidCenterNoteShot);
-    y.onTrue(pidCartridgeMotors);
+    y.onTrue(pidCenterNoteShot);
+   // y.onTrue(pidCartridgeMotors);
     leftPov.onTrue(pidWooferShot);
 
   //***** Aux Controller ******

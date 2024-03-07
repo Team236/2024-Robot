@@ -14,13 +14,16 @@ public class PIDCartridgeMotors extends Command {
 //runs cartridge motors at desired velocity using PID.  Speed should be specified in RPM.
 
   private Cartridge cartridge;
-  private double speed;
+ // private double speed;
+  private double speedL, speedR;
 
   /** Creates a new PIDShot. */
-  public PIDCartridgeMotors(Cartridge cartridge, double speed) {
-
+ // public PIDCartridgeMotors(Cartridge cartridge, double speed) {
+public PIDCartridgeMotors(Cartridge cartridge, double speedL, double speedR) {
     this.cartridge = cartridge;
-    this.speed = speed;
+    //this.speed = speed;
+    this.speedL = speedL;  
+    this.speedR = speedR;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.cartridge);
@@ -40,7 +43,8 @@ public class PIDCartridgeMotors extends Command {
   @Override
   public void execute() {
     cartridge.setOutputRange();
-    cartridge.setSetpoint(speed);
+    cartridge.setSetpoint(speedL, speedR);
+    //cartridge.setSetpoint(speed);
 
    // SmartDashboard.putNumber("Speed setpoint is ", speed);
   }

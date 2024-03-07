@@ -28,8 +28,8 @@ public class ClimbTrapShotWithWait extends SequentialCommandGroup {
       Commands.parallel(
       //run 2 commands below for 0.7sec, to wait for elev to get to bottom (in ClimbAtEnd and ClimbNoBrakePID), 
       //and for cart motors to come to speed
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(0.7),//4
-      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(0.7) //4
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(0.9),//4
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(0.9) //4
       ),
       Commands.parallel(          
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_RPM).withTimeout(3),

@@ -16,7 +16,7 @@ public class ManualIntakeWithWait extends SequentialCommandGroup {
   /** Creates a new ManualIntakeWithWait. */
   public ManualIntakeWithWait(Intake intake, double intSpeed) {
     addCommands(
-       new WaitCommand(1),
+       new WaitCommand(1),//1
        new ManualIntake(intake, intSpeed)
     ); 
   }
