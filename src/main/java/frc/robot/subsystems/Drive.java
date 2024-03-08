@@ -195,7 +195,7 @@ public void stop() {
   }
 
   //PATH FOLLOWING
-  public Pose2d getPose2d(){
+  public Pose2d getPose(){
     return diffDriveOdometry.getPoseMeters();
   }
 

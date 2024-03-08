@@ -3,19 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-import java.nio.file.Path;
-
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.PATH;
 import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.Autos.C_BlueToMidfield_3;
 import frc.robot.commands.Autos.C_Blue_2Speaker_1Amp;
@@ -29,7 +23,6 @@ import frc.robot.commands.Autos.ModWooferLeft;
 import frc.robot.commands.Autos.ModWooferRight;
 import frc.robot.commands.Autos.R_BlueToMidfield_2;
 import frc.robot.commands.Autos.R_Blue_1Spkr_1Amp_ToMidfield;
-import frc.robot.commands.Autos.RamsertCommander;
 import frc.robot.commands.Autos.RamsetCommander;
 import frc.robot.commands.CameraLimelight.CameraToggle;
 import frc.robot.commands.CameraLimelight.LLAngle;

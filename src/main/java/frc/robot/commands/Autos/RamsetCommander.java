@@ -12,7 +12,6 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
@@ -21,8 +20,6 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.PATH;
 import frc.robot.subsystems.Drive;
 
@@ -51,40 +48,40 @@ var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
 
  // Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
-                PATH.kMaxSpeedMetersPerSecond,
-                PATH.kMaxAccelerationMetersPerSecondSquared)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(PATH.diffDriveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint);
+            PATH.kMaxSpeedMetersPerSecond,
+            PATH.kMaxAccelerationMetersPerSecondSquared)
+        // Add kinematics to ensure max speed is actually obeyed
+        .setKinematics(PATH.diffDriveKinematics)
+        // Apply the voltage constraint
+        .addConstraint(autoVoltageConstraint);
 
     // An example trajectory to follow. All units in meters.
     currentTrajectory = TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0))),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(Units.degreesToRadians(0))),
-            // Pass config
-            config);
+        // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0))),
+        // Pass through these two interior waypoints, making an 's' curve path
+        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+        // End 3 meters straight ahead of where we started, facing forward
+        new Pose2d(3, 0, new Rotation2d(Units.degreesToRadians(0))),
+        // Pass config
+        config);
 
     ramseteCommand = new RamseteCommand(
-            currentTrajectory,
-            drive::getPose,
-            new RamseteController(),
-            new SimpleMotorFeedforward(
-                PATH.ksVolts,
-                PATH.kvVoltSecondsPerMeter,
-                PATH.kaVoltSecondsSquaredPerMeter),
-            PATH.diffDriveKinematics,
-            drive::getWheelSpeeds,
-            new PIDController(PATH.kPDriveVel, 0, 0),
-            new PIDController(PATH.kPDriveVel, 0, 0),
-            // RamseteCommand passes volts to the callback
-            drive::tankDriveVolts,
-            drive
-            );
+        currentTrajectory,
+        drive::getPose,
+        new RamseteController(),
+        new SimpleMotorFeedforward(
+            PATH.ksVolts,
+            PATH.kvVoltSecondsPerMeter,
+            PATH.kaVoltSecondsSquaredPerMeter),
+        PATH.diffDriveKinematics,
+        drive::getWheelSpeeds,
+        new PIDController(PATH.kPDriveVel, 0, 0),
+        new PIDController(PATH.kPDriveVel, 0, 0),
+        // RamseteCommand passes volts to the callback
+        drive::tankDriveVolts,
+        drive
+        );
 
   }
 
