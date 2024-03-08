@@ -85,13 +85,13 @@ public final class Constants {
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; // for external encoder
     //PID
-    public static final double KP_DRIVE = 0.022; //******* */
+    public static final double KP_DRIVE = 0.022; //******* 
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-    public static final double KP_TURN_CCW = 0.0223;//0.022; ******
-    public static final double TURNCCW_DEG_TO_REV = 0.2151;//0.245;
-    public static final double KP_TURN_CW = 0.0222; //0.023;*******
-    public static final double TURNCW_DEG_TO_REVS = 0.213;//0.253;  
+    public static final double KP_TURN_CCW = 0.0223;//******
+    public static final double TURNCCW_DEG_TO_REV = 0.2151;
+    public static final double KP_TURN_CW = 0.0222; //*******
+    public static final double TURNCW_DEG_TO_REVS = 0.213; 
   }
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
@@ -103,7 +103,7 @@ public final class Constants {
     public static final double MAX_HEIGHT = 27;
     public static final double CLIMB_HEIGHT = 1.5; 
 
-    public static final double ELEV_REV_TO_IN = 0.32327;//gear ratio changed, old 2.2629;
+    public static final double ELEV_REV_TO_IN = 0.32327;
     public static final double ELEV_IN_TO_REV = 1/(0.32327);
     // manual speeds
     public static final double ELEV_UP_SPEED = 0.5;
@@ -147,26 +147,26 @@ public final class Constants {
     public static final double PODIUM_SHOT_MOTOR_SPEED = 0.8;
     public static final double MANUAL_SET_SPEED = 0.3; 
      //pid (2022 pid constants commented in)
-    public static final double kPLeft = 0.00005;  // 0002
-    public static final double kILeft = 0.0; // 0.00000001
+    public static final double kPLeft = 0.00005;  
+    public static final double kILeft = 0.0; // 
     public static final double kDLeft = 0.0565; 
-    public static final double kFFLeft = 0.0002; //0.00025 for 4500 RPM //0.002 for 3500
-    public static final double kPRight = 0.00005; // 0002
-    public static final double kIRight = 0.0; // 0.00000001
+    public static final double kFFLeft = 0.0002; //0.00025 for 4500 RPM //0.0002 for 3500
+    public static final double kPRight = 0.00005; 
+    public static final double kIRight = 0.0; 
     public static final double kDRight = 0.0565; 
-    public static final double kFFRight = 0.0002; //0.00025 for 4500 RPM
+    public static final double kFFRight = 0.0002; //0.00025 for 4500 RPM //0.0002 for 3500
   }
   public static class Tilt { 
     //TILT MOTOR
     public static final int DIO_TILT_EXT_LIMIT = 8;
     public static final int DIO_TILT_RET_LIMIT = 9;
-    public static final double TILT_ENC_REVS_MAX = -74;//really 79.8, 64deg from top
-    public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
-    public static final double TILT_ENC_REVS_WOOFER = -17; //WAS POS
-    public static final double TILT_ENC_REVS_PODIUM = -48;//47;  WAS POS
-    public static final double TILT_ENC_REVS_CTR_NOTE = -46;  //47; WAS POS
-    public static final double MAN_EXT_SPEED = 0.2; //
-    public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
+    public static final double TILT_ENC_REVS_MAX = -74;//really-79.8, 64deg from top
+    public static final double TILT_ENC_REVS_STOW = 0; //leave at zero
+    public static final double TILT_ENC_REVS_WOOFER = -17; //WAS POSITIVE
+    public static final double TILT_ENC_REVS_PODIUM = -48;//47;  WAS POSITITVE
+    public static final double TILT_ENC_REVS_CTR_NOTE = -46;  //47; WAS POSITIVE
+    public static final double MAN_EXT_SPEED = 0.2; //should be positive, the method adds correct sign
+    public static final double MAN_RET_SPEED = 0.2;//should be positive the method adds correct sign
     //CARTRIDGE TILT PID:
     public static final double KP_TILT = 0.029;
     public static final double KI_TILT = 0;

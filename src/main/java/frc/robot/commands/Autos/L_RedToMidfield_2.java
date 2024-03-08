@@ -15,6 +15,7 @@ import frc.robot.commands.Drive.PIDTurnCW;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
+import frc.robot.commands.Intake.ManualIntakeWithWait;
 import frc.robot.commands.Shots.PIDSpkrShotNoCart;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
@@ -31,7 +32,7 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//bring elevator to match height (Start elev at bot limit at match start)
       Commands.sequence(
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
+        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5),
         new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
         new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 7).withTimeout(1.5),
         Commands.parallel(
@@ -39,19 +40,20 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
          ),
-      
-        new PIDTurnCW(drive, 39).withTimeout(1),//OR SLIGHTLY LESS ANGLE?
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5),
-  
-        //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
+        Commands.parallel(
+         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5),
+         new PIDTurnCW(drive, 39).withTimeout(1),
+         new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.5)
+         ),
         new PIDTurnCCW(drive, 35).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
-        new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3.5)
-        )
-        );
+        new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(4) 
+       )
+      );
     //drive.setGearHigh();
     Intake.resetCounter();
   }
 }
+
 
   
  
