@@ -27,7 +27,7 @@ public class Tilt extends SubsystemBase {
     tiltMotor = new CANSparkMax(Constants.MotorControllers.ID_CARTRIDGE_TILT, MotorType.kBrushless);
 
     tiltMotor.restoreFactoryDefaults();
-    tiltMotor.setInverted(false);//WAS TRUE _ NOW USE NEGATIVE ENC VALUES TO TILT!
+    tiltMotor.setInverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     tiltMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     tiltEncoder = tiltMotor.getEncoder();
     tiltPIDController = tiltMotor.getPIDController();
@@ -46,7 +46,7 @@ public class Tilt extends SubsystemBase {
     }
   }
 //MEHTODS START HERE
-  //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, BUT TiltMoto PID is with WPILIB PID ****** 
+  //**** NOTE - ShooterMotor PID is done using SPARKMAX PID, AND TILT MOTOR AS WELL ****** 
   public double getTiltEncoder() {  //gives encoder reading in Revs
     return tiltEncoder.getPosition();
   }
