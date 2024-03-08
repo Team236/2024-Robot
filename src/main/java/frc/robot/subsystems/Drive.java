@@ -7,7 +7,9 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
@@ -67,7 +69,10 @@ public class Drive extends SubsystemBase {
     transmission = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.DriveConstants.SOL_LOW_GEAR, Constants.DriveConstants.SOL_HIGH_GEAR);
   
     //PATH FOLLOWING 
-    diffDriveOdometry = new DifferentialDriveOdometry( RobotContainer.gyro.getRotation2d(), leftEncoder.getDistance(), rightEncoder.getDistance());
+    diffDriveOdometry = new DifferentialDriveOdometry( 
+          RobotContainer.gyro.getRotation2d()
+          , leftEncoder.getDistance()
+          , rightEncoder.getDistance());
   }
 
   //methods start here
@@ -118,13 +123,13 @@ public void setTurnCCWSpeeds(double speed) {
 
 public double getLeftSpeed(){
   //return leftEncoder.getVelocity(); //use for internal SparkMax encoder?
-  
   //getRate units are distance per second, as scaled by the value of DistancePerPulse
   return leftEncoder.getRate(); //use for external drive encoders
 }
 
 public double getRightSpeed(){
   //return leftEncoder.getVelocity(); //use for internal SparkMax encoder?
+  //getRate units are distance per second, as scaled by the value of DistancePerPulse
   return rightEncoder.getRate(); //use for external drive encoders
 }
 
@@ -135,24 +140,38 @@ public double getLeftEncoder() {
 public double getRightEncoder() {
     return rightEncoder.getRaw();
   }
+
+  // is this used ?
+  public double getAverageEncoderDistance() {
+    return rightEncoder.getRaw()+leftEncoder.getRaw()/2 ;
+  }
+
   public double getLeftDistance() {
     return getLeftEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
     // distance per pulse * encoder reading = inches
   }
+
   public double getRightDistance() {
     //return rightEncoder.getDistance();
     return getRightEncoder() * DriveConstants.DISTANCE_PER_PULSE_K;
   }
+
   public double getAvgDistance() {
     return (getLeftDistance() + getRightDistance())/2 ;
   }
+
   public void resetLeftEncoder() {
     leftEncoder.reset();
   }
+
   public void resetRightEncoder() {
     rightEncoder.reset();
     }
 
+  public void resetEncoders() {
+    resetLeftEncoder();
+    resetRightEncoder();
+ }
 
 public void stop() {
   leftFront.set(0);
@@ -167,5 +186,56 @@ public void stop() {
     //SmartDashboard.putNumber("Right Encoder Ticks", getRightEncoder());
     SmartDashboard.putNumber("Left Dist: ", getLeftDistance());
     SmartDashboard.putNumber("Right Dist: ", getRightDistance());
+
+    //PATH FOLLOWING
+    diffDriveOdometry.update(
+         RobotContainer.gyro.getRotation2d()
+        ,leftEncoder.getDistance()
+        ,rightEncoder.getDistance() );
   }
-}
+
+  //PATH FOLLOWING
+  public Pose2d getPose2d(){
+    return diffDriveOdometry.getPoseMeters();
+  }
+
+  //PATH FOLLOWING
+  public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+    return new DifferentialDriveWheelSpeeds(
+       leftEncoder.getRate()
+      ,rightEncoder.getRate());
+  }
+
+  // PATH FOLLOWING
+  public void tankDriveVolts(double leftVolts, double rightVolts){
+  leftFront.setVoltage(leftVolts);
+  rightFront.setVoltage(rightVolts);
+ }
+
+  //PATH FOLLOWING
+  public void resetOdometry(Pose2d pose){
+    resetEncoders();
+    diffDriveOdometry.resetPosition(
+       RobotContainer.gyro.getRotation2d()
+      ,leftEncoder.getDistance()
+      ,rightEncoder.getDistance()
+      ,pose);
+  }
+
+  // is this used?
+  public void zeroHeading(){
+    RobotContainer.gyro.reset();
+  }
+
+  // is this used?
+  public double getHeading(){
+    return RobotContainer.gyro.getRotation2d().getDegrees();
+  }
+
+  // is this used?
+  public double getTurnRate(){
+    return RobotContainer.gyro.getRate();
+  }
+
+
+}  // end of class
