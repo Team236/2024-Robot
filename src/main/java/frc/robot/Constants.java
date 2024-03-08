@@ -85,12 +85,12 @@ public final class Constants {
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; // for external encoder
     //PID
-    public static final double KP_DRIVE = 0.022;
+    public static final double KP_DRIVE = 0.022; //******* */
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-    public static final double KP_TURN_CCW = 0.0223;//0.022;
+    public static final double KP_TURN_CCW = 0.0223;//0.022; ******
     public static final double TURNCCW_DEG_TO_REV = 0.2151;//0.245;
-    public static final double KP_TURN_CW = 0.0222; //0.023;
+    public static final double KP_TURN_CW = 0.0222; //0.023;*******
     public static final double TURNCW_DEG_TO_REVS = 0.213;//0.253;  
   }
   public static class Elevator {
@@ -160,11 +160,11 @@ public final class Constants {
     //TILT MOTOR
     public static final int DIO_TILT_EXT_LIMIT = 8;
     public static final int DIO_TILT_RET_LIMIT = 9;
-    public static final double TILT_ENC_REVS_MAX = 78;//really 79.8, 64deg from top
+    public static final double TILT_ENC_REVS_MAX = -74;//really 79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave this one at zero
-    public static final double TILT_ENC_REVS_WOOFER = 17; 
-    public static final double TILT_ENC_REVS_PODIUM = 48;//47; 
-    public static final double TILT_ENC_REVS_CTR_NOTE = 46;  //47;
+    public static final double TILT_ENC_REVS_WOOFER = -17; //WAS POS
+    public static final double TILT_ENC_REVS_PODIUM = -48;//47;  WAS POS
+    public static final double TILT_ENC_REVS_CTR_NOTE = -46;  //47; WAS POS
     public static final double MAN_EXT_SPEED = 0.2; //
     public static final double MAN_RET_SPEED = 0.2;//should be positive, the method adds the negative
     //CARTRIDGE TILT PID:

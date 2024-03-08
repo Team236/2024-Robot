@@ -72,28 +72,28 @@ public class PidLLTilt extends Command {
       }
       Dx = dx - 36 - offset;
       
-      if (Dx < 6) {
-      desiredRevs = 16;  //TODO get actual desiredRevs numbers
+      if (Dx < 6) {  //ALL THESE WERE POSITIVE!!!
+      desiredRevs = -17;  //TODO get actual desiredRevs numbers
     } else if  ((Dx >= 6) && (Dx < 12))  {
-      desiredRevs = 23.6;
+      desiredRevs = -23.6;
     } else if  ((Dx >= 12) && (Dx < 18))  {
-      desiredRevs = 27.8;
+      desiredRevs = -27.8;
     } else if  ((Dx >= 18) && (Dx < 24))  {
-      desiredRevs = 30;
+      desiredRevs = -30;
     } else if  ((Dx >= 24) && (Dx < 30))  {
-      desiredRevs = 32.5;
+      desiredRevs = -32.5;
     } else if  ((Dx >= 30) && (Dx < 36))  {
-      desiredRevs = 36.85;
+      desiredRevs = -36.85;
     } else if  ((Dx >= 36) && (Dx < 39))  {
-      desiredRevs = 38.2;
+      desiredRevs = -38.2;
     } else if  ((Dx >= 39) && (Dx < 43))  {
-      desiredRevs = 39.42;
+      desiredRevs = -39.42;
     } else if  ((Dx >= 43) && (Dx < 48))  {
-      desiredRevs = 41.26;
+      desiredRevs = -41.26;
     } else if ((Dx >= 48) && (Dx < 52)) {
-      desiredRevs = 44;
+      desiredRevs = -44;
     } else  {
-      desiredRevs = 48;
+      desiredRevs = -48;
     }
     SmartDashboard.putNumber("Desired Revs", desiredRevs);
     tilt.setSetpoint(desiredRevs);
@@ -108,10 +108,10 @@ public class PidLLTilt extends Command {
   @Override
   public boolean isFinished() {
     boolean isAtLimit;
-    if ( (tilt.getTiltSpeed() > 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {
+    if ( (tilt.getTiltSpeed() < 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {  //WAS >0
       isAtLimit = true;
     } 
-    else if ( (tilt.getTiltSpeed() < 0) && (tilt.isTRetLimit()) ) {
+    else if ( (tilt.getTiltSpeed() > 0) && (tilt.isTRetLimit()) ) { //was < 0
       isAtLimit = true; 
     }
     else isAtLimit = false;

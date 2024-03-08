@@ -35,20 +35,20 @@ public R_BlueToMidfield_2(Intake intake, Cartridge cartridge, Tilt tilt, Drive d
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//bring elevator to match height (Start elev at bot limit at match start)
       Commands.sequence(
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
+        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5),
         new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
         new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
         Commands.parallel(
           new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
-          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
-          //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)    
+          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)    
          ),    
-        Commands.parallel(//parallel since PIDSpkrShotNoCart has 1 sec delay before shooting, so there is time to turn
-          new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?
-          new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.3)
-         ),
+        
+          new PIDTurnCCW(drive, 35).withTimeout(1), //1.5
+          new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5),
+
         //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
-        new PIDTurnCW(drive,  Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
+        new PIDTurnCW(drive, 35).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3.5)
        )
     );

@@ -33,25 +33,26 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
       Commands.sequence(
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
         new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
-        new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 3).withTimeout(1.5),
+        new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 7).withTimeout(1.5),
         Commands.parallel(
          new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE -5).withTimeout(2),
-         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
-         //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
-        ),
-        Commands.parallel (//parallel since PIDSpkrShotNoCart has 1 sec delay before the shot, so turn can be completed
-        new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5),//OR SLIGHTLY LESS ANGLE?
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.3)
-        ),
+         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
+         ),
+      
+        new PIDTurnCW(drive, 39).withTimeout(1),//OR SLIGHTLY LESS ANGLE?
+        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5),
+  
         //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
-        new PIDTurnCCW(drive,  Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 2).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
+        new PIDTurnCCW(drive, 35).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3.5)
-       )
-    );
+        )
+        );
     //drive.setGearHigh();
     Intake.resetCounter();
   }
 }
+
   
  
 

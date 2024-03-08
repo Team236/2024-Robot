@@ -5,6 +5,7 @@
 package frc.robot.commands.CartridgeAndTilt;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Intake.ManualIntakeWithWait;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Intake;
@@ -19,7 +20,7 @@ public class ShootButtonRelease extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ManualIntakeWithWait(intake, intSpeed).withTimeout(2.3), //use manualIntake since counter =1 here
+      new ManualIntake(intake, intSpeed).withTimeout(2.3), //use manualIntake since counter =1 here
       new PIDCartridgeMotors(cartridge, cartSpeedLeft, cartSpeedRight).withTimeout(2.3)
     );
   }

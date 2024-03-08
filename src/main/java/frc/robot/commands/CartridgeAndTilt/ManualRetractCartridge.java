@@ -28,7 +28,7 @@ public class ManualRetractCartridge extends Command {
   @Override
   public void execute() {
   
-    tilt.setTiltSpeed(-speed);
+    tilt.setTiltSpeed(speed); //WAS NEGATIVE
   }
 
   // Called once the command ends or is interrupted.

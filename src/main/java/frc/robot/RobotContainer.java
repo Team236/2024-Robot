@@ -97,8 +97,8 @@ public class RobotContainer {
 //DRIVE COMMANDS
   private final ArcadeXbox arcadeXbox = new ArcadeXbox(drive.diffDrive, driverController, drive);
   private final ToggleGear toggleGear = new ToggleGear(drive); 
-  private final PIDTurnCW pidTurnCW =  new PIDTurnCW(drive,30); 
-   private final PIDTurnCCW pidTurnCCW =  new PIDTurnCCW(drive, 30); 
+  private final PIDTurnCW pidTurnCW =  new PIDTurnCW(drive,90); 
+   private final PIDTurnCCW pidTurnCCW =  new PIDTurnCCW(drive, 90); 
   //private final PIDDrive pidDrive = new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE);
   //private final PIDTurn pidTurnPodtoWoofRed = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR); 
   //private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR);
