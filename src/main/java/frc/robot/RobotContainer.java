@@ -3,13 +3,19 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import java.nio.file.Path;
+
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.PATH;
 import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.Autos.C_BlueToMidfield_3;
 import frc.robot.commands.Autos.C_Blue_2Speaker_1Amp;
@@ -23,6 +29,8 @@ import frc.robot.commands.Autos.ModWooferLeft;
 import frc.robot.commands.Autos.ModWooferRight;
 import frc.robot.commands.Autos.R_BlueToMidfield_2;
 import frc.robot.commands.Autos.R_Blue_1Spkr_1Amp_ToMidfield;
+import frc.robot.commands.Autos.RamsertCommander;
+import frc.robot.commands.Autos.RamsetCommander;
 import frc.robot.commands.CameraLimelight.CameraToggle;
 import frc.robot.commands.CameraLimelight.LLAngle;
 import frc.robot.commands.CartridgeAndTilt.LLPressandHold;
@@ -106,7 +114,11 @@ public class RobotContainer {
   private final C_Red_2Speaker_1Amp centerRed2Speaker1Amp = new C_Red_2Speaker_1Amp(intake, cartridge, tilt, drive, elevator, ampTrap);
   private final C_Blue_2Speaker_1Amp centerBlue2Speaker1Amp = new C_Blue_2Speaker_1Amp(intake, cartridge, tilt, drive, elevator, ampTrap);
   private final R_Blue_1Spkr_1Amp_ToMidfield rightBlue1Spkr1AmpToMid = new R_Blue_1Spkr_1Amp_ToMidfield(intake, cartridge, tilt, drive, elevator, ampTrap);
-    private final L_Red_1Spkr_1Amp_ToMidfield leftRed1Spkr1AmpToMid = new L_Red_1Spkr_1Amp_ToMidfield(intake, cartridge, tilt, drive, elevator, ampTrap);
+  private final L_Red_1Spkr_1Amp_ToMidfield leftRed1Spkr1AmpToMid = new L_Red_1Spkr_1Amp_ToMidfield(intake, cartridge, tilt, drive, elevator, ampTrap);
+
+  // PATH FOLLOWING
+  private final RamsetCommander ramsetCommander = new RamsetCommander(drive);
+
 //INTAKE COMMANDS
   private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
   private final ManualIntake manualIntake = new ManualIntake(intake, Constants.Intake.INTAKE_SPEED);
@@ -251,6 +263,11 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+
+
+  // PATH FOLLOWING 
+  // TODO add logic below on using the : ramsetCommander command
+
    // SmartDashboard.putString("autokey", "Entering getAutoCommand now");
      Command command = null;
     //Swith 1 is in the "ON" spot on the box
@@ -278,7 +295,7 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
       command =  leftRed1Spkr1AmpToMid;
    }  else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
       command =  rightBlue1Spkr1AmpToMid;
-   }
+   } 
    return command;
   }
 

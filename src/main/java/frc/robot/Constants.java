@@ -52,11 +52,11 @@ public final class Constants {
     }
   public static class PATH{
     //PATH FOLLOWING
-    public static final double kTrackwidthMeters = Units.inchesToMeters(24);
+    public static final double trackWidthMeters = Units.inchesToMeters(24);
     // The Robot Characterization Toolsuite provides a convenient tool for obtaining these
     //TODO find real path kvolts values
     public static final double ksVolts = 0.22;
-    public static final double kvVoltSecondsPerMeter = 1.98;
+    public static final double kvVoltSecondsPerMeter = 1.8;
     public static final double kaVoltSecondsSquaredPerMeter = 0.2;
 
     // Example FEEDFORWARD Veolocity value TODO example value
@@ -64,7 +64,9 @@ public final class Constants {
     public static final double kPDriveVel = 8.5;
     public static final double kMaxSpeedMetersPerSecond = 3;
     public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+    public static final DifferentialDriveKinematics diffDriveKinematics = new DifferentialDriveKinematics(trackWidthMeters);
   }
+
   public static class DriveConstants {
     //AUTO DISTANCES
     public static final double WOOFERFRONT_TO_NOTE = 60;
@@ -111,6 +113,11 @@ public final class Constants {
     public static final double TURNCCW_DEG_TO_REV = 0.2151;//0.245;
     public static final double KP_TURN_CW = 0.0222; //0.023;
     public static final double TURNCW_DEG_TO_REVS = 0.213;//0.253;  
+    
+    //PATH
+    public static final double ksVolts = 0.22;    // TODO find real values
+    public static final double kvVolts = 1.8;     // TODO find real values
+    public static final double kaVoltsSecondsSquaredPerMeter = 0.2;   // TODO find real values
   }
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
