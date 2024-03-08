@@ -171,7 +171,7 @@ public final class Constants {
     public static final double KP_TILT = 0.029;
     public static final double KI_TILT = 0;
     public static final double KD_TILT = 0;
-    public static final double KFF_TILT = 0;
+   // public static final double KFF_TILT = 0;
   }
 
   public static class Thrustmaster {

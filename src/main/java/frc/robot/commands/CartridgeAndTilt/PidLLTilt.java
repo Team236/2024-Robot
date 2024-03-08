@@ -6,6 +6,7 @@ package frc.robot.commands.CartridgeAndTilt;
 
 import javax.swing.text.StyleContext.SmallAttributeSet;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,21 +35,28 @@ public class PidLLTilt extends Command {
   private double pipeline;
   private double tv, a2, dx, Dx, angleY;
 
+  private final PIDController pidController;
+  private double kP = Constants.Tilt.KP_TILT;
+  private double kI = Constants.Tilt.KI_TILT;
+  private double kD = Constants.Tilt.KD_TILT;
+
   /** Creates a new PidLLTilt. */
   public PidLLTilt(Tilt tilt, double pipeline) {
+      pidController = new PIDController(kP, kI, kD);
       this.tilt = tilt;
       this.pipeline = pipeline;
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(tilt);
+      pidController.setSetpoint(desiredRevs);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    tilt.setP(Constants.Tilt.KP_TILT);
-    tilt.setI(Constants.Tilt.KI_TILT);
-    tilt.setD(Constants.Tilt.KD_TILT);
-    tilt.setFF(Constants.Tilt.KFF_TILT);
+    //tilt.setP(Constants.Tilt.KP_TILT);
+    //tilt.setI(Constants.Tilt.KI_TILT);
+    //tilt.setD(Constants.Tilt.KD_TILT);
+    //tilt.setFF(Constants.Tilt.KFF_TILT);
     SmartDashboard.putNumber("LLDistance init", pipeline);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
@@ -96,7 +104,8 @@ public class PidLLTilt extends Command {
       desiredRevs = -48;
     }
     SmartDashboard.putNumber("Desired Revs", desiredRevs);
-    tilt.setSetpoint(desiredRevs);
+    tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
+   // tilt.setSetpoint(desiredRevs);
   }
   // Called once the command ends or is interrupted.
   @Override
