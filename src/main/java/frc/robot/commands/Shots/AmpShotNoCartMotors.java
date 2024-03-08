@@ -25,9 +25,9 @@ public class AmpShotNoCartMotors extends ParallelCommandGroup {
   /** Creates a new AmpShotNoCartMotors. */
   public AmpShotNoCartMotors(Intake intake, AmpTrap ampTrap, Tilt tilt) {
     addCommands(
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2),
-      new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
-      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(2)
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2.5),
+      new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.5),
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(2.5)
     );
     Intake.resetCounter();  //reset counter after shooting a Note
   }

@@ -46,19 +46,19 @@ public class C_Red_2Speaker_1Amp extends ParallelCommandGroup {
         ),
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2.3),
        // new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1), //shoots the Note
-        new PIDTurnCW(drive, 90).withTimeout(1),
+        new PIDTurnCW(drive, 100).withTimeout(1),
         Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(1.75),
         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75),
         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1.75)          
         ),
-        new PIDTurnCCW(drive, 90).withTimeout(1), //OR SLIGHTLY LESS ANGLE?)
+        new PIDTurnCCW(drive, 95).withTimeout(1), //OR SLIGHTLY LESS ANGLE?)
         new PIDDrive(drive, -53).withTimeout(1),
-        new PIDTurnCW (drive, 90).withTimeout(1),
+        new PIDTurnCW (drive, 105).withTimeout(1),
        
         Commands.parallel(
-        new PIDDrive(drive, 40).withTimeout(1),//in parallel shince there is a 1 sec delay before shot in next command
-        new AmpShotNoCartMotors(intake, ampTrap, tilt).withTimeout(2.1)
+        new PIDDrive(drive, 30).withTimeout(1),//in parallel shince there is a 1 sec delay before shot in next command
+        new AmpShotNoCartMotors(intake, ampTrap, tilt).withTimeout(5)
         //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
         //new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(2)
         )
