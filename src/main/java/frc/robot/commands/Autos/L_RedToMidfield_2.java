@@ -41,11 +41,10 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
          ),
         Commands.parallel(
-         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5),
-         new PIDTurnCW(drive, 39).withTimeout(1),
-         new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.5)
+         new PIDTurnCW(drive, 39).withTimeout(1),//next command has 1 sec wait for intake motors, so there is time to turn
+         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5)
          ),
-        new PIDTurnCCW(drive, 35).withTimeout(1.5), //OR SLIGHTLY LESS ANGLE?)
+        new PIDTurnCCW(drive, 35).withTimeout(1.5), 
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(4) 
        )
       );

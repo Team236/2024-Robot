@@ -28,6 +28,7 @@ public class OneWooferShot extends ParallelCommandGroup {
     addCommands(
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(3),//bring elevator to match height (Start elev at bot limit at match start)
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
+      //deleted line below, since ModOneWooferShot runs cart motors in parallel for the entire Auto
      // new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
     );
     //drive.setGearHigh();

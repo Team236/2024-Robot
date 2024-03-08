@@ -42,15 +42,18 @@ public class WooferLeft extends SequentialCommandGroup {
     new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 3).withTimeout(1.5),
     Commands.parallel(
       new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE-5).withTimeout(2),
-      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
-      //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5)  
+      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2)  
       ),
     new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE+7).withTimeout(1.5),
-    new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER+2).withTimeout(1.5),
+    Commands.parallel(
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1.5),  
+      new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER+2).withTimeout(1.5)
+      ),
     Commands.parallel(  //parallel because Tilting in SpkrShot takes 1 second, before shooting)
       new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY-3).withTimeout(2.3),
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)
-    )
+      )
       );
    //drive.setGearHigh();
    Intake.resetCounter();
