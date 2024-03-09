@@ -6,15 +6,12 @@ package frc.robot.commands.Autos;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
-import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Drive.PIDDrive;
 import frc.robot.commands.Drive.PIDTurnCCW;
 import frc.robot.commands.Drive.PIDTurnCW;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.IntakeWithCounter;
-import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.AmpShotNoCartMotors;
 import frc.robot.commands.Shots.PIDSpkrShotNoCart;
 import frc.robot.subsystems.AmpTrap;
@@ -23,8 +20,6 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
-
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:

@@ -257,7 +257,6 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
    */
   public Command getAutonomousCommand() {
 
-
   // PATH FOLLOWING 
   // TODO add logic below on using the : ramsetCommander command
 
@@ -287,7 +286,8 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
    }  else if (!autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && !autoSwitch4.get()) {
       command =  leftRed1Spkr1AmpToMid;
    }  else if (autoSwitch1.get() && autoSwitch2.get() && autoSwitch3.get() && autoSwitch4.get()) {
-      command =  rightBlue1Spkr1AmpToMid;
+    command = ramsetCommander;
+    //command =  rightBlue1Spkr1AmpToMid;
    } 
    return command;
   }
