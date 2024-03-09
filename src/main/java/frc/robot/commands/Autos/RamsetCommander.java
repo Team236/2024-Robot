@@ -66,34 +66,35 @@ var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
         // Pass config
         config);
 
-    ramseteCommand = new RamseteCommand(
-        currentTrajectory,
-        drive::getPose,
-        new RamseteController(),
-        new SimpleMotorFeedforward(
-            PATH.ksVolts,
-            PATH.kvVoltSecondsPerMeter,
-            PATH.kaVoltSecondsSquaredPerMeter),
-        PATH.diffDriveKinematics,
-        drive::getWheelSpeeds,
-        new PIDController(PATH.kPDriveVel, 0, 0),
-        new PIDController(PATH.kPDriveVel, 0, 0),
-        // RamseteCommand passes volts to the callback
-        drive::tankDriveVolts,
-        drive
-        );
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    drive.resetOdometry(currentTrajectory.getInitialPose());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    ramseteCommand = new RamseteCommand(
+      currentTrajectory,
+      drive::getPose,
+      new RamseteController(),
+      new SimpleMotorFeedforward(
+          PATH.ksVolts,
+          PATH.kvVoltSecondsPerMeter,
+          PATH.kaVoltSecondsSquaredPerMeter),
+      PATH.diffDriveKinematics,
+      drive::getWheelSpeeds,
+      new PIDController(PATH.kPDriveVel, 0, 0),
+      new PIDController(PATH.kPDriveVel, 0, 0),
+      // RamseteCommand passes volts to the callback
+      drive::tankDriveVolts,
+      drive
+      );
+      
   }
 
   // Called once the command ends or is interrupted.
