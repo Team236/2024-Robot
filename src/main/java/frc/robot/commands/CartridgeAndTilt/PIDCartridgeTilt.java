@@ -15,29 +15,36 @@ public class PIDCartridgeTilt extends Command {
 
   private Tilt tilt;
   private double desiredRevs; //desired height in inches
+  private final PIDController pidController;
+  private double kP = Constants.Tilt.KP_TILT;
+  private double kI = Constants.Tilt.KI_TILT;
+  private double kD = Constants.Tilt.KD_TILT;
 
   /** Creates a new PIDCartridgeTilt. */
  public PIDCartridgeTilt(Tilt tilt, double desiredRevs) {
+    pidController = new PIDController(kP, kI, kD);
     this.tilt = tilt;
     this.desiredRevs = desiredRevs;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(tilt);
+    pidController.setSetpoint(desiredRevs);
 }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     //pidController.reset();
-    tilt.setP(Constants.Tilt.KP_TILT);
-    tilt.setI(Constants.Tilt.KI_TILT);
-    tilt.setD(Constants.Tilt.KD_TILT);
-    tilt.setFF(Constants.Tilt.KFF_TILT);
+    //tilt.setP(Constants.Tilt.KP_TILT);
+    //tilt.setI(Constants.Tilt.KI_TILT);
+    //tilt.setD(Constants.Tilt.KD_TILT);
+    //tilt.setFF(Constants.Tilt.KFF_TILT);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    tilt.setSetpoint(desiredRevs);
+   // tilt.setSetpoint(desiredRevs);
+   tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
   }
 
   // Called once the command ends or is interrupted.

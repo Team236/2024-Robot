@@ -30,7 +30,7 @@ public class Tilt extends SubsystemBase {
     tiltMotor.setInverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     tiltMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
     tiltEncoder = tiltMotor.getEncoder();
-    tiltPIDController = tiltMotor.getPIDController();
+   // tiltPIDController = tiltMotor.getPIDController();
 
       try {
       tiltExtLimit = new DigitalInput(Constants.Tilt.DIO_TILT_EXT_LIMIT);
@@ -112,8 +112,10 @@ public double getTiltSpeed() {
 }
 
 //!!!! SPARKMAX PID STUFF - USE SPARKMAX PID, NOT WPILib PID 
-//**** NOTE Using SPARKMAX PID, BUT Drive PID is done using WPILIB PID **********
- public void setSetpoint(double encoderRevs) {
+//**** CHANGED BACK TO USING WPILib PID ****
+//**** due to spurious encoder polarity changes when run multiple autos in a row ****
+/*
+public void setSetpoint(double encoderRevs) {
   tiltPIDController.setReference(encoderRevs, ControlType.kPosition);
 }
 
@@ -132,6 +134,7 @@ public void setD(double kD) {
 public void setFF(double kFF) {
   tiltPIDController.setFF(kFF);
 }
+*/
     @Override
   public void periodic() {
     SmartDashboard.putBoolean("Tilt Extend Limit: ", isTExtLimit());
