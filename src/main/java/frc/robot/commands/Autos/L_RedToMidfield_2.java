@@ -42,6 +42,7 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
          ),
         Commands.parallel(
          new PIDTurnCW(drive, 39).withTimeout(1),//next command has 1 sec wait for intake motors, so there is time to turn
+         //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
          new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5)
          ),
         new PIDTurnCCW(drive, 35).withTimeout(1.5), 

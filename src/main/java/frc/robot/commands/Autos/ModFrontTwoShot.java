@@ -15,9 +15,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
 public class ModFrontTwoShot extends ParallelCommandGroup {
 
   public ModFrontTwoShot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {

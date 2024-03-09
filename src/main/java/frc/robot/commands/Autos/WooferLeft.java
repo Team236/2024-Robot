@@ -25,18 +25,15 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+//
 public class WooferLeft extends SequentialCommandGroup {
+
 //****** ModWooferLeft CALLS CARTRIDGE MOTORS IN PARALLEL - SO NO CART MOTORS USED HERE *********/
   public WooferLeft(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
     Commands.parallel( 
-      //new LowGear(drive), //this could make the first drive command be unpredicable - keep it removed, go in low gear in pit prematch
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)
-      //new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
       ),
     new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
     new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 3).withTimeout(1.5),
@@ -52,6 +49,7 @@ public class WooferLeft extends SequentialCommandGroup {
       ),
     Commands.parallel(  //parallel because Tilting in SpkrShot takes 1 second, before shooting)
       new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY-3).withTimeout(2.3),
+      //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)
       )
       );

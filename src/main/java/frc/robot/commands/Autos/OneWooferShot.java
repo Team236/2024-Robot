@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.ToggleGear;
 import frc.robot.commands.Elevator.PIDUptoHeight;
@@ -26,13 +27,13 @@ public class OneWooferShot extends ParallelCommandGroup {
   /** Creates a new OneWooferShot. */
   public OneWooferShot(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
-      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(3),//bring elevator to match height (Start elev at bot limit at match start)
-      new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
-      //deleted line below, since ModOneWooferShot runs cart motors in parallel for the entire Auto
-     // new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)
-    );
+    new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(3),//bring elevator to match height (Start elev at bot limit at match start) 
+    //Runs Tilt and Cart motors, with intake motors starting after a 1 sec wait (so cart motors are at speed and cartridge is tilted before shot):
+    new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
+     );
     //drive.setGearHigh();
     Intake.resetCounter();
   }
 }
-
+ //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5),
+ //new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(5)  /

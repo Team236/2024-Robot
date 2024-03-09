@@ -14,7 +14,6 @@ import frc.robot.commands.Autos.FrontTwoShots;
 import frc.robot.commands.Autos.L_RedToMidfield_2;
 import frc.robot.commands.Autos.L_Red_1Spkr_1Amp_ToMidfield;
 import frc.robot.commands.Autos.ModFrontTwoShot;
-import frc.robot.commands.Autos.ModOneWooferShot;
 import frc.robot.commands.Autos.ModWooferLeft;
 import frc.robot.commands.Autos.ModWooferRight;
 import frc.robot.commands.Autos.OneWooferShot;
@@ -114,7 +113,7 @@ public class RobotContainer {
   private final ModFrontTwoShot frontTwoShots = new ModFrontTwoShot(intake, cartridge, tilt, drive, elevator);
   private final ModWooferLeft wooferLeft = new ModWooferLeft(intake, cartridge, tilt, drive, elevator);
   private final ModWooferRight wooferRight = new ModWooferRight(intake, cartridge, tilt, drive, elevator);
-  private final ModOneWooferShot oneWooferShot = new ModOneWooferShot(intake, cartridge, tilt, drive, elevator);
+  private final OneWooferShot oneWooferShot = new OneWooferShot(intake, cartridge, tilt, drive, elevator);
   private final L_RedToMidfield_2 leftRedToMidfield2 = new L_RedToMidfield_2(intake, cartridge, tilt, drive, elevator);
   private final R_BlueToMidfield_2 rightBlueToMidfield2 = new R_BlueToMidfield_2(intake, cartridge, tilt, drive, elevator);
   private final C_RedToMidfield_3 centerRedToMidfield3 = new C_RedToMidfield_3(intake, cartridge, tilt, drive, elevator);

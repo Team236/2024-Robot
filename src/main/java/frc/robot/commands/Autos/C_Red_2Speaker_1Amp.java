@@ -35,7 +35,7 @@ public class C_Red_2Speaker_1Amp extends ParallelCommandGroup {
   public C_Red_2Speaker_1Amp(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator, AmpTrap ampTrap) {
 
     addCommands(
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
+     new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//bring elevator to match height (Start elev at bot limit at match start)
       Commands.sequence(
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
@@ -44,7 +44,12 @@ public class C_Red_2Speaker_1Amp extends ParallelCommandGroup {
         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75),
         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.75)     
         ),
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),//2.3
+        //******IF CENTER NOTE SHOT IS WIMPY, TRY LINE BELOW IN PLACE OF PIDCartridgeTilt/ManualIntake IN PARLLEL BELOW, TO INSERT DELAY BEFORE SHOT*******
+        // new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),//2.3
+        Commands.parallel(
+          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),
+          new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.7) //shoots the Note
+         ),
         new PIDTurnCW(drive, 100).withTimeout(1),
         Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(1.75),

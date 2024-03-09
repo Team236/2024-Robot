@@ -49,6 +49,7 @@ public class WooferRight extends SequentialCommandGroup {
       ),
     Commands.parallel( //parallel since PIDSpkrshotNoCart has 1 sec delay before shot
       new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(2.3),
+      //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)
       )
     );

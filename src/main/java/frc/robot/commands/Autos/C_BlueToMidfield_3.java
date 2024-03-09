@@ -33,25 +33,27 @@ public class C_BlueToMidfield_3 extends ParallelCommandGroup {
       Commands.sequence(
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
         Commands.parallel(
-          new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(1.2), //2, 2, 2
+          new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(1.2), 
           new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.2),
           new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.2)     
-        ),
-        //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1),
-        //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //shoots the Note
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2.3),//2.3
+          ),
+        //******IF CENTER NOTE SHOT IS WIMPY, TRY LINE BELOW IN PLACE OF PIDCartridgeTilt/ManualIntake IN PARLLEL BELOW, TO INSERT DELAY BEFORE SHOT*******
+        // new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2.3),//2.3
+        Commands.parallel(
+          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),
+          new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.7) //shoots the Note
+          ),
         new PIDTurnCCW(drive, 90).withTimeout(1.3),
         Commands.parallel(
-          new PIDDrive(drive,  Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(1.5), //2, 2 ,2
+          new PIDDrive(drive,  Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(1.5), 
           new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.5),
           new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.5)         
-        ),
+          ),
         Commands.parallel(
-        new PIDTurnCW(drive, 63).withTimeout(1.3), 
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM+2).withTimeout(2.3)
-        ),
-        //new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(1) ,
-        //new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2), //shoots the Not
+          new PIDTurnCW(drive, 63).withTimeout(1.3), 
+          //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
+          new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM+2).withTimeout(2.3)
+          ),
         new PIDTurnCW(drive,  40).withTimeout(1.3),
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3)
        )

@@ -43,7 +43,12 @@ public class C_Blue_2Speaker_1Amp extends ParallelCommandGroup {
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75),
          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.75)
         ),
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),//2.3
+        //******IF CENTER NOTE SHOT IS WIMPY, TRY LINE BELOW IN PLACE OF PIDCartridgeTilt/ManualIntake IN PARLLEL BELOW, TO INSERT DELAY BEFORE SHOT *******
+        // new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),//2.3
+        Commands.parallel(
+          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),
+          new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.7) //shoots the Note
+        ),
         new PIDTurnCCW(drive, 100).withTimeout(1),
         Commands.parallel(
          new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE +3).withTimeout(1.75),
