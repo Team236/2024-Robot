@@ -33,7 +33,7 @@ public class PIDCartridgeTilt extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //pidController.reset();
+    pidController.reset();
     //tilt.setP(Constants.Tilt.KP_TILT);
     //tilt.setI(Constants.Tilt.KI_TILT);
     //tilt.setD(Constants.Tilt.KD_TILT);
