@@ -90,8 +90,8 @@ public final class Constants {
     public static final double KD_DRIVE = 0;
     public static final double KP_TURN_CCW = 0.0223;//******
     public static final double TURNCCW_DEG_TO_INCHES = 0.2151;
-    public static final double KP_TURN_CW = 0.0222; //*******
-    public static final double TURNCW_DEG_TO_INCHES = 0.213; 
+    public static final double KP_TURN_CW = 0.042;//0.0222; //*******
+    public static final double TURNCW_DEG_TO_INCHES = 0.23;//0.213; 
   }
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
@@ -139,8 +139,8 @@ public final class Constants {
     public static final double PODIUM_PID_RIGHT_RPM = 3500;
      public static final double WOOFER_PID_LEFT_RPM = 3500;//4500 with kFF = 0.00025
     public static final double WOOFER_PID_RIGHT_RPM = 3500;//4500 with kFF = 0.00025
-    public static final double AMP_PID_LEFT_RPM = 3500;//cart speed for AMP shot
-      public static final double AMP_PID_RIGHT_RPM = 3500;//cart speed for AMP shot
+    public static final double AMP_PID_LEFT_RPM = 2000;//cart speed for AMP shot
+      public static final double AMP_PID_RIGHT_RPM = 2000;//cart speed for AMP shot
     public static final double MAX_PID_SPEED = 5500;
      //manual speeds
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6;//for bench test - use PID in match
