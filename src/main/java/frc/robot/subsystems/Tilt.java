@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 //import com.revrobotics.SparkPIDController;
-//import com.revrobotics.CANSparkBase.ControlType;
+import com.revrobotics.CANSparkBase.ControlType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +18,7 @@ import frc.robot.Constants;
 public class Tilt extends SubsystemBase {
   private CANSparkMax tiltMotor;
   private RelativeEncoder tiltEncoder;
+  //SWITCHED TO WPILib PID, not SPARKMAX PID
   //private SparkPIDController tiltPIDController;
   private boolean isTExtException, isTRetException;
   private DigitalInput tiltExtLimit, tiltRetLimit;
@@ -27,8 +28,8 @@ public class Tilt extends SubsystemBase {
     tiltMotor = new CANSparkMax(Constants.MotorControllers.ID_CARTRIDGE_TILT, MotorType.kBrushless);
 
     tiltMotor.restoreFactoryDefaults();
-    tiltMotor.setInverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     tiltMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    tiltMotor.setInverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     tiltEncoder = tiltMotor.getEncoder();
    // tiltPIDController = tiltMotor.getPIDController();
 

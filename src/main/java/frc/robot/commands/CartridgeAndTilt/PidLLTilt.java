@@ -16,7 +16,7 @@ import frc.robot.subsystems.Tilt;
 
 public class PidLLTilt extends Command {
   private Tilt tilt;
-  private double desiredRevs; //desired height in inches
+  private double desiredRevs; //desired encoder revs for the tilt
 //Limelight stuff:
     //tV = 1 if there are any targets found, =0 if not
     //ty = vertical offset angle (in radians) from crosshair of LL to target -20.5 to +20.5 degrees
@@ -47,7 +47,7 @@ public class PidLLTilt extends Command {
       this.pipeline = pipeline;
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(tilt);
-      pidController.setSetpoint(desiredRevs);
+   
   }
 
   // Called when the command is initially scheduled.
@@ -110,6 +110,7 @@ public class PidLLTilt extends Command {
     }
     SmartDashboard.putNumber("Desired Revs", desiredRevs);
     //tilt.setSetpoint(desiredRevs);
+    pidController.setSetpoint(desiredRevs);  //moved here, was up top before
     tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
   }
   // Called once the command ends or is interrupted.

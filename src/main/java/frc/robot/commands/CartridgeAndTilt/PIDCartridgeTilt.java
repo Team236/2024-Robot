@@ -27,13 +27,15 @@ public class PIDCartridgeTilt extends Command {
     this.desiredRevs = desiredRevs;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(tilt);
-    pidController.setSetpoint(desiredRevs);
+   pidController.setSetpoint(desiredRevs);
+   SmartDashboard.putNumber("Setpoint in PIDCartTilt is:  ", desiredRevs);
 }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     pidController.reset();
+    SmartDashboard.putString("PIDCartTilt finished init:  ", "true");
     //tilt.setP(Constants.Tilt.KP_TILT);
     //tilt.setI(Constants.Tilt.KI_TILT);
     //tilt.setD(Constants.Tilt.KD_TILT);
