@@ -73,9 +73,9 @@ public class PidLLTilt extends Command {
 
      if(tv==1){
          dx = (h2 - h1) / Math.tan(a1+angleY);  
-         SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
+        // SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
          SmartDashboard.putNumber("LLDx, dist woofer to bumper: ", dx-36-offset);
-         SmartDashboard.putNumber("LLty, degrees:", a2);
+        // SmartDashboard.putNumber("LLty, degrees:", a2);
       } else{
          SmartDashboard.putNumber("No Target", tv);
       }
@@ -101,6 +101,10 @@ public class PidLLTilt extends Command {
       desiredRevs = -41.26;
     } else if ((Dx >= 48) && (Dx < 52)) {
       desiredRevs = -44;
+    } else if ((Dx >= 52) && (Dx < 60)) {
+      desiredRevs = -45;
+    } else if ((Dx >= 60) && (Dx < 68)) {
+      desiredRevs = -46;
     } else  {
       desiredRevs = -48;
     }

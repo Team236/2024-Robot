@@ -89,9 +89,9 @@ public final class Constants {
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
     public static final double KP_TURN_CCW = 0.0223;//******
-    public static final double TURNCCW_DEG_TO_REV = 0.2151;
+    public static final double TURNCCW_DEG_TO_INCHES = 0.2151;
     public static final double KP_TURN_CW = 0.0222; //*******
-    public static final double TURNCW_DEG_TO_REVS = 0.213; 
+    public static final double TURNCW_DEG_TO_INCHES = 0.213; 
   }
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
