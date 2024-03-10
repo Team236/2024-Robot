@@ -53,7 +53,7 @@ public R_BlueToMidfield_2(Intake intake, Cartridge cartridge, Tilt tilt, Drive d
         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(4)
        )
     );
-    //drive.setGearHigh();
+    drive.setGearHigh();
     Intake.resetCounter();
   }
 }

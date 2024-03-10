@@ -67,7 +67,7 @@ public class C_Blue_2Speaker_1Amp extends ParallelCommandGroup {
         ) 
      )
     );
-    //drive.setGearHigh();
+    drive.setGearHigh();
     Intake.resetCounter();
   }
 }

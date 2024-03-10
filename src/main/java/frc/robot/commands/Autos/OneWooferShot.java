@@ -31,7 +31,7 @@ public class OneWooferShot extends ParallelCommandGroup {
     //Runs Tilt and Cart motors, with intake motors starting after a 1 sec wait (so cart motors are at speed and cartridge is tilted before shot):
     new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
      );
-    //drive.setGearHigh();
+    drive.setGearHigh();
     Intake.resetCounter();
   }
 }
