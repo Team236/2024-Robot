@@ -27,7 +27,7 @@ public class PIDCartridgeTilt extends Command {
     this.desiredRevs = desiredRevs;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(tilt);
-   pidController.setSetpoint(desiredRevs);
+   //pidController.setSetpoint(desiredRevs); MOVED TO EXECUTE SECTION
    SmartDashboard.putNumber("Setpoint in PIDCartTilt is:  ", desiredRevs);
 }
 
@@ -45,7 +45,8 @@ public class PIDCartridgeTilt extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   // tilt.setSetpoint(desiredRevs);
+   //tilt.setSetpoint(desiredRevs);
+   pidController.setSetpoint(desiredRevs);
    tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
   }
 
