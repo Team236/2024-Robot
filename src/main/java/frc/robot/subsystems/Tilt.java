@@ -7,8 +7,8 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkBase.ControlType;
+//import com.revrobotics.SparkPIDController;
+//import com.revrobotics.CANSparkBase.ControlType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,7 +18,7 @@ import frc.robot.Constants;
 public class Tilt extends SubsystemBase {
   private CANSparkMax tiltMotor;
   private RelativeEncoder tiltEncoder;
-   private SparkPIDController tiltPIDController;
+  //private SparkPIDController tiltPIDController;
   private boolean isTExtException, isTRetException;
   private DigitalInput tiltExtLimit, tiltRetLimit;
 
