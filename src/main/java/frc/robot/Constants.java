@@ -78,20 +78,20 @@ public final class Constants {
     public static final int DIO_AUTO_3 = 2;
     public static final int DIO_AUTO_4 = 3;
     //Calculates distance in INCHES from encoder pulses (ticks get it?)
-    public static final double DIAMETER = 3.74;  //diameter of the wheels
+    public static final double DIAMETER = 3.92;//3.74;  //diameter of the wheels
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
     public static final double GEAR_RATIO = 1; //for external encoder - no gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; // for external encoder
     //PID
-    public static final double KP_DRIVE = 0.022; //******* 
+    public static final double KP_DRIVE = 0.0153; //******* 
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
-    public static final double KP_TURN_CCW = 0.0223;//******
-    public static final double TURNCCW_DEG_TO_INCHES = 0.2151;
-    public static final double KP_TURN_CW = 0.042;//0.0222; //*******
-    public static final double TURNCW_DEG_TO_INCHES = 0.23;//0.213; 
+    public static final double KP_TURN_CCW = 0.03;//0.0223;//******
+    public static final double TURNCCW_DEG_TO_INCHES = 0.215;// 0.2151;
+    public static final double KP_TURN_CW = 0.03;//0.035;//0.0222; //*******%
+    public static final double TURNCW_DEG_TO_INCHES = 0.21;// 0.228;//0.213; 
   }
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
@@ -135,10 +135,10 @@ public final class Constants {
   }
   public static class CartridgeShooter { 
     //CARTRIDGE SHOOTER MOTORS
-    public static final double PODIUM_PID_LEFT_RPM = 3500;//3500 wiht kFF = 0.0002, 4500 with kFF = 0.00025
-    public static final double PODIUM_PID_RIGHT_RPM = 3500;
-     public static final double WOOFER_PID_LEFT_RPM = 3500;//4500 with kFF = 0.00025
-    public static final double WOOFER_PID_RIGHT_RPM = 3500;//4500 with kFF = 0.00025
+    public static final double PODIUM_PID_LEFT_RPM = 2300;//3500 wiht kFF = 0.0002, 4500 with kFF = 0.00025
+    public static final double PODIUM_PID_RIGHT_RPM = 2300;
+     public static final double WOOFER_PID_LEFT_RPM = 2300;//4500 with kFF = 0.00025
+    public static final double WOOFER_PID_RIGHT_RPM = 2300;//4500 with kFF = 0.00025
     public static final double AMP_PID_LEFT_RPM = 2000;//cart speed for AMP shot
       public static final double AMP_PID_RIGHT_RPM = 2000;//cart speed for AMP shot
     public static final double MAX_PID_SPEED = 5500;
@@ -150,11 +150,11 @@ public final class Constants {
     public static final double kPLeft = 0.00005;  
     public static final double kILeft = 0.0; // 
     public static final double kDLeft = 0.0565; 
-    public static final double kFFLeft = 0.0002; //0.00025 for 4500 RPM //0.0002 for 3500
+    public static final double kFFLeft = 0.0002;//0.0002; //0.00025 for 4500 RPM //0.0002 for 3500
     public static final double kPRight = 0.00005; 
     public static final double kIRight = 0.0; 
     public static final double kDRight = 0.0565; 
-    public static final double kFFRight = 0.0002; //0.00025 for 4500 RPM //0.0002 for 3500
+    public static final double kFFRight = 0.0002;//0.0002; //0.00025 for 4500 RPM //0.0002 for 3500
   }
   public static class Tilt { 
     //TILT MOTOR
@@ -162,9 +162,9 @@ public final class Constants {
     public static final int DIO_TILT_RET_LIMIT = 9;
     public static final double TILT_ENC_REVS_MAX = -74;//really-79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave at zero
-    public static final double TILT_ENC_REVS_WOOFER = -17; //WAS POSITIVE
-    public static final double TILT_ENC_REVS_PODIUM = -48;//47;  WAS POSITITVE
-    public static final double TILT_ENC_REVS_CTR_NOTE = -46;  //47; WAS POSITIVE
+    public static final double TILT_ENC_REVS_WOOFER = -19; //WAS POSITIVE
+    public static final double TILT_ENC_REVS_PODIUM = -50;//47;  WAS POSITITVE
+    public static final double TILT_ENC_REVS_CTR_NOTE = -49;  //47; WAS POSITIVE
     public static final double MAN_EXT_SPEED = 0.2; //should be positive, the method adds correct sign
     public static final double MAN_RET_SPEED = 0.2;//should be positive the method adds correct sign
     //CARTRIDGE TILT PID:

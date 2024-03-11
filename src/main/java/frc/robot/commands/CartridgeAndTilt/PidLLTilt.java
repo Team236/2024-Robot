@@ -28,10 +28,10 @@ public class PidLLTilt extends Command {
     //Dx = dx - offset = horizontal distance from robot bumper to target
     //offset = distance from LL lens to outer edge of bumper
     //tan(a1 +a2)  = (h2-h1)/dx;
-  private double h1 = 44;// inches from ground to center of camera lens
-  private double h2 = 57.5; // inches,floor to center of target
-  private double a1 = 10*(Math.PI/180); //degrees to rads, camera tilt, up from horizontal
-  private double offset = 6.5; //inhces, LL lens to outer edge of bumper
+  private double h1 = 43.5;// inches from ground to center of camera lens
+  private double h2 = 57.5;// inches,floor to center of target
+  private double a1 = 9.7*(Math.PI/180); //degrees to rads, camera tilt, up from horizontal
+  private double offset = 7.5; //inhces, LL lens to outer edge of bumper
   private double pipeline;
   private double tv, a2, dx, Dx, angleY;
 
@@ -73,49 +73,83 @@ public class PidLLTilt extends Command {
 
      if(tv==1){
          dx = (h2 - h1) / Math.tan(a1+angleY);  
-        // SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
-         SmartDashboard.putNumber("LLDx, dist woofer to bumper: ", dx-36-offset);
+        SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
+        // SmartDashboard.putNumber("LLDx, dist woofer to bumper: ", dx-36-offset);
         // SmartDashboard.putNumber("LLty, degrees:", a2);
       } else{
          SmartDashboard.putNumber("No Target", tv);
       }
-      Dx = dx - 36 - offset;
+      Dx = dx;// - 36 - offset;
       
       //All desiredRevs changed from pos to negative, since tilt motor not inverted
       //So encoder rotations are negative when extending, positive when retracting
-      if (Dx < 6) { 
-      desiredRevs = -17;  //TODO get actual desiredRevs numbers
-    } else if  ((Dx >= 6) && (Dx < 12))  {
-      desiredRevs = -23.6;
-    } else if  ((Dx >= 12) && (Dx < 18))  {
-      desiredRevs = -27.8;
-    } else if  ((Dx >= 18) && (Dx < 24))  {
-      desiredRevs = -30;
-    } else if  ((Dx >= 24) && (Dx < 30))  {
-      desiredRevs = -32.5;
-    } else if  ((Dx >= 30) && (Dx < 36))  {
-      desiredRevs = -36.85;
-    } else if  ((Dx >= 36) && (Dx < 39))  {
-      desiredRevs = -38.2;
-    } else if  ((Dx >= 39) && (Dx < 43))  {
-      desiredRevs = -39.42;
-    } else if  ((Dx >= 43) && (Dx < 48))  {
-      desiredRevs = -41.26;
-    } else if ((Dx >= 48) && (Dx < 52)) {
-      desiredRevs = -44;
-    } else if ((Dx >= 52) && (Dx < 60)) {
-      desiredRevs = -45;
-    } else if ((Dx >= 60) && (Dx < 65)) {
-      desiredRevs = -46;
-    } else if ((Dx >= 65) && (Dx < 70)) {
-      desiredRevs = -47;
-    } else if ((Dx >= 70) && (Dx < 75)) {
+ if (Dx < 45.9) { 
+      desiredRevs = -19;// -17;  //TODO get actual desiredRevs numbers
+        } else if  ((Dx >= 45.9) && (Dx < 50))  {
+      desiredRevs = -21;//-23.6;
+    } else if  ((Dx >= 50) && (Dx < 56.6))  {
+      desiredRevs = -22.6;// -23.6;
+    } else if  ((Dx >= 56.6) && (Dx < 62.2))  {
+      desiredRevs = -30;//-27.8;
+    } else if  ((Dx >= 62.2) && (Dx < 69))  {
+      desiredRevs = -35;//-30;
+    } else if  ((Dx >= 69) && (Dx < 71.85))  {
+      desiredRevs = -39;//-32.5;
+    } else if  ((Dx >= 71.85) && (Dx < 76.6))  {
+      desiredRevs = -42.3;// -36.85;
+    } else if  ((Dx >= 76.6) && (Dx < 78.3))  {
+      desiredRevs = -43.6;//-38.2;
+    } else if  ((Dx >= 78.3) && (Dx < 80))  {
+      desiredRevs = -45;//-39.42;
+    } else if  ((Dx >= 80) && (Dx < 81.9))  {
+      desiredRevs = -46;// -41.26;
+    } else if ((Dx >= 81.9) && (Dx < 82.9)) {
+      desiredRevs = -46.8;//-44;
+    } else if ((Dx >= 82.9) && (Dx < 85.8)) {
+      desiredRevs =  -47.2;//-45;
+    } else if ((Dx >= 85.8) && (Dx < 86.9)) {
       desiredRevs = -48;
-    } else if ((Dx >= 75) && (Dx < 80)) {
+    } else  {
       desiredRevs = -49;
+    }
+
+/* 
+      if (Dx < 3) { 
+      desiredRevs = -19;// -17;  //TODO get actual desiredRevs numbers
+        } else if  ((Dx >= 3) && (Dx < 6))  {
+      desiredRevs = -21;//-23.6;
+    } else if  ((Dx >= 6) && (Dx < 12))  {
+      desiredRevs = -22.6;// -23.6;
+    } else if  ((Dx >= 12) && (Dx < 18))  {
+      desiredRevs = -30;//-27.8;
+    } else if  ((Dx >= 18) && (Dx < 24))  {
+      desiredRevs = -35;//-30;
+    } else if  ((Dx >= 24) && (Dx < 30))  {
+      desiredRevs = -39;//-32.5;
+    } else if  ((Dx >= 30) && (Dx < 36))  {
+      desiredRevs = -42.3;// -36.85;
+    } else if  ((Dx >= 36) && (Dx < 39))  {
+      desiredRevs = -43.6;//-38.2;
+    } else if  ((Dx >= 39) && (Dx < 42))  {
+      desiredRevs = -45;//-39.42;
+    } else if  ((Dx >= 42) && (Dx < 45))  {
+      desiredRevs = -46;// -41.26;
+    } else if ((Dx >= 44) && (Dx < 48)) {
+      desiredRevs = -46.8;//-44;
+    } else if ((Dx >= 48) && (Dx < 52)) {
+      desiredRevs =  -47.2;//-45;
+    } else if ((Dx >= 52) && (Dx < 55)) {
+      desiredRevs = -48;
+    } else if ((Dx >= 55) && (Dx < 65)) {
+      desiredRevs = -48.5;//-47;
+    } else if ((Dx >= 65) && (Dx < 70)) {
+      desiredRevs = -49;//-48;
+    } else if ((Dx >= 70) && (Dx < 75)) {
+      desiredRevs = -49.5;
     } else  {
       desiredRevs = -50;
     }
+    */
     //SmartDashboard.putNumber("Desired Revs", desiredRevs);
     //tilt.setSetpoint(desiredRevs); //old code for when used SparkMax PID
     pidController.setSetpoint(desiredRevs);  //****moved here, was up top before
