@@ -81,7 +81,9 @@ public class PidLLTilt extends Command {
       }
       Dx = dx - 36 - offset;
       
-      if (Dx < 6) {  //ALL THESE WERE POSITIVE!!!
+      //All desiredRevs changed from pos to negative, since tilt motor not inverted
+      //So encoder rotations are negative when extending, positive when retracting
+      if (Dx < 6) { 
       desiredRevs = -17;  //TODO get actual desiredRevs numbers
     } else if  ((Dx >= 6) && (Dx < 12))  {
       desiredRevs = -23.6;
@@ -103,14 +105,20 @@ public class PidLLTilt extends Command {
       desiredRevs = -44;
     } else if ((Dx >= 52) && (Dx < 60)) {
       desiredRevs = -45;
-    } else if ((Dx >= 60) && (Dx < 68)) {
+    } else if ((Dx >= 60) && (Dx < 65)) {
       desiredRevs = -46;
-    } else  {
+    } else if ((Dx >= 65) && (Dx < 70)) {
+      desiredRevs = -47;
+    } else if ((Dx >= 70) && (Dx < 75)) {
       desiredRevs = -48;
+    } else if ((Dx >= 75) && (Dx < 80)) {
+      desiredRevs = -49;
+    } else  {
+      desiredRevs = -50;
     }
-    SmartDashboard.putNumber("Desired Revs", desiredRevs);
-    //tilt.setSetpoint(desiredRevs);
-    pidController.setSetpoint(desiredRevs);  //moved here, was up top before
+    //SmartDashboard.putNumber("Desired Revs", desiredRevs);
+    //tilt.setSetpoint(desiredRevs); //old code for when used SparkMax PID
+    pidController.setSetpoint(desiredRevs);  //****moved here, was up top before
     tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
   }
   // Called once the command ends or is interrupted.
