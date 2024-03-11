@@ -31,7 +31,7 @@ public class PidLLTilt extends Command {
   private double h1 = 43.5;// inches from ground to center of camera lens
   private double h2 = 57.5;// inches,floor to center of target
   private double a1 = 9.7*(Math.PI/180); //degrees to rads, camera tilt, up from horizontal
-  private double offset = 7.5; //inhces, LL lens to outer edge of bumper
+  private double offset = 7.5; //inches, LL lens to outer edge of bumper
   private double pipeline;
   private double tv, a2, dx, Dx, angleY;
 
@@ -75,45 +75,46 @@ public class PidLLTilt extends Command {
          dx = (h2 - h1) / Math.tan(a1+angleY);  
         SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
         // SmartDashboard.putNumber("LLDx, dist woofer to bumper: ", dx-36-offset);
-        // SmartDashboard.putNumber("LLty, degrees:", a2);
+        SmartDashboard.putNumber("LLty, degrees:", a2);
       } else{
          SmartDashboard.putNumber("No Target", tv);
       }
-      Dx = dx;// - 36 - offset;
+      Dx = dx;// - 36 - offset; //AprilTag to LLCamera, horizontal distance
       
       //All desiredRevs changed from pos to negative, since tilt motor not inverted
       //So encoder rotations are negative when extending, positive when retracting
- if (Dx < 45.9) { 
+ if (Dx < 45.9) {   //old Dx < 3
       desiredRevs = -19;// -17;  //TODO get actual desiredRevs numbers
-        } else if  ((Dx >= 45.9) && (Dx < 50))  {
+        } else if  ((Dx >= 45.9) && (Dx < 50))  {  //old Dx between 3 and 6
       desiredRevs = -21;//-23.6;
-    } else if  ((Dx >= 50) && (Dx < 56.6))  {
+    } else if  ((Dx >= 50) && (Dx < 56.6))  { //old Dx between 6 and 12
       desiredRevs = -22.6;// -23.6;
-    } else if  ((Dx >= 56.6) && (Dx < 62.2))  {
+    } else if  ((Dx >= 56.6) && (Dx < 62.2))  { //old Dx between 12 and 18
       desiredRevs = -30;//-27.8;
-    } else if  ((Dx >= 62.2) && (Dx < 69))  {
+    } else if  ((Dx >= 62.2) && (Dx < 69))  { //old Dx between 18 and 24
       desiredRevs = -35;//-30;
-    } else if  ((Dx >= 69) && (Dx < 71.85))  {
+    } else if  ((Dx >= 69) && (Dx < 71.85))  { //old Dx between 24 and 30
       desiredRevs = -39;//-32.5;
-    } else if  ((Dx >= 71.85) && (Dx < 76.6))  {
+    } else if  ((Dx >= 71.85) && (Dx < 76.6))  { //old Dx between 30 and 36
       desiredRevs = -42.3;// -36.85;
-    } else if  ((Dx >= 76.6) && (Dx < 78.3))  {
+    } else if  ((Dx >= 76.6) && (Dx < 78.3))  { //old Dx between 36 and 39
       desiredRevs = -43.6;//-38.2;
-    } else if  ((Dx >= 78.3) && (Dx < 80))  {
+    } else if  ((Dx >= 78.3) && (Dx < 80))  { //old Dx between 39 and 42
       desiredRevs = -45;//-39.42;
-    } else if  ((Dx >= 80) && (Dx < 81.9))  {
+    } else if  ((Dx >= 80) && (Dx < 81.9))  { //old Dx between 42 and 45
       desiredRevs = -46;// -41.26;
-    } else if ((Dx >= 81.9) && (Dx < 82.9)) {
+    } else if ((Dx >= 81.9) && (Dx < 82.9)) { //old Dx between 45 and 48
       desiredRevs = -46.8;//-44;
-    } else if ((Dx >= 82.9) && (Dx < 85.8)) {
+    } else if ((Dx >= 82.9) && (Dx < 85.8)) {  //old Dx between 48 and 52 - MEASURE ENC VALUE HERE
       desiredRevs =  -47.2;//-45;
-    } else if ((Dx >= 85.8) && (Dx < 86.9)) {
+    } else if ((Dx >= 85.8) && (Dx < 86.9)) { //Old Dx between 52 and 55- MEASURE ENC VALUE HERE
       desiredRevs = -48;
     } else  {
       desiredRevs = -49;
     }
 
 /* 
+    Dx = dx - 36 - offset;  //edge of bumper to woofer
       if (Dx < 3) { 
       desiredRevs = -19;// -17;  //TODO get actual desiredRevs numbers
         } else if  ((Dx >= 3) && (Dx < 6))  {
