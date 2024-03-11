@@ -123,10 +123,12 @@ public class PidLLTilt extends Command {
   @Override
   public boolean isFinished() {
     boolean isAtLimit;
-    if ( (tilt.getTiltSpeed() < 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {  //WAS >0
+    //WAS >0 below, changed since now encoder is going negative when extending (0 at stow)
+    if ( (tilt.getTiltSpeed() < 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {  
       isAtLimit = true;
     } 
-    else if ( (tilt.getTiltSpeed() > 0) && (tilt.isTRetLimit()) ) { //was < 0
+    //was < 0 below, changed since now encoder going positive when retracting
+    else if ( (tilt.getTiltSpeed() > 0) && (tilt.isTRetLimit()) ) {
       isAtLimit = true; 
     }
     else isAtLimit = false;

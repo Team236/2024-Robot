@@ -86,7 +86,7 @@ public boolean isFullyExtended() {
 }
 
 public void setTiltSpeed(double speed) {
-  if (speed < 0) {  //was >0
+  if (speed <= 0) {  //was >0 but changed since going negative when extending now
      //TODO make sure elevator speed > 0 when going up
     if (isTExtLimit() || isFullyExtended()) {
         // if fully extended limit is tripped or cartridge at the maximum desired extension and going out, stop 
