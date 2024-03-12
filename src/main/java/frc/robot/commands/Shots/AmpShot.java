@@ -29,7 +29,7 @@ public class AmpShot extends ParallelCommandGroup {
     addCommands(
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM, Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(4),
       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(4),
-      new ManualIntakeWithWait(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4),
+      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4),
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4)
     );
     Intake.resetCounter();  //reset counter after shooting a Note
