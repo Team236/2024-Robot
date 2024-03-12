@@ -31,9 +31,12 @@ public class PidLLTilt extends Command {
   private double h1 = 43.5;// inches from ground to center of camera lens
   private double h2 = 57.5;// inches,floor to center of target
   private double a1 = 9.7*(Math.PI/180); //degrees to rads, camera tilt, up from horizontal
-  private double offset = 7.5; //inches, LL lens to outer edge of bumper
   private double pipeline;
-  private double tv, a2, dx, Dx, angleY;
+  private double tv, a2, angleY;
+
+  private double dx; //horizontal distance from AprilTag (target) to LL camera lens
+  private double Dx; // distance from edge of bumper to Woofer
+   private double cameraOffset = 7.5; //inches, LL lens to outer edge of bumper
 
   private final PIDController pidController;
   private double kP = Constants.Tilt.KP_TILT;
@@ -79,8 +82,12 @@ public class PidLLTilt extends Command {
       } else{
          SmartDashboard.putNumber("No Target", tv);
       }
-      //All desiredRevs changed from pos to negative, since tilt motor not inverted
-      //So encoder rotations are negative when extending, positive when retracting
+  
+      Dx = dx - 36 - cameraOffset;  //From edge of bumper to woofer
+
+    //All desiredRevs changed from pos to negative, since tilt motor not inverted
+    //So encoder rotations are negative when extending, positive when retracting
+
  if (dx < 45.9) {   //old Dx < 3
       desiredRevs = -19;// -17;  //TODO get actual desiredRevs numbers
         } else if  ((dx >= 45.9) && (dx < 50))  {  //old Dx between 3 and 6
@@ -104,17 +111,17 @@ public class PidLLTilt extends Command {
     } else if ((dx >= 81.9) && (dx < 82.9)) { //old Dx between 45 and 48
       desiredRevs = -46.8;//-44;
     } else if ((dx >= 82.9) && (dx < 85.8)) {  //old Dx between 48 and 52 - MEASURE ENC VALUE HERE
-      desiredRevs =  -47.2;//-45;
+      desiredRevs =  -47.2;//-45;  //THIS NEEDS TO BE MEASURED!
     } else if ((dx >= 85.8) && (dx < 86.9)) { //Old Dx between 52 and 55- MEASURE ENC VALUE HERE
-      desiredRevs = -48;
+      desiredRevs = -48;  //THIS NEEDS TO BE MEASURED
     } else  {
-      desiredRevs = -49;
+      desiredRevs = -49; //THIS NEEDS TO BE MEASURED - PLUS GO FURTHER OUT THAN 55" from bumber to woofer
     }
 
 /* OLD CODE WITH Dx
     Dx = dx - 36 - offset;  //edge of bumper to woofer
       if (Dx < 3) { 
-      desiredRevs = -19;// -17;  //TODO get actual desiredRevs numbers
+      desiredRevs = -19;// -17;  
         } else if  ((Dx >= 3) && (Dx < 6))  {
       desiredRevs = -21;//-23.6;
     } else if  ((Dx >= 6) && (Dx < 12))  {
