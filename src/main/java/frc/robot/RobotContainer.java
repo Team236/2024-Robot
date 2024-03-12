@@ -65,6 +65,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Tilt;
 import frc.robot.subsystems.AmpTrap;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -98,7 +99,7 @@ public class RobotContainer {
   private final ToggleGear toggleGear = new ToggleGear(drive); 
   private final PIDTurnCW pidTurnCW =  new PIDTurnCW(drive,90); 
   private final PIDTurnCCW pidTurnCCW =  new PIDTurnCCW(drive, 90); 
-  private final PIDDrive pidDrive = new PIDDrive(drive, 60);
+  private final PIDDrive pidDrive = new PIDDrive(drive, 120);
   //private final PIDTurn pidTurnPodtoWoofRed = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_RED_POD_TO_SPKR); 
   //private final PIDTurn pidTurnPodtoWoofBlue = new PIDTurn(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR);
 //SHOTS
@@ -136,11 +137,11 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
   private final PidLLTilt pidLLTilt = new PidLLTilt(tilt, 0);
   private final ShootButtonPressandHold shootPressAndHold = new ShootButtonPressandHold(intake, cartridge, tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER);
   private final ShootButtonRelease shootButtonRelease = new ShootButtonRelease(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM);
-  //private final ManualPodiumSpeed manualPodiumSpeed = new ManualPodiumSpeed(cartridge);   Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER
+  //private final ManualPodiumSpeed manualPodiumSpeed = new ManualPodiumSpeed(cartridge);
   //private final ManualWooferSpeed manualWooferSpeed = new ManualWooferSpeed(cartridge);
-  //private final PIDCartridgeMotors pidPodiumSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_RPM);
-  //private final PIDCartridgeMotors pidWooferSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_RPM);
-  //private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_RPM);
+  // private final PIDCartridgeMotors pidPodiumSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM);
+  //private final PIDCartridgeMotors pidWooferSpeed = new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM);
+  private final RunIntkCartMotors wooferIntkCartMotors = new RunIntkCartMotors(intake, cartridge, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM);
   //private final RunIntkCartAmpMotors runIntCartAmpMotors = new RunIntkCartAmpMotors(intake, cartridge, ampTrap,  Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.AMP_PID_RPM, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
 //ELEVATOR COMMANDS:
   private final ManualUp manualUp = new ManualUp(elevator, Constants.Elevator.ELEV_UP_SPEED);
@@ -225,6 +226,7 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
     b.onTrue(pidTurnCW);
     y.onTrue(pidCenterNoteShot);
     leftPov.onTrue(pidWooferShot);
+    rightPov.whileTrue(wooferIntkCartMotors);
 
   //***** Aux Controller ******
   //SHOTS

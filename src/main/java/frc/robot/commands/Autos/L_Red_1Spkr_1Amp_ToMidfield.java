@@ -53,7 +53,7 @@ public class L_Red_1Spkr_1Amp_ToMidfield extends ParallelCommandGroup {
         new AmpShotNoCartMotors(intake, ampTrap, tilt).withTimeout(2.5)
        )
       );
-    //drive.setGearHigh();
+    drive.setGearHigh();
     Intake.resetCounter();
   }
 }

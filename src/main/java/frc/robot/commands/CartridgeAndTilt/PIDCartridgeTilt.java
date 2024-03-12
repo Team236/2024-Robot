@@ -27,14 +27,16 @@ public class PIDCartridgeTilt extends Command {
     this.desiredRevs = desiredRevs;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(tilt);
-    pidController.setSetpoint(desiredRevs);
+   pidController.setSetpoint(desiredRevs); //NEED TO MOVE TO EXECUTE SECTION?
+   SmartDashboard.putNumber("Setpoint in PIDCartTilt is:  ", desiredRevs);
 }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     pidController.reset();
-    //tilt.setP(Constants.Tilt.KP_TILT);
+    SmartDashboard.putString("PIDCartTilt finished init:  ", "true");
+    //tilt.setP(Constants.Tilt.KP_TILT); //old code when using SparkMax PID
     //tilt.setI(Constants.Tilt.KI_TILT);
     //tilt.setD(Constants.Tilt.KD_TILT);
     //tilt.setFF(Constants.Tilt.KFF_TILT);
@@ -43,7 +45,7 @@ public class PIDCartridgeTilt extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   // tilt.setSetpoint(desiredRevs);
+   //tilt.setSetpoint(desiredRevs); //old code when using SparkMax PID
    tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
   }
 
@@ -57,10 +59,12 @@ public class PIDCartridgeTilt extends Command {
   @Override
   public boolean isFinished() {
     boolean isAtLimit;
-    if ( (tilt.getTiltSpeed() > 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {
+    //WAS >0 below, changed since now encoder is going negative when extending (0 at stow)
+    if ( (tilt.getTiltSpeed() < 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {  
       isAtLimit = true;
     } 
-    else if ( (tilt.getTiltSpeed() < 0) && (tilt.isTRetLimit()) ) {
+    //WAS < 0 below, changed since now encoder going positive when retracting
+    else if ( (tilt.getTiltSpeed() > 0) && (tilt.isTRetLimit()) ) {
       isAtLimit = true; 
     }
     else isAtLimit = false;

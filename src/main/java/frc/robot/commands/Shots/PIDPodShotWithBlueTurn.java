@@ -30,7 +30,7 @@ public class PIDPodShotWithBlueTurn extends ParallelCommandGroup {
     new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM).withTimeout(4),
     new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(4),
     Commands.sequence(
-          new PIDDrive(drive, -10).withTimeout(.7),
+          new PIDDrive(drive, -10).withTimeout(0.7),
           new PIDTurnCW(drive, Constants.DriveConstants.TURN_ANGLE_BLUE_POD_TO_SPKR).withTimeout(1),
           new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
          // new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)

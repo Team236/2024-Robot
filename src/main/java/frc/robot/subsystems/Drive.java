@@ -124,6 +124,7 @@ public double getRightSpeed(){
 }
 
 public double getLeftEncoder() {
+  //return leftEncoder.get
   return leftEncoder.getRaw();
 }
 

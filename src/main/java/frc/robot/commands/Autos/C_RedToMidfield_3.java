@@ -62,7 +62,7 @@ public class C_RedToMidfield_3 extends ParallelCommandGroup {
       new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3)
      )
     );
-    //drive.setGearHigh();
+    drive.setGearHigh();
     Intake.resetCounter();
   }
 }

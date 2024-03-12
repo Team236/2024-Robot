@@ -18,8 +18,8 @@ public class PIDTurnCCW extends Command {
     this.drive = drive;
     this.leftPidController = new PIDController(Constants.DriveConstants.KP_TURN_CCW, 0, 0);
     this.rightPidController = new PIDController(Constants.DriveConstants.KP_TURN_CCW, 0, 0);
-    leftPidController.setSetpoint(-setpointDegrees * Constants.DriveConstants.TURNCCW_DEG_TO_REV); // this converts the setpoint in degrees to inches, need new conversion for this year
-    rightPidController.setSetpoint(setpointDegrees * Constants.DriveConstants.TURNCCW_DEG_TO_REV);
+    leftPidController.setSetpoint(-setpointDegrees * Constants.DriveConstants.TURNCCW_DEG_TO_INCHES); // this converts the setpoint in degrees to inches, need new conversion for this year
+    rightPidController.setSetpoint(setpointDegrees * Constants.DriveConstants.TURNCCW_DEG_TO_INCHES);
     addRequirements(drive);
   }
 

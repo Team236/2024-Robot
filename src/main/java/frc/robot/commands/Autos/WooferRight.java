@@ -53,7 +53,7 @@ public class WooferRight extends SequentialCommandGroup {
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)
       )
     );
-   //drive.setGearHigh();
+   drive.setGearHigh();
    Intake.resetCounter();
   }
 }

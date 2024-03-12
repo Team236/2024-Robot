@@ -16,7 +16,7 @@ import frc.robot.subsystems.Tilt;
 
 public class PidLLTilt extends Command {
   private Tilt tilt;
-  private double desiredRevs; //desired height in inches
+  private double desiredRevs; //desired encoder revs for the tilt
 //Limelight stuff:
     //tV = 1 if there are any targets found, =0 if not
     //ty = vertical offset angle (in radians) from crosshair of LL to target -20.5 to +20.5 degrees
@@ -28,12 +28,15 @@ public class PidLLTilt extends Command {
     //Dx = dx - offset = horizontal distance from robot bumper to target
     //offset = distance from LL lens to outer edge of bumper
     //tan(a1 +a2)  = (h2-h1)/dx;
-  private double h1 = 44;// inches from ground to center of camera lens
-  private double h2 = 57.5; // inches,floor to center of target
-  private double a1 = 10*(Math.PI/180); //degrees to rads, camera tilt, up from horizontal
-  private double offset = 6.5; //inhces, LL lens to outer edge of bumper
+  private double h1 = 43.5;// inches from ground to center of camera lens
+  private double h2 = 57.5;// inches,floor to center of target
+  private double a1 = 9.7*(Math.PI/180); //degrees to rads, camera tilt, up from horizontal
   private double pipeline;
-  private double tv, a2, dx, Dx, angleY;
+  private double tv, a2, angleY;
+
+  private double dx; //horizontal distance from AprilTag (target) to LL camera lens
+  private double Dx; // distance from edge of bumper to Woofer
+   private double cameraOffset = 7.5; //inches, LL lens to outer edge of bumper
 
   private final PIDController pidController;
   private double kP = Constants.Tilt.KP_TILT;
@@ -47,7 +50,7 @@ public class PidLLTilt extends Command {
       this.pipeline = pipeline;
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(tilt);
-      pidController.setSetpoint(desiredRevs);
+   
   }
 
   // Called when the command is initially scheduled.
@@ -73,39 +76,89 @@ public class PidLLTilt extends Command {
 
      if(tv==1){
          dx = (h2 - h1) / Math.tan(a1+angleY);  
-         SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
-         SmartDashboard.putNumber("LLDx, dist woofer to bumper: ", dx-36-offset);
-         SmartDashboard.putNumber("LLty, degrees:", a2);
+        SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
+        // SmartDashboard.putNumber("LLDx, dist woofer to bumper: ", dx-36-offset);
+        SmartDashboard.putNumber("LLty, degrees:", a2);
       } else{
          SmartDashboard.putNumber("No Target", tv);
       }
-      Dx = dx - 36 - offset;
-      
-      if (Dx < 6) {  //ALL THESE WERE POSITIVE!!!
-      desiredRevs = -17;  //TODO get actual desiredRevs numbers
-    } else if  ((Dx >= 6) && (Dx < 12))  {
-      desiredRevs = -23.6;
-    } else if  ((Dx >= 12) && (Dx < 18))  {
-      desiredRevs = -27.8;
-    } else if  ((Dx >= 18) && (Dx < 24))  {
-      desiredRevs = -30;
-    } else if  ((Dx >= 24) && (Dx < 30))  {
-      desiredRevs = -32.5;
-    } else if  ((Dx >= 30) && (Dx < 36))  {
-      desiredRevs = -36.85;
-    } else if  ((Dx >= 36) && (Dx < 39))  {
-      desiredRevs = -38.2;
-    } else if  ((Dx >= 39) && (Dx < 43))  {
-      desiredRevs = -39.42;
-    } else if  ((Dx >= 43) && (Dx < 48))  {
-      desiredRevs = -41.26;
-    } else if ((Dx >= 48) && (Dx < 52)) {
-      desiredRevs = -44;
+  
+      Dx = dx - 36 - cameraOffset;  //From edge of bumper to woofer
+
+    //All desiredRevs changed from pos to negative, since tilt motor not inverted
+    //So encoder rotations are negative when extending, positive when retracting
+
+ if (dx < 45.9) {   //old Dx < 3
+      desiredRevs = -19;// -17;  //TODO get actual desiredRevs numbers
+        } else if  ((dx >= 45.9) && (dx < 50))  {  //old Dx between 3 and 6
+      desiredRevs = -21;//-23.6;
+    } else if  ((dx >= 50) && (dx < 56.6))  { //old Dx between 6 and 12
+      desiredRevs = -22.6;// -23.6;
+    } else if  ((dx >= 56.6) && (dx < 62.2))  { //old Dx between 12 and 18
+      desiredRevs = -30;//-27.8;
+    } else if  ((dx >= 62.2) && (dx < 69))  { //old Dx between 18 and 24
+      desiredRevs = -35;//-30;
+    } else if  ((dx >= 69) && (dx < 71.85))  { //old Dx between 24 and 30
+      desiredRevs = -39;//-32.5;
+    } else if  ((dx >= 71.85) && (dx < 76.6))  { //old Dx between 30 and 36
+      desiredRevs = -42.3;// -36.85;
+    } else if  ((dx >= 76.6) && (dx < 78.3))  { //old Dx between 36 and 39
+      desiredRevs = -43.6;//-38.2;
+    } else if  ((dx >= 78.3) && (dx < 80))  { //old Dx between 39 and 42
+      desiredRevs = -45;//-39.42;
+    } else if  ((dx >= 80) && (dx < 81.9))  { //old Dx between 42 and 45
+      desiredRevs = -46;// -41.26;
+    } else if ((dx >= 81.9) && (dx < 82.9)) { //old Dx between 45 and 48
+      desiredRevs = -46.8;//-44;
+    } else if ((dx >= 82.9) && (dx < 85.8)) {  //old Dx between 48 and 52 - MEASURE ENC VALUE HERE
+      desiredRevs =  -47.2;//-45;  //THIS NEEDS TO BE MEASURED!
+    } else if ((dx >= 85.8) && (dx < 86.9)) { //Old Dx between 52 and 55- MEASURE ENC VALUE HERE
+      desiredRevs = -48;  //THIS NEEDS TO BE MEASURED
     } else  {
-      desiredRevs = -48;
+      desiredRevs = -49; //THIS NEEDS TO BE MEASURED - PLUS GO FURTHER OUT THAN 55" from bumber to woofer
     }
-    SmartDashboard.putNumber("Desired Revs", desiredRevs);
-    //tilt.setSetpoint(desiredRevs);
+
+/* OLD CODE WITH Dx
+    Dx = dx - 36 - offset;  //edge of bumper to woofer
+      if (Dx < 3) { 
+      desiredRevs = -19;// -17;  
+        } else if  ((Dx >= 3) && (Dx < 6))  {
+      desiredRevs = -21;//-23.6;
+    } else if  ((Dx >= 6) && (Dx < 12))  {
+      desiredRevs = -22.6;// -23.6;
+    } else if  ((Dx >= 12) && (Dx < 18))  {
+      desiredRevs = -30;//-27.8;
+    } else if  ((Dx >= 18) && (Dx < 24))  {
+      desiredRevs = -35;//-30;
+    } else if  ((Dx >= 24) && (Dx < 30))  {
+      desiredRevs = -39;//-32.5;
+    } else if  ((Dx >= 30) && (Dx < 36))  {
+      desiredRevs = -42.3;// -36.85;
+    } else if  ((Dx >= 36) && (Dx < 39))  {
+      desiredRevs = -43.6;//-38.2;
+    } else if  ((Dx >= 39) && (Dx < 42))  {
+      desiredRevs = -45;//-39.42;
+    } else if  ((Dx >= 42) && (Dx < 45))  {
+      desiredRevs = -46;// -41.26;
+    } else if ((Dx >= 44) && (Dx < 48)) {
+      desiredRevs = -46.8;//-44;
+    } else if ((Dx >= 48) && (Dx < 52)) {
+      desiredRevs =  -47.2;//-45;
+    } else if ((Dx >= 52) && (Dx < 55)) {
+      desiredRevs = -48;
+    } else if ((Dx >= 55) && (Dx < 65)) {
+      desiredRevs = -48.5;//-47;
+    } else if ((Dx >= 65) && (Dx < 70)) {
+      desiredRevs = -49;//-48;
+    } else if ((Dx >= 70) && (Dx < 75)) {
+      desiredRevs = -49.5;
+    } else  {
+      desiredRevs = -50;
+    }
+    */
+    //SmartDashboard.putNumber("Desired Revs", desiredRevs);
+    //tilt.setSetpoint(desiredRevs); //old code for when used SparkMax PID
+    pidController.setSetpoint(desiredRevs);  //****moved here, was up top before
     tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
   }
   // Called once the command ends or is interrupted.
@@ -118,10 +171,12 @@ public class PidLLTilt extends Command {
   @Override
   public boolean isFinished() {
     boolean isAtLimit;
-    if ( (tilt.getTiltSpeed() < 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {  //WAS >0
+    //WAS >0 below, changed since now encoder is going negative when extending (0 at stow)
+    if ( (tilt.getTiltSpeed() < 0)  && (tilt.isTExtLimit() || tilt.isFullyExtended()) ) {  
       isAtLimit = true;
     } 
-    else if ( (tilt.getTiltSpeed() > 0) && (tilt.isTRetLimit()) ) { //was < 0
+    //was < 0 below, changed since now encoder going positive when retracting
+    else if ( (tilt.getTiltSpeed() > 0) && (tilt.isTRetLimit()) ) {
       isAtLimit = true; 
     }
     else isAtLimit = false;

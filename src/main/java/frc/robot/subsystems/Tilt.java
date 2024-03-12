@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
+//import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -18,7 +18,8 @@ import frc.robot.Constants;
 public class Tilt extends SubsystemBase {
   private CANSparkMax tiltMotor;
   private RelativeEncoder tiltEncoder;
-   private SparkPIDController tiltPIDController;
+  //SWITCHED TO WPILib PID, not SPARKMAX PID
+  //private SparkPIDController tiltPIDController;
   private boolean isTExtException, isTRetException;
   private DigitalInput tiltExtLimit, tiltRetLimit;
 
@@ -27,8 +28,8 @@ public class Tilt extends SubsystemBase {
     tiltMotor = new CANSparkMax(Constants.MotorControllers.ID_CARTRIDGE_TILT, MotorType.kBrushless);
 
     tiltMotor.restoreFactoryDefaults();
-    tiltMotor.setInverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     tiltMotor.setSmartCurrentLimit(Constants.MotorControllers.SMART_CURRENT_LIMIT);
+    tiltMotor.setInverted(false);//WAS TRUE - NOW USE NEGATIVE ENC VALUES TO TILT
     tiltEncoder = tiltMotor.getEncoder();
    // tiltPIDController = tiltMotor.getPIDController();
 
@@ -85,7 +86,7 @@ public boolean isFullyExtended() {
 }
 
 public void setTiltSpeed(double speed) {
-  if (speed < 0) {  //was >0
+  if (speed <= 0) {  //was >0 but changed since going negative when extending now
      //TODO make sure elevator speed > 0 when going up
     if (isTExtLimit() || isFullyExtended()) {
         // if fully extended limit is tripped or cartridge at the maximum desired extension and going out, stop 
