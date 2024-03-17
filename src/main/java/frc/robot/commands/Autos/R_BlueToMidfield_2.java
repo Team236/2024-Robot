@@ -49,12 +49,15 @@ public R_BlueToMidfield_2(Intake intake, Cartridge cartridge, Tilt tilt, Drive d
          //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
          new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5)
         ),
-        new PIDTurnCW(drive, 27).withTimeout(1.5),         //25
-        //TODO make parallel commands
-        new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3),
-        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED)
-       )
-    );
+        new PIDTurnCW(drive, 27).withTimeout(1.5),        //2a
+          //TODO make parallel commands
+          // new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3),
+          //  new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).wait(1500)
+           Commands.parallel(
+             new PIDDrive(drive,  Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3),
+             new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)
+             ))
+        );
     drive.setGearHigh();
     Intake.resetCounter();
   }
