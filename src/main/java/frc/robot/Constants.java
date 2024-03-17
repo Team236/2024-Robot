@@ -53,7 +53,7 @@ public final class Constants {
     public static final double PULL_AWAY_TO_NOTE = 67;//71 
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
-    public static final double NOTE_TO_MIDFLD = 206; //160
+    public static final double NOTE_TO_MIDFLD = 210; //160  //206
     //TURNING ANGLES
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 37;//30
     public static final double TURN_ANGLE_RED_POD_TO_SPKR = 37;//30

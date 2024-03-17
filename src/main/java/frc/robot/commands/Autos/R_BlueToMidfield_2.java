@@ -37,7 +37,7 @@ public R_BlueToMidfield_2(Intake intake, Cartridge cartridge, Tilt tilt, Drive d
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//bring elevator to match height (Start elev at bot limit at match start)
       Commands.sequence(
         new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5),
-        new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
+        new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY+1).withTimeout(1),
         new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
         Commands.parallel(
          new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
@@ -45,13 +45,14 @@ public R_BlueToMidfield_2(Intake intake, Cartridge cartridge, Tilt tilt, Drive d
          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)    
          ),    
         Commands.parallel( 
-         new PIDTurnCCW(drive, 35).withTimeout(1),//next command has 1 sec wait, so there is time to turn //35 for cw and ccw
+         new PIDTurnCCW(drive, 33).withTimeout(1),//next command has 1 sec wait, so there is time to turn //35 for cw and ccw
          //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
          new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5)
         ),
-        new PIDTurnCW(drive, 23).withTimeout(1.5),         
-        new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(4),
-        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
+        new PIDTurnCW(drive, 27).withTimeout(1.5),         //25
+        //TODO make parallel commands
+        new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3),
+        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED)
        )
     );
     drive.setGearHigh();
