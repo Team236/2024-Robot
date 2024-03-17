@@ -49,16 +49,16 @@ public class C_Blue_2Speaker_1Amp extends ParallelCommandGroup {
           new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),
           new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.7) //shoots the Note
         ),
-        new PIDTurnCCW(drive, 100).withTimeout(1),
+        new PIDTurnCCW(drive, 90).withTimeout(1),
         Commands.parallel(
          new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE +3).withTimeout(1.75),
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75),
          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1.75)           
         ),
-        new PIDTurnCW(drive, 107).withTimeout(1), 
-        new PIDDrive(drive, -53).withTimeout(1),
+        new PIDTurnCW(drive, 90).withTimeout(1), 
+        new PIDDrive(drive, -51).withTimeout(1),
         Commands.parallel(
-        new PIDTurnCCW (drive, 105).withTimeout(1),
+        new PIDTurnCCW (drive, 90).withTimeout(1),
         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1)
         ),  
         Commands.parallel(

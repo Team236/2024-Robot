@@ -50,16 +50,16 @@ public final class Constants {
     //AUTO DISTANCES
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 14;
-    public static final double PULL_AWAY_TO_NOTE = 71; 
+    public static final double PULL_AWAY_TO_NOTE = 67;//71 
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
-    public static final double NOTE_TO_MIDFLD = 160;
+    public static final double NOTE_TO_MIDFLD = 206; //160
     //TURNING ANGLES
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 37;//30
     public static final double TURN_ANGLE_RED_POD_TO_SPKR = 37;//30
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR_HIGH_GEAR = 30;
     public static final double TURN_ANGLE_RED_POD_TO_SPKR_HIGH_GEAR= 30;
-    public static final double TURN_SIDE_OF_WOOFER = 65;//58;
+    public static final double TURN_SIDE_OF_WOOFER = 60;//58;//65
     //lets us ignore small joystick inputs
     public static final double LEFT_DEADZONE = 0.05; 
     public static final double RIGHT_DEADZONE = 0.05;
@@ -80,7 +80,7 @@ public final class Constants {
     //Calculates distance in INCHES from encoder pulses (ticks get it?)
     public static final double DIAMETER = 3.8825;//3.74// last set to 3.92;  //diameter of the wheels
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
-    
+
     public static final double GEAR_RATIO = 1; //for external encoder - no gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
@@ -90,9 +90,9 @@ public final class Constants {
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
     public static final double KP_TURN_CCW = 0.03;//0.0223;//******
-    public static final double TURNCCW_DEG_TO_INCHES = 0.215;// 0.2151;
+    public static final double TURNCCW_DEG_TO_INCHES = 0.221;// 0.2151;
     public static final double KP_TURN_CW = 0.03;//0.035;//0.0222; //*******%
-    public static final double TURNCW_DEG_TO_INCHES = 0.21;// 0.228;//0.213; 
+    public static final double TURNCW_DEG_TO_INCHES = 0.221;// 0.228;//0.213; 
   }
   public static class Elevator {
     public static final int DIO_ELEV_TOP = 4;
