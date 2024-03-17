@@ -9,7 +9,7 @@ public final class Constants {
   public static final int PWM_FRONT_CAM = 0;
   //for aiming camera at Amp/Trap or at Floor (from 0 to 1, for 0 to 180 degrees)
   public static final double FRONT_CAM_TRAP = 0.1;  //TODO adjust these as needed
-  public static final double FRONT_CAM_TELEOP = 0.2; //TODO adjust as needed
+  public static final double FRONT_CAM_TELEOP = 0.3; //TODO adjust as needed
 
   public static class Controller {
     // usb port on the laptop when driver using XBox controller
@@ -50,7 +50,7 @@ public final class Constants {
     //AUTO DISTANCES
     public static final double WOOFERFRONT_TO_NOTE = 60;
     public static final double WOOFER_PULL_AWAY = 14;
-    public static final double PULL_AWAY_TO_NOTE = 67; 
+    public static final double PULL_AWAY_TO_NOTE = 71; 
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
     public static final double NOTE_TO_MIDFLD = 160;
@@ -78,14 +78,15 @@ public final class Constants {
     public static final int DIO_AUTO_3 = 2;
     public static final int DIO_AUTO_4 = 3;
     //Calculates distance in INCHES from encoder pulses (ticks get it?)
-    public static final double DIAMETER = 3.92;//3.74;  //diameter of the wheels
+    public static final double DIAMETER = 3.8825;//3.74// last set to 3.92;  //diameter of the wheels
     public static final double CIRCUMFERENCE = Math.PI * DIAMETER;
+    
     public static final double GEAR_RATIO = 1; //for external encoder - no gear ratio
     public static final double REV_TO_IN_K = CIRCUMFERENCE / GEAR_RATIO;
     public static final double IN_TO_REV_K = GEAR_RATIO / CIRCUMFERENCE;
     public static final double DISTANCE_PER_PULSE_K = REV_TO_IN_K/512; // for external encoder
     //PID
-    public static final double KP_DRIVE = 0.0153; //******* 
+    public static final double KP_DRIVE = 0.013; //.0153******* 
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
     public static final double KP_TURN_CCW = 0.03;//0.0223;//******
@@ -106,8 +107,8 @@ public final class Constants {
     public static final double ELEV_REV_TO_IN = 0.32327;
     public static final double ELEV_IN_TO_REV = 1/(0.32327);
     // manual speeds
-    public static final double ELEV_UP_SPEED = 0.5;
-    public static final double ELEV_DOWN_SPEED = 0.1; //keep this positive
+    public static final double ELEV_UP_SPEED = 0.6;
+    public static final double ELEV_DOWN_SPEED = 0.4; //keep this positive
     public static final double ELEV_MAN_DOWN_SPEED = 0.8;//without PID
     // PID may need seperate pid for up, down, and climb
     public static final double KP_ELEV_UP = 0.2; //
@@ -162,7 +163,7 @@ public final class Constants {
     public static final int DIO_TILT_RET_LIMIT = 9;
     public static final double TILT_ENC_REVS_MAX = -74;//really-79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave at zero
-    public static final double TILT_ENC_REVS_WOOFER = -19; //WAS POSITIVE
+    public static final double TILT_ENC_REVS_WOOFER = -21; //19 //WAS POSITIVE
     public static final double TILT_ENC_REVS_PODIUM = -50;//47;  WAS POSITITVE
     public static final double TILT_ENC_REVS_CTR_NOTE = -49;  //47; WAS POSITIVE
     public static final double MAN_EXT_SPEED = 0.2; //should be positive, the method adds correct sign

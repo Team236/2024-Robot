@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
+import frc.robot.commands.CartridgeAndTilt.PIDCartridgeTilt;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
@@ -28,6 +29,7 @@ public class ClimbTrapShotWithWait extends SequentialCommandGroup {
       Commands.parallel(
       //run 2 commands below for 0.7sec, to wait for elev to get to bottom (in ClimbAtEnd and ClimbNoBrakePID), 
       //and for cart motors to come to speed
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(4),
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM,  Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(0.9),//4
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(0.9) //4
       ),

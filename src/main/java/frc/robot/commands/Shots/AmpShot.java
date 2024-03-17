@@ -22,15 +22,18 @@ import frc.robot.subsystems.Tilt;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AmpShot extends ParallelCommandGroup {
+public class AmpShot extends SequentialCommandGroup
+ {
   //Shoots Amp - 
   //First tilts cartridge to stow; then spins intake, cartridge (PID velocity), and Amp motors
   public AmpShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt) {
     addCommands(
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(.4),
+    Commands.parallel(
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM, Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(4),
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(4),
       new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4),
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4)
+      )
     );
     Intake.resetCounter();  //reset counter after shooting a Note
   }

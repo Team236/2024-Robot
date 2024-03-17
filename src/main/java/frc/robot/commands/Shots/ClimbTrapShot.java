@@ -27,6 +27,7 @@ public class ClimbTrapShot extends ParallelCommandGroup {
   public ClimbTrapShot(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt) {
     addCommands(
  //use manualIntake here since count = 1
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(4),
       new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4),
       new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM, Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(4),
       new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4)

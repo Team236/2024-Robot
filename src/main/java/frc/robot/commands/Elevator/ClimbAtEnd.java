@@ -27,7 +27,7 @@ public class ClimbAtEnd extends SequentialCommandGroup {
     new PIDDownToHeight(elevator, Constants.Elevator.JUST_ABOVE_CHAIN_HEIGHT).withTimeout(0.25),
     Commands.parallel(
       new PIDDownToHeight(elevator, Constants.Elevator.CLIMB_HEIGHT).withTimeout(3.75),
-      new ClimbTrapShotWithWait(intake, cartridge, ampTrap, tilt).withTimeout(3.75)
+      new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(3.75)
       ),    
     //new ClimbTrapShot(intake, cartridge, ampTrap, tilt).withTimeout(.75),
     new ManualUp(elevator, 0.3).withTimeout(0.75),
