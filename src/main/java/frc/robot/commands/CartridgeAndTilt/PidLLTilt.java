@@ -36,6 +36,10 @@ public class PidLLTilt extends Command {
       pidController = new PIDController(kP, kI, kD);
       this.tilt = tilt;
       this.pipeline = pipeline;
+
+      // does not look like helper can set multiple tags in priority assignment
+      //LimelightHelpers.setPriorityTagID("limelight", tagID )
+      
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(tilt);
   }
@@ -52,29 +56,29 @@ public class PidLLTilt extends Command {
 
     SmartDashboard.putNumber("LLDistance init", pipeline);
     
-      // NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+          // was NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
       LimelightHelpers.setLEDMode_ForceOff("limelight");
-      // NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+          // was NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
       LimelightHelpers.setPipelineIndex("limelight",(int)pipeline); 
     }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-      //tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-      //a2 = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    tv = LimelightHelpers.getTV("limelight");
 
-     if(tv==true){   // this could also be get tagId != 0 
-        double[] targetCameraPose = LimelightHelpers.getBotPose_TargetSpace("limelight");
+    tv = LimelightHelpers.getTV("limelight");
+    double tagId = LimelightHelpers.getFiducialID("limelight");
+
+     if(tagId == 4 || tagId == 6 ) {   // this could also be get gettagId != 0 
+
+        double[] targetCameraPose = LimelightHelpers.getCameraPose_TargetSpace("limelight");
         // assumption x target is distance out the from of robot with Limelighthelper
         dx = targetCameraPose[0];  
-      } else{
-         SmartDashboard.putBoolean("No Target", tv);
+      } else {
+         SmartDashboard.putNumber("April tag ID", tagId);
       }
   
-      // one alternative is to define the Robot to Camera position
+      // Robot already set Camera to Robot position in RobotInit 
       bumperOffset = dx - 36 - cameraOffset;  //From edge of bumper to woofer 
 
     //All desiredRevs changed from pos to negative, since tilt motor not inverted
@@ -110,47 +114,8 @@ public class PidLLTilt extends Command {
       desiredRevs = -49; //THIS NEEDS TO BE MEASURED - PLUS GO FURTHER OUT THAN 55" from bumber to woofer
     }
 
-/* OLD CODE WITH Dx
-    // should be bumperOffset not dx and Dx
-    Dx = dx - 36 - offset;  //edge of bumper to woofer
-      if (Dx < 3) { 
-      desiredRevs = -19;// -17;  
-        } else if  ((Dx >= 3) && (Dx < 6))  {
-      desiredRevs = -21;//-23.6;
-    } else if  ((Dx >= 6) && (Dx < 12))  {
-      desiredRevs = -22.6;// -23.6;
-    } else if  ((Dx >= 12) && (Dx < 18))  {
-      desiredRevs = -30;//-27.8;
-    } else if  ((Dx >= 18) && (Dx < 24))  {
-      desiredRevs = -35;//-30;
-    } else if  ((Dx >= 24) && (Dx < 30))  {
-      desiredRevs = -39;//-32.5;
-    } else if  ((Dx >= 30) && (Dx < 36))  {
-      desiredRevs = -42.3;// -36.85;
-    } else if  ((Dx >= 36) && (Dx < 39))  {
-      desiredRevs = -43.6;//-38.2;
-    } else if  ((Dx >= 39) && (Dx < 42))  {
-      desiredRevs = -45;//-39.42;
-    } else if  ((Dx >= 42) && (Dx < 45))  {
-      desiredRevs = -46;// -41.26;
-    } else if ((Dx >= 44) && (Dx < 48)) {
-      desiredRevs = -46.8;//-44;
-    } else if ((Dx >= 48) && (Dx < 52)) {
-      desiredRevs =  -47.2;//-45;
-    } else if ((Dx >= 52) && (Dx < 55)) {
-      desiredRevs = -48;
-    } else if ((Dx >= 55) && (Dx < 65)) {
-      desiredRevs = -48.5;//-47;
-    } else if ((Dx >= 65) && (Dx < 70)) {
-      desiredRevs = -49;//-48;
-    } else if ((Dx >= 70) && (Dx < 75)) {
-      desiredRevs = -49.5;
-    } else  {
-      desiredRevs = -50;
-    }
-    */
     //SmartDashboard.putNumber("Desired Revs", desiredRevs);
-    //tilt.setSetpoint(desiredRevs); //old code for when used SparkMax PID
+    
     pidController.setSetpoint(desiredRevs);  //****moved here, was up top before
     tilt.setTiltSpeed(pidController.calculate(tilt.getTiltEncoder()));
   }
