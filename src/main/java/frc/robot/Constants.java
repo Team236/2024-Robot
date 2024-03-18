@@ -89,6 +89,10 @@ public final class Constants {
     public static final double KP_DRIVE = 0.013; //.0153******* 
     public static final double KI_DRIVE = 0;
     public static final double KD_DRIVE = 0;
+
+    public static final double KP_GYRO_TURN_CW = 0.02;//TUNE _ THIS IS A GUESS
+    public static final double KP_GYRO_TURN_CCW = 0.02;
+
     public static final double KP_TURN_CCW = 0.03;//0.0223;//******
     public static final double TURNCCW_DEG_TO_INCHES = 0.221;// 0.2151;
     public static final double KP_TURN_CW = 0.03;//0.035;//0.0222; //*******%
