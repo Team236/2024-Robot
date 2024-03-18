@@ -4,38 +4,26 @@
 
 package frc.robot.commands.CartridgeAndTilt;
 
-import javax.swing.text.StyleContext.SmallAttributeSet;
-
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Drive;
+import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.Tilt;
 
 public class PidLLTilt extends Command {
   private Tilt tilt;
   private double desiredRevs; //desired encoder revs for the tilt
 //Limelight stuff:
-    //tV = 1 if there are any targets found, =0 if not
-    //ty = vertical offset angle (in radians) from crosshair of LL to target -20.5 to +20.5 degrees
-    //h1 = distance from floor to center of Limelight lens
-    //h2 = distance from floor to center of target  57.5"?
-    //a1 = angle between floor (horizontal) and camera's centerline (camera mount angle, how far rotated from vertical)
-    //a2 = getTy (angle between camera's centerline and line extending from center of camera to center of target)
-    //dx = horizontal distance from Limelight Lens to target
-    //Dx = dx - offset = horizontal distance from robot bumper to target
-    //offset = distance from LL lens to outer edge of bumper
-    //tan(a1 +a2)  = (h2-h1)/dx;
-  private double h1 = 43.5;// inches from ground to center of camera lens
-  private double h2 = 57.5;// inches,floor to center of target
-  private double a1 = 9.7*(Math.PI/180); //degrees to rads, camera tilt, up from horizontal
+    //tv = 1 if there are any targets found, =0 if not
+    //h1 = distance from floor to center of Limelight lens is 43.5
+    //offset = distance from LL lens to outer edge of bumper    
+
   private double pipeline;
-  private double tv, a2, angleY;
+  private boolean tv;
 
   private double dx; //horizontal distance from AprilTag (target) to LL camera lens
-  private double Dx; // distance from edge of bumper to Woofer
+  private double bumperOffset; // distance from edge of bumper to Woofer
    private double cameraOffset = 7.5; //inches, LL lens to outer edge of bumper
 
   private final PIDController pidController;
@@ -50,7 +38,6 @@ public class PidLLTilt extends Command {
       this.pipeline = pipeline;
       // Use addRequirements() here to declare subsystem dependencies.
       addRequirements(tilt);
-   
   }
 
   // Called when the command is initially scheduled.
@@ -61,34 +48,39 @@ public class PidLLTilt extends Command {
     //tilt.setI(Constants.Tilt.KI_TILT);
     //tilt.setD(Constants.Tilt.KD_TILT);
     //tilt.setFF(Constants.Tilt.KFF_TILT);
+  
+
     SmartDashboard.putNumber("LLDistance init", pipeline);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
-  }
+    
+      // NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+      LimelightHelpers.setLEDMode_ForceOff("limelight");
+      // NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+      LimelightHelpers.setPipelineIndex("limelight",(int)pipeline); 
+    }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    a2 = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    angleY = a2 * Math.PI/180;  // a2 in degrees, converted to radians
+    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+      //tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+      //a2 = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+    tv = LimelightHelpers.getTV("limelight");
 
-     if(tv==1){
-         dx = (h2 - h1) / Math.tan(a1+angleY);  
-        SmartDashboard.putNumber("LLdx, distance from target:", dx); //test this - use later for cartridge angle equation
-        //SmartDashboard.putNumber("LLDx, dist woofer to bumper: ", dx-36);
-        SmartDashboard.putNumber("LLty, degrees:", a2);
+     if(tv==true){   // this could also be get tagId != 0 
+        double[] targetCameraPose = LimelightHelpers.getBotPose_TargetSpace("limelight");
+        // assumption x target is distance out the from of robot with Limelighthelper
+        dx = targetCameraPose[0];  
       } else{
-         SmartDashboard.putNumber("No Target", tv);
+         SmartDashboard.putBoolean("No Target", tv);
       }
   
-      Dx = dx - 36 - cameraOffset;  //From edge of bumper to woofer
+      // one alternative is to define the Robot to Camera position
+      bumperOffset = dx - 36 - cameraOffset;  //From edge of bumper to woofer 
 
     //All desiredRevs changed from pos to negative, since tilt motor not inverted
     //So encoder rotations are negative when extending, positive when retracting
 
- if (dx < 45.9) {   //old Dx < 3
+ if (bumperOffset < 45.9) {   //old Dx < 3
       desiredRevs = -19;// -17;  //TODO get actual desiredRevs numbers
         } else if  ((dx >= 45.9) && (dx < 50))  {  //old Dx between 3 and 6
       desiredRevs = -21;//-23.6;
@@ -119,6 +111,7 @@ public class PidLLTilt extends Command {
     }
 
 /* OLD CODE WITH Dx
+    // should be bumperOffset not dx and Dx
     Dx = dx - 36 - offset;  //edge of bumper to woofer
       if (Dx < 3) { 
       desiredRevs = -19;// -17;  
@@ -164,7 +157,8 @@ public class PidLLTilt extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    // NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+    LimelightHelpers.setLEDMode_ForceOff("limelight");
     tilt.stopTilt();
   }
   // Returns true when the command should end.
