@@ -5,6 +5,7 @@
 package frc.robot.commands.CartridgeAndTilt;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -22,7 +23,8 @@ public class PidLLTilt extends Command {
   private double pipeline;
   private boolean tv;
 
-  private double dx; //horizontal distance from AprilTag (target) to LL camera lens
+  
+  private double dx, dy, tagDistance; //horizontal distance from AprilTag (target) to LL camera lens
   private double bumperOffset; // distance from edge of bumper to Woofer
    private double cameraOffset = 7.5; //inches, LL lens to outer edge of bumper
 
@@ -69,17 +71,21 @@ public class PidLLTilt extends Command {
     tv = LimelightHelpers.getTV("limelight");
     double tagId = LimelightHelpers.getFiducialID("limelight");
 
-     if(tagId == 4 || tagId == 6 ) {   // this could also be get gettagId != 0 
-
+     if(tagId == 4 || tagId == 7 ) {   // this could also be get gettagId != 0 
+ 
         double[] targetCameraPose = LimelightHelpers.getCameraPose_TargetSpace("limelight");
         // assumption x target is distance out the from of robot with Limelighthelper
-        dx = targetCameraPose[0];  
+        dx = Units.metersToInches( targetCameraPose[0] );  
+        dy = Units.metersToInches( targetCameraPose[1] );
+        // z= sqrt(x^2 + y^2)
+        tagDistance = Math.sqrt((dx * dx) + (dy * dy));
+        Units.metersToInches( tagDistance );
       } else {
          SmartDashboard.putNumber("April tag ID", tagId);
+         SmartDashboard.putNumber("camera to tag", 0 );
       }
   
-      // Robot already set Camera to Robot position in RobotInit 
-      bumperOffset = dx - 36 - cameraOffset;  //From edge of bumper to woofer 
+      bumperOffset = tagDistance - 36 - cameraOffset;  //From edge of bumper to woofer 
 
     //All desiredRevs changed from pos to negative, since tilt motor not inverted
     //So encoder rotations are negative when extending, positive when retracting
