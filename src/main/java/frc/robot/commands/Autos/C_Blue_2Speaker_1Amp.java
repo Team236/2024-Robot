@@ -17,6 +17,7 @@ import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
 import frc.robot.commands.Shots.AmpShotNoCartMotors;
 import frc.robot.commands.Shots.PIDSpkrShotNoCart;
+import frc.robot.commands.Shots.PIDSpkrShotNoCartLessWait;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
@@ -37,7 +38,8 @@ public class C_Blue_2Speaker_1Amp extends ParallelCommandGroup {
      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
      new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//elevator to match height (Start elev at bot limit at match start)
      Commands.sequence(
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
+        //new PIDSpkrShotNoCartLessWait(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
+        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1),
         Commands.parallel(
          new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(1.75),
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75),
