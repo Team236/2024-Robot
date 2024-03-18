@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -17,9 +18,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
-import frc.robot.subsystems.Cartridge;
-import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 
 /**
@@ -60,10 +58,22 @@ public class Robot extends TimedRobot {
     } catch (Exception e)  {
     SmartDashboard.putString("camera capture failed", "failed");
 
-  //Need to do this once only in order to have Limelight communication while tethered
-  for (int port = 5800; port <= 5805; port++){
-    PortForwarder.add(port, "limelight.local", port);
-  }
+    //Need to do this once only in order to have Limelight communication while tethered
+    for (int port = 5800; port <= 5805; port++){
+      PortForwarder.add(port, "limelight.local", port);
+    }
+
+    LimelightHelpers.setLEDMode_ForceOff("limelight");
+    
+      // set the camera relative to the robot center point at floor
+    LimelightHelpers.setCameraPose_RobotSpace("limelight"
+     , Units.inchesToMeters(14)    // x = 14
+     , Units.inchesToMeters(0)     // y = 0
+     , Units.inchesToMeters(43.5)  // z distance from floor to center of Limelight lens is 43.5
+     , Units.degreesToRadians(0)  // roll = 0
+     , Units.degreesToRadians(9.7)   // pitch =  9.7 degres //degrees to rads, camera tilt, up from horizontal
+     , Units.degreesToRadians(0)   // yaw = 0
+    );
   }
  //usbCamera0.setResolution(320, 240);
 // usbCamera0.setBrightness(50);// percentage 0 to 100
