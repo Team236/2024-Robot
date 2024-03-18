@@ -56,7 +56,12 @@ public class Robot extends TimedRobot {
 		try {
       usbCamera0 = CameraServer.startAutomaticCapture(0);
     } catch (Exception e)  {
-    SmartDashboard.putString("camera capture failed", "failed");
+        SmartDashboard.putString("camera capture failed", "failed");
+    }  
+
+      //usbCamera0.setResolution(320, 240);
+      //usbCamera0.setBrightness(50);// percentage 0 to 100
+      //usbCamera0.setExposureManual(50); //percentage 0 to 100
 
     //Need to do this once only in order to have Limelight communication while tethered
     for (int port = 5800; port <= 5805; port++){
@@ -64,22 +69,19 @@ public class Robot extends TimedRobot {
     }
 
     LimelightHelpers.setLEDMode_ForceOff("limelight");
-    
+
       // set the camera relative to the robot center point at floor
     LimelightHelpers.setCameraPose_RobotSpace("limelight"
-     , Units.inchesToMeters(14)    // x = 14
-     , Units.inchesToMeters(0)     // y = 0
-     , Units.inchesToMeters(43.5)  // z distance from floor to center of Limelight lens is 43.5
-     , Units.degreesToRadians(0)  // roll = 0
-     , Units.degreesToRadians(9.7)   // pitch =  9.7 degres //degrees to rads, camera tilt, up from horizontal
-     , Units.degreesToRadians(0)   // yaw = 0
-    );
-  }
- //usbCamera0.setResolution(320, 240);
-// usbCamera0.setBrightness(50);// percentage 0 to 100
- //usbCamera0.setExposureManual(50); //percentage 0 to 100
- //Set the counter to zero at the start
- Intake.resetCounter();
+        , Units.inchesToMeters(14)    // x = 14
+        , Units.inchesToMeters(0)     // y = 0
+        , Units.inchesToMeters(43.5)  // z distance from floor to center of Limelight lens is 43.5
+        , Units.degreesToRadians(0)  // roll = 0
+        , Units.degreesToRadians(9.7)   // pitch =  9.7 degres //degrees to rads, camera tilt, up from horizontal
+        , Units.degreesToRadians(0)   // yaw = 0
+      );
+
+    //Set the counter to zero at the start
+    Intake.resetCounter();
   }
 
   /**
