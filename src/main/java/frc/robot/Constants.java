@@ -142,8 +142,8 @@ public final class Constants {
     //CARTRIDGE SHOOTER MOTORS
     public static final double PODIUM_PID_LEFT_RPM = 2300;//3500 wiht kFF = 0.0002, 4500 with kFF = 0.00025
     public static final double PODIUM_PID_RIGHT_RPM = 2300;
-     public static final double WOOFER_PID_LEFT_RPM = 2300;//4500 with kFF = 0.00025
-    public static final double WOOFER_PID_RIGHT_RPM = 2300;//4500 with kFF = 0.00025
+     public static final double WOOFER_PID_LEFT_RPM = 1900;//4500 with kFF = 0.00025
+    public static final double WOOFER_PID_RIGHT_RPM = 1900;//4500 with kFF = 0.00025
     public static final double AMP_PID_LEFT_RPM = 2000;//cart speed for AMP shot
       public static final double AMP_PID_RIGHT_RPM = 2000;//cart speed for AMP shot
     public static final double MAX_PID_SPEED = 5500;
@@ -156,10 +156,12 @@ public final class Constants {
     public static final double kILeft = 0.0; // 
     public static final double kDLeft = 0.0565; 
     public static final double kFFLeft = 0.0002;//0.0002; //0.00025 for 4500 RPM //0.0002 for 3500
+    public static final double kFFWooferLeft = 0.00018;
     public static final double kPRight = 0.00005; 
     public static final double kIRight = 0.0; 
     public static final double kDRight = 0.0565; 
     public static final double kFFRight = 0.0002;//0.0002; //0.00025 for 4500 RPM //0.0002 for 3500
+    public static final double kFFWooferRight = 0.00018;
   }
   public static class Tilt { 
     //TILT MOTOR
@@ -167,8 +169,10 @@ public final class Constants {
     public static final int DIO_TILT_RET_LIMIT = 9;
     public static final double TILT_ENC_REVS_MAX = -74;//really-79.8, 64deg from top
     public static final double TILT_ENC_REVS_STOW = 0; //leave at zero
-    public static final double TILT_ENC_REVS_WOOFER = -21; //19 //WAS POSITIVE
+    public static final double TILT_ENC_REVS_WOOFER = -19;//-21; //19 //WAS POSITIVE
     public static final double TILT_ENC_REVS_PODIUM = -50;//47;  WAS POSITITVE
+    public static final double TILT_ENC_REVS_SIDE_NOTE = -52;
+    public static final double TILT_ENC_REVS_SIDE_NOTE_2 = -54;
     public static final double TILT_ENC_REVS_CTR_NOTE = -49;  //47; WAS POSITIVE
     public static final double MAN_EXT_SPEED = 0.2; //should be positive, the method adds correct sign
     public static final double MAN_RET_SPEED = 0.2;//should be positive the method adds correct sign

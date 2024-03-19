@@ -6,6 +6,7 @@ package frc.robot.commands.Autos;
 import java.util.concurrent.ForkJoinWorkerThread;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.CartridgeAndTilt.PIDCartMotorsWooferOnly;
 import frc.robot.commands.CartridgeAndTilt.PIDCartridgeMotors;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
@@ -19,7 +20,7 @@ public class ModWooferLeft extends ParallelCommandGroup {
   public ModWooferLeft(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
     new WooferLeft(intake, cartridge, tilt, drive, elevator).withTimeout(16),
-    new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16)  //run cart motors in parallel with every command in Auto
+    new PIDCartMotorsWooferOnly(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16)  //run cart motors in parallel with every command in Auto
     );
   }
 }

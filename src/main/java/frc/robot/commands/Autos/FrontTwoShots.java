@@ -39,7 +39,8 @@ public class FrontTwoShots extends SequentialCommandGroup {
       ),
     Commands.parallel(
      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1.5), 
-     new PIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(1.5)
+     new PIDDrive(drive, -Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(1.5),
+     new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.5)
       ),
     //***IF WANT TO SPEED UP THIS SHOT, REPLACE PIDSpkrShotNoCart below with the four lines below
       // Commands.parallel(

@@ -38,11 +38,14 @@ public class WooferLeft extends SequentialCommandGroup {
     new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
     new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 3).withTimeout(1.5),
     Commands.parallel(
-      new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE-5).withTimeout(2),
-      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2)  
+      new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE-5).withTimeout(2.3),
+      new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.3),
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)  
       ),
-    new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE+7).withTimeout(1.5),
+    Commands.parallel(
+       new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE+7).withTimeout(1.5),
+       new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.5)
+      ),
     Commands.parallel(
       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1.5),  
       new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER+2).withTimeout(1.5)

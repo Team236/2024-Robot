@@ -16,7 +16,10 @@ import frc.robot.commands.Drive.PIDTurnCW;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Intake.ManualIntake;
+import frc.robot.commands.Shots.AmpShot;
 import frc.robot.commands.Shots.AmpShotNoCartMotors;
+import frc.robot.commands.Shots.PIDCartShotShortWait;
+import frc.robot.commands.Shots.PIDCartShotShtWaitWoofOnly;
 import frc.robot.commands.Shots.PIDSpkrShotNoCart;
 import frc.robot.subsystems.AmpTrap;
 import frc.robot.subsystems.Cartridge;
@@ -35,10 +38,11 @@ public class C_Red_2Speaker_1Amp extends ParallelCommandGroup {
   public C_Red_2Speaker_1Amp(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator, AmpTrap ampTrap) {
 
     addCommands(
-     new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
-     new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2),//bring elevator to match height (Start elev at bot limit at match start)
+     //new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16),  //run cart motors in parallel with every command in Auto
+     new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(16),//bring elevator to match height (Start elev at bot limit at match start)
       Commands.sequence(
-        new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
+        //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3),
+        new PIDCartShotShtWaitWoofOnly(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1.5),
         Commands.parallel(
         new PIDDrive(drive, Constants.DriveConstants.WOOFERFRONT_TO_NOTE).withTimeout(1.75),
         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75),
@@ -46,30 +50,32 @@ public class C_Red_2Speaker_1Amp extends ParallelCommandGroup {
         ),
         //******IF CENTER NOTE SHOT IS WIMPY, TRY LINE BELOW IN PLACE OF PIDCartridgeTilt/ManualIntake IN PARLLEL BELOW, TO INSERT DELAY BEFORE SHOT*******
         // new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),//2.3
+        //Commands.parallel(
+         // new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),
+         // new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.7) //shoots the Note
+        // ),
+        new PIDCartShotShortWait (intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2),
+        new PIDTurnCW(drive, 90).withTimeout(1),
         Commands.parallel(
-          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.7),
-          new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.7) //shoots the Note
-         ),
-        new PIDTurnCW(drive, 100).withTimeout(1),
-        Commands.parallel(
-        new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(1.75),
-        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75),
-        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1.75)          
+         new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_NOTE + 3).withTimeout(1.75),
+         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.75),
+         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1.75)          
         ),
-        new PIDTurnCCW(drive, 95).withTimeout(1), 
-        new PIDDrive(drive, -53).withTimeout(1),
+        new PIDTurnCCW(drive, 85).withTimeout(1.2), 
+        new PIDDrive(drive, -45).withTimeout(1.2),
         Commands.parallel(
-        new PIDTurnCW (drive, 105).withTimeout(1),
+        new PIDTurnCW (drive, 95).withTimeout(1),
         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1)
         ), 
         Commands.parallel(
         new PIDDrive(drive, 30).withTimeout(1),//in parallel shince there is a 1 sec delay before shot in next command
-        new AmpShotNoCartMotors(intake, ampTrap, tilt).withTimeout(5)
+        new AmpShot(intake, cartridge, ampTrap, tilt).withTimeout(5)
         )
       )
     );
-    drive.setGearHigh();
+    //drive.setGearHigh();
     Intake.resetCounter();
   }
 }
-  
+      
+ 

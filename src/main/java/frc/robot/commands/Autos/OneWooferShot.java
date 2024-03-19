@@ -13,6 +13,7 @@ import frc.robot.commands.Drive.LowGear;
 import frc.robot.commands.Drive.ToggleGear;
 import frc.robot.commands.Elevator.PIDUptoHeight;
 import frc.robot.commands.Shots.PIDCartridgeShot;
+import frc.robot.commands.Shots.PIDCartridgeShotWooferOnly;
 import frc.robot.commands.Shots.PIDSpkrShotNoCart;
 import frc.robot.subsystems.Cartridge;
 import frc.robot.subsystems.Drive;
@@ -29,7 +30,7 @@ public class OneWooferShot extends ParallelCommandGroup {
     addCommands(
     new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(3),//bring elevator to match height (Start elev at bot limit at match start) 
     //Runs Tilt and Cart motors, with intake motors starting after a 1 sec wait (so cart motors are at speed and cartridge is tilted before shot):
-    new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
+    new PIDCartridgeShotWooferOnly(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(5)
      );
     drive.setGearHigh();
     Intake.resetCounter();
