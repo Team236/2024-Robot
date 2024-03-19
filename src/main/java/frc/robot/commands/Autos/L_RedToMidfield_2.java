@@ -56,7 +56,6 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
          new PIDDrive(drive, -60)  
        )
       );
-    drive.setGearHigh();
     Intake.resetCounter();
   }
 }
