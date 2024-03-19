@@ -221,9 +221,9 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
 
-    menu.onTrue(pidDrive);
-    x.onTrue(pidTurnCCW);
-    b.onTrue(pidTurnCW);
+    menu.onTrue(intakeWithCounter); //(pidDrive);
+    x.onTrue(manualIntake); //(pidTurnCCW);
+    b.onTrue(manualEject); //(pidTurnCW);
     y.onTrue(pidCenterNoteShot);
     leftPov.onTrue(pidWooferShot);
     rightPov.whileTrue(manualIntkCartMotors);

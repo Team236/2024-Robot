@@ -91,7 +91,7 @@ public class PidLLTilt extends Command {
  if (dx < 45.9) {   //old Dx < 3
       desiredRevs = -19;// -17;  //TODO get actual desiredRevs numbers
         } else if  ((dx >= 45.9) && (dx < 50))  {  //old Dx between 3 and 6
-      desiredRevs = -21;//-23.6;
+      desiredRevs = -22; //-21;
     } else if  ((dx >= 50) && (dx < 56.6))  { //old Dx between 6 and 12
       desiredRevs = -22.6;// -23.6;
     } else if  ((dx >= 56.6) && (dx < 62.2))  { //old Dx between 12 and 18
@@ -110,13 +110,24 @@ public class PidLLTilt extends Command {
       desiredRevs = -46;// -41.26;
     } else if ((dx >= 81.9) && (dx < 82.9)) { //old Dx between 45 and 48
       desiredRevs = -46.8;//-44;
-    } else if ((dx >= 82.9) && (dx < 85.8)) {  //old Dx between 48 and 52 - MEASURE ENC VALUE HERE
-      desiredRevs =  -47.2;//-45;  //THIS NEEDS TO BE MEASURED!
-    } else if ((dx >= 85.8) && (dx < 86.9)) { //Old Dx between 52 and 55- MEASURE ENC VALUE HERE
-      desiredRevs = -48;  //THIS NEEDS TO BE MEASURED
+    } else if ((dx >= 82.9) && (dx < 85.8)) {  //old Dx between 48 and 52 
+      desiredRevs =  -47.2;
+    } else if ((dx >= 85.8) && (dx < 88)) { //Old Dx between 52 and 55
+      desiredRevs = -48.5;  
+        } else if  ((dx >= 88) && (dx < 90))  { //old Dx 55-57
+      desiredRevs = -49.8;//
+    } else if  ((dx >= 90) && (dx < 92))  { //old Dx between 57-62
+      desiredRevs = -50;// 
+    } else if  ((dx >= 92) && (dx < 96))  { //old Dx between 62 to 64
+      desiredRevs = -50.8;
+    } else if  ((dx >= 96) && (dx < 100))  { //old Dx between 64 and 67
+      desiredRevs = -51.9;
+    } else if  ((dx >= 100) && (dx < 110))  { //old Dx between 67 and 69
+      desiredRevs = -52.9;
+
     } else  {
-      desiredRevs = -49; //THIS NEEDS TO BE MEASURED - PLUS GO FURTHER OUT THAN 55" from bumber to woofer
-    } 
+      desiredRevs = -54; 
+    }
 
 /* OLD CODE WITH Dx
     Dx = dx - 36 - offset;  //edge of bumper to woofer
