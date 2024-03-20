@@ -70,7 +70,16 @@ public class Robot extends TimedRobot {
 
     LimelightHelpers.setLEDMode_ForceOff("limelight");
 
-      // set the camera relative to the robot center point at floor
+    // set the camera relative to the robot center point at floor
+    /* Limelight Camera Space - 3d Cartesian Coordinate System with (0,0,0) at the camera lens.
+      * X+ → Pointing to the right (if you were to embody the camera)
+      * Y+ → Pointing downward
+      * Z+ → Pointing out of the camera    
+       Robot Space - 3d Cartesian Coordinate System with (0,0,0) located at the center of the robot’s frame projected down to the floor.
+      * X+ → Pointing forward (Forward Vector)
+      * Y+ → Pointing toward the robot’s right (Right Vector)
+      * Z+ → Pointing upward (Up Vector)  
+    */
     LimelightHelpers.setCameraPose_RobotSpace("limelight"
         , Units.inchesToMeters(14)    // x = 14
         , Units.inchesToMeters(0)     // y = 0
