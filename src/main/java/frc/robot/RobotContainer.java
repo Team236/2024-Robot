@@ -204,7 +204,19 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
     POVButton downPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.DOWN_ANGLE);
     POVButton leftPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.LEFT_ANGLE);
     POVButton rightPov1 = new POVButton(auxController,Constants.XboxController.POVXbox.RIGHT_ANGLE);
-
+    
+/*USE BELOW IF AN XBOX CONTROLLER BREAKS 
+    JoystickButton x = new JoystickButton(driverController, Constants.LogitechF310.X);
+    JoystickButton a = new JoystickButton(driverController, Constants.LogitechF310.A);
+    JoystickButton b = new JoystickButton(driverController, Constants.LogitechF310.B);
+    JoystickButton y = new JoystickButton(driverController, Constants.LogitechF310.Y);
+    JoystickButton lb = new JoystickButton(driverController, Constants.LogitechF310.LB);
+    JoystickButton rb = new JoystickButton(driverController, Constants.LogitechF310.RB);
+    JoystickButton back = new JoystickButton(driverController, Constants.LogitechF310.BACK);
+    JoystickButton start = new JoystickButton(driverController, Constants.LogitechF310.START);
+    JoystickButton leftPress = new JoystickButton(driverController, Constants.LogitechF310.LEFT_PRESS);
+    JoystickButton rightPress = new JoystickButton(driverController, Constants.LogitechF310.RIGHT_PRESS);
+*/
   //assign button to commands
     
   //***** driver controller ******
@@ -220,7 +232,6 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
   //ELEVATOR
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
-
     menu.onTrue(intakeWithCounter); //(pidDrive);
     //x.whileTrue(pidTurnCCW); 
     //b.whileTrue(pidTurnCW); 
