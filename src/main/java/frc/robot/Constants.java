@@ -140,12 +140,12 @@ public final class Constants {
   }
   public static class CartridgeShooter { 
     //CARTRIDGE SHOOTER MOTORS
-    public static final double PODIUM_PID_LEFT_RPM = 2300;//3500 wiht kFF = 0.0002, 4500 with kFF = 0.00025
-    public static final double PODIUM_PID_RIGHT_RPM = 2300;
-     public static final double WOOFER_PID_LEFT_RPM = 1900;//4500 with kFF = 0.00025
-    public static final double WOOFER_PID_RIGHT_RPM = 1900;//4500 with kFF = 0.00025
-    public static final double AMP_PID_LEFT_RPM = 2000;//cart speed for AMP shot
-      public static final double AMP_PID_RIGHT_RPM = 2000;//cart speed for AMP shot
+    public static final double PODIUM_PID_LEFT_RPM = 3600;//3500 wiht kFF = 0.0002, 4500 with kFF = 0.00025
+    public static final double PODIUM_PID_RIGHT_RPM = 3600;
+    public static final double WOOFER_PID_LEFT_RPM = 3000;//1900;//4500 with kFF = 0.00025
+    public static final double WOOFER_PID_RIGHT_RPM = 3000;//1900;//4500 with kFF = 0.00025
+    public static final double AMP_PID_LEFT_RPM = 1200;//cart speed for AMP shot
+    public static final double AMP_PID_RIGHT_RPM = 1200;//cart speed for AMP shot
     public static final double MAX_PID_SPEED = 5500;
      //manual speeds
     public static final double WOOFER_SHOT_MOTOR_SPEED = 0.6;//for bench test - use PID in match

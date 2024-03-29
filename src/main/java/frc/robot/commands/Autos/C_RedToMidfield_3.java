@@ -47,7 +47,7 @@ public class C_RedToMidfield_3 extends ParallelCommandGroup {
         //******IF CENTER NOTE SHOT IS WIMPY, TRY LINE BELOW IN PLACE OF PIDCartridgeTilt/ManualIntake IN PARLLEL BELOW, TO INSERT DELAY BEFORE SHOT*******
         // new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(2.3),//2.3
       new PIDCartShotShortWait (intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.5),
-      new PIDTurnCW(drive, 95).withTimeout(1.3),
+      new PIDTurnCW(drive, 91).withTimeout(1.3),
       Commands.parallel(
          new PIDDrive(drive,  Constants.DriveConstants.NOTE_TO_NOTE).withTimeout(1.5),//2, 2, 2
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.5),
@@ -55,7 +55,7 @@ public class C_RedToMidfield_3 extends ParallelCommandGroup {
          ),
       new PIDTurnCCW(drive, 63).withTimeout(1.3), 
       new PIDCartShotShortWait (intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_SIDE_NOTE_2).withTimeout(1.5),
-      new PIDTurnCCW(drive,  25.5).withTimeout(1.3), 
+      new PIDTurnCCW(drive,  22.7).withTimeout(1.3), 
 
       Commands.parallel(
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3), 
