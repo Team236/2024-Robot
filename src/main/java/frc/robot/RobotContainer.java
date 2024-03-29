@@ -163,7 +163,7 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
 //CAMERA AND LIMELIGHT COMMANDS
   private final LLAngle llAngle = new LLAngle(drive);
   private final LLPressandHold llPressandHold = new LLPressandHold(intake, cartridge, tilt, drive, 0);
-  private final CameraToggle toggleCameraAngle = new CameraToggle();
+ // private final CameraToggle toggleCameraAngle = new CameraToggle();
 //AMPTRAP COMMANDS:
  // private final AmpMotor ampMotorForward = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED);
   private final AmpMotor ampMotorReverse = new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_REVERSE_SPEED);
@@ -233,7 +233,7 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
   //TURNS
     a.onTrue(llAngle);
   //CAMERA
-    view.onTrue(toggleCameraAngle);
+   // view.onTrue(toggleCameraAngle);
   //ELEVATOR
     upPov.whileTrue(manualUp);
     downPov.whileTrue(manualDown);
