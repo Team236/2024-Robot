@@ -23,20 +23,17 @@ import frc.robot.subsystems.Tilt;
 public class ClimbTrapShotWithWait extends SequentialCommandGroup {
   /** Creates a new ClimbWithWait. */
   public ClimbTrapShotWithWait(Intake intake, Cartridge cartridge, AmpTrap ampTrap, Tilt tilt) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       Commands.parallel(
-      //run 2 commands below for 0.7sec, to wait for elev to get to bottom (in ClimbAtEnd and ClimbNoBrakePID), 
-      //and for cart motors to come to speed
-      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(4),
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM,  Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(0.9),//4
-      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(0.9) //4
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(0.25),
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM,  Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(0.25),
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(0.25) 
       ),
-      Commands.parallel(          
-      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM, Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(3),
-      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(3),
-      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)
+      Commands.parallel(         
+      new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(4), 
+      new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.AMP_PID_LEFT_RPM, Constants.CartridgeShooter.AMP_PID_RIGHT_RPM).withTimeout(4),
+      new AmpMotor(ampTrap, Constants.Amp.AMP_TRAP_MOTOR_SPEED).withTimeout(4),
+      new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(4)
       )
     );
     Intake.resetCounter();
