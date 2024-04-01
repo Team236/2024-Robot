@@ -53,7 +53,7 @@ public final class Constants {
     public static final double PULL_AWAY_TO_NOTE = 67;//71 
     public static final double WOOFER_ANGLED_TO_NOTE = 14;
     public static final double NOTE_TO_NOTE = 57;
-    public static final double NOTE_TO_MIDFLD = 214; //160  //206
+    public static final double NOTE_TO_MIDFLD = 206; //160  //206
     //TURNING ANGLES
     public static final double TURN_ANGLE_BLUE_POD_TO_SPKR = 37;//30
     public static final double TURN_ANGLE_RED_POD_TO_SPKR = 37;//30
@@ -172,7 +172,7 @@ public final class Constants {
     public static final double TILT_ENC_REVS_WOOFER = -19;//-21; //19 //WAS POSITIVE
     public static final double TILT_ENC_REVS_PODIUM = -50;//47;  WAS POSITITVE
     public static final double TILT_ENC_REVS_SIDE_NOTE = -52;
-    public static final double TILT_ENC_REVS_SIDE_NOTE_2 = -54;
+    public static final double TILT_ENC_REVS_SIDE_NOTE_2 = -56;
     public static final double TILT_ENC_REVS_CTR_NOTE = -49;  //47; WAS POSITIVE
     public static final double MAN_EXT_SPEED = 0.2; //should be positive, the method adds correct sign
     public static final double MAN_RET_SPEED = 0.2;//should be positive the method adds correct sign

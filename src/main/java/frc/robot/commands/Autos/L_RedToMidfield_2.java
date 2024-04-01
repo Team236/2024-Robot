@@ -36,29 +36,32 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
       Commands.sequence(
         //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5),
         new PIDCartShotShtWaitWoofOnly(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1.5),
-        new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY + 1).withTimeout(1),
-        new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
+        new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY + 4).withTimeout(1),
+        new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER-3).withTimeout(1.5),
         Commands.parallel(
          new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
          ),
-        new PIDTurnCW(drive, 30
-        ).withTimeout(1),//next command has 1 sec wait for intake motors, so there is time to turn
+        new PIDTurnCW(drive, 30).withTimeout(1),//next command has 1 sec wait for intake motors, so there is time to turn
          //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
          //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5)
-        new PIDCartShotShortWait(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_SIDE_NOTE).withTimeout(2),
-        new PIDTurnCCW(drive, 23).withTimeout(1.5), 
+        new PIDCartShotShortWait(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_SIDE_NOTE-1.5).withTimeout(2),
+        new PIDTurnCCW(drive, 27.5).withTimeout(1.5), //23 //28  // 27.5
         Commands.parallel(
-          new PIDDrive(drive,  Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3),
+          new PIDDrive(drive,  Constants.DriveConstants.NOTE_TO_MIDFLD+6).withTimeout(3),
           new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)
           ),
-         new PIDDrive(drive, -60)  
+        Commands.parallel(
+          new PIDDrive(drive, -60),
+          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED)
+          )
        )
       );
     Intake.resetCounter();
   }
 }
+
       
      
 

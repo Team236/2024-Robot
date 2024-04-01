@@ -57,7 +57,7 @@ import frc.robot.commands.Intake.IntakeWithCounter;
 import frc.robot.commands.Shots.AmpShot;
 import frc.robot.commands.Shots.PIDCartridgeShot;
 import frc.robot.commands.Shots.PIDLLShot;
-import frc.robot.commands.Shots.PIDPodShotWithBlueTurn;
+import frc.robot.commands.Shots.PIDThrow;
 import frc.robot.commands.Shots.PIDPodShotWithRedTurn;
 import frc.robot.commands.Shots.RunIntkCartAmpMotors;
 import frc.robot.commands.Shots.RunIntkCartMotors;
@@ -110,7 +110,10 @@ public class RobotContainer {
   private final PIDCartridgeShot pidCenterNoteShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE);
   private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
   private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt, drive, 0);
-  private final PIDPodShotWithBlueTurn pidPodShotWithBlueTurn = new PIDPodShotWithBlueTurn(intake, cartridge, tilt, drive);
+  private final PIDThrow pidThrow= new PIDThrow(intake, cartridge, tilt, drive);
+
+
+
   private final PIDPodShotWithRedTurn pidPodShotWithRedTurn = new PIDPodShotWithRedTurn(intake, cartridge, tilt, drive);
 //AUTO COMMANDS
   private final ModFrontTwoShot frontTwoShots = new ModFrontTwoShot(intake, cartridge, tilt, drive, elevator);
@@ -250,7 +253,7 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
     b1.whileTrue(shootPressAndHold).onFalse(shootButtonRelease);
     y1.onTrue(ampShot);
     x1.whileTrue(ampMotorReverse);
-    //leftPov1.onTrue(pidPodShotWithBlueTurn); 
+    leftPov1.onTrue(pidThrow); 
     //rightPov1.onTrue(pidPodShotWithRedTurn); 
   //ELEVATOR - zero manually before using PID
     upPov1.whileTrue(manualUp);

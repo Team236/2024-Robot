@@ -28,21 +28,21 @@ public class L_BlueToMidfield_2 extends ParallelCommandGroup {
   /** Creates a new ModWooferLeft. */
   public L_BlueToMidfield_2(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
     addCommands(
-    new PIDCartMotorsWooferOnly(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(16),
+    new PIDCartMotorsWooferOnly(cartridge, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM).withTimeout(5),
     Commands.sequence(
       Commands.parallel( 
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2)
       ),
-      new PIDDrive(drive, 170).withTimeout(3),
-      new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 3).withTimeout(1.5),
+      new PIDDrive(drive, 165).withTimeout(3),
+      new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER- 5.3).withTimeout(1.5),
       Commands.parallel(
-       new PIDDrive(drive, 205).withTimeout(3),
-       new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3),
-       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(3)  
+       new PIDDrive(drive, 200).withTimeout(2.5),
+       new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.5),
+       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5)  
       ),
        Commands.parallel(
-       new PIDDrive(drive, -150).withTimeout(2),
+       new PIDDrive(drive, -100).withTimeout(2),
        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
        )
     )

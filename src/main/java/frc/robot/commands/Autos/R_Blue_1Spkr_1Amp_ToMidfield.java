@@ -44,15 +44,15 @@ public class R_Blue_1Spkr_1Amp_ToMidfield extends ParallelCommandGroup {
         new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
         new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
         Commands.parallel(
-         new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
-         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
-         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2)    
+         new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2.5),
+         new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.5),
+         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(2.5)    
         ),   
         new PIDDrive(drive, -33).withTimeout(1.5),
         new PIDTurnCCW (drive, 95).withTimeout(1.5),
         Commands.parallel(
-        new PIDDrive(drive, 28).withTimeout(1.5),  
-        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1.5)
+        new PIDDrive(drive, 32).withTimeout(1.75),  
+        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1.75)
         ),
         new AmpShot(intake, cartridge,ampTrap, tilt).withTimeout(2.5) //lower this timeout?
        // ,new PIDTurnCCW(drive, 90).withTimeout(1),

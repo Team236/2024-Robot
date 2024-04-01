@@ -68,7 +68,7 @@ public class C_Red_2Speaker_1Amp extends ParallelCommandGroup {
         new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_STOW).withTimeout(1)
         ), 
         Commands.parallel(
-        new PIDDrive(drive, 30).withTimeout(1),//in parallel shince there is a 1 sec delay before shot in next command
+        new PIDDrive(drive, 33).withTimeout(1),//in parallel shince there is a 1 sec delay before shot in next command
         new AmpShot(intake, cartridge, ampTrap, tilt).withTimeout(5)
         )
       )

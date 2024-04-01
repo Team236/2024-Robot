@@ -35,23 +35,23 @@ public class WooferLeft extends SequentialCommandGroup {
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)
       ),
-    new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY).withTimeout(1),
-    new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER + 3).withTimeout(1.5),
+    new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY+4).withTimeout(1.25),
+    new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER-3).withTimeout(1.5), //+3
     Commands.parallel(
-      new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE-5).withTimeout(2.3),
+      new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE-3).withTimeout(2.3),//-5
       new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2.3),
       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)  
       ),
     Commands.parallel(
-       new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE+7).withTimeout(1.5),
+       new PIDDrive(drive, -Constants.DriveConstants.PULL_AWAY_TO_NOTE+3).withTimeout(1.5),//7
        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.5)
       ),
     Commands.parallel(
       new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1.5),  
-      new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER+2).withTimeout(1.5)
+      new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5)//+2
       ),
     Commands.parallel(  //parallel because Tilting in SpkrShot takes 1 second, before shooting)
-      new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY-3).withTimeout(2.3),
+      new PIDDrive(drive, -Constants.DriveConstants.WOOFER_PULL_AWAY-6).withTimeout(2.3),
       //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)
       )
