@@ -175,7 +175,7 @@ public final class Constants {
     public static final double TILT_ENC_REVS_SIDE_NOTE_2 = -56;
     public static final double TILT_ENC_REVS_CTR_NOTE = -49;  //47; WAS POSITIVE
     public static final double MAN_EXT_SPEED = 0.2; //should be positive, the method adds correct sign
-    public static final double MAN_RET_SPEED = 0.2;//should be positive the method adds correct sign
+    public static final double MAN_RET_SPEED = 0.4;//should be positive the method adds correct sign
     //CARTRIDGE TILT PID:
     public static final double KP_TILT = 0.029;
     public static final double KI_TILT = 0;
