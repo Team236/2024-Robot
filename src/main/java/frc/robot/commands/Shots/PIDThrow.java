@@ -25,12 +25,13 @@ public class PIDThrow extends ParallelCommandGroup {
   public PIDThrow(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive) {
     addCommands(
     new PIDCartridgeMotors(cartridge, Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM).withTimeout(4),
-    new PIDCartridgeTilt(tilt, -40).withTimeout(4),
-    Commands.sequence(
+    new PIDCartridgeTilt(tilt, -40).withTimeout(4)
+   /*  Commands.sequence(
       new WaitCommand(0.25),
       new ManualIntake(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
       )
-    );
+      */
+    ); 
     Intake.resetCounter();  //reset counter after shooting a Note
   }
 }

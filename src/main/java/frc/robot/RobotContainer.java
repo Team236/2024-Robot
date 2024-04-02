@@ -111,6 +111,7 @@ public class RobotContainer {
   private final PIDCartridgeShot pidWooferShot = new PIDCartridgeShot(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER);
   private final PIDLLShot pidLLShot = new PIDLLShot(intake, cartridge, tilt, drive, 0);
   private final PIDThrow pidThrow= new PIDThrow(intake, cartridge, tilt, drive);
+  private final ShootButtonRelease throwRelease = new ShootButtonRelease(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED, Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM);
 
 
 
@@ -234,7 +235,7 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
     rm.whileTrue(manualIntake); 
     lm.whileTrue(manualEject);
   //TURNS
-    a.onTrue(llAngle);
+    a.whileTrue(llAngle);
   //CAMERA
    // view.onTrue(toggleCameraAngle);
   //ELEVATOR
@@ -253,7 +254,7 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
     b1.whileTrue(shootPressAndHold).onFalse(shootButtonRelease);
     y1.onTrue(ampShot);
     x1.whileTrue(ampMotorReverse);
-    leftPov1.onTrue(pidThrow); 
+    leftPov1.whileTrue(pidThrow).onFalse(throwRelease); 
     //rightPov1.onTrue(pidPodShotWithRedTurn); 
   //ELEVATOR - zero manually before using PID
     upPov1.whileTrue(manualUp);

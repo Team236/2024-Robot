@@ -46,7 +46,7 @@ public class R_RedToMidfield_2 extends ParallelCommandGroup {
        new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5)  
       ),
        Commands.parallel(
-       new PIDDrive(drive, -100).withTimeout(2),
+       new PIDDrive(drive, -20).withTimeout(2),
        new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2)
        )
     )
