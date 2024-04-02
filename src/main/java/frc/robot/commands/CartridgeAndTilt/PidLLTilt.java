@@ -124,17 +124,22 @@ public class PidLLTilt extends Command {
       desiredRevs = -51.9;
     } else if  ((dx >= 100) && (dx < 105))  { //old Dx between 67 and 69  //110
       desiredRevs = -52.9;
+  //FROM HERE DOWN WERE DONE BY ESTIMATING, AND THEY SEEM TO WORK:
           } else if  ((dx >= 105) && (dx <110))  { //old Dx between 70-72
       desiredRevs = - 54;// 
     } else if  ((dx >= 110) && (dx < 114))  { //old Dx between 72 to 75
       desiredRevs = -55;
     } else if  ((dx >= 114) && (dx < 119))  { //old Dx between 75 and 78
       desiredRevs = -56;
-    } else if  ((dx >= 118) && (dx < 122))  { //old Dx between 78 and 81
+    } else if  ((dx >= 119) && (dx < 122))  { //old Dx between 78 and 81
       desiredRevs = -57;
-      
+  //ADDED ON 4/2,  AFTER 4/1/24 PRACTICE - NOT YET TESTED:
+    } else if  ((dx >= 122) && (dx < 126))  { //old Dx between 81 and 84
+      desiredRevs = -58;
+    } else if  ((dx >= 126) && (dx < 130))  { //old Dx between 84 and 88
+      desiredRevs = -59;
     } else  {
-      desiredRevs = -58; //-54
+      desiredRevs = -60; 
     }
 
 /* OLD CODE WITH Dx
