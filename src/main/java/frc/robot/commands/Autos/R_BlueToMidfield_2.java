@@ -62,7 +62,7 @@ public R_BlueToMidfield_2(Intake intake, Cartridge cartridge, Tilt tilt, Drive d
             new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)
              ),
           Commands.parallel(
-              new PIDDrive(drive, -60),
+              new PIDDrive(drive, -25),
               new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED)
               )
        )

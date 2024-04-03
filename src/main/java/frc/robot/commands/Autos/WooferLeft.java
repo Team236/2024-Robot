@@ -30,12 +30,13 @@ public class WooferLeft extends SequentialCommandGroup {
 
 //****** ModWooferLeft CALLS CARTRIDGE MOTORS IN PARALLEL - SO NO CART MOTORS USED HERE *********/
   public WooferLeft(Intake intake, Cartridge cartridge, Tilt tilt, Drive drive, Elevator elevator) {
+    
     addCommands(
     Commands.parallel( 
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3)
       ),
-    new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY+4).withTimeout(1.25),
+    new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY+1).withTimeout(1.25),
     new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER-3).withTimeout(1.5), //+3
     Commands.parallel(
       new PIDDrive(drive, Constants.DriveConstants.PULL_AWAY_TO_NOTE-3).withTimeout(2.3),//-5

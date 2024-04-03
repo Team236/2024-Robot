@@ -36,7 +36,7 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
       Commands.sequence(
         //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.5),
         new PIDCartShotShtWaitWoofOnly(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1.5),
-        new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY + 4).withTimeout(1),
+        new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY + 1).withTimeout(1),
         new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER-3).withTimeout(1.5),
         Commands.parallel(
          new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2),
@@ -53,7 +53,7 @@ public class L_RedToMidfield_2 extends ParallelCommandGroup {
           new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3)
           ),
         Commands.parallel(
-          new PIDDrive(drive, -60),
+          new PIDDrive(drive, -25),
           new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED)
           )
        )
