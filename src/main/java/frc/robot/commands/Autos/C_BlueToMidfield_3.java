@@ -60,7 +60,7 @@ public class C_BlueToMidfield_3 extends ParallelCommandGroup {
           ////new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM+2).withTimeout(2.3)
           //),
         new PIDCartShotShortWait (intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_SIDE_NOTE_2).withTimeout(1.5),
-        new PIDTurnCW(drive,  28).withTimeout(1.3), //25
+        new PIDTurnCW(drive,  30).withTimeout(1.3), //25
         Commands.parallel(
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3), 
          new PIDDrive(drive, Constants.DriveConstants.NOTE_TO_MIDFLD).withTimeout(3)
