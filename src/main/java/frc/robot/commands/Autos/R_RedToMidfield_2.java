@@ -36,9 +36,9 @@ public class R_RedToMidfield_2 extends ParallelCommandGroup {
       new PIDUptoHeight(elevator, Constants.Elevator.MATCH_HEIGHT).withTimeout(2), //bring elevator up to match height
       new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2)
       ),
-   // new PIDDrive(drive, 165).withTimeout(3), //replaced with 2 lines below, to avoid skidding
-      new PIDDrive(drive, 83).withTimeout(2),
-      new PIDDrive(drive, 82).withTimeout(2),
+      new PIDDrive(drive, 165).withTimeout(3), //replaced with 2 lines below, to avoid skidding
+      //new PIDDrive(drive, 83).withTimeout(2),
+      //new PIDDrive(drive, 82).withTimeout(2),
       new PIDTurnCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER - 2.5).withTimeout(1.5),  
       Commands.parallel(
        new PIDDrive(drive, 200).withTimeout(2.5),
