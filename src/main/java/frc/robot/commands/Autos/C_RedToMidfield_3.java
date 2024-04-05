@@ -53,9 +53,9 @@ public class C_RedToMidfield_3 extends ParallelCommandGroup {
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(1.5),
          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(1.5)      
          ),
-      new PIDTurnCCW(drive, 63).withTimeout(1.3), 
+      new PIDTurnCCW(drive, 63).withTimeout(1.3), //*63 */
       new PIDCartShotShortWait (intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_SIDE_NOTE_2).withTimeout(1.5),
-      new PIDTurnCCW(drive,  20).withTimeout(1.3), //22.7
+      new PIDTurnCCW(drive,  20).withTimeout(1.3), //20  //22.7
 
       Commands.parallel(
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(3), 

@@ -40,7 +40,7 @@ public class L_Red_1Spkr_1Amp_ToMidfield extends ParallelCommandGroup {
       Commands.sequence(
         new PIDCartShotShtWaitWoofOnly(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.WOOFER_PID_LEFT_RPM, Constants.CartridgeShooter.WOOFER_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(1.5),
         //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_WOOFER).withTimeout(2.3), 
-        new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY +5).withTimeout(1),
+        new PIDDrive(drive, Constants.DriveConstants.WOOFER_PULL_AWAY + 2).withTimeout(1),  //* +5
         new PIDTurnCCW(drive, Constants.DriveConstants.TURN_SIDE_OF_WOOFER).withTimeout(1.5),
         Commands.parallel(
           new PIDDrive(drive,  Constants.DriveConstants.PULL_AWAY_TO_NOTE).withTimeout(2.5),

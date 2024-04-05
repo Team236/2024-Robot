@@ -42,7 +42,8 @@ public class ModWooferRight extends ParallelCommandGroup {
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)    
          ),    
-        new PIDTurnCCW(drive, 33).withTimeout(1),//next command has 1 sec wait, so there is time to turn //35 for cw and ccw
+        new PIDDrive(drive,  -6).withTimeout(1),
+        new PIDTurnCCW(drive, 31).withTimeout(1),//next command has 1 sec wait, so there is time to turn //35 for cw and ccw
         new PIDCartShotShortWait (intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_SIDE_NOTE).withTimeout(2),
         new PIDTurnCW(drive, 31).withTimeout(1.5),      
         new PIDDrive(drive,  -60).withTimeout(1) 

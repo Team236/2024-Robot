@@ -41,7 +41,8 @@ public class ModWooferLeft extends ParallelCommandGroup {
          new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED).withTimeout(2),
          new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2)         
          ),
-        new PIDTurnCW(drive, 30).withTimeout(1),//next command has 1 sec wait for intake motors, so there is time to turn
+        new PIDDrive(drive,  -6).withTimeout(1),
+        new PIDTurnCW(drive, 28).withTimeout(1),//next command has 1 sec wait for intake motors, so there is time to turn
          //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
          //new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM).withTimeout(2.5)
         new PIDCartShotShortWait(intake, cartridge, tilt, Constants.Intake.INTAKE_SPEED,  Constants.CartridgeShooter.PODIUM_PID_LEFT_RPM, Constants.CartridgeShooter.PODIUM_PID_RIGHT_RPM, Constants.Tilt.TILT_ENC_REVS_SIDE_NOTE-1.5).withTimeout(2),

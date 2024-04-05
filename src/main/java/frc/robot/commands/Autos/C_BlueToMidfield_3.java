@@ -55,7 +55,7 @@ public class C_BlueToMidfield_3 extends ParallelCommandGroup {
           new PIDCartridgeTilt(tilt, Constants.Tilt.TILT_ENC_REVS_CTR_NOTE).withTimeout(1.5)         
           ),
        // Commands.parallel(
-        new PIDTurnCW(drive, 56).withTimeout(1), //63
+        new PIDTurnCW(drive, 56).withTimeout(1), //*56
           //These commands are in parallel, so keep PIDSpkrShotNoCart because it has a 1 sec delay before shot - time enough to turn first
           ////new PIDSpkrShotNoCart(intake, tilt, Constants.Intake.INTAKE_SPEED, Constants.Tilt.TILT_ENC_REVS_PODIUM+2).withTimeout(2.3)
           //),
