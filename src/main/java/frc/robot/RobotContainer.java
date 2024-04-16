@@ -7,6 +7,7 @@ import frc.robot.commands.AmpTrap.AmpMotor;
 import frc.robot.commands.Autos.R_BlueToMidfield_2;
 import frc.robot.commands.Autos.R_Blue_1Spkr_1Amp_ToMidfield;
 import frc.robot.commands.Autos.R_RedToMidfield_2;
+import frc.robot.commands.Autos.R_WooferShotPullOut;
 import frc.robot.commands.Autos.C_Blue_2Speaker_1Amp;
 import frc.robot.commands.Autos.C_BlueToMidfield_3;
 import frc.robot.commands.Autos.C_RedToMidfield_3;
@@ -15,12 +16,13 @@ import frc.robot.commands.Autos.FrontTwoShots;
 import frc.robot.commands.Autos.L_BlueToMidfield_2;
 import frc.robot.commands.Autos.L_RedToMidfield_2;
 import frc.robot.commands.Autos.L_Red_1Spkr_1Amp_ToMidfield;
+import frc.robot.commands.Autos.L_WooferShotPullOut;
 import frc.robot.commands.Autos.ModFrontTwoShot;
 import frc.robot.commands.Autos.ModWooferLeft;
 import frc.robot.commands.Autos.ModWooferRight;
 import frc.robot.commands.Autos.OneWooferShot;
-import frc.robot.commands.Autos.WooferLeft;
-import frc.robot.commands.Autos.WooferRight;
+import frc.robot.commands.Autos.AmpRedLeft;
+import frc.robot.commands.Autos.AmpBlueRight;
 import frc.robot.commands.CameraLimelight.CameraAngle;
 import frc.robot.commands.CameraLimelight.LLTurn;
 import frc.robot.commands.CameraLimelight.CameraToggle;
@@ -131,6 +133,10 @@ public class RobotContainer {
   private final L_Red_1Spkr_1Amp_ToMidfield leftRed1Spkr1AmpToMid = new L_Red_1Spkr_1Amp_ToMidfield(intake, cartridge, tilt, drive, elevator, ampTrap);
   private final R_RedToMidfield_2 rightRedToMidfield2 = new R_RedToMidfield_2(intake, cartridge, tilt, drive, elevator);
   private final L_BlueToMidfield_2 leftBlueToMidfield2 = new L_BlueToMidfield_2(intake, cartridge, tilt, drive, elevator);
+  private final AmpBlueRight ampBlueRight = new AmpBlueRight(intake, cartridge, ampTrap, tilt, drive, elevator);
+  private final AmpRedLeft ampRedLeft = new AmpRedLeft(intake, cartridge, ampTrap, tilt, drive, elevator);
+  private final L_WooferShotPullOut l_WooferShotPullOut = new L_WooferShotPullOut(intake, cartridge, tilt, drive, elevator);
+  private final R_WooferShotPullOut r_WooferShotPullOut = new R_WooferShotPullOut(intake, cartridge, tilt, drive, elevator);
 
 //INTAKE COMMANDS
   private final IntakeWithCounter intakeWithCounter = new IntakeWithCounter(intake, Constants.Intake.INTAKE_SPEED);
@@ -319,6 +325,10 @@ private final PIDCartridgeMotors pidCartridgeMotors = new PIDCartridgeMotors(car
       command =  leftBlueToMidfield2;
    }  else if (autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
       command =  rightRedToMidfield2;
+   }  else if (!autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get() && autoSwitch4.get()) {
+      command =  l_WooferShotPullOut;
+   }  else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get() && !autoSwitch4.get()) {
+      command =  r_WooferShotPullOut;
    }
    return command;
   }
